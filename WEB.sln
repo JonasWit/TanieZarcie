@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.UI", "WEB.Shop.UI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.Domain", "WEB.Shop.Domain\WEB.Shop.Domain.csproj", "{633ADA56-F3CF-4770-9A51-BC08184F6B60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB.Shop.Application", "WEB.Shop.Application\WEB.Shop.Application.csproj", "{BFF3E73A-B18F-4BE3-845C-08CFF18B0CE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.Application", "WEB.Shop.Application\WEB.Shop.Application.csproj", "{BFF3E73A-B18F-4BE3-845C-08CFF18B0CE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB.Shop.DataBase", "WEB.Shop.DataBase\WEB.Shop.DataBase.csproj", "{56539E4C-988B-4B0A-87BF-E608FD25C53D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BFF3E73A-B18F-4BE3-845C-08CFF18B0CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFF3E73A-B18F-4BE3-845C-08CFF18B0CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFF3E73A-B18F-4BE3-845C-08CFF18B0CE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
