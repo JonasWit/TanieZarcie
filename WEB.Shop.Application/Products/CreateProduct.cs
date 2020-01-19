@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Models;
 
@@ -13,22 +14,16 @@ namespace WEB.Shop.Application.Products
             _context = context;
         }
 
-        public async Task Do(string name, string description, decimal value)
+        public async Task Do(ProductViewModel vm)
         {
             _context.Products.Add(new Product 
             { 
-                Name = name, 
-                Description = description, 
-                Value = value 
+                Name = vm.Name, 
+                Description = vm.Description, 
+                Value = vm.Value 
             });
 
             await _context.SaveChangesAsync();
         }
-
-
-
-
-
-
     }
 }

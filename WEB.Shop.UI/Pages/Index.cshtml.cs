@@ -6,27 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using WEB.Shop.Application.Products;
+using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI.Pages
 {
     public class IndexModel : PageModel
     {
+        [BindProperty]
+        public ProductViewModel Product { get; set; }
+
         private ApplicationDbContext _context;
 
         public IndexModel(ApplicationDbContext context)
         {
             _context = context;
-        }
-
-        [BindProperty]
-        public ProductViewModel Product { get; set; }
-
-        public class ProductViewModel 
-        {
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public decimal Value { get; set; }
         }
 
         public void OnGet()
@@ -36,7 +30,7 @@ namespace WEB.Shop.UI.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            await new CreateProduct(_context).Do(Product.Name, Product.Description, Product.Value);
+            await new CreateProduct(_context).Do(Product);
 
             return RedirectToPage("Index");
         }
