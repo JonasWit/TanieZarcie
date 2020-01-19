@@ -12,12 +12,12 @@
         <input asp-for="Product.Description" />
         <label>Value</label>
         <input asp-for="Product.ValueDispaly" />
-        <input type="submit" value="Save Product"/>
+        <input type="submit" value="Save Product" />
     </form>
 </div>
 
 <div>
-    @{ 
+    @{
         foreach (var p in Model.Products)
         {
             <p>
@@ -33,4 +33,4 @@
 
 
 
-</div>      
+</div>

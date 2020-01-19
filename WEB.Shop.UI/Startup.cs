@@ -49,6 +49,7 @@ namespace WEB.Shop.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseCookiePolicy();
             app.UseRouting();
 
             app.UseAuthorization();
