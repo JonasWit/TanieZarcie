@@ -3,7 +3,7 @@ using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Models;
 
-namespace WEB.Shop.Application.Products
+namespace WEB.Shop.Application.ProductsAdmin
 {
     public class CreateProduct
     {
