@@ -21,7 +21,7 @@ namespace WEB.Shop.UI.Pages
 
         public void OnGet()
         {
-            Products = new GetProducts(_context).Do();
+            Products = new Application.Products.GetProducts(_context).Do();
         }
     }
 }

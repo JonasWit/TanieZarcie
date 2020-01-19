@@ -33,8 +33,5 @@ namespace WEB.Shop.UI.Controllers
 
         [HttpPut("products")]
         public IActionResult UpdateProduct(ProductViewModel vm) => Ok(new UpdateProduct(_context).Do(vm));
-
-
-
     }
 }

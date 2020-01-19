@@ -1,0 +1,24 @@
+﻿@page
+@model WEB.Shop.UI.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div id="app">
+        <input type="number" @@change="alert('Hello')" v-model="price" />
+
+        <button v-on:click="togglePrice">Toggle</button>
+        <p v-show="showPrice">
+            {{price}}
+        </p>
+        <p v-if="showPrice">
+            {{formatPrice}}
+        </p>
+    </div>
+
+@section scripts
+{ 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="~/js/admin/main.js"></script>
+}
+
