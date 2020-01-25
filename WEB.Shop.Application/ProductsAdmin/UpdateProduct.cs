@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Models;
@@ -16,12 +17,26 @@ namespace WEB.Shop.Application.ProductsAdmin
 
         public async Task<Response> Do(Request request)
         {
+            var product = _context.Products.FirstOrDefault(p => p.Id == request.Id);
+
+            product.Name = request.Name;
+            product.Description = request.Description;
+            product.Value = request.Value;
+
             await _context.SaveChangesAsync();
-            return new Response();
+            return new Response 
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Value = product.Value
+            };
+
         }
 
         public class Request
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Value { get; set; }

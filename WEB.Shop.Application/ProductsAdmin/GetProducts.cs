@@ -15,13 +15,20 @@ namespace WEB.Shop.Application.ProductsAdmin
             _context = context;
         }
 
-        public IEnumerable<ProductViewModel> Do() => 
-            _context.Products.ToList().Select(i => new ProductViewModel
+        public IEnumerable<Response> Do() => 
+            _context.Products.ToList().Select(i => new Response
             {
                 Id = i.Id,
                 Name = i.Name,
-                Description = i.Description,
                 Value = i.Value
             });
+
+        public class Response
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public decimal Value { get; set; }
+            public string ValueDispaly => $"{Value.ToString("N2")} pln";
+        }
     }
 }

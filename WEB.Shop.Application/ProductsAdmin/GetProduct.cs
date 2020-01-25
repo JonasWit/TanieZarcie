@@ -13,8 +13,8 @@ namespace WEB.Shop.Application.ProductsAdmin
             _context = context;
         }
 
-        public ProductViewModel Do(int id) =>
-            _context.Products.Where(i => i.Id == id).Select(i => new ProductViewModel
+        public Response Do(int id) =>
+            _context.Products.Where(i => i.Id == id).Select(i => new Response
             {
                 Id = i.Id,
                 Name = i.Name,
@@ -22,5 +22,14 @@ namespace WEB.Shop.Application.ProductsAdmin
                 Value = i.Value
             })
             .FirstOrDefault();
+
+        public class Response
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Value { get; set; }
+            public string ValueDispaly => $"{Value.ToString("N2")} pln";
+        }
     }
 }

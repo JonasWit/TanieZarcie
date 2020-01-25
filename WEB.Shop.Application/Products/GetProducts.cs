@@ -23,5 +23,11 @@ namespace WEB.Shop.Application.Products
                 Description = i.Description,
                 Value = i.Value
             });
+
+
+
+
+
+
     }
 }

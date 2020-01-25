@@ -4,23 +4,24 @@
 
 }
 
-<div id="app">
+    <div id="app">
+        <div>
+            <p v-for="(product, index) in products">
+                {{product.id}} - {{product.name}}
+                <a @@click="editProduct(product.id, index)">Edit</a>
+                <a @@click="deleteProduct(product.id, index)">Remove</a>
+            </p>
+        </div>
 
-    <button v-on:click="getProducts">Get Products</button>
-    <div>
-        <p v-for="product in products">
-            {{product.name}} - {{product.valueDispaly}} - {{product.description}}
-        </p>
+        <div>
+            <input v-model="productModel.name" />
+            <input v-model="productModel.description" />
+            <input v-model="productModel.value" />
+            <button v-on:click="createProduct" v-if="!productModel.id">Create Product</button>
+            <button v-on:click="updateProduct" v-else>Update Product</button>
+        </div>
+
     </div>
-
-    <div>
-        <input v-model="productModel.name" />
-        <input v-model="productModel.description" />
-        <input v-model="productModel.value" />
-        <button v-on:click="createProduct">Create Product</button>
-    </div>
-
-</div>
 
 
 
