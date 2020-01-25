@@ -22,13 +22,13 @@ namespace WEB.Shop.UI.Controllers
         [HttpGet("products")]
         public IActionResult GetProducts() => Ok(new GetProducts(_context).Do());
 
-        [HttpGet("products/(id)")]
+        [HttpGet("products/{id}")]
         public IActionResult GetProduct(int id) => Ok(new GetProduct(_context).Do(id));
 
         [HttpPost("products")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProduct.Request request) => Ok(await new CreateProduct(_context).Do(request));
 
-        [HttpDelete("products/(id)")]
+        [HttpDelete("products/{id}")]
         public async Task<IActionResult> DeleteProduct(int id) => Ok(await new DeleteProduct(_context).Do(id));
 
         [HttpPut("products")]
