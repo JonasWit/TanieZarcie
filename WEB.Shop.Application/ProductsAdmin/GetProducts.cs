@@ -18,6 +18,7 @@ namespace WEB.Shop.Application.ProductsAdmin
         public IEnumerable<ProductViewModel> Do() => 
             _context.Products.ToList().Select(i => new ProductViewModel
             {
+                Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
                 Value = i.Value

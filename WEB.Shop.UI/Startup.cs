@@ -31,7 +31,8 @@ namespace WEB.Shop.UI
                 options.UseSqlServer(Configuration["DefaultConnection"]);
             });
 
-            services.AddMvc();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+            //services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +54,7 @@ namespace WEB.Shop.UI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseMvc();
 
             app.UseEndpoints(endpoints =>
             {

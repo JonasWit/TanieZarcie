@@ -16,10 +16,13 @@ namespace WEB.Shop.Application.Products
         public ProductViewModel Do(int id) =>
             _context.Products.Where(i => i.Id == id).Select(i => new ProductViewModel
             {
+                Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
                 Value = i.Value
             })
             .FirstOrDefault();
+
+
     }
 }
