@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.Domain", "WEB.Shop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.Application", "WEB.Shop.Application\WEB.Shop.Application.csproj", "{BFF3E73A-B18F-4BE3-845C-08CFF18B0CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB.Shop.DataBase", "WEB.Shop.DataBase\WEB.Shop.DataBase.csproj", "{56539E4C-988B-4B0A-87BF-E608FD25C53D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.DataBase", "WEB.Shop.DataBase\WEB.Shop.DataBase.csproj", "{56539E4C-988B-4B0A-87BF-E608FD25C53D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchEngine", "SearchEngine\SearchEngine.csproj", "{A93BBE08-951C-45C9-8136-272F734B60BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93BBE08-951C-45C9-8136-272F734B60BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93BBE08-951C-45C9-8136-272F734B60BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93BBE08-951C-45C9-8136-272F734B60BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93BBE08-951C-45C9-8136-272F734B60BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
