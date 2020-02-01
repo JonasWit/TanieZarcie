@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using WEB.Shop.Application.Products;
-using WEB.Shop.Application.ProductsAdmin;
-using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
+using static WEB.Shop.Application.Products.GetProducts;
 
 namespace WEB.Shop.UI.Pages
 {

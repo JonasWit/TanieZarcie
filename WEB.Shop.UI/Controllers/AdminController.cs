@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using WEB.Shop.Application.ProductsAdmin;
 using WEB.Shop.Application.StockAdmin;
-using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI.Controllers

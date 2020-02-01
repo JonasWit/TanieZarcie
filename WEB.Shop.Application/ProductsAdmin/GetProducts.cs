@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.Application.ProductsAdmin

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.Application.ProductsAdmin

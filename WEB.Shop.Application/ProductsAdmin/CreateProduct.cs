@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Models;
 

@@ -1,0 +1,22 @@
+﻿@page "{name}"
+@model WEB.Shop.UI.ProductModel
+@{
+    ViewData["Title"] = "Product";
+}
+
+<h1>Product</h1>
+
+<div>
+    <p>@Model.Product.Name</p>
+    <p>@Model.Product.Description</p>
+    <p>@Model.Product.Value</p>
+    <div>
+        <label></label>
+        <select>
+            @foreach (var s in Model.Product.Stock)
+            {
+                <option value="@s.Id">@s.Description</option>
+            }
+        </select>
+    </div>
+</div>

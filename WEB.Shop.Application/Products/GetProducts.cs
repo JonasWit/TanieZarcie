@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WEB.Shop.Application.ViewModels;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.Application.Products
@@ -18,16 +16,16 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> Do() => 
             _context.Products.ToList().Select(i => new ProductViewModel
             {
-                Id = i.Id,
                 Name = i.Name,
                 Description = i.Description,
-                Value = i.Value
+                Value = $"{i.Value.ToString("N2")} pln"
             });
 
-
-
-
-
-
+        public class ProductViewModel
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public string Value { get; set; }
+        }
     }
 }
