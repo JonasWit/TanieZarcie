@@ -7,17 +7,16 @@
 
     <environment include="Development">
         <link href="~/lib/bulma-0.8.0/css/bulma.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
 
     <environment include="Production">
         <link href="~/lib/bulma-0.8.0/css/bulma.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
 </head>
 
 <body>
-    <h3 class="has-text-centered">Admin Panel</h3>
+    <h3 class="title has-text-centered">Admin Panel</h3>
+
     <div class="container">
         <div class="columns">
             <div class="column is-3">
@@ -27,6 +26,7 @@
                         <li><a asp-page="/Admin/Index">Products</a></li>
                         <li><a asp-page="/Admin/Orders">Orders</a></li>
                         <li><a asp-page="/Admin/Stock">Stock</a></li>
+                        <li><a asp-page="/Admin/Crawlers">Crawlers</a></li>
                     </ul>
                     <p class="menu-label"></p>
                     <ul class="menu-list">
@@ -40,12 +40,8 @@
         </div>
     </div>
 
-    <environment include="Development">
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment include="Production">
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,18 +16,22 @@ namespace WEB.Shop.Application.StockAdmin
             _context = context;
         }
 
-        public IEnumerable<StockViewModel> Do(int productId)
+        public IEnumerable<ProductViewModel> Do()
         {
-            var stock = _context.Stock
-                .Where(x => x.ProductId == productId)
-                .Select(x => new StockViewModel 
-                { 
+            var stock = _context.Products
+                .Include(x => x.Stock)
+                .Select(x => new ProductViewModel
+                {
                     Id = x.Id,
                     Description = x.Description,
-                    Quantity = x.Quantity
+                    Stock = x.Stock.Select(y => new StockViewModel
+                    {
+                        Id = y.Id,
+                        Description = y.Description,
+                        Quantity = y.Quantity,
+                    })
                 })
                 .ToList();
-
 
             return stock;
         }
@@ -37,6 +42,13 @@ namespace WEB.Shop.Application.StockAdmin
             public int ProductId { get; set; }
             public string Description { get; set; }
             public int Quantity { get; set; }
+        }
+
+        public class ProductViewModel
+        {
+            public int Id { get; set; }
+            public string Description { get; set; }
+            public IEnumerable<StockViewModel> Stock { get; set; }
         }
 
     }
