@@ -13,7 +13,7 @@ namespace WEB.Shop.UI.Pages
     {
         private ApplicationDbContext _context;
 
-        public GetCart.Response Cart { get; set; }
+        public IEnumerable<GetCart.Response> Cart { get; set; }
 
         public CartModel(ApplicationDbContext context)
         {
@@ -23,7 +23,6 @@ namespace WEB.Shop.UI.Pages
         public IActionResult OnGet()
         {
             Cart = new GetCart(HttpContext.Session, _context).Do();
-
 
             return Page();
         }
