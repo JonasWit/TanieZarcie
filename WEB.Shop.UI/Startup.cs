@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI
@@ -32,7 +33,12 @@ namespace WEB.Shop.UI
             });
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
-            //services.AddMvc();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "Cart";
+                options.Cookie.MaxAge = TimeSpan.FromDays(365);
+            
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,11 +55,10 @@ namespace WEB.Shop.UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseCookiePolicy();
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseSession();
             app.UseMvc();
 
             app.UseEndpoints(endpoints =>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WEB.Shop.Application.Products;
 using WEB.Shop.DataBase;
@@ -16,6 +17,16 @@ namespace WEB.Shop.UI
             _context = context;
         }
 
+        [BindProperty]
+        public Test ProductTest { get; set; }
+
+        public class Test
+        {
+
+            public string Id { get; set; }
+
+        }
+
         public IActionResult OnGet(string name)
         {
             Product = new GetProduct(_context).Do(name.Replace("-"," "));
@@ -29,5 +40,15 @@ namespace WEB.Shop.UI
                 return Page();
             }
         }
+
+        public IActionResult OnPost()
+        {
+            var currentId = HttpContext.Session.GetString("id");
+
+            HttpContext.Session.SetString("id", ProductTest.Id);
+
+            return RedirectToPage("Index");
+        }
+
     }
 }
