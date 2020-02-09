@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WEB.Shop.Application.Cart;
 using WEB.Shop.Application.Products;
 using WEB.Shop.DataBase;
 
@@ -18,14 +19,7 @@ namespace WEB.Shop.UI
         }
 
         [BindProperty]
-        public Test ProductTest { get; set; }
-
-        public class Test
-        {
-
-            public string Id { get; set; }
-
-        }
+        public AddToCart.Request CartViewModel { get; set; }
 
         public IActionResult OnGet(string name)
         {
@@ -43,12 +37,9 @@ namespace WEB.Shop.UI
 
         public IActionResult OnPost()
         {
-            var currentId = HttpContext.Session.GetString("id");
+            new AddToCart(HttpContext.Session).Do(CartViewModel);
 
-            HttpContext.Session.SetString("id", ProductTest.Id);
-
-            return RedirectToPage("Index");
+            return RedirectToPage("Cart");
         }
-
     }
 }
