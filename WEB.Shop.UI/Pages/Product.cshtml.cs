@@ -5,7 +5,7 @@ using WEB.Shop.Application.Cart;
 using WEB.Shop.Application.Products;
 using WEB.Shop.DataBase;
 
-namespace WEB.Shop.UI
+namespace WEB.Shop.UI.Pages
 {
     public class ProductModel : PageModel
     {
