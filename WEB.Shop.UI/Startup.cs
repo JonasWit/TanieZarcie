@@ -36,8 +36,7 @@ namespace WEB.Shop.UI
             services.AddSession(options =>
             {
                 options.Cookie.Name = "Cart";
-                options.Cookie.MaxAge = TimeSpan.FromDays(365);
-            
+                options.Cookie.MaxAge = TimeSpan.FromDays(21);
             });
         }
 

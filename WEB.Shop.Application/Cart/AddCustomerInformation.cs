@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Cart
 {
@@ -17,13 +13,6 @@ namespace WEB.Shop.Application.Cart
         {
             _session = session;
         }
-
-        public void Do(Request request)
-        {
-            var stringObject = JsonConvert.SerializeObject(request);
-            _session.SetString("Customer-info", stringObject);
-        }
-
         public class Request
         {
             [Required]
@@ -43,5 +32,25 @@ namespace WEB.Shop.Application.Cart
             [Required]
             public string PostCode { get; set; }
         }
+
+        public void Do(Request request)
+        {
+            var customerInformation = new CustomerInformation
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                Address1 = request.Address1,
+                Address2 = request.Address2,
+                City = request.City,
+                PostCode = request.PostCode
+            };
+
+            var stringObject = JsonConvert.SerializeObject(customerInformation);
+            _session.SetString("Customer-info", stringObject);
+        }
+
+
     }
 }
