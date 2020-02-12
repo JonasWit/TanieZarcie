@@ -18,6 +18,6 @@ namespace WEB.Shop.Domain.Models
         public string City { get; set; }
         public string PostCode { get; set; }
 
-        public ICollection<OrderProduct> OrderProduct { get; set; }
+        public ICollection<OrderStock> OrderStocks { get; set; }
     }
 }
