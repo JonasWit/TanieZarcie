@@ -21,8 +21,8 @@ namespace WEB.Shop.UI.Pages.Checkout
         {
             //Here handle display of the cart and charge
 
-            var cartOrder = new GetOrder(HttpContext.Session, _context).Do();
-            var value = cartOrder.GetTotalCharge();
+            //var cartOrder = new GetOrder(HttpContext.Session, _context).Do();
+            //var value = cartOrder.GetTotalCharge();
             var information = new GetCustomerInformation(HttpContext.Session).Do();
 
             if (information == null)
@@ -33,9 +33,9 @@ namespace WEB.Shop.UI.Pages.Checkout
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnGetCreateOrder()
         {
-            var cartOrder = new GetOrder(HttpContext.Session, _context).Do();
+            var cartOrder = new Application.Cart.GetOrder(HttpContext.Session, _context).Do();
 
             await new CreateOrder(_context).Do(new CreateOrder.Request
             {
