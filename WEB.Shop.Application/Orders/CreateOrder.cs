@@ -41,6 +41,14 @@ namespace WEB.Shop.Application.Orders
 
         public async Task<bool> Do(Request request)
         {
+            var stocksToUpdate = _context.Stock.Where(x => request.Stocks.Any(y => y.StockId == x.Id)).ToList();
+
+            foreach (var stock in stocksToUpdate)
+            {
+                //todo: not for taniezarcie
+                stock.Quantity = stock.Quantity - request.Stocks.FirstOrDefault(x => x.StockId == stock.Id).Quantity;
+            }
+
             var order = new Order
             {
                 OrderReference = CreateOrderReference(),
