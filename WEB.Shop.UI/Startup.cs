@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,11 +29,27 @@ namespace WEB.Shop.UI
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration["DefaultConnection"]));
+
+            services.AddDefaultIdentity<IdentityUser>(options => 
             {
-                options.UseSqlServer(Configuration["DefaultConnection"]);
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireClaim("Admin"));
+                options.AddPolicy("Manager", policy => policy.RequireClaim("Manager"));
+
             });
 
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
             services.AddSession(options =>
             {
                 options.Cookie.Name = "Cart";
@@ -55,9 +72,13 @@ namespace WEB.Shop.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
             app.UseRouting();
-            app.UseAuthorization();
+
             app.UseSession();
+
+            app.UseAuthentication();
+
             app.UseMvc();
 
             app.UseEndpoints(endpoints =>
