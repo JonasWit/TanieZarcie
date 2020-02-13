@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 using WEB.Shop.Application.Cart;
 using WEB.Shop.Application.Products;
 using WEB.Shop.DataBase;
@@ -21,9 +22,9 @@ namespace WEB.Shop.UI.Pages
         [BindProperty]
         public AddToCart.Request CartViewModel { get; set; }
 
-        public IActionResult OnGet(string name)
+        public async Task<IActionResult> OnGet(string name)
         {
-            Product = new GetProduct(_context).Do(name.Replace("-"," "));
+            Product = await new GetProduct(_context).Do(name.Replace("-"," "));
 
             if (Product == null)
             {
@@ -35,11 +36,19 @@ namespace WEB.Shop.UI.Pages
             }
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            new AddToCart(HttpContext.Session).Do(CartViewModel);
+            var stockAdded = await new AddToCart(HttpContext.Session, _context).Do(CartViewModel);
 
-            return RedirectToPage("Cart");
+            if (stockAdded)
+            {
+                return RedirectToPage("Cart");
+            }
+            else
+            {
+                //todo: add a warning
+                return Page();
+            }
         }
     }
 }

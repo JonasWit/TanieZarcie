@@ -1,15 +1,15 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Hosting;
 using WEB.Shop.Application.Cart;
 
 namespace WEB.Shop.UI.Pages.Checkout
 {
     public class CustomerInformationModel : PageModel
     {
-        private IHostingEnvironment _env;
+        private IHostEnvironment _env;
 
-        public CustomerInformationModel(IHostingEnvironment env)
+        public CustomerInformationModel(IHostEnvironment env)
         {
             _env = env;
         }

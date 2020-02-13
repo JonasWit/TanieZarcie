@@ -14,6 +14,7 @@ namespace WEB.Shop.DataBase
         public DbSet<Stock> Stock { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStock> OrderStocks { get; set; }
+        public DbSet<StockOnHold> StocksOnHold { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
             : base(options) { }
