@@ -36,10 +36,13 @@ namespace WEB.Shop.UI.Pages.Checkout
         public async Task<IActionResult> OnGetCreateOrder()
         {
             var cartOrder = new Application.Cart.GetOrder(HttpContext.Session, _context).Do();
+            var sessionId = HttpContext.Session.Id;
 
             await new CreateOrder(_context).Do(new CreateOrder.Request
             {
                 StripeReference = "none",
+                SessionId = sessionId,
+
                 FirstName = cartOrder.CustomerInformation.FirstName,
                 LastName = cartOrder.CustomerInformation.LastName,
                 Email = cartOrder.CustomerInformation.Email,
