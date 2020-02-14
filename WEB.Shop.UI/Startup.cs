@@ -31,7 +31,7 @@ namespace WEB.Shop.UI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["DefaultConnection"]));
 
-            services.AddDefaultIdentity<IdentityUser>(options => 
+            services.AddIdentity<IdentityUser, IdentityRole>(options => 
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
@@ -40,15 +40,23 @@ namespace WEB.Shop.UI
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAuthorization(options =>
+            services.ConfigureApplicationCookie(options =>
             {
-                options.AddPolicy("Admin", policy => policy.RequireClaim("Admin"));
-                options.AddPolicy("Manager", policy => policy.RequireClaim("Manager"));
-
+                options.LoginPath = "/Accounts/Login";
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
+                options.AddPolicy("Manager", policy => policy.RequireClaim("Role", "Manager"));
+            });
 
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services
+                .AddMvc(option => option.EnableEndpointRouting = false)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/Admin");
+                });
 
             services.AddSession(options =>
             {
@@ -79,11 +87,12 @@ namespace WEB.Shop.UI
 
             app.UseAuthentication();
 
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

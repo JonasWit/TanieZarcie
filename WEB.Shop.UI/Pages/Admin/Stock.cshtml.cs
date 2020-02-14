@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WEB.Shop.UI.Admin
+namespace WEB.Shop.UI.Pages.Admin
 {
     public class StockModel : PageModel
     {
