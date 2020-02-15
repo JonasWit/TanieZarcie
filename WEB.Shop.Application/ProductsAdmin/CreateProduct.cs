@@ -19,7 +19,7 @@ namespace WEB.Shop.Application.ProductsAdmin
             {
                 Name = request.Name,
                 Description = request.Description,
-                Value = request.Value
+                Value = decimal.Parse(request.Value)
             };
 
             _context.Products.Add(product);
@@ -39,8 +39,8 @@ namespace WEB.Shop.Application.ProductsAdmin
         {
             public string Name { get; set; }
             public string Description { get; set; }
-            public decimal Value { get; set; }
-            public string ValueDispaly => $"{Value.ToString("N2")} pln";
+            public string Value { get; set; }
+            public string ValueDispaly => $"{Value} Zł";
         }
 
         public class Response
@@ -49,7 +49,7 @@ namespace WEB.Shop.Application.ProductsAdmin
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Value { get; set; }
-            public string ValueDispaly => $"{Value.ToString("N2")} pln";
+            public string ValueDispaly => $"{Value.ToString("N2")} Zł";
         }
 
 

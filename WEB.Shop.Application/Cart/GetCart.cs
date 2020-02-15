@@ -21,6 +21,21 @@ namespace WEB.Shop.Application.Cart
             _context = context;
         }
 
+        public class Response
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public string Producer { get; set; }
+            public string Seller { get; set; }
+            public string Category { get; set; }
+            public string SourceUrl { get; set; }
+            public string Value { get; set; }
+            public decimal ValueDecimal { get; set; }
+
+            public int StockId { get; set; }
+            public int Quantity { get; set; }
+        }
+
         public IEnumerable<Response> Do()
         {
             var stringObject = _session.GetString("Cart");
@@ -39,21 +54,18 @@ namespace WEB.Shop.Application.Cart
                 .Select(x => new Response
                 {
                     Name = x.Product.Name,
+                    Description = x.Product.Description,
+                    Seller = x.Product.Seller,
+                    Category = x.Product.Category,
+                    SourceUrl = x.Product.SourceUrl,
                     Value = $"{x.Product.Value.ToString("N2")} pln",
+                    ValueDecimal = x.Product.Value,
                     StockId = x.Id,
                     Quantity = cartList.FirstOrDefault(y => y.StockId == x.Id).Quantity
                 })
                 .ToList();
 
             return response;
-        }
-
-        public class Response
-        {
-            public string Name { get; set; }
-            public string Value { get; set; }
-            public int StockId { get; set; }
-            public int Quantity { get; set; }
         }
     }
 }

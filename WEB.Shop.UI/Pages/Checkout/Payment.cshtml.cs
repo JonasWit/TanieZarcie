@@ -23,17 +23,17 @@ namespace WEB.Shop.UI.Pages.Checkout
 
             //var cartOrder = new GetOrder(HttpContext.Session, _context).Do();
             //var value = cartOrder.GetTotalCharge();
-            var information = new GetCustomerInformation(HttpContext.Session).Do();
+            //var information = new GetCustomerInformation(HttpContext.Session).Do();
 
-            if (information == null)
-            {
-                return RedirectToPage("/Checkout/CustomerInformation");
-            }
+            //if (information == null)
+            //{
+            //    return RedirectToPage("/Checkout/CustomerInformation");
+            //}
 
             return Page();
         }
 
-        public async Task<IActionResult> OnGetCreateOrder()
+        public async Task<IActionResult> CreateOrder()
         {
             var cartOrder = new Application.Cart.GetOrder(HttpContext.Session, _context).Do();
             var sessionId = HttpContext.Session.Id;

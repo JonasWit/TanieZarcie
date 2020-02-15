@@ -40,7 +40,11 @@ namespace WEB.Shop.Application.Products
                 {
                     Name = x.Name,
                     Description = x.Description,
-                    Value = $"{x.Value.ToString("N2")} pln",
+                    Producer = x.Producer,
+                    Seller = x.Seller,
+                    Category = x.Category,
+                    SourceUrl = x.SourceUrl,             
+                    Value = $"{x.Value.ToString("N2")} Zł",
 
                     Stock = x.Stock.Select(y => new StockViewModel
                     {
@@ -56,7 +60,12 @@ namespace WEB.Shop.Application.Products
         {
             public string Name { get; set; }
             public string Description { get; set; }
+            public string Producer { get; set; }
+            public string Seller { get; set; }
+            public string Category { get; set; }
+            public string SourceUrl { get; set; }
             public string Value { get; set; }
+
             public IEnumerable<StockViewModel> Stock { get; set; }
         }
 

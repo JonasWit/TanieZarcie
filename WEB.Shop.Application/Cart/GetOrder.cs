@@ -64,23 +64,23 @@ namespace WEB.Shop.Application.Cart
                     Quantity = cartList.FirstOrDefault(y => y.StockId == x.Id).Quantity
                 }).ToList();
 
-            var customerInfoString = _session.GetString("Customer-info");
-            var customerInformation = JsonConvert.DeserializeObject<CustomerInformation>(customerInfoString);
+            //var customerInfoString = _session.GetString("Customer-info");
+            //var customerInformation = JsonConvert.DeserializeObject<CustomerInformation>(customerInfoString);
 
             return new Response
             {
                 Products = listOfProducts,
-                CustomerInformation = new CustomerInformation
-                {
-                    FirstName = customerInformation.FirstName,
-                    LastName = customerInformation.LastName,
-                    Email = customerInformation.Email,
-                    PhoneNumber = customerInformation.PhoneNumber,
-                    Address1 = customerInformation.Address1,
-                    Address2 = customerInformation.Address2,
-                    City = customerInformation.City,
-                    PostCode = customerInformation.PostCode
-                }
+                //CustomerInformation = new CustomerInformation
+                //{
+                //    FirstName = customerInformation.FirstName,
+                //    LastName = customerInformation.LastName,
+                //    Email = customerInformation.Email,
+                //    PhoneNumber = customerInformation.PhoneNumber,
+                //    Address1 = customerInformation.Address1,
+                //    Address2 = customerInformation.Address2,
+                //    City = customerInformation.City,
+                //    PostCode = customerInformation.PostCode
+                //}
             };
         }
     }

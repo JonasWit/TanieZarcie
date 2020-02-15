@@ -4,16 +4,50 @@
     ViewData["Title"] = "Home page";
 }
 
-<div>
-    @{
-        foreach (var p in Model.Products)
-        {
-            <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
-                @p.Name - @p.Description - @p.Value
-                <br />
-            </a>
-        }
-    }
-</div>
+    <div>
+        <form method="post">
+            <div class="field is-grouped">
+                <p class="control is-expanded">
+                    <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
+                </p>
+                <p class="control">
+                    <button  class="button" type="submit">Szukaj</button>
+                </p>
+            </div>
+        </form>
 
-<vc:cart view="Default"></vc:cart>
+        <div class="section">
+            <div class="columns is-multiline is-mobile">
+                @for (int i = 0; i < 20; i++)
+                {
+                    @foreach (var p in Model.Products)
+                    {
+                        <div class="column is-3-desktop is-4-tablet is-6-mobile">
+                            <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <figure class="image is-128x128">
+                                            <img src="~/images/Logo_Biedronka.png" />
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="title is-size-5">
+                                            @p.Name  @p.Value
+                                            <br />
+                                        </p>
+                                        <p class="subtitle">
+                                            @p.Description
+                                        </p>
+
+                                        <div class="content">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>

@@ -18,13 +18,21 @@ namespace WEB.Shop.Application.Products
             {
                 Name = i.Name,
                 Description = i.Description,
-                Value = $"{i.Value.ToString("N2")} pln"
+                Producer = i.Producer,
+                Seller = i.Seller,
+                Category = i.Category,
+                SourceUrl = i.SourceUrl,
+                Value = $"{i.Value.ToString("N2")} Zł"
             });
 
         public class ProductViewModel
         {
             public string Name { get; set; }
             public string Description { get; set; }
+            public string Producer { get; set; }
+            public string Seller { get; set; }
+            public string Category { get; set; }
+            public string SourceUrl { get; set; }
             public string Value { get; set; }
         }
     }
