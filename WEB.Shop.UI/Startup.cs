@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WEB.Shop.Application.UsersAdmin;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI
@@ -48,7 +49,11 @@ namespace WEB.Shop.UI
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
-                options.AddPolicy("Manager", policy => policy.RequireClaim("Role", "Manager"));
+                //options.AddPolicy("Manager", policy => policy.RequireClaim("Role", "Manager"));
+                options.AddPolicy("Manager", policy => policy
+                    .RequireAssertion(context => 
+                        context.User.HasClaim("Role", "Manager")
+                        || context.User.HasClaim("Role", "Admin")));
             });
 
             services
@@ -56,6 +61,7 @@ namespace WEB.Shop.UI
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeFolder("/Admin");
+                    options.Conventions.AuthorizePage("/Admin/ConfigureUsers", "Admin");
                 });
 
             services.AddSession(options =>
@@ -63,6 +69,8 @@ namespace WEB.Shop.UI
                 options.Cookie.Name = "Cart";
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
+
+            services.AddTransient<CreateUser>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

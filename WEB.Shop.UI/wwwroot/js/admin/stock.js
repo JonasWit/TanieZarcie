@@ -17,7 +17,7 @@ var app = new Vue({
     methods: {
         getStock() {
             this.loading = true;
-            axios.get('/Admin/stocks')
+            axios.get('/stocks')
                 .then(res => {
                     console.log(res);
                     this.products = res.data;
@@ -39,7 +39,7 @@ var app = new Vue({
                     productId: this.selectedProduct.id
                 };
             })}
-            axios.put('/Admin/stocks', objectToPass)
+            axios.put('/stocks', objectToPass)
                 .then(res => {
                     console.log(res);
                     this.selectedProduct.stock.splice(index, 1);
@@ -53,7 +53,7 @@ var app = new Vue({
         },
         deleteStock(id, index) {
             this.loading = true;
-            axios.delete('/Admin/stocks/' + id)
+            axios.delete('/stocks/' + id)
                 .then(res => {
                     console.log(res);
                     this.selectedProduct.stock.splice(index, 1);
@@ -67,7 +67,7 @@ var app = new Vue({
         },
         addStock() {
             this.loading = true;
-            axios.post('/Admin/stocks', this.newStock)
+            axios.post('/stocks', this.newStock)
                 .then(res => {
                     console.log(res);
                     this.selectedProduct.stock.push(res.data);
