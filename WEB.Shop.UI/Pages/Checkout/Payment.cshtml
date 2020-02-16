@@ -6,5 +6,20 @@
 
 <h1>Payment</h1>
 
+<div class="columns">
+    <div class="column is-0-6">
+        <div class="column is-6">
+            <vc:cart view="Default"></vc:cart>
+        </div>
+    </div>
+    <div class="column is-6">
+        <div class="column is-6">
+            <vc:cart view="Default"></vc:cart>
+        </div>
+    </div>
+</div>
+
+
 <a asp-page-handler="CreateOrder">execute method</a>
 
+<input type="submit" name="btnSubmit" id="btnSubmit" value="Login" runat="server" onserverclick="CreateOrder" />

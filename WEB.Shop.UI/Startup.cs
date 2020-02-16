@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WEB.Shop.Application.ApplicationCore;
 using WEB.Shop.Application.UsersAdmin;
 using WEB.Shop.DataBase;
 
@@ -63,6 +64,8 @@ namespace WEB.Shop.UI
                     options.Conventions.AuthorizeFolder("/Admin");
                     options.Conventions.AuthorizePage("/Admin/ConfigureUsers", "Admin");
                 });
+
+            services.AddSingleton<IAppCore>(new AppCore());
 
             services.AddSession(options =>
             {

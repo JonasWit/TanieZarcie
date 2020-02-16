@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
 using System.Threading.Tasks;
+using WEB.Shop.Application.ApplicationCore;
 using WEB.Shop.Application.Cart;
 using WEB.Shop.Application.Orders;
 using WEB.Shop.DataBase;
@@ -11,14 +12,17 @@ namespace WEB.Shop.UI.Pages.Checkout
     public class PaymentModel : PageModel
     {
         private ApplicationDbContext _context;
+        private IAppCore _core;
 
-        public PaymentModel(ApplicationDbContext context)
+        public PaymentModel(ApplicationDbContext context, IAppCore core)
         {
             _context = context;
+            _core = core;
         }
 
         public IActionResult OnGet()
         {
+
             //Here handle display of the cart and charge
 
             //var cartOrder = new GetOrder(HttpContext.Session, _context).Do();
