@@ -7,9 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using WEB.Shop.Application.ApplicationCore;
-using WEB.Shop.Application.UsersAdmin;
+using WEB.Shop.Application.Infrastructure;
 using WEB.Shop.DataBase;
+using WEB.Shop.UI.Infrastructure;
 
 namespace WEB.Shop.UI
 {
@@ -24,6 +24,8 @@ namespace WEB.Shop.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -70,6 +72,8 @@ namespace WEB.Shop.UI
                 options.Cookie.Name = "Cart";
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
+
+            services.AddTransient<ISessionManager, SessionManager>();
 
             services.AddApplicaitonServices();
         }

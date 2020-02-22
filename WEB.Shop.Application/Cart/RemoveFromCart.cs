@@ -1,54 +1,27 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using WEB.Shop.Application.Infrastructure;
 using WEB.Shop.DataBase;
-using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Cart
 {
     public class RemoveFromCart
     {
-        private ISession _session;
+        private ISessionManager _sessionManager;
         private ApplicationDbContext _context;
 
-        public RemoveFromCart(ISession session, ApplicationDbContext context)
+        public RemoveFromCart(ISessionManager sessionManager, ApplicationDbContext context)
         {
-            _session = session;
+            _sessionManager = sessionManager;
             _context = context;
         }
 
         public async Task<bool> Do(Request request)
         {
-            var cartList = new List<CartProduct>();
-            var stringObject = _session.GetString("Cart");
-
-            cartList = JsonConvert.DeserializeObject<List<CartProduct>>(stringObject);
-
-            if (!cartList.Any(x => x.StockId == request.StockId))
-            {
-                return true;
-
-            }
-
-            if (request.All)
-            {
-                var item = cartList.Find(x => x.StockId == request.StockId);
-                cartList.Remove(item);
-            }
-            else 
-            { 
-              cartList.Find(x => x.StockId == request.StockId).Quantity -= request.Quantity;
-            }
-          
-            stringObject = JsonConvert.SerializeObject(cartList);
-            _session.SetString("Cart", stringObject);
+            _sessionManager.RemoveProduct(request.StockId, request.Quantity, request.All);
 
             //var stockOnHold = _context.StocksOnHold
             //    .FirstOrDefault(x => x.StockId == request.StockId
-            //    && x.SessionId == _session.Id);
+            //    && x.SessionId == _sessionManager.GetId());
 
             //var stock = _context.Stock.FirstOrDefault(x => x.Id == request.StockId);
 
