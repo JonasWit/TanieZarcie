@@ -29,7 +29,8 @@ namespace WEB.Shop.Application.Cart
             public string Seller { get; set; }
             public string Category { get; set; }
             public string SourceUrl { get; set; }
-            public string Value { get; set; }
+            public string Value { get { return $"{ValueDecimal.ToString("N2")} Zł";  } }
+            public string TotalValue { get { return $"{(ValueDecimal * Quantity).ToString("N2")} Zł"; } }
             public decimal ValueDecimal { get; set; }
 
             public int StockId { get; set; }
@@ -58,7 +59,6 @@ namespace WEB.Shop.Application.Cart
                     Seller = x.Product.Seller,
                     Category = x.Product.Category,
                     SourceUrl = x.Product.SourceUrl,
-                    Value = $"{x.Product.Value.ToString("N2")} pln",
                     ValueDecimal = x.Product.Value,
                     StockId = x.Id,
                     Quantity = cartList.FirstOrDefault(y => y.StockId == x.Id).Quantity

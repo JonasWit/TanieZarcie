@@ -44,7 +44,7 @@ namespace WEB.Shop.Application.Products
                     Seller = x.Seller,
                     Category = x.Category,
                     SourceUrl = x.SourceUrl,             
-                    Value = $"{x.Value.ToString("N2")} Zł",
+                    ValueDecimal = x.Value,
 
                     Stock = x.Stock.Select(y => new StockViewModel
                     {
@@ -65,7 +65,8 @@ namespace WEB.Shop.Application.Products
             public string Seller { get; set; }
             public string Category { get; set; }
             public string SourceUrl { get; set; }
-            public string Value { get; set; }
+            public string Value { get { return $"{ValueDecimal.ToString("N2")} Zł"; } }
+            public decimal ValueDecimal { get; set; }
 
             public IEnumerable<StockViewModel> Stock { get; set; }
         }

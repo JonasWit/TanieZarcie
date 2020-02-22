@@ -12,9 +12,9 @@ namespace WEB.Shop.UI.Pages.Checkout
     public class PaymentModel : PageModel
     {
         private ApplicationDbContext _context;
-        private IAppCore _core;
+        private AppCore _core;
 
-        public PaymentModel(ApplicationDbContext context, IAppCore core)
+        public PaymentModel(ApplicationDbContext context, AppCore core)
         {
             _context = context;
             _core = core;

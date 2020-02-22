@@ -20,9 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddSingleton<AppCore>();
 
 
-
             return @this;
         }
-
     }
 }

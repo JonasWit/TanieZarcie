@@ -32,13 +32,20 @@ namespace WEB.Shop.Application.Cart
             //    return false;
             //}
 
-            //_context.StocksOnHold.Add(new StockOnHold
+            //if (stockOnHold.Any(x => x.StockId == request.StockId))
             //{
-            //    StockId = stockToHold.Id,
-            //    SessionId = _session.Id,
-            //    Quantity = request.Quantity,
-            //    ExpiryDate = DateTime.Now.AddMinutes(20)
-            //});
+            //    stockOnHold.Find(x => x.StockId == request.StockId).Quantity += request.Quantity;
+            //}
+            //else 
+            //{
+            //    _context.StocksOnHold.Add(new StockOnHold
+            //    {
+            //        StockId = stockToHold.Id,
+            //        SessionId = _session.Id,
+            //        Quantity = request.Quantity,
+            //        ExpiryDate = DateTime.Now.AddMinutes(20)
+            //    });
+            //}
 
             //stockToHold.Quantity = stockToHold.Quantity - request.Quantity;
 
@@ -47,7 +54,7 @@ namespace WEB.Shop.Application.Cart
             //    stock.ExpiryDate = DateTime.Now.AddMinutes(20);
             //}
 
-            //await _context.SaveChangesAsync(); 
+            //await _context.SaveChangesAsync();
 
             #endregion
 
