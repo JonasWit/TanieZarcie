@@ -6,6 +6,7 @@ using WEB.Shop.Application.ApplicationCore;
 using WEB.Shop.Application.Cart;
 using WEB.Shop.Application.Orders;
 using WEB.Shop.DataBase;
+using GetOrderCart = WEB.Shop.Application.Cart.GetOrder;
 
 namespace WEB.Shop.UI.Pages.Checkout
 {
@@ -37,9 +38,9 @@ namespace WEB.Shop.UI.Pages.Checkout
             return Page();
         }
 
-        public async Task<IActionResult> CreateOrder()
+        public async Task<IActionResult> CreateOrder([FromServices] GetOrderCart getOrder)
         {
-            var cartOrder = new Application.Cart.GetOrder(HttpContext.Session, _context).Do();
+            var cartOrder = getOrder.Do();
             var sessionId = HttpContext.Session.Id;
 
             await new CreateOrder(_context).Do(new CreateOrder.Request

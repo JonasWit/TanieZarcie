@@ -1,29 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using WEB.Shop.Application.Cart;
-using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI.Pages
 {
     public class CartModel : PageModel
     {
-        private ApplicationDbContext _context;
-
         public IEnumerable<GetCart.Response> Cart { get; set; }
 
-        public CartModel(ApplicationDbContext context)
+        public IActionResult OnGet([FromServices] GetCart getCart)
         {
-            _context = context;
-        }
-
-        public IActionResult OnGet()
-        {
-            Cart = new GetCart(HttpContext.Session, _context).Do();
-
+            Cart = getCart.Do();
             return Page();
         }
     }

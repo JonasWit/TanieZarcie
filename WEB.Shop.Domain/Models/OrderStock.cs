@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WEB.Shop.Domain.Models
+﻿namespace WEB.Shop.Domain.Models
 {
     public class OrderStock
     {
