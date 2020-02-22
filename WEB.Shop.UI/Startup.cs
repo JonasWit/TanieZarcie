@@ -65,15 +65,13 @@ namespace WEB.Shop.UI
                     options.Conventions.AuthorizePage("/Admin/ConfigureUsers", "Admin");
                 });
 
-            services.AddSingleton<IAppCore>(new AppCore());
-
             services.AddSession(options =>
             {
                 options.Cookie.Name = "Cart";
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            services.AddTransient<CreateUser>();
+            services.AddApplicaitonServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

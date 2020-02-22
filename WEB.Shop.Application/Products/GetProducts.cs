@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using WEB.Shop.DataBase;
 
@@ -14,16 +15,20 @@ namespace WEB.Shop.Application.Products
         }
 
         public IEnumerable<ProductViewModel> Do() => 
-            _context.Products.ToList().Select(i => new ProductViewModel
-            {
-                Name = i.Name,
-                Description = i.Description,
-                Producer = i.Producer,
-                Seller = i.Seller,
-                Category = i.Category,
-                SourceUrl = i.SourceUrl,
-                Value = $"{i.Value.ToString("N2")} Zł"
-            });
+            _context.Products
+                .Include(x => x.Stock)
+                .Select(x => new ProductViewModel
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    Producer = x.Producer,
+                    Seller = x.Seller,
+                    Category = x.Category,
+                    SourceUrl = x.SourceUrl,
+                    Value = $"{x.Value.ToString("N2")} Zł",
+                    StockCount = x.Stock.Sum(y => y.Quantity)
+                })
+                .ToList();
 
         public class ProductViewModel
         {
@@ -34,6 +39,7 @@ namespace WEB.Shop.Application.Products
             public string Category { get; set; }
             public string SourceUrl { get; set; }
             public string Value { get; set; }
+            public int StockCount { get; set; }
         }
     }
 }

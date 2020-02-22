@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Models;
 
-namespace WEB.Shop.Application.Orders
+namespace WEB.Shop.Application.OrdersAdmin
 {
     public class GetOrder
     {
@@ -20,6 +20,7 @@ namespace WEB.Shop.Application.Orders
 
         public class Response
         {
+            public int Id { get; set; }
             public string OrderReference { get; set; }
 
             public string FirstName { get; set; }
@@ -54,6 +55,7 @@ namespace WEB.Shop.Application.Orders
                 .ThenInclude(x => x.Product)
                 .Select(x => new Response
                 {
+                    Id = x.Id,
                     OrderReference = x.OrderReference,
 
                     FirstName = x.FirstName,

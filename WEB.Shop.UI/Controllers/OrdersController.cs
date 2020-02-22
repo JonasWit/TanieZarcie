@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WEB.Shop.Application.Orders;
+using WEB.Shop.Application.OrdersAdmin;
 using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI.Controllers
@@ -13,14 +13,22 @@ namespace WEB.Shop.UI.Controllers
     [Authorize(Policy = "Manager")]
     public class OrdersController : Controller
     {
-        private ApplicationDbContext _context;
+        [HttpGet("")]
+        public IActionResult GetOrders(
+            int status, 
+            [FromServices] GetOrders getOrders) => 
+                Ok(getOrders.Do(status));
 
-        public OrdersController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        [HttpGet("{id}")]
+        public IActionResult GetOrder(
+            int id, 
+            [FromServices] GetOrder getOrder) => 
+                Ok(getOrder.Do(id));
 
-        //todo: add order admin
-
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(
+            int id, 
+            [FromServices] UpdateOrder updateOrder) => 
+                Ok(await updateOrder.DoAsync(id));
     }
 }

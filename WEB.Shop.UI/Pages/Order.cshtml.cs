@@ -20,9 +20,9 @@ namespace WEB.Shop.UI.Pages
 
         public GetOrder.Response Order { get; set; }
 
-        public void OnGet(string reference)
+        public void OnGet(int id)
         {
-            Order = new GetOrder(_context).Do(reference);
+            Order = new GetOrder(_context).Do(id);
         }
     }
 }

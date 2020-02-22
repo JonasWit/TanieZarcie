@@ -31,8 +31,30 @@
                                         </figure>
                                     </div>
                                     <div class="card-content">
+                                        @{
+                                            string cssClass = "";
+                                            string message = "";
+
+                                            if (p.StockCount == 0)
+                                            {
+                                                cssClass = "is-danger";
+                                                message = "Nie ma na stanie!";
+                                            }
+                                            else if (p.StockCount <= 10)
+                                            {
+                                                cssClass = "is-warning";
+                                                message = "Mało na stanie!";
+                                            }
+                                        }
+                                        @if (p.StockCount <= 10)
+                                        {
+                                            <div class="notification is-paddingless has-text-centered @cssClass">
+                                                @message
+                                            </div>
+                                        }
+
                                         <p class="title is-size-5">
-                                            @p.Name 
+                                            @p.Name
                                             <br />
                                         </p>
                                         <p class="subtitle">
