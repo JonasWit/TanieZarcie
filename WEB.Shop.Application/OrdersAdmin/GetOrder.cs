@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Extensions;
 using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.OrdersAdmin
@@ -71,11 +72,11 @@ namespace WEB.Shop.Application.OrdersAdmin
                     {
                         Name = y.Stock.Product.Name,
                         Description = y.Stock.Product.Description,
-                        Value = $"{y.Stock.Product.Value.ToString("N2")} pln",
+                        Value = y.Stock.Product.Value.MonetaryValue(),
                         Quantity = y.Quantity,
                         StockDescription = y.Stock.Description
                     }),
-                    TotalValue = $"{x.OrderStocks.Sum(y => y.Stock.Product.Value).ToString("N2")} pln"
+                    TotalValue = x.OrderStocks.Sum(y => y.Stock.Product.Value).MonetaryValue()
                 })
                 .FirstOrDefault();
 

@@ -6,6 +6,9 @@ namespace WEB.Shop.Application.ApplicationCore
 {
     public class AppCore : IAppCore
     {
+        public AppCore()
+        {
 
+        }
     }
 }

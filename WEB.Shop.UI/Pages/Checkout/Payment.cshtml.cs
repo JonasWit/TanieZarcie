@@ -21,49 +21,26 @@ namespace WEB.Shop.UI.Pages.Checkout
             _core = core;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet([FromServices] GetOrderCart getOrder)
         {
+            //Here handle saving Cart To database
 
-            //Here handle display of the cart and charge
-
-            //var cartOrder = new GetOrder(HttpContext.Session, _context).Do();
-            //var value = cartOrder.GetTotalCharge();
-            //var information = new GetCustomerInformation(HttpContext.Session).Do();
-
-            //if (information == null)
-            //{
-            //    return RedirectToPage("/Checkout/CustomerInformation");
-            //}
-
-            return Page();
-        }
-
-        public async Task<IActionResult> CreateOrder([FromServices] GetOrderCart getOrder)
-        {
             var cartOrder = getOrder.Do();
             var sessionId = HttpContext.Session.Id;
 
-            await new CreateOrder(_context).Do(new CreateOrder.Request
-            {
-                StripeReference = "none",
-                SessionId = sessionId,
+            //await new CreateOrder(_context).Do(new CreateOrder.Request
+            //{
+            //    StripeReference = "none",
+            //    SessionId = sessionId,
 
-                FirstName = cartOrder.CustomerInformation.FirstName,
-                LastName = cartOrder.CustomerInformation.LastName,
-                Email = cartOrder.CustomerInformation.Email,
-                PhoneNumber = cartOrder.CustomerInformation.PhoneNumber,
-                Address1 = cartOrder.CustomerInformation.Address1,
-                Address2 = cartOrder.CustomerInformation.Address2,
-                City = cartOrder.CustomerInformation.City,
-                PostCode = cartOrder.CustomerInformation.PostCode,
-                Stocks = cartOrder.Products.Select(x => new CreateOrder.Stock
-                {
-                    StockId = x.StockId,
-                    Quantity = x.Quantity
-                }).ToList()
-            });
+            //    Stocks = cartOrder.Products.Select(x => new CreateOrder.Stock
+            //    {
+            //        StockId = x.StockId,
+            //        Quantity = x.Quantity
+            //    }).ToList()
+            //});
 
-            return RedirectToPage("/Index");
+            return Page();
         }
     }
 }

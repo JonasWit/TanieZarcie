@@ -2,6 +2,7 @@
 
     <div>
         <p class="title">Koszyk</p>
+        <p class="title">Koszyk</p>
         @foreach (var product in Model)
         {
             <article class="media">
@@ -14,8 +15,8 @@
                     <div class="content">
                         <p class="title">@product.Name</p>
                         <p class="subtitle">Ilość: @product.Quantity</p>
-                        <p class="subtitle">Cena: @product.Value</p>
-                        <p class="subtitle">Całkowita Cena: @product.TotalValue</p>
+                        <p class="subtitle">Cena: @product.ValueDisplay</p>
+                        <p class="subtitle">Całkowita Cena: @product.TotalValueDisplay</p>
                     </div>
                 </div>
             </article>

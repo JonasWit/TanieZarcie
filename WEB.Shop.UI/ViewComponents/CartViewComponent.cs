@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using WEB.Shop.Application.Cart;
-using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Extensions;
 
 namespace WEB.Shop.UI.ViewComponents
 {
@@ -18,8 +18,15 @@ namespace WEB.Shop.UI.ViewComponents
         {
             if (view == "Small")
             {
-                var totalValue = _getCart.Do().Sum(x => x.ValueDecimal * x.Quantity);
-                return View(view, $"{totalValue} Zł");
+                var totalValue = _getCart.Do().Sum(x => x.Value * x.Quantity);
+                return View(view, totalValue.MonetaryValue());
+            }
+            else if (view == "Summary")
+            {
+                //todo: dodać podsumowanie sklep, cena promocja itp.
+
+                var totalValue = _getCart.Do().Sum(x => x.Value * x.Quantity);
+                return View(view, totalValue.MonetaryValue());
             }
 
             return View(view, _getCart.Do());

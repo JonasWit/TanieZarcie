@@ -1,49 +1,20 @@
-﻿using System.Threading.Tasks;
-using WEB.Shop.Application.Infrastructure;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
     public class RemoveFromCart
     {
         private ISessionManager _sessionManager;
-        private ApplicationDbContext _context;
+        private IStockManager _stockManager;
 
-        public RemoveFromCart(ISessionManager sessionManager, ApplicationDbContext context)
+        public RemoveFromCart(ISessionManager sessionManager, IStockManager stockManager)
         {
             _sessionManager = sessionManager;
-            _context = context;
-        }
-
-        public async Task<bool> Do(Request request)
-        {
-            _sessionManager.RemoveProduct(request.StockId, request.Quantity, request.All);
-
-            //var stockOnHold = _context.StocksOnHold
-            //    .FirstOrDefault(x => x.StockId == request.StockId
-            //    && x.SessionId == _sessionManager.GetId());
-
-            //var stock = _context.Stock.FirstOrDefault(x => x.Id == request.StockId);
-
-            //if (request.All)
-            //{
-            //    stock.Quantity += stockOnHold.Quantity;
-            //    stockOnHold.Quantity = 0;
-            //}
-            //else
-            //{
-            //    stock.Quantity += stockOnHold.Quantity;
-            //    stockOnHold.Quantity -= request.Quantity;
-            //}
-
-            //if (stockOnHold.Quantity <= 0)
-            //{
-            //    _context.Remove(stockOnHold);
-            //}
-
-            //await _context.SaveChangesAsync();
-
-            return true;
+            _stockManager = stockManager;
         }
 
         public class Request
@@ -51,6 +22,19 @@ namespace WEB.Shop.Application.Cart
             public int StockId { get; set; }
             public int Quantity { get; set; }
             public bool All { get; set; }
+        }
+
+        public async Task<bool> Do(Request request)
+        {
+            if (request.Quantity <= 0)
+            {
+                return false;
+            }
+
+            _sessionManager.RemoveProduct(request.StockId, request.Quantity);
+
+
+            return true;
         }
     }
 }

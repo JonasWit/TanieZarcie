@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Application.Cart;
+using WEB.Shop.Domain.Extensions;
 
 namespace WEB.Shop.UI.Controllers
 {
@@ -26,13 +28,13 @@ namespace WEB.Shop.UI.Controllers
             return BadRequest("Nie udało się dodać!");
         }
 
-        [HttpPost("{stockId}")]
-        public async Task<IActionResult> RemoveOne(int stockId, [FromServices] RemoveFromCart removeFromCart)
+        [HttpPost("{stockId}/{quantity}")]
+        public async Task<IActionResult> Remove(int stockId, int quantity, [FromServices] RemoveFromCart removeFromCart)
         {
             var request = new RemoveFromCart.Request
             {
                 StockId = stockId,
-                Quantity = 1
+                Quantity = quantity
             };
 
             var success = await removeFromCart.Do(request);
@@ -43,6 +45,20 @@ namespace WEB.Shop.UI.Controllers
             }
 
             return BadRequest("Nie udało się usunąć!");
+        }
+
+        [HttpGet]
+        public IActionResult GetCartComponent([FromServices] GetCart getCart)
+        {
+            var totalValue = getCart.Do().Sum(x => x.Value * x.Quantity);
+            return PartialView("Components/Cart/Small", totalValue.MonetaryValue());
+        }
+
+        [HttpGet]
+        public IActionResult GetCartMain([FromServices] GetCart getCart)
+        {
+            var cart = getCart.Do();
+            return PartialView("_CartPartial", cart);
         }
 
         [HttpPost("{stockId}")]
