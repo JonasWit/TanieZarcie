@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using WEB.Shop.Application.Infrastructure;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Extensions;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
@@ -25,41 +26,28 @@ namespace WEB.Shop.Application.Cart
             public string Seller { get; set; }
             public string Category { get; set; }
             public string SourceUrl { get; set; }
-            public string Value { get { return $"{ValueDecimal.ToString("N2")} Zł";  } }
-            public string TotalValue { get { return $"{(ValueDecimal * Quantity).ToString("N2")} Zł"; } }
-            public decimal ValueDecimal { get; set; }
+            public decimal TotalValue { get { return Value * Quantity; } }
+            public decimal Value { get; set; }
+
+            public string TotalValueDisplay { get { return TotalValue.MonetaryValue(); } }
+            public string ValueDisplay { get { return Value.MonetaryValue(); } }
 
             public int StockId { get; set; }
             public int Quantity { get; set; }
         }
 
-        public IEnumerable<Response> Do()
-        {
-            var cartList = _sessionManager.GetCart();
-
-            if (cartList == null)
-            {
-                return new List<Response>();
-            }
-
-            var response = _context.Stock
-                .Include(x => x.Product)
-                .AsEnumerable()
-                .Where(x => cartList.Any(y => y.StockId == x.Id))
-                .Select(x => new Response
+        public IEnumerable<Response> Do() =>
+            _sessionManager
+                .GetCart(x => new Response
                 {
-                    Name = x.Product.Name,
-                    Description = x.Product.Description,
-                    Seller = x.Product.Seller,
-                    Category = x.Product.Category,
-                    SourceUrl = x.Product.SourceUrl,
-                    ValueDecimal = x.Product.Value,
-                    StockId = x.Id,
-                    Quantity = cartList.FirstOrDefault(y => y.StockId == x.Id).Quantity
-                })
-                .ToList();
-
-            return response;
-        }
+                    Name = x.ProductName,
+                    Description = x.Description,
+                    Seller = x.Seller,
+                    Category = x.Category,
+                    SourceUrl = x.SourceUrl,
+                    Value = x.Value,
+                    StockId = x.StockId,
+                    Quantity = x.Quantity
+                });
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using WEB.Shop.Application.ApplicationCore;
 using WEB.Shop.Application.Cart;
+using WEB.Shop.Application.Crawlers;
 using WEB.Shop.Application.OrdersAdmin;
 using WEB.Shop.Application.UsersAdmin;
 
@@ -26,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddTransient<UpdateOrder>();
 
             @this.AddSingleton<AppCore>();
-
+            @this.AddSingleton<CrawlersCommander>();
 
             return @this;
         }

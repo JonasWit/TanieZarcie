@@ -1,20 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using WEB.Shop.Application.Infrastructure;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
     public class GetOrder
     {
         private ISessionManager _sessionManager;
-        private ApplicationDbContext _context;
 
-        public GetOrder(ISessionManager sessionManager, ApplicationDbContext context)
+        public GetOrder(ISessionManager sessionManager)
         {
             _sessionManager = sessionManager;
-            _context = context;
         }
 
         public class Response
@@ -46,19 +44,15 @@ namespace WEB.Shop.Application.Cart
 
         public Response Do()
         {
-            var cart = _sessionManager.GetCart();
-
-            var listOfProducts = _context.Stock
-                .Include(x => x.Product)
-                .AsEnumerable()
-                .Where(x => cart.Any(y => y.StockId == x.Id))
-                .Select(x => new Product
+            var listOfProducts = _sessionManager
+                .GetCart(x => new Product
                 {
                     ProductId = x.ProductId,
-                    StockId = x.Id,
-                    Value = (int)(x.Product.Value * 100),
-                    Quantity = cart.FirstOrDefault(y => y.StockId == x.Id).Quantity
-                }).ToList();
+                    StockId = x.StockId,
+                    Value = (int)(x.Value * 100),
+                    Quantity = x.Quantity
+                });
+  
 
             //var customerInfoString = _session.GetString("Customer-info");
             //var customerInformation = JsonConvert.DeserializeObject<CustomerInformation>(customerInfoString);

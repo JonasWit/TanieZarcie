@@ -1,67 +1,83 @@
 ﻿using System.Threading.Tasks;
-using WEB.Shop.Application.Infrastructure;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
+using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Cart
 {
     public class AddToCart
     {
         private ISessionManager _sessionManager;
-        private ApplicationDbContext _context;
+        private IStockManager _stockManager;
 
-        public AddToCart(ISessionManager sessionManager, ApplicationDbContext context)
+        public AddToCart(ISessionManager sessionManager, IStockManager stockManager)
         {
             _sessionManager = sessionManager;
-            _context = context;
-        }
-
-        public async Task<bool> Do(Request request)
-        {
-            #region Stock Race
-
-            //var stockOnHold = _context.StocksOnHold.Where(x => x.SessionId == _session.Id).ToList();
-            //var stockToHold = _context.Stock.Where(x => x.Id == request.StockId).FirstOrDefault();
-
-            //if (stockToHold.Quantity >= request.Quantity)
-            //{
-            //    return false;
-            //}
-
-            //if (stockOnHold.Any(x => x.StockId == request.StockId))
-            //{
-            //    stockOnHold.Find(x => x.StockId == request.StockId).Quantity += request.Quantity;
-            //}
-            //else 
-            //{
-            //    _context.StocksOnHold.Add(new StockOnHold
-            //    {
-            //        StockId = stockToHold.Id,
-            //        SessionId = _session.Id,
-            //        Quantity = request.Quantity,
-            //        ExpiryDate = DateTime.Now.AddMinutes(20)
-            //    });
-            //}
-
-            //stockToHold.Quantity = stockToHold.Quantity - request.Quantity;
-
-            //foreach (var stock in stockOnHold)
-            //{
-            //    stock.ExpiryDate = DateTime.Now.AddMinutes(20);
-            //}
-
-            //await _context.SaveChangesAsync();
-
-            #endregion
-
-            _sessionManager.AddProduct(request.StockId, request.Quantity);
-
-            return true;
+            _stockManager = stockManager;
         }
 
         public class Request
         {
             public int StockId { get; set; }
             public int Quantity { get; set; }
+        }
+
+        public async Task<bool> Do(Request request)
+        {
+            #region Stock Race
+
+            //var stockToHold = _context.Stock.Where(x => x.Id == request.StockId).FirstOrDefault();
+            //if (stockToHold.Quantity < request.Quantity)
+            //{
+            //    return false;
+            //}
+
+            //var stockOnHold = _context.StocksOnHold.Where(x => x.SessionId == _sessionManager.GetId()).ToList();
+            //if (stockOnHold.Any(x => x.StockId == request.StockId))
+            //{
+            //    stockOnHold.Find(x => x.StockId == request.StockId).Quantity += request.Quantity;
+            //}
+            //else
+            //{
+            //    _context.StocksOnHold.Add(new StockOnHold
+            //    {
+            //        StockId = request.StockId,
+            //        SessionId = _sessionManager.GetId(),
+            //        Quantity = request.Quantity,
+            //        ExpiryDate = DateTime.Now.AddMinutes(20)
+            //    });
+            //}
+
+            //foreach (var stock in stockOnHold)
+            //{
+            //    stock.ExpiryDate = DateTime.Now.AddMinutes(20);
+            //}
+
+            //stockToHold.Quantity = stockToHold.Quantity - request.Quantity;
+
+            //await _context.SaveChangesAsync();
+
+            #endregion
+
+            var stock = _stockManager.GetStockWithProduct(request.StockId);
+
+            var cartPorduct = new CartProduct()
+            {
+                ProductId = stock.ProductId,
+                StockId = stock.Id,
+                Quantity = request.Quantity,
+                ProductName = stock.Product.Name,
+                Description = stock.Product.Description,
+                Seller = stock.Product.Seller,
+                Category = stock.Product.Category,
+                Producer = stock.Product.Producer,
+                SourceUrl = stock.Product.SourceUrl,
+                Value = stock.Product.Value
+            };
+
+            _sessionManager.AddProduct(cartPorduct);
+
+            return true;
         }
     }
 }

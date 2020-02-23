@@ -25,14 +25,22 @@ namespace WEB.Shop.UI.Pages
         public void OnGet()
         {
             Products = new Application.Products.GetProducts(_context).Do();
+
+            //todo: pagnination
         }
 
         public void OnPost()
         {
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                Products = new Application.Products.GetProducts(_context).Do(SearchString);
+            }
+            else 
+            {
+                Products = new Application.Products.GetProducts(_context).Do();
+            }
 
-
-
-  
+            //todo: pagnination
         }
     }
 }

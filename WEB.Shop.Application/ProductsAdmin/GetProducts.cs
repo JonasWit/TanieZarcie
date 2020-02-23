@@ -26,7 +26,6 @@ namespace WEB.Shop.Application.ProductsAdmin
             public int Id { get; set; }
             public string Name { get; set; }
             public decimal Value { get; set; }
-            public string ValueDispaly => $"{Value.ToString("N2")} pln";
         }
     }
 }

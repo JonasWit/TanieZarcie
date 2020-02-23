@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using WEB.Shop.Application.Infrastructure;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.UI.Infrastructure;
 
 namespace WEB.Shop.UI
@@ -73,7 +73,8 @@ namespace WEB.Shop.UI
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            services.AddTransient<ISessionManager, SessionManager>();
+            services.AddTransient<IStockManager, StockManager>();
+            services.AddScoped<ISessionManager, SessionManager>();
 
             services.AddApplicaitonServices();
         }

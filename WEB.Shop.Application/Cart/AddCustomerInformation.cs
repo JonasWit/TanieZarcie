@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WEB.Shop.Application.Infrastructure;
+using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Cart

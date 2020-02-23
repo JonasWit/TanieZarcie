@@ -6,13 +6,15 @@
 
     <div>
         <form method="post">
-            <div class="field is-grouped">
-                <p class="control is-expanded">
+            <div class="field has-addons">
+                <div class="control is-expanded">
                     <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
-                </p>
-                <p class="control">
-                    <button  class="button" type="submit">Szukaj</button>
-                </p>
+                </div>
+                <div class="control">
+                    <button class="button is-info" type="submit">
+                        Szukaj
+                    </button>
+                </div>
             </div>
         </form>
 
