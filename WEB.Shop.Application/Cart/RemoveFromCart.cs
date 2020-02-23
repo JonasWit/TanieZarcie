@@ -26,12 +26,13 @@ namespace WEB.Shop.Application.Cart
 
         public async Task<bool> Do(Request request)
         {
+            if (request.Quantity <= 0)
+            {
+                return false;
+            }
 
+            _sessionManager.RemoveProduct(request.StockId, request.Quantity);
 
-            //await _stockManager.
-            //    RemoveStockFromHold(request.StockId, request.Quantity, _sessionManager.GetId());
-
-            _sessionManager.RemoveProduct(request.StockId, request.Quantity, request.All);
 
             return true;
         }

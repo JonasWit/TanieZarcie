@@ -74,7 +74,7 @@ namespace WEB.Shop.UI.Infrastructure
 
         public string GetId() => _session.Id;
 
-        public void RemoveProduct(int stockId, int quantity, bool all)
+        public void RemoveProduct(int stockId, int quantity)
         {
             var cartList = new List<CartProduct>();
             var stringObject = _session.GetString("Cart");
@@ -86,25 +86,15 @@ namespace WEB.Shop.UI.Infrastructure
             if (!cartList.Any(x => x.StockId == stockId)) return;
 
             var product = cartList.First(x => x.StockId == stockId);
+            product.Quantity -= quantity;
 
             if (product.Quantity <= 0)
             {
                 cartList.Remove(product);
-                return;
-            }
-
-            if (all)
-            {
-                cartList.Remove(product);
-            }
-            else
-            {
-                cartList.Find(x => x.StockId == stockId).Quantity -= quantity;
             }
 
             stringObject = JsonConvert.SerializeObject(cartList);
             _session.SetString("Cart", stringObject);
-
         }
     }
 }

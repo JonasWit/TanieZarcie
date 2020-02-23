@@ -3,7 +3,6 @@ using System.Linq;
 using WEB.Shop.Application.Cart;
 using WEB.Shop.Domain.Extensions;
 
-
 namespace WEB.Shop.UI.ViewComponents
 {
     public class CartViewComponent : ViewComponent
