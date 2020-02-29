@@ -6,23 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WEB.Shop.Application.Orders;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.UI.Pages
 {
     public class OrderModel : PageModel
     {
-        private ApplicationDbContext _context;
+        private IOrderManager _orderManager;
 
-        public OrderModel(ApplicationDbContext context)
+        public OrderModel(IOrderManager orderManager)
         {
-            _context = context;
+            _orderManager = orderManager;
         }
 
         public GetOrder.Response Order { get; set; }
 
         public void OnGet(int id)
         {
-            Order = new GetOrder(_context).Do(id);
+            Order = new GetOrder(_orderManager).Do(id);
         }
     }
 }
