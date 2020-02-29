@@ -22,7 +22,7 @@
         var http = new HttpClient();
         http.BaseAddress = new Uri("https://localhost:44370/");
 
-        _todoItems = await http.GetJsonAsync<string[]>("MainApp");
+        _todoItems = await http.GetJsonAsync<string[]>("api/MainApp");
 
     }
 

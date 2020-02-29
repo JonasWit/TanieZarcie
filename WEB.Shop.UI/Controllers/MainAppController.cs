@@ -9,12 +9,12 @@ namespace WEB.Shop.UI.Controllers
 {
     //todo:TEMPORARY
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [Authorize(Policy = "Admin")]
     public class MainAppController : Controller
     {
         [HttpGet]
-        public IEnumerable<string> Index()
+        public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
