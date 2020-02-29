@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Net.Http;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.UI.Infrastructure;
@@ -76,6 +77,8 @@ namespace WEB.Shop.UI
             services.AddTransient<IStockManager, StockManager>();
             services.AddScoped<ISessionManager, SessionManager>();
 
+            services.AddServerSideBlazor();
+            services.AddRazorPages();
             services.AddApplicaitonServices();
         }
 
@@ -107,6 +110,7 @@ namespace WEB.Shop.UI
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
+                endpoints.MapBlazorHub();
             });
         }
     }
