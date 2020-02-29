@@ -106,7 +106,7 @@ namespace WEB.Shop.UI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
             });
         }
     }

@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Orders
 {
     public class CreateOrder
     {
-        private ApplicationDbContext _context;
+        private IOrderManager _orderManager;
+        private IStockManager _stockManager;
 
-        public CreateOrder(ApplicationDbContext context)
+        public CreateOrder(IOrderManager orderManager, IStockManager stockManager)
         {
-            _context = context;
+            _orderManager = orderManager;
+            _stockManager = stockManager;
         }
 
         public class Request 
@@ -42,10 +45,6 @@ namespace WEB.Shop.Application.Orders
 
         public async Task<bool> Do(Request request)
         {
-            var stockOnHold = _context.StocksOnHold.Where(x => x.SessionId == request.SessionId).ToList();
-
-            _context.StocksOnHold.RemoveRange(stockOnHold);
-
             var order = new Order
             {
                 OrderReference = CreateOrderReference(),
@@ -66,8 +65,15 @@ namespace WEB.Shop.Application.Orders
                 }).ToList()
             };
 
-            _context.Orders.Add(order);
-            return await _context.SaveChangesAsync() > 0;
+            var success = await _orderManager.CreateOrder(order) > 0;
+
+            if (success)
+            {
+                await _stockManager.RemoveStockFromHold(request.SessionId);
+                return true;
+            }
+
+            return false;
         }
 
         public string CreateOrderReference()
@@ -82,7 +88,7 @@ namespace WEB.Shop.Application.Orders
                 {
                     result[i] = chars[random.Next(chars.Length)];
                 } 
-            } while (_context.Orders.Any(x => x.OrderReference == new string(result)));
+            } while (_orderManager.OrderReferenceExists(new string(result)));
 
             return new string(result);
         }

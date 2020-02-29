@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WEB.SearchEngine
+namespace WEB.SearchEngine.Interfaces
 {
-    public class SearchEngine
+    public interface ICrawler
     {
-
-
-        
-
-
-
     }
 }

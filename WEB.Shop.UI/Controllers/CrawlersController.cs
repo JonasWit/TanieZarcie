@@ -2,32 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WEB.Shop.Application.Crawlers;
 
 namespace WEB.Shop.UI.Controllers
 {
+    [Route("[controller]")]
+    [Authorize(Policy = "Admin")]
     public class CrawlersController : Controller
     {
-        private CrawlersCommander _commander;
-
-        public CrawlersController(CrawlersCommander commander)
+        [HttpGet("Index")]
+        public IActionResult Index([FromServices] CrawlersCommander commander)
         {
-            //todo: odpalic crawlera commandera
-
-
-            _commander = commander;
+            return View(commander);
         }
 
-        public IActionResult Index()
+        [HttpGet("Add")]
+        public IActionResult Add([FromServices] CrawlersCommander commander)
         {
-           
+            commander.Add();
 
-
-            return View(_commander);
+            return View("~/Views/Crawlers/Index.cshtml", commander);
         }
 
+        [HttpGet("Remove")]
+        public IActionResult Remove([FromServices] CrawlersCommander commander)
+        {
+            commander.Remove();
 
+            return View("~/Views/Crawlers/Index.cshtml", commander);
+        }
 
     }
 }

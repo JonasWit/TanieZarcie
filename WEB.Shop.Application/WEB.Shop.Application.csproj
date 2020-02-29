@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WEB.SearchEngine\WEB.SearchEngine.csproj" />
     <ProjectReference Include="..\WEB.Shop.DataBase\WEB.Shop.DataBase.csproj" />
   </ItemGroup>
 

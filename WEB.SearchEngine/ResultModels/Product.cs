@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
-namespace WEB.Shop.Domain.Models
+namespace SearchEngine.SearchResultsModels
 {
     public class Product
     {
@@ -11,10 +11,10 @@ namespace WEB.Shop.Domain.Models
         public string Seller { get; set; }
         public string Category { get; set; }
         public string SourceUrl { get; set; }
-        public decimal Value { get; set; }
-
-        //todo: add download date
-
-        public ICollection<Stock> Stock { get; set; }
+        public int ValueZl { get; set; }
+        public int ValueGr { get; set; }
+        public int Value { get; set; }
+        public string Url { get; set; }
+        public DateTime DownloadDate { get; set; }
     }
 }

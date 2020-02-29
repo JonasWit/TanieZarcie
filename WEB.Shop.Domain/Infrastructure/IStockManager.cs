@@ -7,5 +7,6 @@ namespace WEB.Shop.Domain.Infrastructure
     {
         Stock GetStockWithProduct(int stockId);
         Task RemoveStockFromHold(int stockId, int quantity, string sessionId);
+        Task RemoveStockFromHold(string sessionId);
     }
 }
