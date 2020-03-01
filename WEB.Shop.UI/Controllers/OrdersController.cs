@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WEB.Shop.Application.OrdersAdmin;
-using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI.Controllers
 {
@@ -26,9 +22,18 @@ namespace WEB.Shop.UI.Controllers
                 Ok(getOrder.Do(id));
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrder(
-            int id, 
-            [FromServices] UpdateOrder updateOrder) => 
-                Ok(await updateOrder.DoAsync(id));
+        public async Task<IActionResult> UpdateOrder(int id, [FromServices] UpdateOrder updateOrder)
+        {
+            var success = await updateOrder.DoAsync(id) > 0;
+
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

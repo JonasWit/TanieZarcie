@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Domain.Infrastructure;
@@ -13,6 +15,24 @@ namespace WEB.Shop.DataBase
         public StockManager(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public Task<int> CreateStock(Stock stock)
+        {
+            _context.Stock.Add(stock);
+            return _context.SaveChangesAsync();
+        }
+
+        public Task<int> DeleteStock(int id)
+        {
+            var stock = _context.Stock.FirstOrDefault(x => x.Id == id);
+            _context.Stock.Remove(stock);
+            return _context.SaveChangesAsync();
+        }
+        public Task<int> UpdateStockRange(List<Stock> stockList)
+        {
+            _context.Stock.UpdateRange(stockList);
+            return _context.SaveChangesAsync();
         }
 
         public Stock GetStockWithProduct(int stockId)
@@ -50,6 +70,33 @@ namespace WEB.Shop.DataBase
 
             _context.StocksOnHold.RemoveRange(stockOnHold);
             return _context.SaveChangesAsync();
+        }
+
+        public Task RetrieveExpiredStockOnHold()
+        {
+            var stockOnHold = _context.StocksOnHold
+                .Where(x => x.ExpiryDate < DateTime.Now)
+                .ToList();
+
+            if (stockOnHold.Count > 0)
+            {
+                var stockToReturn = _context.Stock
+                    .Where(x => stockOnHold.Any(y => y.StockId == x.Id))
+                    .ToList();
+
+                foreach (var stock in stockToReturn)
+                {
+                    stock.Quantity = stock.Quantity + stockOnHold
+                        .FirstOrDefault(x => x.StockId == stock.Id)
+                        .Quantity;
+                }
+
+                _context.StocksOnHold
+                    .RemoveRange(stockOnHold);
+                return _context.SaveChangesAsync();
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

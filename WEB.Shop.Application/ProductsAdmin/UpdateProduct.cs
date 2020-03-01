@@ -1,27 +1,27 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using WEB.Shop.DataBase;
+﻿using System.Threading.Tasks;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
     public class UpdateProduct
     {
-        private ApplicationDbContext _context;
+        private IProductManager _productManager;
 
-        public UpdateProduct(ApplicationDbContext context)
+        public UpdateProduct(IProductManager productManager)
         {
-            _context = context;
+            _productManager = productManager;
         }
 
         public async Task<Response> Do(Request request)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == request.Id);
+            var product = _productManager.GetProductById(request.Id, x => x);
 
             product.Name = request.Name;
             product.Description = request.Description;
             product.Value = decimal.Parse(request.Value);
 
-            await _context.SaveChangesAsync();
+            await _productManager.UpdateProduct(product);
+
             return new Response 
             {
                 Id = product.Id,
@@ -29,7 +29,6 @@ namespace WEB.Shop.Application.ProductsAdmin
                 Description = product.Description,
                 Value = product.Value
             };
-
         }
 
         public class Request

@@ -1,26 +1,24 @@
-﻿using System.Linq;
-using WEB.Shop.DataBase;
+﻿using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
     public class GetProduct
     {
-        private ApplicationDbContext _context;
+        private IProductManager _productManager;
 
-        public GetProduct(ApplicationDbContext context)
+        public GetProduct(IProductManager productManager)
         {
-            _context = context;
+            _productManager = productManager;
         }
 
         public Response Do(int id) =>
-            _context.Products.Where(i => i.Id == id).Select(i => new Response
+            _productManager.GetProductById(id, x => new Response
             {
-                Id = i.Id,
-                Name = i.Name,
-                Description = i.Description,
-                Value = i.Value
-            })
-            .FirstOrDefault();
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Value = x.Value
+            });
 
         public class Response
         {

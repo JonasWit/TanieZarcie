@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Enums;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.OrdersAdmin
 {
     public class GetOrders
     {
-        private ApplicationDbContext _context;
+        private IOrderManager _orderManager;
 
-        public GetOrders(ApplicationDbContext context)
+        public GetOrders(IOrderManager orderManager)
         {
-            _context = context;
+            _orderManager = orderManager;
         }
 
         public class Response
@@ -24,15 +22,12 @@ namespace WEB.Shop.Application.OrdersAdmin
         }
 
         public IEnumerable<Response> Do(int status) =>
-            _context.Orders
-                .Where(x => x.Status == (OrderStatus)status)
-                .Select(x => new Response
+            _orderManager.GetOrdersByStatus((OrderStatus)status,
+                x => new Response
                 {
-                    Id =x.Id,
+                    Id = x.Id,
                     OrderRef = x.OrderReference,
                     Email = x.Email
-                })
-                .ToList();
-
+                });
     }
 }

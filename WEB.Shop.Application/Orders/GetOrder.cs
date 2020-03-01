@@ -1,10 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Extensions;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;

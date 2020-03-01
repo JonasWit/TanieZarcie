@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WEB.Shop.Application.RegexPatterns
+namespace WEB.Shop.Application.ProductsAdmin
 {
-    public static class RegexPatterns
+    class ScrapProducts
     {
-
-
-
-
     }
 }

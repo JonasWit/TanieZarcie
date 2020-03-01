@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
     public class GetProducts
     {
-        private ApplicationDbContext _context;
+        private IProductManager _productManager;
 
-        public GetProducts(ApplicationDbContext context)
+        public GetProducts(IProductManager productManager)
         {
-            _context = context;
+            _productManager = productManager;
         }
 
-        public IEnumerable<Response> Do() => 
-            _context.Products.ToList().Select(i => new Response
+        public IEnumerable<Response> Do() =>
+            _productManager.GetProductsWithStock(x => new Response
             {
-                Id = i.Id,
-                Name = i.Name,
-                Value = i.Value
+                Id = x.Id,
+                Name = x.Name,
+                Value = x.Value
             });
 
         public class Response

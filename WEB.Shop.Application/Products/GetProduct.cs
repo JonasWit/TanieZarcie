@@ -1,49 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Products
 {
     public class GetProduct
     {
-        private ApplicationDbContext _context;
+        private IStockManager _stockManager;
+        private IProductManager _productManager;
 
-        public GetProduct(ApplicationDbContext context)
+        public GetProduct(IStockManager stockManager, IProductManager productManager)
         {
-            _context = context;
+            _stockManager = stockManager;
+            _productManager = productManager;
         }
 
         public async Task<ProductViewModel> Do(string name)
         {
-            var stockOnHold = _context.StocksOnHold.Where(x => x.ExpiryDate < DateTime.Now).ToList();
-
-            if (stockOnHold.Count > 0)
-            {
-                var stockToReturn = _context.Stock.Where(x => stockOnHold.Any(y => y.StockId == x.Id)).ToList();
-
-                foreach (var stock in stockToReturn)
-                {
-                    stock.Quantity = stock.Quantity + stockOnHold.FirstOrDefault(x => x.StockId == stock.Id).Quantity;
-                }
-
-                _context.StocksOnHold.RemoveRange(stockOnHold);
-                await _context.SaveChangesAsync();
-            }
-
-            return _context.Products
-                .Include(x => x.Stock)
-                .Where(x => x.Name == name)
-                .Select(x => new ProductViewModel
+            await _stockManager.RetrieveExpiredStockOnHold();
+            return _productManager.GetProductByName(name, x => new ProductViewModel
                 {
                     Name = x.Name,
                     Description = x.Description,
                     Producer = x.Producer,
                     Seller = x.Seller,
                     Category = x.Category,
-                    SourceUrl = x.SourceUrl,             
+                    SourceUrl = x.SourceUrl,
                     Value = x.Value,
 
                     Stock = x.Stock.Select(y => new StockViewModel
@@ -53,8 +36,7 @@ namespace WEB.Shop.Application.Products
                         Quantity = y.Quantity,
                         InStock = y.Quantity > 0
                     })
-                })
-                .FirstOrDefault();
+                });
         }
 
         public class ProductViewModel

@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WEB.Shop.Application.ProductsAdmin;
-using WEB.Shop.Application.StockAdmin;
 using WEB.Shop.Application.UsersAdmin;
-using WEB.Shop.DataBase;
 
 namespace WEB.Shop.UI.Controllers
 {

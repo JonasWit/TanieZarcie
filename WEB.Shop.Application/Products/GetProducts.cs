@@ -1,45 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Extensions;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Products
 {
     public class GetProducts
     {
-        private ApplicationDbContext _context;
+        private IProductManager _productManager;
 
-        public GetProducts(ApplicationDbContext context)
+        public GetProducts(IProductManager productManager)
         {
-            _context = context;
+            _productManager = productManager;
         }
 
-        public IEnumerable<ProductViewModel> Do() => 
-            _context.Products
-                .Include(x => x.Stock)
-                .Select(x => new ProductViewModel
-                {
-                    Name = x.Name,
-                    Description = x.Description,
-                    Producer = x.Producer,
-                    Seller = x.Seller,
-                    Category = x.Category,
-                    SourceUrl = x.SourceUrl,
-                    Value = x.Value.MonetaryValue(),
-                    StockCount = x.Stock.Sum(y => y.Quantity)
-                })
-                .ToList();
+        public IEnumerable<ProductViewModel> Do() =>
+            _productManager.GetProductsWithStock(x => new ProductViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Producer = x.Producer,
+                Seller = x.Seller,
+                Category = x.Category,
+                SourceUrl = x.SourceUrl,
+                Value = x.Value.MonetaryValue(),
+                StockCount = x.Stock.Sum(y => y.Quantity)
+            });
 
-        public IEnumerable<ProductViewModel> Do(string searchString)
-        {
-            //todo: use regex match
-
-            return _context.Products
-             .Include(x => x.Stock)
-             .AsEnumerable()
-             .Where(x => x.Name.Contains(searchString))
-             .Select(x => new ProductViewModel
+        public IEnumerable<ProductViewModel> Do(string searchString) =>
+            _productManager.GetProductsWithStock(searchString, x => new ProductViewModel
              {
                  Name = x.Name,
                  Description = x.Description,
@@ -49,9 +38,8 @@ namespace WEB.Shop.Application.Products
                  SourceUrl = x.SourceUrl,
                  Value = x.Value.MonetaryValue(),
                  StockCount = x.Stock.Sum(y => y.Quantity)
-             })
-             .ToList();
-        }
+             });
+
 
         public class ProductViewModel
         {

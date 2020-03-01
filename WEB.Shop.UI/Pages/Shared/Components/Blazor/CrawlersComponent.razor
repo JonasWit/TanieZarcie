@@ -1,5 +1,7 @@
 ﻿@page "/crawlerscomponent"
 @using System.Net.Http
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <h1>Counter</h1>
 
@@ -19,11 +21,13 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
         var http = new HttpClient();
         http.BaseAddress = new Uri("https://localhost:44370/");
 
-        _todoItems = await http.GetJsonAsync<string[]>("api/Setup");
+        _todoItems = await http.GetJsonAsync<string[]>("api/Setup/options");
 
     }
-
 }
