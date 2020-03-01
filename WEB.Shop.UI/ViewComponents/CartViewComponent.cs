@@ -25,8 +25,7 @@ namespace WEB.Shop.UI.ViewComponents
             {
                 //todo: dodać podsumowanie sklep, cena promocja itp.
 
-                var totalValue = _getCart.Do().Sum(x => x.Value * x.Quantity);
-                return View(view, totalValue.MonetaryValue());
+                return View(view, _getCart.Do());
             }
 
             return View(view, _getCart.Do());

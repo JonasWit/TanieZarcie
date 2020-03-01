@@ -4,6 +4,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.StockAdmin
 {
+    [Service]
     public class CreateStock
     {
         private IStockManager _stockManager;

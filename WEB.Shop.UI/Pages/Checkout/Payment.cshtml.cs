@@ -1,19 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WEB.Shop.Application.ApplicationCore;
 using GetOrderCart = WEB.Shop.Application.Cart.GetOrder;
 
 namespace WEB.Shop.UI.Pages.Checkout
 {
     public class PaymentModel : PageModel
     {
-        private AppCore _core;
-
-        public PaymentModel(AppCore core)
-        {
-            _core = core;
-        }
-
         public IActionResult OnGet([FromServices] GetOrderCart getOrder)
         {
             //Here handle saving Cart To database

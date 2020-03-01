@@ -11,6 +11,7 @@ namespace WEB.Shop.UI.Controllers
 {
     //todo: add authorization
     [Route("api/[controller]")]
+    [Authorize(Policy = "Admin")]
     public class SetupController : Controller
     {
         // GET: api/<controller>

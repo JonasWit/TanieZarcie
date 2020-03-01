@@ -4,7 +4,12 @@ using System.Text;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
-    class DeleteProducts
+    [Service]
+    public class DeleteProducts
     {
+
+
+
+
     }
 }

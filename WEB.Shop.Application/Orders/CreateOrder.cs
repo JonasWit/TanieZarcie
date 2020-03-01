@@ -7,6 +7,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Orders
 {
+    [Service]
     public class CreateOrder
     {
         private IOrderManager _orderManager;

@@ -5,6 +5,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Products
 {
+    [Service]
     public class GetProduct
     {
         private IStockManager _stockManager;

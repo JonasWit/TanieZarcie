@@ -4,6 +4,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
+    [Service]
     public class GetCart
     {
         private ISessionManager _sessionManager;

@@ -74,8 +74,6 @@ namespace WEB.Shop.UI
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            services.AddScoped<ISessionManager, SessionManager>();
-
             services.AddServerSideBlazor();
             services.AddRazorPages();
             services.AddApplicaitonServices();

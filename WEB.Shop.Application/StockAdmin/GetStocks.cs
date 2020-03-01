@@ -4,6 +4,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.StockAdmin
 {
+    [Service]
     public class GetStocks
     {
         private IProductManager _productManager;

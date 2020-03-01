@@ -2,6 +2,7 @@
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
+
     public class LoadSearchEngineResults
     {
         public async Task<Response> Do(Request request)

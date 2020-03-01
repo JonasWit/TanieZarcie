@@ -3,6 +3,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
+    [Service]
     public class UpdateProduct
     {
         private IProductManager _productManager;
