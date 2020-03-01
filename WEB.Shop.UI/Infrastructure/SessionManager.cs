@@ -10,6 +10,8 @@ namespace WEB.Shop.UI.Infrastructure
 {
     public class SessionManager : ISessionManager
     {
+        private const string KeyCart = "Cart";
+        private const string KeyCustomerInfo = "Customer-info";
         private readonly ISession _session;
 
         public SessionManager(IHttpContextAccessor httpContextAccessor)
@@ -20,13 +22,13 @@ namespace WEB.Shop.UI.Infrastructure
         public void AddCustomerInformation(CustomerInformation customerInformation)
         {
             var stringObject = JsonConvert.SerializeObject(customerInformation);
-            _session.SetString("Customer-info", stringObject);
+            _session.SetString(KeyCustomerInfo, stringObject);
         }
 
         public void AddProduct(CartProduct cartProduct)
         {
             var cartList = new List<CartProduct>();
-            var stringObject = _session.GetString("Cart");
+            var stringObject = _session.GetString(KeyCart);
 
             if (!string.IsNullOrEmpty(stringObject))
             {
@@ -43,12 +45,17 @@ namespace WEB.Shop.UI.Infrastructure
             }
 
             stringObject = JsonConvert.SerializeObject(cartList);
-            _session.SetString("Cart", stringObject);
+            _session.SetString(KeyCart, stringObject);
+        }
+
+        public void ClearCart()
+        {
+            _session.Remove(KeyCart);
         }
 
         public IEnumerable<TResult> GetCart<TResult>(Func<CartProduct, TResult> selector)
         {
-            var stringObject = _session.GetString("Cart");
+            var stringObject = _session.GetString(KeyCart);
 
             if (string.IsNullOrEmpty(stringObject))
             {
@@ -62,7 +69,7 @@ namespace WEB.Shop.UI.Infrastructure
 
         public CustomerInformation GetCustomerInformation()
         {
-            var stringObject = _session.GetString("Customer-info");
+            var stringObject = _session.GetString(KeyCustomerInfo);
 
             if (string.IsNullOrEmpty(stringObject))
             {
@@ -77,7 +84,7 @@ namespace WEB.Shop.UI.Infrastructure
         public void RemoveProduct(int stockId, int quantity)
         {
             var cartList = new List<CartProduct>();
-            var stringObject = _session.GetString("Cart");
+            var stringObject = _session.GetString(KeyCart);
 
             if (string.IsNullOrEmpty(stringObject)) return;
 
@@ -94,7 +101,7 @@ namespace WEB.Shop.UI.Infrastructure
             }
 
             stringObject = JsonConvert.SerializeObject(cartList);
-            _session.SetString("Cart", stringObject);
+            _session.SetString(KeyCart, stringObject);
         }
     }
 }

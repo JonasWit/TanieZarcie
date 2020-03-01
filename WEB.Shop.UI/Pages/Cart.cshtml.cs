@@ -14,5 +14,7 @@ namespace WEB.Shop.UI.Pages
             Cart = getCart.Do();
             return Page();
         }
+
+        //todo: inject session and add button to clear cart
     }
 }
