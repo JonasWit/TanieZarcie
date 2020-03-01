@@ -1,0 +1,33 @@
+﻿@page "/crawlerscomponent"
+@using System.Net.Http
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private string[] _todoItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var http = new HttpClient();
+        http.BaseAddress = new Uri("https://localhost:44370/");
+
+        _todoItems = await http.GetJsonAsync<string[]>("api/Setup/options");
+
+    }
+}

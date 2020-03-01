@@ -6,19 +6,27 @@ namespace WEB.Shop.Application.Crawlers
 {
     public class CrawlersCommander
     {
-        public string test { get; set; }
-
+        //todo: think about crawlers
         public CrawlersCommander()
         {
-            test = "testik";
+  
+        }
+
+        public int test { get; set; } = 0;
+
+
+
+        public void Add()
+        {
+            test++;
+        }
+
+        public void Remove()
+        {
+            test--;
         }
 
 
 
-
-
-
-
-   
     }
 }

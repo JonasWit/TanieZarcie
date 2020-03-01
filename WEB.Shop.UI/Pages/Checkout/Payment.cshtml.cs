@@ -1,27 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Linq;
-using System.Threading.Tasks;
-using WEB.Shop.Application.ApplicationCore;
-using WEB.Shop.Application.Cart;
-using WEB.Shop.Application.Orders;
-using WEB.Shop.DataBase;
 using GetOrderCart = WEB.Shop.Application.Cart.GetOrder;
 
 namespace WEB.Shop.UI.Pages.Checkout
 {
     public class PaymentModel : PageModel
     {
-        private ApplicationDbContext _context;
-        private AppCore _core;
-
-        public PaymentModel(ApplicationDbContext context, AppCore core)
-        {
-            _context = context;
-            _core = core;
-        }
-
-        public async Task<IActionResult> OnGet([FromServices] GetOrderCart getOrder)
+        public IActionResult OnGet([FromServices] GetOrderCart getOrder)
         {
             //Here handle saving Cart To database
 

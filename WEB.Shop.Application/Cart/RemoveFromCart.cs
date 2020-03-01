@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using WEB.Shop.DataBase;
+﻿using System.Threading.Tasks;
 using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
+    [Service]
     public class RemoveFromCart
     {
         private ISessionManager _sessionManager;
@@ -31,8 +29,10 @@ namespace WEB.Shop.Application.Cart
                 return false;
             }
 
-            _sessionManager.RemoveProduct(request.StockId, request.Quantity);
+            //await _stockManager
+            //    .RemoveStockFromHold(request.StockId, request.Quantity, _sessionManager.GetId());
 
+            _sessionManager.RemoveProduct(request.StockId, request.Quantity);
 
             return true;
         }

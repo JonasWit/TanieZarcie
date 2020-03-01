@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WEB.SearchEngine
+namespace WEB.Shop.Application.ProductsAdmin
 {
-    public class SearchEngine
+    class ScrapProducts
     {
-
-
-        
-
-
-
     }
 }

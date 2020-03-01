@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WEB.Shop.Application.RegexPatterns
+namespace WEB.SearchEngine.Interfaces
 {
-    public static class RegexPatterns
+    public interface ICrawler
     {
-
-
-
-
     }
 }

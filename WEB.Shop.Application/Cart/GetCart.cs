@@ -1,21 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using WEB.Shop.DataBase;
+﻿using System.Collections.Generic;
 using WEB.Shop.Domain.Extensions;
 using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
+    [Service]
     public class GetCart
     {
         private ISessionManager _sessionManager;
-        private ApplicationDbContext _context;
 
-        public GetCart(ISessionManager sessionManager, ApplicationDbContext context)
+        public GetCart(ISessionManager sessionManager)
         {
             _sessionManager = sessionManager;
-            _context = context;
         }
 
         public class Response

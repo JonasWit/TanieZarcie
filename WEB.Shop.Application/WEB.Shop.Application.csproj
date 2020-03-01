@@ -5,13 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WEB.Shop.DataBase\WEB.Shop.DataBase.csproj" />
+    <ProjectReference Include="..\WEB.Shop.Domain\WEB.Shop.Domain.csproj" />
   </ItemGroup>
 
 </Project>

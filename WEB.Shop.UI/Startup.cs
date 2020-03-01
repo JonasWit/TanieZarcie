@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Net.Http;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.UI.Infrastructure;
@@ -73,9 +74,8 @@ namespace WEB.Shop.UI
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            services.AddTransient<IStockManager, StockManager>();
-            services.AddScoped<ISessionManager, SessionManager>();
-
+            services.AddServerSideBlazor();
+            services.AddRazorPages();
             services.AddApplicaitonServices();
         }
 
@@ -106,7 +106,8 @@ namespace WEB.Shop.UI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
+                endpoints.MapBlazorHub();
             });
         }
     }

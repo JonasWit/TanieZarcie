@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using WEB.Shop.DataBase;
+﻿using System.Threading.Tasks;
+using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.StockAdmin
 {
+    [Service]
     public class CreateStock
     {
-        private ApplicationDbContext _context;
+        private IStockManager _stockManager;
 
-        public CreateStock(ApplicationDbContext context)
+        public CreateStock(IStockManager stockManager)
         {
-            _context = context;
+            _stockManager = stockManager;
         }
-
         public async Task<Response> Do(Request request)
         {
             var stock = new Stock
@@ -25,8 +22,7 @@ namespace WEB.Shop.Application.StockAdmin
                 ProductId = request.ProductId
             };
 
-            _context.Stock.Add(stock);
-            await _context.SaveChangesAsync();
+            await _stockManager.CreateStock(stock);
 
             return new Response
             {

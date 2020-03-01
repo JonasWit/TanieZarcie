@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WEB.Shop.UI</title>
+    <base href="~/" />
 
     <environment include="Development">
         <link href="~/lib/bulma-0.8.0/css/bulma.css" rel="stylesheet" />
@@ -37,7 +38,10 @@
                         <p class="menu-label">Admin Menu</p>
                         <ul class="menu-list">
                             <li><a asp-page="/Admin/ConfigureUsers">Configure Users</a></li>
-                            <li><a asp-controller="Crawlers" asp-action="Index">Crawlers</a></li>
+                            @*<li><a asp-controller="Crawlers" asp-action="Index">Crawlers</a></li>*@
+
+                            <li><a asp-page="/Admin/CrawlersManagement">Crawlers</a></li>
+
                         </ul>
                     }
                     <ul class="menu-list">
@@ -53,6 +57,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/_framework/blazor.server.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

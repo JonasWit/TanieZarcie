@@ -1,26 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using WEB.Shop.DataBase;
+using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.StockAdmin
 {
+    [Service]
     public class GetStocks
     {
-        private ApplicationDbContext _context;
+        private IProductManager _productManager;
 
-        public GetStocks(ApplicationDbContext context)
+        public GetStocks(IProductManager productManager)
         {
-            _context = context;
+            _productManager = productManager;
         }
 
         public IEnumerable<ProductViewModel> Do()
         {
-            var stock = _context.Products
-                .Include(x => x.Stock)
-                .Select(x => new ProductViewModel
+            return _productManager.GetProductsWithStock(x => 
+                new ProductViewModel
                 {
                     Id = x.Id,
                     Description = x.Description,
@@ -30,10 +27,7 @@ namespace WEB.Shop.Application.StockAdmin
                         Description = y.Description,
                         Quantity = y.Quantity,
                     })
-                })
-                .ToList();
-
-            return stock;
+                });
         }
 
         public class StockViewModel

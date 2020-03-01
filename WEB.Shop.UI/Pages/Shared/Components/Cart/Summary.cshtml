@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WEB.Shop.Application.Cart.GetCart.Response>
 
     <div>
-        <p class="title">Posdumowanie Koszyka</p>
+        <p class="title">Podsumowanie Koszyka</p>
         @foreach (var product in Model)
         {
             <article class="media">
@@ -13,6 +13,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p class="title">@product.Name</p>
+                        <p class="title">@product.Description</p>
                         <p class="subtitle">Ilość: @product.Quantity</p>
                         <p class="subtitle">Cena: @product.ValueDisplay</p>
                         <p class="subtitle">Całkowita Cena: @product.TotalValueDisplay</p>
