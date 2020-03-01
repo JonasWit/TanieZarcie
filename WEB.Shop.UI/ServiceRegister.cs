@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using WEB.Shop.Application;
+using WEB.Shop.Application.Crawlers;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.UI.Infrastructure;
@@ -22,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 @this.AddTransient(service);
             }
 
+            @this.AddSingleton<CrawlersCommander>();
             @this.AddTransient<IStockManager, StockManager>();
             @this.AddTransient<IProductManager, ProductManager>();
             @this.AddTransient<IOrderManager, OrderManager>();

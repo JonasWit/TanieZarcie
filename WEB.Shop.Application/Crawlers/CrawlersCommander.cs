@@ -6,15 +6,7 @@ namespace WEB.Shop.Application.Crawlers
 {
     public class CrawlersCommander
     {
-        //todo: think about crawlers
-        public CrawlersCommander()
-        {
-  
-        }
-
-        public int test { get; set; } = 0;
-
-
+        public int test { get; set; } = 2;
 
         public void Add()
         {
