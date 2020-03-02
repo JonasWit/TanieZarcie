@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -67,7 +68,8 @@ namespace WEB.Shop.UI
                 {
                     options.Conventions.AuthorizeFolder("/Admin");
                     options.Conventions.AuthorizePage("/Admin/ConfigureUsers", "Admin");
-                });
+                })
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
 
             services.AddSession(options =>
             {
