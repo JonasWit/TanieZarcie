@@ -4,73 +4,70 @@
     ViewData["Title"] = "Home page";
 }
 
-    <div>
-        <form method="post">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
-                </div>
-                <div class="control">
-                    <button class="button is-info" type="submit">
-                        Szukaj
-                    </button>
-                </div>
+<div>
+    <form method="post">
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
             </div>
-        </form>
-
-        <div class="section">
-            <div class="columns is-multiline is-mobile">
-                @for (int i = 0; i < 20; i++)
-                {
-                    @foreach (var p in Model.Products)
-                    {
-                        <div class="column is-3-desktop is-4-tablet is-6-mobile">
-                            <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-128x128">
-                                            <img src="~/images/Logo_Biedronka.png" />
-                                        </figure>
-                                    </div>
-                                    <div class="card-content">
-                                        @{
-                                            string cssClass = "";
-                                            string message = "";
-
-                                            if (p.StockCount == 0)
-                                            {
-                                                cssClass = "is-danger";
-                                                message = "Nie ma na stanie!";
-                                            }
-                                            else if (p.StockCount <= 10)
-                                            {
-                                                cssClass = "is-warning";
-                                                message = "Mało na stanie!";
-                                            }
-                                        }
-                                        @if (p.StockCount <= 10)
-                                        {
-                                            <div class="notification is-paddingless has-text-centered @cssClass">
-                                                @message
-                                            </div>
-                                        }
-
-                                        <p class="title is-size-5">
-                                            @p.Name
-                                            <br />
-                                        </p>
-                                        <p class="subtitle">
-                                            @p.Description
-                                        </p>
-                                        <p class="subtitle">
-                                            @p.Value
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    }
-                }
+            <div class="control">
+                <button class="button is-info" type="submit">
+                    Szukaj
+                </button>
             </div>
         </div>
+    </form>
+
+    <div class="section">
+        <div class="columns is-multiline is-mobile">
+            @foreach (var p in Model.Products)
+            {
+                <div class="column is-3-desktop is-4-tablet is-6-mobile">
+                    <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-128x128">
+                                    <img src="~/images/Logo_Biedronka.png" />
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                @{
+                                    string cssClass = "";
+                                    string message = "";
+
+                                    if (p.StockCount == 0)
+                                    {
+                                        cssClass = "is-danger";
+                                        message = "Nie ma na stanie!";
+                                    }
+                                    else if (p.StockCount <= 10)
+                                    {
+                                        cssClass = "is-warning";
+                                        message = "Mało na stanie!";
+                                    }
+                                }
+                                @if (p.StockCount <= 10)
+                                {
+                                    <div class="notification is-paddingless has-text-centered @cssClass">
+                                        @message
+                                    </div>
+                                }
+
+                                <p class="title is-size-5">
+                                    @p.Name
+                                    <br />
+                                </p>
+                                <p class="subtitle">
+                                    @p.Description
+                                </p>
+                                <p class="subtitle">
+                                    @p.Value
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
     </div>
+</div>

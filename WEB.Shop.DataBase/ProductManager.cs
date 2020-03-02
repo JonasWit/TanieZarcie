@@ -60,7 +60,9 @@ namespace WEB.Shop.DataBase
         {
             return _context.Products
                 .Include(x => x.Stock)
+                .OrderByDescending(x => x.Value)
                 .Select(selector)
+                .Reverse()
                 .ToList();
         }
 
@@ -72,7 +74,9 @@ namespace WEB.Shop.DataBase
                 .Include(x => x.Stock)
                 .AsEnumerable()
                 .Where(x => x.Name.Contains(searchString))
+                .OrderByDescending(x => x.Value)
                 .Select(selector)
+                .Reverse()
                 .ToList();
         }
 

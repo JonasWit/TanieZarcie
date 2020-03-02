@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WEB.Shop.Domain.Extensions;
 using WEB.Shop.Domain.Infrastructure;
@@ -25,7 +26,8 @@ namespace WEB.Shop.Application.Products
                 Category = x.Category,
                 SourceUrl = x.SourceUrl,
                 Value = x.Value.MonetaryValue(),
-                StockCount = x.Stock.Sum(y => y.Quantity)
+                StockCount = x.Stock.Sum(y => y.Quantity),
+                TimeStamp = x.TimeStamp
             });
 
         public IEnumerable<ProductViewModel> Do(string searchString) =>
@@ -38,7 +40,8 @@ namespace WEB.Shop.Application.Products
                  Category = x.Category,
                  SourceUrl = x.SourceUrl,
                  Value = x.Value.MonetaryValue(),
-                 StockCount = x.Stock.Sum(y => y.Quantity)
+                 StockCount = x.Stock.Sum(y => y.Quantity),
+                 TimeStamp = x.TimeStamp
              });
 
 
@@ -52,6 +55,7 @@ namespace WEB.Shop.Application.Products
             public string SourceUrl { get; set; }
             public string Value { get; set; }
             public int StockCount { get; set; }
+            public DateTime TimeStamp { get; set; }
         }
     }
 }
