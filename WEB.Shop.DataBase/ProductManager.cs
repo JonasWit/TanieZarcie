@@ -80,17 +80,19 @@ namespace WEB.Shop.DataBase
                 .ToList();
         }
 
-        public IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, Func<Product, TResult> selector)
+        public IEnumerable<TResult> GetProductsWithStock<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector)
         {
             return _context.Products
                 .Include(x => x.Stock)
                 .OrderByDescending(x => x.Value)
                 .Select(selector)
                 .Reverse()
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
         }
 
-        public IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, string searchString, Func<Product, TResult> selector)
+        public IEnumerable<TResult> GetProductsWithStock<TResult>(int currentPage, int pageSize, string searchString, Func<Product, TResult> selector)
         {
             //todo: use regex match
 
@@ -101,6 +103,8 @@ namespace WEB.Shop.DataBase
                 .OrderByDescending(x => x.Value)
                 .Select(selector)
                 .Reverse()
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
         }
 

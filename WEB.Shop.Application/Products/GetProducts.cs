@@ -44,8 +44,8 @@ namespace WEB.Shop.Application.Products
                  TimeStamp = x.TimeStamp
              });
 
-        public IEnumerable<ProductViewModel> Do(int pageNumber) =>
-            _productManager.GetProductsWithStock(pageNumber, x => new ProductViewModel
+        public IEnumerable<ProductViewModel> Do(int pageNumber, int pageSize) =>
+            _productManager.GetProductsWithStock(pageNumber, pageSize, x => new ProductViewModel
             {
                 Name = x.Name,
                 Description = x.Description,
@@ -58,8 +58,8 @@ namespace WEB.Shop.Application.Products
                 TimeStamp = x.TimeStamp
             });
 
-        public IEnumerable<ProductViewModel> Do(int pageNumber, string searchString) =>
-            _productManager.GetProductsWithStock(pageNumber, searchString, x => new ProductViewModel
+        public IEnumerable<ProductViewModel> Do(int pageNumber, int pageSize, string searchString) =>
+            _productManager.GetProductsWithStock(pageNumber, pageSize, searchString,  x => new ProductViewModel
             {
                 Name = x.Name,
                 Description = x.Description,

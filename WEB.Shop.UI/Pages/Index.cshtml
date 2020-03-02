@@ -4,70 +4,113 @@
     ViewData["Title"] = "Home page";
 }
 
-<div>
-    <form method="post">
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
-            </div>
-            <div class="control">
-                <button class="button is-info" type="submit">
-                    Szukaj
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <div class="section">
-        <div class="columns is-multiline is-mobile">
-            @foreach (var p in Model.Products)
-            {
-                <div class="column is-3-desktop is-4-tablet is-6-mobile">
-                    <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image is-128x128">
-                                    <img src="~/images/Logo_Biedronka.png" />
-                                </figure>
-                            </div>
-                            <div class="card-content">
-                                @{
-                                    string cssClass = "";
-                                    string message = "";
-
-                                    if (p.StockCount == 0)
-                                    {
-                                        cssClass = "is-danger";
-                                        message = "Nie ma na stanie!";
-                                    }
-                                    else if (p.StockCount <= 10)
-                                    {
-                                        cssClass = "is-warning";
-                                        message = "Mało na stanie!";
-                                    }
-                                }
-                                @if (p.StockCount <= 10)
-                                {
-                                    <div class="notification is-paddingless has-text-centered @cssClass">
-                                        @message
-                                    </div>
-                                }
-
-                                <p class="title is-size-5">
-                                    @p.Name
-                                    <br />
-                                </p>
-                                <p class="subtitle">
-                                    @p.Description
-                                </p>
-                                <p class="subtitle">
-                                    @p.Value
-                                </p>
-                            </div>
-                        </div>
-                    </a>
+    <div>
+        <form method="post">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
                 </div>
-            }
+                <div class="control">
+                    <button class="button is-info" type="submit">
+                        Szukaj
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="block">
+            <nav class="pagination is-rounded">
+                <ul class="pagination-list">
+                    @if (Model.ShowFirst)
+                    {
+                        <li>
+                            <a asp-page="/Index" asp-route-CurrentPage="1" class="pagination-previous">Początek</a>
+                        </li>
+                    }
+
+                    @if (Model.ShowPrevious)
+                    {
+                        <li>
+                            <a asp-page="/Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="pagination-link">Poprzednia Strona</a>
+                        </li>
+                    }
+
+                    @if (Model.ShowNext)
+                    {
+                        <li>
+                            <a asp-page="/Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="pagination-link">Następna Strona</a>
+                        </li>
+                    }
+
+
+
+
+                    <li>
+                        <a asp-page="/Index" asp-route-CurrentPage="1" class="pagination-link">Początek</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="pagination-link @(Model.ShowPrevious ? "" : "disabled")">Poprzednia Strona</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="pagination-link @(Model.ShowNext ? "" : "disabled")">Następna Strona</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Index" asp-route-CurrentPage="@Model.TotalPages" class="pagination-link @(Model.ShowLast ? "" : "is-disabled")">Koniec</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="section">
+            <div class="columns is-multiline is-mobile">
+                @foreach (var p in Model.Products)
+                {
+                    <div class="column is-3-desktop is-4-tablet is-6-mobile">
+                        <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-128x128">
+                                        <img src="~/images/Logo_Biedronka.png" />
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    @{
+                                        string cssClass = "";
+                                        string message = "";
+
+                                        if (p.StockCount == 0)
+                                        {
+                                            cssClass = "is-danger";
+                                            message = "Nie ma na stanie!";
+                                        }
+                                        else if (p.StockCount <= 10)
+                                        {
+                                            cssClass = "is-warning";
+                                            message = "Mało na stanie!";
+                                        }
+                                    }
+                                    @if (p.StockCount <= 10)
+                                    {
+                                        <div class="notification is-paddingless has-text-centered @cssClass">
+                                            @message
+                                        </div>
+                                    }
+
+                                    <p class="title is-size-5">
+                                        @p.Name
+                                        <br />
+                                    </p>
+                                    <p class="subtitle">
+                                        @p.Description
+                                    </p>
+                                    <p class="subtitle">
+                                        @p.Value
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>

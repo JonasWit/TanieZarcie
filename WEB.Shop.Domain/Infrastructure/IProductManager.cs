@@ -17,7 +17,7 @@ namespace WEB.Shop.Domain.Infrastructure
         IEnumerable<TResult> GetProductsWithStock<TResult>(Func<Product, TResult> selector);
         IEnumerable<TResult> GetProductsWithStock<TResult>(string serarchString, Func<Product, TResult> selector);
 
-        IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, string serarchString, Func<Product, TResult> selector);
+        IEnumerable<TResult> GetProductsWithStock<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector);
+        IEnumerable<TResult> GetProductsWithStock<TResult>(int currentPage, int pageSize, string serarchString, Func<Product, TResult> selector);
     }
 }
