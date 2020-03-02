@@ -15,7 +15,7 @@ namespace WEB.Shop.UI.Pages
         public void OnGet([FromServices] GetProducts getProducts)
         {
 
-            Products = getProducts.Do();
+            Products = getProducts.Do(1);
 
             //todo: pagnination
         }
@@ -24,11 +24,11 @@ namespace WEB.Shop.UI.Pages
         {
             if (!string.IsNullOrEmpty(SearchString))
             {
-                Products = getProducts.Do(SearchString);
+                Products = getProducts.Do(1, SearchString);
             }
             else 
             {
-                Products = getProducts.Do();
+                Products = getProducts.Do(1);
             }
 
             //todo: pagnination

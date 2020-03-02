@@ -15,13 +15,9 @@ namespace WEB.Shop.Domain.Infrastructure
         TResult GetProductByName<TResult>(string name, Func<Product, TResult> selector);
         TResult GetProductById<TResult>(int id, Func<Product, TResult> selector);
         IEnumerable<TResult> GetProductsWithStock<TResult>(Func<Product, TResult> selector);
-        /// <summary>
-        /// Get products but with search string to filter
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="serarchString"></param>
-        /// <param name="selector"></param>
-        /// <returns></returns>
         IEnumerable<TResult> GetProductsWithStock<TResult>(string serarchString, Func<Product, TResult> selector);
+
+        IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, Func<Product, TResult> selector);
+        IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, string serarchString, Func<Product, TResult> selector);
     }
 }

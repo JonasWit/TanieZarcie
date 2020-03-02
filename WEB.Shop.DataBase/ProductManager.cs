@@ -73,7 +73,31 @@ namespace WEB.Shop.DataBase
             return _context.Products
                 .Include(x => x.Stock)
                 .AsEnumerable()
-                .Where(x => x.Name.Contains(searchString))
+                .Where(x => x.Name.ToUpper().Contains(searchString.ToUpper()))
+                .OrderByDescending(x => x.Value)
+                .Select(selector)
+                .Reverse()
+                .ToList();
+        }
+
+        public IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, Func<Product, TResult> selector)
+        {
+            return _context.Products
+                .Include(x => x.Stock)
+                .OrderByDescending(x => x.Value)
+                .Select(selector)
+                .Reverse()
+                .ToList();
+        }
+
+        public IEnumerable<TResult> GetProductsWithStock<TResult>(int pageNumber, string searchString, Func<Product, TResult> selector)
+        {
+            //todo: use regex match
+
+            return _context.Products
+                .Include(x => x.Stock)
+                .AsEnumerable()
+                .Where(x => x.Name.ToUpper().Contains(searchString.ToUpper()))
                 .OrderByDescending(x => x.Value)
                 .Select(selector)
                 .Reverse()

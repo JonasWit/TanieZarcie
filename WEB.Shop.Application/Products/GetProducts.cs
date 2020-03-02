@@ -44,6 +44,34 @@ namespace WEB.Shop.Application.Products
                  TimeStamp = x.TimeStamp
              });
 
+        public IEnumerable<ProductViewModel> Do(int pageNumber) =>
+            _productManager.GetProductsWithStock(pageNumber, x => new ProductViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Producer = x.Producer,
+                Seller = x.Seller,
+                Category = x.Category,
+                SourceUrl = x.SourceUrl,
+                Value = x.Value.MonetaryValue(),
+                StockCount = x.Stock.Sum(y => y.Quantity),
+                TimeStamp = x.TimeStamp
+            });
+
+        public IEnumerable<ProductViewModel> Do(int pageNumber, string searchString) =>
+            _productManager.GetProductsWithStock(pageNumber, searchString, x => new ProductViewModel
+            {
+                Name = x.Name,
+                Description = x.Description,
+                Producer = x.Producer,
+                Seller = x.Seller,
+                Category = x.Category,
+                SourceUrl = x.SourceUrl,
+                Value = x.Value.MonetaryValue(),
+                StockCount = x.Stock.Sum(y => y.Quantity),
+                TimeStamp = x.TimeStamp
+            });
+
 
         public class ProductViewModel
         {
