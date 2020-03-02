@@ -62,6 +62,7 @@ namespace WEB.Shop.UI
 
             services
                 .AddMvc(option => option.EnableEndpointRouting = false)
+                .AddRazorRuntimeCompilation()
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeFolder("/Admin");
@@ -105,8 +106,8 @@ namespace WEB.Shop.UI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
+                endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();
             });
         }
