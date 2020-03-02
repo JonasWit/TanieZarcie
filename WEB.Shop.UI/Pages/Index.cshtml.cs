@@ -12,10 +12,13 @@ namespace WEB.Shop.UI.Pages
         [BindProperty]
         public string SearchString { get; set; }
 
+        [BindProperty]
+        public int PageNumber { get; set; } = 0;
+
         public void OnGet([FromServices] GetProducts getProducts)
         {
 
-            Products = getProducts.Do(1);
+            Products = getProducts.Do(PageNumber);
 
             //todo: pagnination
         }
@@ -24,11 +27,11 @@ namespace WEB.Shop.UI.Pages
         {
             if (!string.IsNullOrEmpty(SearchString))
             {
-                Products = getProducts.Do(1, SearchString);
+                Products = getProducts.Do(PageNumber, SearchString);
             }
             else 
             {
-                Products = getProducts.Do(1);
+                Products = getProducts.Do(PageNumber);
             }
 
             //todo: pagnination
