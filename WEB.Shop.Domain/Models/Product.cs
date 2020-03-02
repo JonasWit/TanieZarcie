@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WEB.Shop.Domain.Models
 {
@@ -12,8 +13,7 @@ namespace WEB.Shop.Domain.Models
         public string Category { get; set; }
         public string SourceUrl { get; set; }
         public decimal Value { get; set; }
-
-        //todo: add download date
+        public DateTime TimeStamp { get; set; }
 
         public ICollection<Stock> Stock { get; set; }
     }
