@@ -3,54 +3,64 @@
 @using WEB.Shop.Application.Crawlers
 @inject CrawlersCommander commander
 
-<h1>Counter</h1>
-
-<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">add</button>
-<button class="btn btn-primary" @onclick="DecrementCount">remove</button>
-<button class="btn btn-primary" @onclick="CheckCount">check</button>
-<button class="btn btn-primary" @onclick="TestEngine">TestEnginh</button>
-
-
-
-<div id="app">
-
-        <div class="tabs is-centered">
-            <ul>
-                <li><a>Main Options</a></li>
-                <li><a>Database Summary</a></li>
-            </ul>
-        </div>
+<div>
+    <div class="tabs is-centered" >
+        <ul>
+            <li><a @onclick="SelectMainTab">Main Options</a></li>
+            <li><a @onclick="SelectSummaryTab">Database Summary</a></li>
+        </ul>
+    </div>
 </div>
 
+@switch (activeTab)
+{
+    case ActiveTab.Main:
+
+        <div>
+            <button class="btn btn-primary" @onclick="TestEngine">TestEngine</button>
+        </div>
+
+        break;
+    case ActiveTab.Summary:
+
+        <div>
+
+   
+
+        </div>
+
+        break;
+
+    default:
+        activeTab = ActiveTab.Main;
+        break;
+}
 
 
 
 
 @code {
-    private int currentCount = 0;
 
-    private void IncrementCount()
+    private ActiveTab activeTab = ActiveTab.Main;
+
+    private enum ActiveTab
     {
-        commander.Add();
-        currentCount = commander.test;
+        Main,
+        Summary,
     }
 
-    private void DecrementCount()
+    private void SelectMainTab()
     {
-        commander.Remove();
-        currentCount = commander.test;
+        activeTab = ActiveTab.Main;
     }
 
-    private void CheckCount()
+    private void SelectSummaryTab()
     {
-        currentCount = commander.test;
+        activeTab = ActiveTab.Summary;
     }
 
-
-    private void TestEngine()
+    private async Task TestEngine()
     {
-        commander.RunEngineAsync();
+        await commander.RunEngineAsync();
     }
 }

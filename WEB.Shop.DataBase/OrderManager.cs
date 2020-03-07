@@ -27,12 +27,13 @@ namespace WEB.Shop.DataBase
         private TResult GetOrder<TResult>(Func<Order, bool> condition, Func<Order, TResult> selector)
         {
             return _context.Orders
-                .Where(x => condition(x))
                 .Include(x => x.OrderStocks)
                     .ThenInclude(x => x.Stock)
                         .ThenInclude(x => x.Product)
-                .Select(selector)
-                .FirstOrDefault();
+                        .AsEnumerable()
+                            .Where(x => condition(x))
+                            .Select(selector)
+                            .FirstOrDefault();
         }
 
         public TResult GetOrderById<TResult>(int id, Func<Order, TResult> selector)

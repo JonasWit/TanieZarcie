@@ -22,7 +22,7 @@ namespace WEB.Shop.UI.Controllers
             Ok(await createProduct.DoAsync(request));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id, [FromBody] DeleteProduct deleteProduct) => 
+        public async Task<IActionResult> DeleteProduct(int id, [FromServices] DeleteProduct deleteProduct) => 
             Ok(await deleteProduct.Do(id));
 
         [HttpPut("")]
