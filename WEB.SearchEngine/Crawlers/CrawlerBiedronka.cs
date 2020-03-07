@@ -23,9 +23,10 @@ namespace WEB.SearchEngine.Crawlers
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
             var result = new List<Product>();
-            var products = new List<Product>();
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(linkStruct.Html);
+
+            var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("productsimple-default")).ToList();
 
             //foreach (var htmlPattern in _htmlPattens)
             //{
@@ -94,6 +95,17 @@ namespace WEB.SearchEngine.Crawlers
             //    resultDictionary.Add(linkStruct.Link, products);
 
             //}
+
+            return result;
+        }
+
+        private Product ExtractProduct(HtmlNode inputNode)
+        {
+            var result = new Product();
+
+
+
+
 
             return result;
         }

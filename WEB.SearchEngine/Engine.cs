@@ -14,13 +14,13 @@ namespace WEB.SearchEngine
 {
     public sealed class Engine
     {
-        public List<ICrawler> Crawlers { get; private set; }
+        public List<ICrawler> Crawlers { get; private set; } = new List<ICrawler>();
 
-        public async Task<bool> RunCrawlerForBiedronkaAsync()
+        public bool RunCrawlerForBiedronkaAsync()
         {
 
             var crawler = new CrawlerBiedronka(Shops.Biedronka);
-            await crawler.GetDataAsync();
+            crawler.GetData();
 
 
             Crawlers.Add(crawler);

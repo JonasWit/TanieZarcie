@@ -41,6 +41,8 @@
 
 @code {
 
+    private bool loading;
+
     private ActiveTab activeTab = ActiveTab.Main;
 
     private enum ActiveTab
@@ -59,8 +61,10 @@
         activeTab = ActiveTab.Summary;
     }
 
-    private async Task TestEngine()
+    private void TestEngine()
     {
-        await commander.RunEngineAsync();
+        loading = true;
+        commander.RunEngine();
+        loading = false;
     }
 }

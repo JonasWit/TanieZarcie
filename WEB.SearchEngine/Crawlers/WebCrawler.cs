@@ -32,7 +32,7 @@ namespace WEB.SearchEngine.Crawlers
             }
         }
 
-        public async Task GetDataAsync()
+        public void GetData()
         {
             try
             {
@@ -47,11 +47,12 @@ namespace WEB.SearchEngine.Crawlers
                     tasks.Add(Task.Run(() => webStructs.Add(new LinkStruct(link, GetSingleHtml(link)))));
                 }
 
-                await Task.WhenAll(tasks);
+                Task.WaitAll(tasks.ToArray());
 
                 webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
+                webStructs.GroupBy(x => x.Link).Select(x => x.First());
 
-                Products = await ExtractDataFromRecordsAsync(webStructs);
+                Products = ExtractDataFromRecordsAsync(webStructs);
                 Products.TrimExcess();
             }
             catch (Exception)
@@ -60,9 +61,9 @@ namespace WEB.SearchEngine.Crawlers
             }
         }
 
-        private bool LinkCleanUp(string link, string match)
+        private bool LinkCleanUp(string link, string output)
         {
-            if (link.MatchWithRegex(match, @"[^a-zA-Z0-9]", MatchDirection.Equals))
+            if (link.MatchWithRegex(output, @"[^a-zA-Z0-9]", MatchDirection.InputContainsOutput))
             {
                 return true;
             }
@@ -72,17 +73,18 @@ namespace WEB.SearchEngine.Crawlers
             }
         }
 
-        private async Task<List<Product>> ExtractDataFromRecordsAsync(List<LinkStruct> webStructs)
+        private List<Product> ExtractDataFromRecordsAsync(List<LinkStruct> webStructs)
         {
             var tasks = new List<Task>();
             var result = new List<Product>();
 
             foreach (var webStruct in webStructs)
             {
-                tasks.Add(Task.Run(() => result.AddRange(GetResultsForSingleUrl(webStruct))));
+                GetResultsForSingleUrl(webStruct);
+                //tasks.Add(Task.Run(() => result.AddRange(GetResultsForSingleUrl(webStruct))));
             }
 
-            await Task.WhenAll(tasks);
+            //Task.WhenAll(tasks);
 
             return result;
         }

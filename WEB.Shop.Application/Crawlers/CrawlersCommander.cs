@@ -28,9 +28,9 @@ namespace WEB.Shop.Application.Crawlers
             SearchEngine = new Engine();
         }
 
-        public async Task<bool> RunEngineAsync()
+        public bool RunEngine()
         {
-            await SearchEngine.RunCrawlerForBiedronkaAsync();
+            SearchEngine.RunCrawlerForBiedronkaAsync();
 
             return true;
 
