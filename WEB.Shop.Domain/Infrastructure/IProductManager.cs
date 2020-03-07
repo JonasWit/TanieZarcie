@@ -9,6 +9,7 @@ namespace WEB.Shop.Domain.Infrastructure
     public interface IProductManager
     {
         Task<int> CreateProduct(Product product);
+        Task<int> CreateProducts(List<Product> products);
         Task<int> DeleteProduct(int id);
         Task<int> UpdateProduct(Product product);
 

@@ -24,6 +24,12 @@ namespace WEB.Shop.DataBase
             return _context.SaveChangesAsync();
         }
 
+        public Task<int> CreateProducts(List<Product> products)
+        {
+            _context.Products.AddRange(products);
+            return _context.SaveChangesAsync();
+        }
+
         public Task<int> DeleteProduct(int id)
         {
             var product = _context.Products.FirstOrDefault(x => x.Id == id);

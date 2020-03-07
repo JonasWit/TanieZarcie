@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WEB.Shop.Application.Products;
+using WEB.Shop.Application.Session;
 
 namespace WEB.Shop.UI.Pages
 {
@@ -26,29 +27,42 @@ namespace WEB.Shop.UI.Pages
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public void OnGet([FromServices] GetProducts getProducts)
+        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetSearchString getSearchString)
         {
-            Products = getProducts.Do(CurrentPage, PageSize);
-            Count = getProducts.Do().Count();
+            if (getSearchString.Do(out string output))
+            {
+                if (!string.IsNullOrEmpty(output))
+                {
+                    Products = getProducts.Do(CurrentPage, PageSize, output);
+                    Count = getProducts.Do(output).Count();
+                }
+                else
+                {
+                    Products = getProducts.Do(CurrentPage, PageSize);
+                    Count = getProducts.Do().Count();
+                }
+            }
+            else
+            {
+                Products = getProducts.Do(CurrentPage, PageSize);
+                Count = getProducts.Do().Count();
+            }
         }
 
-        public void OnPost([FromServices] GetProducts getProducts)
+        public void OnPost([FromServices] GetProducts getProducts, [FromServices] SaveSearchString saveSearchString)
         {
+            saveSearchString.Do(SearchString);
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 Products = getProducts.Do(CurrentPage, PageSize, SearchString);
                 Count = getProducts.Do(SearchString).Count();
             }
-            else 
+            else
             {
                 Products = getProducts.Do(CurrentPage, PageSize);
                 Count = getProducts.Do().Count();
             }
-
-
-      
-
-            //todo: pagnination
         }
     }
 }

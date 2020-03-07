@@ -14,5 +14,7 @@ namespace WEB.Shop.Domain.Infrastructure
         CustomerInformation GetCustomerInformation();
         void ClearCart();
 
+        void SaveSearchString(string input);
+        bool GetSearchString(out string output);
     }
 }

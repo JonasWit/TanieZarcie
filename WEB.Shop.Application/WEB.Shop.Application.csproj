@@ -5,6 +5,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\WEB.SearchEngine\WEB.SearchEngine.csproj" />
     <ProjectReference Include="..\WEB.Shop.Domain\WEB.Shop.Domain.csproj" />
   </ItemGroup>
 

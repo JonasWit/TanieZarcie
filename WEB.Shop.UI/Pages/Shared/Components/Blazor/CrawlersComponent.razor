@@ -1,8 +1,6 @@
-﻿@page "/crawlerscomponent"
-@using System.Net.Http
+﻿@page "/crawlerscommander"
 @using Microsoft.AspNetCore.Components.Authorization
 @using WEB.Shop.Application.Crawlers
-@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject CrawlersCommander commander
 
 <h1>Counter</h1>
@@ -12,6 +10,7 @@
 <button class="btn btn-primary" @onclick="IncrementCount">add</button>
 <button class="btn btn-primary" @onclick="DecrementCount">remove</button>
 <button class="btn btn-primary" @onclick="CheckCount">check</button>
+<button class="btn btn-primary" @onclick="TestEngine">TestEnginh</button>
 
 @code {
     private int currentCount = 0;
@@ -33,6 +32,11 @@
         currentCount = commander.test;
     }
 
+
+    private void TestEngine()
+    {
+        commander.RunEngine();
+    }
 
 
 

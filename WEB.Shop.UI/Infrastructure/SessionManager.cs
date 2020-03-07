@@ -11,6 +11,7 @@ namespace WEB.Shop.UI.Infrastructure
     public class SessionManager : ISessionManager
     {
         private const string KeyCart = "Cart";
+        private const string KeySearchString = "SearchString";
         private const string KeyCustomerInfo = "Customer-info";
         private readonly ISession _session;
 
@@ -102,6 +103,33 @@ namespace WEB.Shop.UI.Infrastructure
 
             stringObject = JsonConvert.SerializeObject(cartList);
             _session.SetString(KeyCart, stringObject);
+        }
+
+        public void SaveSearchString(string input)
+        {
+            if (_session.Keys.Contains(KeySearchString))
+            {
+                _session.Remove(KeySearchString);
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                _session.SetString(KeySearchString, input);
+            }
+        }        
+        
+        public bool GetSearchString(out string output)
+        {
+            if (_session.Keys.Contains(KeySearchString))
+            {
+                output = _session.GetString(KeySearchString);
+                return true;
+            }
+            else
+            {
+                output = "";
+                return false;
+            }
         }
     }
 }
