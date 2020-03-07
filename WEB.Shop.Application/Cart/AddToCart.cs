@@ -22,7 +22,7 @@ namespace WEB.Shop.Application.Cart
             public int Quantity { get; set; }
         }
 
-        public async Task<bool> Do(Request request)
+        public async Task<bool> DoAsync(Request request)
         {
             #region Stock Race
 

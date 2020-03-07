@@ -6,8 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using WEB.SearchEngine.Enums;
+using WEB.SearchEngine.Extensions;
 
 namespace WEB.SearchEngine.Crawlers
 {
@@ -16,13 +19,12 @@ namespace WEB.SearchEngine.Crawlers
         public List<Product> Products { get; set; } = new List<Product>();
         public virtual string BaseUrl { get; set; } 
         public virtual string BaseUrlForProducts { get; set; }
+        public Shops Shop { get; set; }
 
         public struct LinkStruct
         {
             public string Link { get; set; }
-
             public string Html { get; set; }
-
             public LinkStruct(string link, string html)
             {
                 Link = link;
@@ -30,80 +32,59 @@ namespace WEB.SearchEngine.Crawlers
             }
         }
 
-        public async Task GetData()
+        public async Task GetDataAsync()
         {
             try
             {
+                var tasks = new List<Task>();      
+                var webStructs = new List<LinkStruct>();
 
-                List<string> linksToVisit = ParseLinks(BaseUrl);
-
-                List<Thread> threads = new List<Thread>();
-                Dictionary<string, List<Product>> resultDictionary = new Dictionary<string, List<Product>>();
-                List<LinkStruct> webStructs = new List<LinkStruct>();
-
+                var linksToVisit = ParseLinks(BaseUrl);
                 linksToVisit.RemoveAll(item => !item.Contains("http") || !item.Contains("https"));
-
-
-                var tasks = new List<Task>();
 
                 foreach (var link in linksToVisit)
                 {
-                    //Thread subThread = new Thread(new ThreadStart(() => webStructs.Add(new LinkStruct(link, GetSingleHtml(link)))));
-                    //subThread.Start();
-                    //threads.Add(subThread);
-
                     tasks.Add(Task.Run(() => webStructs.Add(new LinkStruct(link, GetSingleHtml(link)))));
-
-
-
-
-
-
-
                 }
-
 
                 await Task.WhenAll(tasks);
 
+                webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
 
-                foreach (var item in threads) { item.Join(); }
-                threads.Clear();
-
-
-
- 
-
-
-
-                webStructs.RemoveAll(link => !link.Link.Contains("biedronka") && !link.Link.Contains("lidl") && !link.Link.Contains("kaufland"));
-
-                foreach (var webStruct in webStructs)
-                {
-                    //GetResultsForSingleUrl(resultDictionary, webStruct);
-                    Thread subThread = new Thread(new ThreadStart(() => GetResultsForSingleUrl(resultDictionary, webStruct)));
-                    subThread.Start();
-                    threads.Add(subThread);
-                }
-
-                foreach (var item in threads) { item.Join(); }
-                threads.Clear();
-
-                foreach (var products in resultDictionary.Values)
-                {
-                    //List<Product> distinctProducts = products.GroupBy(p => new { p.Description, p.Provider, p.PriceZl, p.PriceGr }).Select(g => g.First()).ToList();
-
-                    foreach (var product in products)
-                    {
-                        Products.Add(product);
-                    }
-                }
-
+                Products = await ExtractDataFromRecordsAsync(webStructs);
                 Products.TrimExcess();
             }
             catch (Exception)
             {
                 return;
             }
+        }
+
+        private bool LinkCleanUp(string link, string match)
+        {
+            if (link.MatchWithRegex(match, @"[^a-zA-Z0-9]", MatchDirection.Equals))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private async Task<List<Product>> ExtractDataFromRecordsAsync(List<LinkStruct> webStructs)
+        {
+            var tasks = new List<Task>();
+            var result = new List<Product>();
+
+            foreach (var webStruct in webStructs)
+            {
+                tasks.Add(Task.Run(() => result.AddRange(GetResultsForSingleUrl(webStruct))));
+            }
+
+            await Task.WhenAll(tasks);
+
+            return result;
         }
 
         private string GetSingleHtml(string link)
@@ -136,9 +117,10 @@ namespace WEB.SearchEngine.Crawlers
             return "";
         }
 
-        public virtual void GetResultsForSingleUrl(Dictionary<string, List<Product>> resultDictionary, LinkStruct linkStruct)
+        public virtual List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
             //To be always overriten by derived classes.
+            return null;
         }
 
         public List<string> ParseLinks(string urlToCrawl)
@@ -178,7 +160,5 @@ namespace WEB.SearchEngine.Crawlers
 
             return uri.ToString();
         }
-
-
     }
 }

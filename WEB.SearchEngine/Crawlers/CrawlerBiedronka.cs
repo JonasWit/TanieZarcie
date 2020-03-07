@@ -3,6 +3,7 @@ using SearchEngine.SearchResultsModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;
 
 namespace WEB.SearchEngine.Crawlers
@@ -12,12 +13,18 @@ namespace WEB.SearchEngine.Crawlers
         //protected List<HtmlPatternBiedronka> _htmlPattens;
         //public List<HtmlPatternBiedronka> HtmlPattens { get { return _htmlPattens; } set { _htmlPattens = value; } }
 
+        public CrawlerBiedronka(Shops shop)
+        {
+            Shop = shop;
+        }
+
         public override string BaseUrl { get; set; } = "https://www.biedronka.pl/pl/";
 
-        public override void GetResultsForSingleUrl(Dictionary<string, List<Product>> resultDictionary, LinkStruct linkStruct)
+        public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
-            List<Product> products = new List<Product>();
-            HtmlDocument htmlDocument = new HtmlDocument();
+            var result = new List<Product>();
+            var products = new List<Product>();
+            var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(linkStruct.Html);
 
             //foreach (var htmlPattern in _htmlPattens)
@@ -87,6 +94,8 @@ namespace WEB.SearchEngine.Crawlers
             //    resultDictionary.Add(linkStruct.Link, products);
 
             //}
+
+            return result;
         }
     }
 }

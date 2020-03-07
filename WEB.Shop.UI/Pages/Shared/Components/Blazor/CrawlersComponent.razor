@@ -12,6 +12,21 @@
 <button class="btn btn-primary" @onclick="CheckCount">check</button>
 <button class="btn btn-primary" @onclick="TestEngine">TestEnginh</button>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @code {
     private int currentCount = 0;
 
@@ -35,22 +50,6 @@
 
     private void TestEngine()
     {
-        commander.RunEngine();
+        commander.RunEngineAsync();
     }
-
-
-
-    //private string[] _todoItems;
-
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-    //    var user = authState.User;
-
-    //    var http = new HttpClient();
-    //    http.BaseAddress = new Uri("https://localhost:44370/");
-
-    //    _todoItems = await http.GetJsonAsync<string[]>("api/Setup/options");
-
-    //}
 }

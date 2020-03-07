@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using WEB.SearchEngine;
 
 namespace WEB.Shop.Application.Crawlers
@@ -27,11 +28,11 @@ namespace WEB.Shop.Application.Crawlers
             SearchEngine = new Engine();
         }
 
-        public void RunEngine()
+        public async Task<bool> RunEngineAsync()
         {
-            SearchEngine.RunCrawlerForBiedronka();
+            await SearchEngine.RunCrawlerForBiedronkaAsync();
 
-
+            return true;
 
         }
 

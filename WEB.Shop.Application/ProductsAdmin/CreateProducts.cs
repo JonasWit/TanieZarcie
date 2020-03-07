@@ -16,7 +16,7 @@ namespace WEB.Shop.Application.ProductsAdmin
         }
 
         //todo: dodac od razu sklepy do stocku
-        public async Task<bool> Do(Request request)
+        public async Task<bool> DoAsync(Request request)
         {
             var product = new Product
             {

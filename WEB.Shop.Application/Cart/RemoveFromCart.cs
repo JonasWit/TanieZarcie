@@ -22,7 +22,7 @@ namespace WEB.Shop.Application.Cart
             public bool All { get; set; }
         }
 
-        public async Task<bool> Do(Request request)
+        public async Task<bool> DoAsync(Request request)
         {
             if (request.Quantity <= 0)
             {

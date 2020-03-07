@@ -15,7 +15,7 @@ namespace WEB.Shop.UI.Pages
 
         public async Task<IActionResult> OnGet(string name, [FromServices] GetProduct getProduct)
         {
-            Product = await getProduct.Do(name.Replace("-", " "));
+            Product = await getProduct.DoAsync(name.Replace("-", " "));
             if (Product == null)
                 return RedirectToPage("Index");
             else
@@ -24,7 +24,7 @@ namespace WEB.Shop.UI.Pages
 
         public async Task<IActionResult> OnPost([FromServices] AddToCart addToCart)
         {
-            var stockAdded = await addToCart.Do(CartViewModel);
+            var stockAdded = await addToCart.DoAsync(CartViewModel);
 
             if (stockAdded)
                 return RedirectToPage("Cart");

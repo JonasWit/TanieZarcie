@@ -10,7 +10,7 @@ namespace WEB.Shop.UI.Controllers
     public class CartController : Controller
     {
         [HttpPost("{stockId}")]
-        public async Task<IActionResult> AddOne(int stockId, [FromServices] AddToCart addToCart)
+        public async Task<IActionResult> AddOneAsync(int stockId, [FromServices] AddToCart addToCart)
         {
             var request = new AddToCart.Request
             {
@@ -18,7 +18,7 @@ namespace WEB.Shop.UI.Controllers
                 Quantity = 1
             };
 
-            var success = await addToCart.Do(request);
+            var success = await addToCart.DoAsync(request);
 
             if (success)
             {
@@ -37,7 +37,7 @@ namespace WEB.Shop.UI.Controllers
                 Quantity = quantity
             };
 
-            var success = await removeFromCart.Do(request);
+            var success = await removeFromCart.DoAsync(request);
 
             if (success)
             {
@@ -70,7 +70,7 @@ namespace WEB.Shop.UI.Controllers
                 All = true
             };
 
-            var success = await removeFromCart.Do(request);
+            var success = await removeFromCart.DoAsync(request);
 
             if (success)
             {

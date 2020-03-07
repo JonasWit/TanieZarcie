@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Crawlers;
+using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;
 
 namespace WEB.SearchEngine
@@ -15,11 +16,11 @@ namespace WEB.SearchEngine
     {
         public List<ICrawler> Crawlers { get; private set; }
 
-        public async Task<bool> RunCrawlerForBiedronka()
+        public async Task<bool> RunCrawlerForBiedronkaAsync()
         {
 
-            var crawler = new CrawlerBiedronka();
-            await crawler.GetData();
+            var crawler = new CrawlerBiedronka(Shops.Biedronka);
+            await crawler.GetDataAsync();
 
 
             Crawlers.Add(crawler);

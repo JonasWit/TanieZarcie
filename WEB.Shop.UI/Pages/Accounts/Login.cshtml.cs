@@ -25,7 +25,7 @@ namespace WEB.Shop.UI.Pages.Accounts
 
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, false, false);
 
@@ -36,9 +36,7 @@ namespace WEB.Shop.UI.Pages.Accounts
             else 
             {
                 return Page();
-
             }
-
         }
     }
 

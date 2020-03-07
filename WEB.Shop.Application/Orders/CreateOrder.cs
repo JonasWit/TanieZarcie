@@ -42,7 +42,7 @@ namespace WEB.Shop.Application.Orders
             public int Quantity { get; set; }
         }
 
-        public async Task<bool> Do(Request request)
+        public async Task<bool> DoAsync(Request request)
         {
             var order = new Order
             {
