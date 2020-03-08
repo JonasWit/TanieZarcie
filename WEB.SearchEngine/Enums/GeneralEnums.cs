@@ -13,4 +13,11 @@
         OutputContainsInput = 1,
         Equals = 3
     }
+
+    public enum HtmlTags
+    {
+        div = 0,
+        p = 1,
+        span = 3
+    }
 }
