@@ -18,6 +18,14 @@
     {
         div = 0,
         p = 1,
-        span = 3
+        span = 3,
+        h5 = 3,
+        h4 = 3,
+        h3 = 3,
+    }
+
+    public enum HtmlAttributes
+    {
+        ClassAttribute = 0,
     }
 }
