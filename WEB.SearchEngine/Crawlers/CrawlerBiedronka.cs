@@ -3,6 +3,7 @@ using SearchEngine.SearchResultsModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;
 
@@ -27,6 +28,19 @@ namespace WEB.SearchEngine.Crawlers
             htmlDocument.LoadHtml(linkStruct.Html);
 
             var divs = htmlDocument.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Contains("productsimple-default")).ToList();
+
+            var tasks = new List<Task>();
+
+            foreach (var div in divs)
+            {
+                ExtractProduct(div, linkStruct);
+
+                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(div, linkStruct))));
+            }
+
+            Task.WaitAll(tasks.ToArray());
+
+
 
             //foreach (var htmlPattern in _htmlPattens)
             //{
@@ -99,9 +113,23 @@ namespace WEB.SearchEngine.Crawlers
             return result;
         }
 
-        private Product ExtractProduct(HtmlNode inputNode)
+        private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
             var result = new Product();
+
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "price")))
+            {
+                return result;
+            }
+
+            result.SourceUrl = linkStruct.Link;
+
+            result.Seller = this.GetType().Name.Replace("Crawler", "");
+
+            var test = productNode.Descendants();
+
+            var test2 = productNode.Descendants().Where(x => x.Attributes["class"].Value == "tile-name").FirstOrDefault();
+
 
 
 

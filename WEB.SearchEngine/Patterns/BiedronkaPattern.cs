@@ -7,5 +7,8 @@ namespace WEB.SearchEngine.Patterns
     public class BiedronkaPattern
     {
 
+
+
+
     }
 }
