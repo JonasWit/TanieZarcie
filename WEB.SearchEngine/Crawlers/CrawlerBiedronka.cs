@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using SearchEngine.SearchResultsModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;
 using WEB.SearchEngine.RegexPatterns;
+using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
 {
@@ -143,25 +143,21 @@ namespace WEB.SearchEngine.Crawlers
             result.SourceUrl = linkStruct.Link;
 
             var promoCommnets = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardNormalization.Replace(y.Value, "").ToUpper().Contains("PRODUCTPROMO")))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "productpromo", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
                 .ToList();
+
+            if (promoCommnets.Count != 0)
+            {
+                result.Description = String.Join(", ", promoCommnets.ToArray());
+            }
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
 
             var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardNormalization.Replace(y.Value, "").ToUpper().Contains("TILENAME")))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "tilename", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
                 .FirstOrDefault();
-
-
-            var test = productNode.Descendants();
-
-            //var test2 = productNode.Descendants().Where(x => x.Attributes["class"].Value == "tile-name").FirstOrDefault();
-
-
-
-
 
 
             return result;

@@ -29,6 +29,7 @@ namespace WEB.Shop.DataBase
             _context.Stock.Remove(stock);
             return _context.SaveChangesAsync();
         }
+
         public Task<int> UpdateStockRange(List<Stock> stockList)
         {
             _context.Stock.UpdateRange(stockList);
@@ -98,5 +99,6 @@ namespace WEB.Shop.DataBase
 
             return Task.CompletedTask;
         }
+
     }
 }

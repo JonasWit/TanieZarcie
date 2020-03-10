@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using WEB.SearchEngine;
+using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Crawlers
 {
     public class CrawlersCommander
     {
         public Engine SearchEngine { get; private set; }
-
+        public List<Product> DomainModels { get; private set; }
+        public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
 
         public int test { get; set; } = 2;
 
@@ -35,6 +34,8 @@ namespace WEB.Shop.Application.Crawlers
             return true;
 
         }
+
+
 
 
 

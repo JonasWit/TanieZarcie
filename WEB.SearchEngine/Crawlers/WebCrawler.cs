@@ -1,16 +1,14 @@
 ﻿using HtmlAgilityPack;
-using SearchEngine.SearchResultsModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Extensions;
+using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
 {
@@ -75,7 +73,7 @@ namespace WEB.SearchEngine.Crawlers
 
         private List<Product> ExtractDataFromRecordsAsync(List<LinkStruct> webStructs)
         {
-            var tasks = new List<Task>();
+            //var tasks = new List<Task>();
             var result = new List<Product>();
 
             foreach (var webStruct in webStructs)

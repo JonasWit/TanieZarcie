@@ -1,9 +1,4 @@
-﻿using SearchEngine.SearchResultsModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WEB.SearchEngine.ResultModels
+﻿namespace WEB.SearchEngine.ResultModels
 {
     public class Stock
     {

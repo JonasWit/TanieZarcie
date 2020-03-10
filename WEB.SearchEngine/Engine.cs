@@ -1,11 +1,4 @@
-﻿using HtmlAgilityPack;
-using SearchEngine.SearchResultsModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using WEB.SearchEngine.Crawlers;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;

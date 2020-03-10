@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WEB.SearchEngine.ResultModels;
 
-namespace SearchEngine.SearchResultsModels
+namespace WEB.SearchEngine.SearchResultsModels
 {
     public class Product
     {
