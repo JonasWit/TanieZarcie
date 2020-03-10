@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;
+using WEB.SearchEngine.RegexPatterns;
 
 namespace WEB.SearchEngine.Crawlers
 {
@@ -119,16 +120,44 @@ namespace WEB.SearchEngine.Crawlers
 
             if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "price")))
             {
-                return result;
+                return new Product();
+            }
+
+            var pln = productNode.Descendants()
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "pln"))
+                .FirstOrDefault().InnerText;
+
+            var gr = productNode.Descendants()
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "gr"))
+                .FirstOrDefault().InnerText;
+
+            if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal))
+            {
+                result.Value = plnDecimal + (grDecimal / 100);
+            }
+            else
+            {
+                return new Product();
             }
 
             result.SourceUrl = linkStruct.Link;
 
+            var promoCommnets = productNode.Descendants()
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardNormalization.Replace(y.Value, "").ToUpper().Contains("PRODUCTPROMO")))
+                .Select(z => z.InnerText)
+                .ToList();
+
             result.Seller = this.GetType().Name.Replace("Crawler", "");
+
+            var name = productNode.Descendants()
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardNormalization.Replace(y.Value, "").ToUpper().Contains("TILENAME")))
+                .Select(z => z.InnerText)
+                .FirstOrDefault();
+
 
             var test = productNode.Descendants();
 
-            var test2 = productNode.Descendants().Where(x => x.Attributes["class"].Value == "tile-name").FirstOrDefault();
+            //var test2 = productNode.Descendants().Where(x => x.Attributes["class"].Value == "tile-name").FirstOrDefault();
 
 
 
