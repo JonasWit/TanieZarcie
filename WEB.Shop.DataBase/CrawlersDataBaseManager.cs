@@ -19,6 +19,17 @@ namespace WEB.Shop.DataBase
         public Task<int> RefreshDatabase(List<Product> products)
         {
 
+            foreach (var product in products)
+            {
+                _context.Products.Add(product);
+                _context.Stock.Add(new Stock
+                {
+                    Description = product.Seller,
+                    Quantity = 100,
+                    ProductId = product.Id
+                });
+            }
+
             //public Task<int> CreateProduct(Product product)
             //{
             //    _context.Products.Add(product);
