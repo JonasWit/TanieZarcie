@@ -27,6 +27,15 @@ namespace WEB.Shop.Application.Crawlers
 
         }
 
+        private void ConvertSearchModelsToDomainModels()
+        {
+            DomainModels = new List<Product>();
+
+
+
+
+        }
+
 
 
 
