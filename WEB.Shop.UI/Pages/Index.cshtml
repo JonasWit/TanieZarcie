@@ -64,18 +64,13 @@
                                         string cssClass = "";
                                         string message = "";
 
-                                        if (p.StockCount == 0)
-                                        {
-                                            cssClass = "is-danger";
-                                            message = "Nie ma na stanie!";
-                                        }
-                                        else if (p.StockCount <= 10)
+                                        if (!string.IsNullOrEmpty(p.Description))
                                         {
                                             cssClass = "is-warning";
-                                            message = "Mało na stanie!";
+                                            message = "PROMOCJA";
                                         }
                                     }
-                                    @if (p.StockCount <= 10)
+                                    @if (!string.IsNullOrEmpty(p.Description))
                                     {
                                         <div class="notification is-paddingless has-text-centered @cssClass">
                                             @message
@@ -86,12 +81,14 @@
                                         @p.Name
                                         <br />
                                     </p>
-                                    <p class="subtitle">
-                                        @p.Description
-                                    </p>
+
                                     <p class="subtitle is-bold">
                                         @p.Value
                                     </p>
+                                    <p class="subtitle">
+                                        @p.Description
+                                    </p>
+
                                     <p class="subtitle is-bold">
                                         @p.Seller
                                     </p>
