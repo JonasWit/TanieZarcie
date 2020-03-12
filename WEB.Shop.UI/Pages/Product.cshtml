@@ -11,8 +11,10 @@
                 <div class="column is-6">
                     <section class="content">
                         <header>
+                            <p class="title">@Model.Product.Seller</p>
                             <p class="title">@Model.Product.Name</p>
                             <p class="subtitle">@Model.Product.Description</p>
+                            <p class="subtitle">@Model.Product.Value</p>
                         </header>
                         <main>
                         </main>
@@ -47,15 +49,10 @@
                                             <div class="control">
                                                 <input min="0" class="input" asp-for="CartViewModel.Quantity" value="1" />
                                             </div>
-                                            @foreach (var stock in Model.Product.Stock)
-                                            {
-                                                if (stock.Quantity <= 10)
+                                                @if (!string.IsNullOrEmpty(Model.Product.Description))
                                                 {
-                                                    <p class="help is-danger is-hidden low-stock" id="low-stock-@stock.Id">
-                                                        @(stock.Quantity == 0 ? "Nie ma na stanie!" : "Jest na stanie!")
-                                                    </p>
+                                                    <p class="help is-warning is-hidden low-stock">PROMOCJA!</p>
                                                 }
-                                            }
                                         </div>
                                     </div>
                                 </div>

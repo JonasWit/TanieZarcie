@@ -48,9 +48,16 @@ namespace WEB.SearchEngine.Crawlers
                 Task.WaitAll(tasks.ToArray());
 
                 webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
-                webStructs.GroupBy(x => x.Link).Select(x => x.First());
+                webStructs.GroupBy(x => x.Link)
+                    .Select(x => x.First());
 
                 Products = ExtractDataFromRecordsAsync(webStructs);
+
+                var distinctProducts = Products.GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
+                    .Select(p => p.First())
+                    .ToList();
+
+                Products = distinctProducts;
                 Products.TrimExcess();
             }
             catch (Exception)

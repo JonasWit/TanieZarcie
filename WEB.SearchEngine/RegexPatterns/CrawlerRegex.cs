@@ -12,7 +12,6 @@ namespace WEB.SearchEngine.RegexPatterns
         MatchContainsInput = 2,
     }
 
-
     public static class CrawlerRegex
     {
         public static string StandardNormalization = "[^a-zA-Z0-9]";

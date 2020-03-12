@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.DataBase
 {
@@ -7,6 +9,11 @@ namespace WEB.Shop.DataBase
         public static void Clear<T>(this DbSet<T> dbSet) where T : class
         {
             dbSet.RemoveRange(dbSet);
+        }
+
+        public static void DeleteProductsFromShop(this DbSet<Product> dbSet, string shop)
+        {
+            dbSet.RemoveRange(dbSet.Where(x => x.Seller == shop).ToList());
         }
     }
 }

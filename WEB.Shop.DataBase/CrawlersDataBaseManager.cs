@@ -22,6 +22,12 @@ namespace WEB.Shop.DataBase
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteProductFromShops(string shop)
+        {
+            _context.Products.DeleteProductsFromShop(shop);
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<int> RefreshDatabaseAsync(List<Product> products)
         {
             var response = 0;

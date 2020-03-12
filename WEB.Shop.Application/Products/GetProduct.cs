@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WEB.Shop.Domain.Extensions;
 using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Products
@@ -28,7 +29,7 @@ namespace WEB.Shop.Application.Products
                     Seller = x.Seller,
                     Category = x.Category,
                     SourceUrl = x.SourceUrl,
-                    Value = x.Value,
+                    Value = x.Value.MonetaryValue(),
 
                     Stock = x.Stock.Select(y => new StockViewModel
                     {
@@ -48,7 +49,7 @@ namespace WEB.Shop.Application.Products
             public string Seller { get; set; }
             public string Category { get; set; }
             public string SourceUrl { get; set; }
-            public decimal Value { get; set; }
+            public string Value { get; set; }
 
             public IEnumerable<StockViewModel> Stock { get; set; }
         }
