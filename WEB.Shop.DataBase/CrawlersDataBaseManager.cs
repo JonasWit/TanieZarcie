@@ -16,14 +16,13 @@ namespace WEB.Shop.DataBase
             _context = context;
         }
 
-        private bool ClearDataBase()
+        public async Task<int> ClearDataBaseAsync()
         {
-
-
-            return true;
+            _context.Products.Clear();
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<int> RefreshDatabase(List<Product> products)
+        public async Task<int> RefreshDatabaseAsync(List<Product> products)
         {
 
             //public async Task<IActionResult> DeleteAll()
@@ -78,13 +77,7 @@ namespace WEB.Shop.DataBase
 
             //await _stockManager.CreateStock(stock);
 
-
-
-
-
-
-
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
 

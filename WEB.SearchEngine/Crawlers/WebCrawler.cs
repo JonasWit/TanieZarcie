@@ -73,16 +73,12 @@ namespace WEB.SearchEngine.Crawlers
 
         private List<Product> ExtractDataFromRecordsAsync(List<LinkStruct> webStructs)
         {
-            //var tasks = new List<Task>();
             var result = new List<Product>();
 
             foreach (var webStruct in webStructs)
             {
                 GetResultsForSingleUrl(webStruct);
-                //tasks.Add(Task.Run(() => result.AddRange(GetResultsForSingleUrl(webStruct))));
             }
-
-            //Task.WhenAll(tasks);
 
             return result;
         }
