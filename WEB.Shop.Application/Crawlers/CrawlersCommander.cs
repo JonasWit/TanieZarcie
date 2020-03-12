@@ -27,7 +27,23 @@ namespace WEB.Shop.Application.Crawlers
 
         public async Task<int> RunEngineAsync()
         {
+            await _searchEngine.RunAllCrawlersAsync();
+
+            ConvertSearchModelsToDomainModels();
+            return Results.Count;
+        }
+
+        public async Task<int> RunBiedronkaEngineAsync()
+        {
             await _searchEngine.RunCrawlerForBiedronkaAsync();
+
+            ConvertSearchModelsToDomainModels();
+            return Results.Count;
+        }
+
+        public async Task<int> RunKauflandEngineAsync()
+        {
+            await _searchEngine.RunCrawlerForKauflandAsync();
 
             ConvertSearchModelsToDomainModels();
             return Results.Count;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using WEB.SearchEngine.Enums;
@@ -40,6 +41,11 @@ namespace WEB.SearchEngine.Extensions
             }
 
             return false;
+        }
+
+        public static bool ContainsAny(this string inputString, params string[] lookupStrings)
+        {
+            return lookupStrings.Any(inputString.Contains);
         }
     }
 }

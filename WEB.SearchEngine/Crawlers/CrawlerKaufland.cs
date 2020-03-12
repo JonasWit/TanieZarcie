@@ -10,14 +10,14 @@ using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
 {
-    public class CrawlerBiedronka : WebCrawler
+    public class CrawlerKaufland : WebCrawler
     {
-        public CrawlerBiedronka(Shops shop)
+        public CrawlerKaufland(Shops shop)
         {
             Shop = shop;
         }
 
-        public override string BaseUrl { get { return "https://www.biedronka.pl/pl/"; } }
+        public override string BaseUrl { get { return "https://www.kaufland.pl/"; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
@@ -27,19 +27,19 @@ namespace WEB.SearchEngine.Crawlers
 
             var divs = htmlDocument.DocumentNode.Descendants("div")
                 .Where(node => node.GetAttributeValue("class", "")
-                .ContainsAny("productsimple-default"))
+                .ContainsAny("m-offer-tile m-offer-tile--line-through m-offer-tile"))
                 .ToList();
 
             var tasks = new List<Task>();
 
             foreach (var div in divs)
             {
-                //ExtractProduct(div, linkStruct);
+                ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
-                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
-            Task.WaitAll(tasks.ToArray());
+            //Task.WaitAll(tasks.ToArray());
 
             result.RemoveAll(x => string.IsNullOrEmpty(x.Name));
             result.TrimExcess();
@@ -50,22 +50,18 @@ namespace WEB.SearchEngine.Crawlers
         {
             var result = new Product();
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "price")))
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "apricetagprice", MatchDireciton.InputContainsMatch))))
             {
                 return new Product();
             }
 
-            var pln = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "pln"))
+            var price = productNode.Descendants()
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "apricetagprice", MatchDireciton.InputContainsMatch)))
                 .FirstOrDefault().InnerText;
 
-            var gr = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "gr"))
-                .FirstOrDefault().InnerText;
-
-            if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal))
+            if (decimal.TryParse(price, out decimal plnDecimal))
             {
-                result.Value = plnDecimal + (grDecimal / 100);
+                result.Value = plnDecimal;
             }
             else
             {
@@ -75,7 +71,7 @@ namespace WEB.SearchEngine.Crawlers
             result.SourceUrl = linkStruct.Link;
 
             var promoCommnets = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "productpromo", MatchDireciton.InputContainsMatch)))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "apricetagdiscount", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
                 .ToList();
 

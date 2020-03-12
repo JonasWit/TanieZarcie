@@ -15,7 +15,7 @@ namespace WEB.SearchEngine.Crawlers
     public abstract class WebCrawler
     {
         public List<Product> Products { get; set; } = new List<Product>();
-        public virtual string BaseUrl { get; set; } 
+        public virtual string BaseUrl { get { return ""; } } 
         public virtual string BaseUrlForProducts { get; set; }
         public Shops Shop { get; set; }
 
