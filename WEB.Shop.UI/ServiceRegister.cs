@@ -23,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 @this.AddTransient(service);
             }
 
-            @this.AddSingleton<CrawlersCommander>();
+            @this.AddScoped<CrawlersCommander>();
             @this.AddTransient<IStockManager, StockManager>();
             @this.AddTransient<IProductManager, ProductManager>();
             @this.AddTransient<IOrderManager, OrderManager>();

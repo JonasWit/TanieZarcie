@@ -77,7 +77,7 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var webStruct in webStructs)
             {
-                GetResultsForSingleUrl(webStruct);
+                result.AddRange(GetResultsForSingleUrl(webStruct));
             }
 
             return result;

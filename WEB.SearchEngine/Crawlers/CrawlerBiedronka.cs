@@ -34,14 +34,14 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                ExtractProduct(div, linkStruct);
-
-                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(div, linkStruct))));
+                //ExtractProduct(div, linkStruct);
+                var nodeToPass = div;
+                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
             Task.WaitAll(tasks.ToArray());
 
-
+            result.RemoveAll(x => string.IsNullOrEmpty(x.Name));
 
             //foreach (var htmlPattern in _htmlPattens)
             //{
@@ -159,6 +159,9 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText)
                 .FirstOrDefault();
 
+            result.Name = name;
+
+            result.TimeStamp = DateTime.Now;
 
             return result;
         }

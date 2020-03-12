@@ -14,7 +14,5 @@ namespace WEB.SearchEngine.SearchResultsModels
         public string SourceUrl { get; set; }
         public decimal Value { get; set; }
         public DateTime TimeStamp { get; set; }
-
-        public ICollection<Stock> Stock { get; set; }
     }
 }

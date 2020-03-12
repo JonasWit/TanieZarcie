@@ -4,7 +4,7 @@
 @inject CrawlersCommander commander
 
 <div>
-    <div class="tabs is-centered" >
+    <div class="tabs is-centered">
         <ul>
             <li><a @onclick="SelectMainTab">Main Options</a></li>
             <li><a @onclick="SelectSummaryTab">Database Summary</a></li>
@@ -17,16 +17,25 @@
     case ActiveTab.Main:
 
         <div>
-            <button class="btn btn-primary" @onclick="TestEngine">TestEngine</button>
+            <button class="btn btn-primary" @onclick="RunEngine">TestEngine</button>
+        </div>
+        <div>
+            <button class="btn btn-primary" @onclick="ClearDataBase">Clear DataBase</button>
+        </div>
+        <div>
+            <button class="btn btn-primary" @onclick="UpdateDataBase">Update Database with results</button>
         </div>
 
         break;
     case ActiveTab.Summary:
 
         <div>
-
-   
-
+            <div>
+                <button class="btn btn-primary" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+            </div>
+            <div>
+                <button class="btn btn-primary" @onclick="RefreshEngineSummary">Check Engine Data</button>
+            </div>
         </div>
 
         break;
@@ -36,12 +45,10 @@
         break;
 }
 
-
-
-
 @code {
 
-    private bool loading;
+    private bool mainLoading;
+    private bool summaryLoading;
 
     private ActiveTab activeTab = ActiveTab.Main;
 
@@ -51,10 +58,10 @@
         Summary,
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //todo: add db data refresh on init
+    //}
 
     private void SelectMainTab()
     {
@@ -66,10 +73,38 @@
         activeTab = ActiveTab.Summary;
     }
 
-    private void TestEngine()
+    private async Task RefreshDataBaseSummary()
     {
-        loading = true;
-        commander.RunEngine();
-        loading = false;
+        summaryLoading = true;
+        //await commander.RunEngineAsync();
+        summaryLoading = false;
+    }
+
+    private async Task RefreshEngineSummary()
+    {
+        summaryLoading = true;
+        //await commander.RunEngineAsync();
+        summaryLoading = false;
+    }
+
+    private async Task RunEngine()
+    {
+        mainLoading = true;
+        await commander.RunEngineAsync();
+        mainLoading = false;
+    }
+
+    private async Task ClearDataBase()
+    {
+        mainLoading = true;
+        await commander.ClearDataBaseAsync();
+        mainLoading = false;
+    }
+
+    private async Task UpdateDataBase()
+    {
+        mainLoading = true;
+        await commander.UpdateDataBase();
+        mainLoading = false;
     }
 }

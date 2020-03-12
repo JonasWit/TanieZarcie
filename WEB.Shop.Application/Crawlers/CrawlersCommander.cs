@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WEB.SearchEngine;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;
@@ -10,7 +11,7 @@ namespace WEB.Shop.Application.Crawlers
         private ICrawlersDataBaseManager _crawlersDataBaseManager;
         private Engine _searchEngine;
 
-        public List<Product> DomainModels { get; private set; }
+        public List<Product> Results { get; private set; }
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
 
         public CrawlersCommander(ICrawlersDataBaseManager crawlersDataBaseManager)
@@ -19,28 +20,46 @@ namespace WEB.Shop.Application.Crawlers
             _searchEngine = new Engine();
         }
 
-        public bool RunEngine()
+        public async Task<int> ClearDataBaseAsync()
         {
-            _searchEngine.RunCrawlerForBiedronkaAsync();
+            return await _crawlersDataBaseManager.ClearDataBaseAsync();
+        }
 
-            return true;
+        public async Task<int> RunEngineAsync()
+        {
+            await _searchEngine.RunCrawlerForBiedronkaAsync();
 
+            ConvertSearchModelsToDomainModels();
+            return Results.Count;
+        }
+
+        public async Task<int> UpdateDataBase()
+        {
+            await ClearDataBaseAsync();
+            return await _crawlersDataBaseManager.RefreshDatabaseAsync(Results);
         }
 
         private void ConvertSearchModelsToDomainModels()
         {
-            DomainModels = new List<Product>();
+            Results = new List<Product>();
 
-
-
-
-
-
+            foreach (var crawler in _searchEngine.Crawlers)
+            {
+                foreach (var product in crawler.Products)
+                {
+                    Results.Add(new Product
+                    {
+                        Name = product.Name,
+                        Description = product.Description,
+                        Category = product.Category,
+                        Producer = product.Producer,
+                        Seller = product.Seller,
+                        SourceUrl = product.SourceUrl,
+                        TimeStamp = product.TimeStamp,
+                        Value = product.Value
+                    });
+                }
+            }
         }
-
-
-
-
-
     }
 }

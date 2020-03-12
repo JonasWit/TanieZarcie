@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WEB.SearchEngine.Crawlers;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Interfaces;
@@ -9,18 +10,14 @@ namespace WEB.SearchEngine
     {
         public List<ICrawler> Crawlers { get; private set; } = new List<ICrawler>();
 
-        public bool RunCrawlerForBiedronkaAsync()
+        public async Task<int> RunCrawlerForBiedronkaAsync()
         {
-
             var crawler = new CrawlerBiedronka(Shops.Biedronka);
-            crawler.GetData();
 
-
+            await Task.Run(() => crawler.GetData());
+ 
             Crawlers.Add(crawler);
-            return true;
+            return crawler.Products.Count;
         }
-
-
-
     }
 }
