@@ -24,31 +24,55 @@
             </div>
         }
 
-        <div>
-            <button class="btn btn-primary" @onclick="RunEngines">Run All Crawlers</button>
-        </div>
-        <div>
-            <button class="btn btn-primary" @onclick="RunBiedronkaEngine">Run Biedronka Crawler</button>
-        </div>
-        <div>
-            <button class="btn btn-primary" @onclick="RunKauflandEngine">Run Kaufland Crawlers</button>
-        </div>
-        <div>
-            <button class="btn btn-primary" @onclick="ClearDataBase">Clear DataBase</button>
-        </div>
-        <div>
-            <button class="btn btn-primary" @onclick="UpdateDataBase">Update Database with results</button>
-        </div>
-
-
-        <div>
-            <button class="btn btn-primary">Delete products for Biedronka</button>
-        </div>
-        <div>
-            <button class="btn btn-primary">Delete products for Lidl</button>
-        </div>
-        <div>
-            <button class="btn btn-primary">Delete products for Kaufland</button>
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <table class="table is-striped">
+                        <tr>
+                            <th>Import</th>
+                            <th>Clear</th>
+                            <th>Data</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" @onclick="RunEngines">Run All Crawlers</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary">Delete Everything</button>
+                            </td>
+                            <td>produkty sciagniete dla wszystkich</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" @onclick="RunBiedronkaEngine">Run Biedronka Crawler</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary">Delete products for Biedronka</button>
+                            </td>
+                            <td>produkty sciagniete dla Biedronki</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" @onclick="RunKauflandEngine">Run Kaufland Crawlers</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary">Delete products for Kaufland</button>
+                            </td>
+                            <td>produkty sciagniete dla Kauflanda</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" @onclick="ClearDataBase">Clear DataBase</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary" @onclick="UpdateDataBase">Update Database with results</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
 
         break;
