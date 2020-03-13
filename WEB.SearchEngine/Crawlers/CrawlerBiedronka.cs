@@ -50,17 +50,17 @@ namespace WEB.SearchEngine.Crawlers
         {
             var result = new Product();
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "price")))
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals))))
             {
                 return new Product();
             }
 
             var pln = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "pln"))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
                 .FirstOrDefault().InnerText;
 
             var gr = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "gr"))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
                 .FirstOrDefault().InnerText;
 
             if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal))
@@ -81,7 +81,7 @@ namespace WEB.SearchEngine.Crawlers
 
             if (promoCommnets.Count != 0)
             {
-                result.Description = "PROMOCJA!" + String.Join(", ", promoCommnets.ToArray());
+                result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
             }
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");

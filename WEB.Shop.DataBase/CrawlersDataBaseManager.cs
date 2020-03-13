@@ -30,24 +30,7 @@ namespace WEB.Shop.DataBase
 
         public async Task<int> RefreshDatabaseAsync(List<Product> products)
         {
-            var response = 0;
-            //public async Task<IActionResult> DeleteAll()
-            //{
-            //    var list = await _context.YourClass.ToListAsync();
-            //    _context.YourClass.RemoveRange(list);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-
-            //context.Database.ExecuteSqlRaw("TRUNCATE TABLE [TableName]");
-
-
-
-            //public Task<int> Do(int id)
-            //{
-            //    return _productManager.DeleteProduct(id);
-            //}
-
+            int response;
             try
             {
                 foreach (var product in products)

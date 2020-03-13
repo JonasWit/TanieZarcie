@@ -12,6 +12,9 @@ namespace WEB.Shop.Application.Crawlers
         private Engine _searchEngine;
 
         public List<Product> Results { get; private set; }
+
+        public string CurrentAction { get; private set; }
+
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
 
         public CrawlersCommander(ICrawlersDataBaseManager crawlersDataBaseManager)
@@ -35,14 +38,21 @@ namespace WEB.Shop.Application.Crawlers
 
         public async Task<int> RunBiedronkaEngineAsync()
         {
+            CurrentAction = "Clearing records for Biedronka";
+            await _crawlersDataBaseManager.DeleteProductFromShops("Biedronka");
+
+            CurrentAction = "Running crawler for Biedronka";
             await _searchEngine.RunCrawlerForBiedronkaAsync();
 
+            CurrentAction = "Converting models";
             ConvertSearchModelsToDomainModels();
+
             return Results.Count;
         }
 
         public async Task<int> RunKauflandEngineAsync()
         {
+            await _crawlersDataBaseManager.DeleteProductFromShops("Kaufland");
             await _searchEngine.RunCrawlerForKauflandAsync();
 
             ConvertSearchModelsToDomainModels();

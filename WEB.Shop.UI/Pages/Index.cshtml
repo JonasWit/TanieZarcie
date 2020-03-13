@@ -64,10 +64,10 @@
                                         string cssClass = "";
                                         string message = "";
 
-                                        if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains("PROMOCJA"))
+                                        if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(" !PROMOCJA! "))
                                         {
                                             cssClass = "is-warning";
-                                            message = "PROMOCJA";
+                                            message = " PROMOCJA! ";
                                         }
                                     }
                                     @if (!string.IsNullOrEmpty(p.Description))

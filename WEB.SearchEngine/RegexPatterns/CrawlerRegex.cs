@@ -14,7 +14,8 @@ namespace WEB.SearchEngine.RegexPatterns
 
     public static class CrawlerRegex
     {
-        public static string StandardNormalization = "[^a-zA-Z0-9]";
+        public const string StandardNormalization = "[^a-zA-Z0-9]";
+        public const string Metacharactes = "[\t|\n|\r]";
 
         public static Regex GetStandardNormalizationRegex()
         {
@@ -59,6 +60,11 @@ namespace WEB.SearchEngine.RegexPatterns
                 default:
                     return false;
             }
+        }
+
+        public static string RemoveMetacharacters(this string input)
+        {
+            return Regex.Replace(input, Metacharactes, "");
         }
     }
 }

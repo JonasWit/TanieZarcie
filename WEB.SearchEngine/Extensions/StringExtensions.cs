@@ -47,5 +47,6 @@ namespace WEB.SearchEngine.Extensions
         {
             return lookupStrings.Any(inputString.Contains);
         }
+
     }
 }

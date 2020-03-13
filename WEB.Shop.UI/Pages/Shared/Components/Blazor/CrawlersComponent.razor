@@ -16,14 +16,22 @@
 {
     case ActiveTab.Main:
 
+        @if (mainLoading)
+        {
+            <div class="container">
+                <p>@commander.CurrentAction</p>
+                <progress class="progress is-small is-primary" max="100">25%</progress>
+            </div>
+        }
+
         <div>
-            <button class="btn btn-primary" @onclick="RunEngine">Run All Crawlers</button>
+            <button class="btn btn-primary" @onclick="RunEngines">Run All Crawlers</button>
         </div>
         <div>
-            <button class="btn btn-primary" @onclick="RunEngine">Run Biedronka Crawler</button>
+            <button class="btn btn-primary" @onclick="RunBiedronkaEngine">Run Biedronka Crawler</button>
         </div>
         <div>
-            <button class="btn btn-primary" @onclick="RunEngine">Run Kaufland Crawlers</button>
+            <button class="btn btn-primary" @onclick="RunKauflandEngine">Run Kaufland Crawlers</button>
         </div>
         <div>
             <button class="btn btn-primary" @onclick="ClearDataBase">Clear DataBase</button>
@@ -42,7 +50,6 @@
         <div>
             <button class="btn btn-primary">Delete products for Kaufland</button>
         </div>
-
 
         break;
     case ActiveTab.Summary:
@@ -93,36 +100,99 @@
 
     private async Task RefreshDataBaseSummary()
     {
-        summaryLoading = true;
-        //await commander.RunEngineAsync();
-        summaryLoading = false;
+        if (summaryLoading)
+        {
+            return;
+        }
+        else
+        {
+            summaryLoading = true;
+            //await commander.RunEngineAsync();
+            summaryLoading = false;
+        }
     }
 
     private async Task RefreshEngineSummary()
     {
-        summaryLoading = true;
-        //await commander.RunEngineAsync();
-        summaryLoading = false;
+        if (summaryLoading)
+        {
+            return;
+        }
+        else
+        {
+            summaryLoading = true;
+            //await commander.RunEngineAsync();
+            summaryLoading = false;
+        }
     }
 
-    private async Task RunEngine()
+    private async Task RunEngines()
     {
-        mainLoading = true;
-        await commander.RunEngineAsync();
-        mainLoading = false;
+        if (mainLoading)
+        {
+            return;
+        }
+        else
+        {
+            mainLoading = true;
+            await commander.RunEngineAsync();
+            mainLoading = false;
+        }
+    }
+
+    private async Task RunBiedronkaEngine()
+    {
+        if (mainLoading)
+        {
+            return;
+        }
+        else
+        {
+            mainLoading = true;
+            await commander.RunBiedronkaEngineAsync();
+            mainLoading = false;
+        }
+    }
+
+    private async Task RunKauflandEngine()
+    {
+        if (mainLoading)
+        {
+            return;
+        }
+        else
+        {
+            mainLoading = true;
+            await commander.RunKauflandEngineAsync();
+            mainLoading = false;
+        }
     }
 
     private async Task ClearDataBase()
     {
-        mainLoading = true;
-        await commander.ClearDataBaseAsync();
-        mainLoading = false;
+        if (mainLoading)
+        {
+            return;
+        }
+        else
+        {
+            mainLoading = true;
+            await commander.ClearDataBaseAsync();
+            mainLoading = false;
+        }
     }
 
     private async Task UpdateDataBase()
     {
-        mainLoading = true;
-        await commander.UpdateDataBase();
-        mainLoading = false;
+        if (mainLoading)
+        {
+            return;
+        }
+        else
+        {
+            mainLoading = true;
+            await commander.UpdateDataBase();
+            mainLoading = false;
+        }
     }
 }

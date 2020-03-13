@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Extensions;
@@ -34,12 +35,12 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                ExtractProduct(div, linkStruct);
+                //ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
-                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
-            //Task.WaitAll(tasks.ToArray());
+            Task.WaitAll(tasks.ToArray());
 
             result.RemoveAll(x => string.IsNullOrEmpty(x.Name));
             result.TrimExcess();
@@ -50,45 +51,57 @@ namespace WEB.SearchEngine.Crawlers
         {
             var result = new Product();
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "apricetagprice", MatchDireciton.InputContainsMatch))))
+            if (!productNode.Descendants()
+                .Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.InputContainsMatch))))
             {
-                return new Product();
+                return null;
             }
 
             var price = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "apricetagprice", MatchDireciton.InputContainsMatch)))
-                .FirstOrDefault().InnerText;
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
+                .FirstOrDefault()?
+                .InnerText.RemoveMetacharacters();
 
             if (decimal.TryParse(price, out decimal plnDecimal))
             {
-                result.Value = plnDecimal;
+                result.Value = plnDecimal / 100;
             }
             else
             {
-                return new Product();
+                return null;
             }
 
             result.SourceUrl = linkStruct.Link;
 
+            var names = new List<string>
+            {
+                productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "m-offer-tile__subtitle", MatchDireciton.Equals)))
+                    .Select(z => z.InnerText)
+                    .FirstOrDefault()?
+                    .RemoveMetacharacters(),
+
+                productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "m-offer-tile__title", MatchDireciton.Equals)))
+                    .Select(z => z.InnerText)
+                    .FirstOrDefault()?
+                    .RemoveMetacharacters(),
+            };
+
+            names.RemoveAll(x => string.IsNullOrEmpty(x));
+            result.Name = String.Join(", ", names.ToArray());
+
             var promoCommnets = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "apricetagdiscount", MatchDireciton.InputContainsMatch)))
-                .Select(z => z.InnerText)
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__discount", MatchDireciton.Equals)))
+                .Select(z => z.InnerText.RemoveMetacharacters())
                 .ToList();
 
             if (promoCommnets.Count != 0)
             {
-                result.Description = "PROMOCJA!" + String.Join(", ", promoCommnets.ToArray());
+                result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
             }
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
-
-            var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "tilename", MatchDireciton.InputContainsMatch)))
-                .Select(z => z.InnerText)
-                .FirstOrDefault();
-
-            result.Name = name;
-
             result.TimeStamp = DateTime.Now;
 
             return result;
