@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WEB.Shop.Domain.Infrastructure;
@@ -57,9 +58,18 @@ namespace WEB.Shop.DataBase
             return response;
         }
 
+        public List<(string, int, DateTime)> CheckDataBase()
+        {
+            var result = new List<(string, int, DateTime)>();
 
+            var shops = _context.Products.Select(s => s.Seller).Distinct();
 
+            foreach (var shop in shops)
+            {
+                result.Add((shop.ToString(), _context.Products.Where(p => p.Seller == shop).Count(), _context.Products.Where(p => p.Seller == shop).OrderByDescending(p => p.TimeStamp).Select(p => p.TimeStamp).FirstOrDefault()));
+            }
 
-
+            return result;
+        }
     }
 }

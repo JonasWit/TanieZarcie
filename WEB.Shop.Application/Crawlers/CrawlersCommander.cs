@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WEB.SearchEngine;
+using WEB.SearchEngine.Enums;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;
 
@@ -13,14 +15,30 @@ namespace WEB.Shop.Application.Crawlers
 
         public List<Product> Results { get; private set; }
         public string CurrentAction { get; private set; }
-        public int BiedronkaProducts { get; private set; }
-        public int KauflandProducts { get; private set; }
+
+        public Dictionary<string, int> DataCache { get; set; } 
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
+
+        public List<DataBaseSummary> DataBaseCheck { get; set; } = new List<DataBaseSummary>();
+
+        public class DataBaseSummary
+        {
+            public string Shop { get; set; }
+            public int ProductsCount { get; set; }
+            public DateTime OldestEntry { get; set; }
+        }
 
         public CrawlersCommander(ICrawlersDataBaseManager crawlersDataBaseManager)
         {
             _crawlersDataBaseManager = crawlersDataBaseManager;
             _searchEngine = new Engine();
+
+            DataCache = new Dictionary<string, int>();
+
+            foreach (var item in Enum.GetValues(typeof(Shops)))
+            {
+                DataCache.Add(item.ToString(), 0);
+            }
         }
 
         public async Task<int> ClearDataBaseAsync()
@@ -48,7 +66,8 @@ namespace WEB.Shop.Application.Crawlers
             CurrentAction = "Converting models";
             ConvertSearchModelsToDomainModels();
 
-            BiedronkaProducts = Results.Count;
+            DataCache[Shops.Biedronka.ToString()] = Results.Count;
+            
             return Results.Count;
         }
 
@@ -60,11 +79,11 @@ namespace WEB.Shop.Application.Crawlers
             CurrentAction = "Running crawler for Kaufland";
             await _searchEngine.RunCrawlerForKauflandAsync();
 
-
             CurrentAction = "Converting models";
             ConvertSearchModelsToDomainModels();
 
-            KauflandProducts = Results.Count;
+            DataCache[Shops.Kaufland.ToString()] = Results.Count;
+            
             return Results.Count;
         }
 
@@ -72,6 +91,21 @@ namespace WEB.Shop.Application.Crawlers
         {
             await ClearDataBaseAsync();
             return await _crawlersDataBaseManager.RefreshDatabaseAsync(Results);
+        }
+
+        public async Task CheckDataBase()
+        {
+            var check = await Task.Run(() => _crawlersDataBaseManager.CheckDataBase());
+
+            foreach (var item in check)
+            {
+                DataBaseCheck.Add(new DataBaseSummary
+                {
+                    Shop = item.Item1,
+                    ProductsCount = item.Item2,
+                    OldestEntry = item.Item3
+                });
+            }
         }
 
         private void ConvertSearchModelsToDomainModels()

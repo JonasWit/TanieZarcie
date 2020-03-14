@@ -19,7 +19,7 @@
         @if (mainLoading)
         {
             <div class="container">
-                <p>@commander.CurrentAction</p>
+                <h4 class="title is-4">@commander.CurrentAction</h4>
                 <progress class="progress is-small is-primary" max="100">25%</progress>
             </div>
         }
@@ -29,36 +29,58 @@
                 <div class="column">
                     <table class="table is-striped">
                         <tr>
+                            <th>Section</th>
                             <th>Import</th>
                             <th>Clear</th>
-                            <th>Data</th>
+                            <th>Search Engine Cache</th>
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-primary" @onclick="RunEngines">Run All Crawlers</button>
+                                <p>All Crawlers</p>
                             </td>
                             <td>
-                                <button class="btn btn-primary">Delete Everything</button>
+                                <button class="button is-warning" @onclick="RunEngines">Run Crawler</button>
                             </td>
-                            <td>produkty sciagniete dla wszystkich</td>
+                            <td>
+                                <button class="button is-danger">Delete</button>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@commander.DataCache.Values.Sum()</p>
+                            </td>
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-primary" @onclick="RunBiedronkaEngine">Run Biedronka Crawler</button>
+                                <p>Bierdronka</p>
                             </td>
                             <td>
-                                <button class="btn btn-primary">Delete products for Biedronka</button>
+                                <button class="button is-warning" @onclick="RunBiedronkaEngine">Run Crawler</button>
                             </td>
-                            <td>produkty sciagniete dla Biedronki</td>
+                            <td>
+                                <button class="button is-danger">Delete</button>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@commander.DataCache["Biedronka"]</p>
+                            </td>
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-primary" @onclick="RunKauflandEngine">Run Kaufland Crawlers</button>
+                                <p>Kaufland</p>
                             </td>
                             <td>
-                                <button class="btn btn-primary">Delete products for Kaufland</button>
+                                <button class="button is-warning" @onclick="RunKauflandEngine">Run Crawler</button>
                             </td>
-                            <td>produkty sciagniete dla Kauflanda</td>
+                            <td>
+                                <button class="button is-danger">Delete</button>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@commander.DataCache["Kaufland"]</p>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <table class="table is-striped">
+                        <tr>
+                            <th>Data Base Options</th>
                         </tr>
                         <tr>
                             <td>
@@ -80,11 +102,31 @@
 
         <div>
             <div>
-                <button class="btn btn-primary" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+                <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
             </div>
-            <div>
-                <button class="btn btn-primary" @onclick="RefreshEngineSummary">Check Engine Data</button>
-            </div>
+
+            <table class="table is-striped">
+                <tr>
+                    <th>Shop</th>
+                    <th>Products</th>
+                    <th>Oldest Record</th>
+                </tr>
+
+                @foreach (var item in commander.DataBaseCheck)
+                {
+                    <tr>
+                        <td>
+                            <p class="content is-medium">@item.Shop</p>
+                        </td>
+                        <td>
+                            <p class="content is-medium">@item.ProductsCount</p>
+                        </td>
+                        <td>
+                            <p class="content is-medium">@item.OldestEntry</p>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
         break;
@@ -131,21 +173,7 @@
         else
         {
             summaryLoading = true;
-            //await commander.RunEngineAsync();
-            summaryLoading = false;
-        }
-    }
-
-    private async Task RefreshEngineSummary()
-    {
-        if (summaryLoading)
-        {
-            return;
-        }
-        else
-        {
-            summaryLoading = true;
-            //await commander.RunEngineAsync();
+            await commander.CheckDataBase();
             summaryLoading = false;
         }
     }
