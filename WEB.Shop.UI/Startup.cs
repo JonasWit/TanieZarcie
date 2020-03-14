@@ -96,16 +96,13 @@ namespace WEB.Shop.UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
+  
             app.UseRouting();
-
             app.UseSession();
-
             app.UseAuthentication();
 
+            app.UseCookiePolicy();
             app.UseMvcWithDefaultRoute();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
