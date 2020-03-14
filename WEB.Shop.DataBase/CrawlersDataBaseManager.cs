@@ -45,7 +45,6 @@ namespace WEB.Shop.DataBase
                         Quantity = 100,
                         ProductId = product.Id
                     });
-
                 }
 
                 response = await _context.SaveChangesAsync();

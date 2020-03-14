@@ -100,6 +100,13 @@
         break;
     case ActiveTab.Summary:
 
+        @if (summaryLoading)
+        {
+            <div class="container">
+                <progress class="progress is-small is-primary" max="100">25%</progress>
+            </div>
+        }
+
         <div>
             <div>
                 <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
