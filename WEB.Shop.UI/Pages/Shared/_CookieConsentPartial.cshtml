@@ -8,12 +8,22 @@
 
 @if (showBanner)
 {
+
     <div id="cookieConsent" class="alert alert-warning alert-dismissible fade show" role="alert">
-        Use this space to summarize your privacy and cookie use policy. <a asp-page="/Privacy">Learn More</a>.
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-            <span aria-hidden="true">Accept</span>
-        </button>
+        <article class="message is-warning">
+            <div class="message-header">
+                Polityka Prywatności
+            </div>
+            <div class="message-body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt animi, facilis laudantium eaque repudiandae optio asperiores quos cumque minus, officia at necessitatibus soluta ut odit incidunt sint blanditiis obcaecati inventore.
+            </div>
+            <a asp-page="/Privacy">Learn More</a>.
+            <button type="button" class="button is-success" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+                <span aria-hidden="true">Accept</span>
+            </button>
+        </article>
     </div>
+
     <script>
         (function () {
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");

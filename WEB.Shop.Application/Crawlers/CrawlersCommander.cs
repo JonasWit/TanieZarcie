@@ -11,11 +11,11 @@ namespace WEB.Shop.Application.Crawlers
 {
     public class CrawlersCommander
     {
-        private ICrawlersDataBaseManager _crawlersDataBaseManager;
-        private Engine _searchEngine;
+        private readonly ICrawlersDataBaseManager _crawlersDataBaseManager;
+        private readonly Engine _searchEngine;
 
         public List<Product> Results { get; private set; }
-        public Dictionary<string, int> DataCache { get; set; } 
+        public Dictionary<string, int> DataCache { get; set; }
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
         public List<DataBaseSummary> DataBaseCheck { get; set; } = new List<DataBaseSummary>();
 
@@ -41,18 +41,21 @@ namespace WEB.Shop.Application.Crawlers
 
         #region Database Cleanup
 
-        public async Task<int> ClearDataBaseAsync()
+        public async Task ClearDataBaseAsync()
         {
-            return await _crawlersDataBaseManager.ClearDataBaseAsync();
+            await _crawlersDataBaseManager.ClearDataBaseAsync();
+            await CheckDataBase();
         }
 
-        public async Task<int> ClearKauflandDataAsync()
+        public async Task ClearKauflandDataAsync()
         {
-            return await _crawlersDataBaseManager.DeleteProductFromShops("Kaufland");
+            await _crawlersDataBaseManager.DeleteProductFromShops(Shops.Kaufland.ToString());
+            await CheckDataBase();
         }
-        public async Task<int> ClearBiedronkaDataAsync()
+        public async Task ClearBiedronkaDataAsync()
         {
-            return await _crawlersDataBaseManager.DeleteProductFromShops("Biedronka");
+            await _crawlersDataBaseManager.DeleteProductFromShops(Shops.Biedronka.ToString());
+            await CheckDataBase();
         }
 
         #endregion
@@ -63,6 +66,9 @@ namespace WEB.Shop.Application.Crawlers
         {
             await _searchEngine.RunAllCrawlersAsync();
             ConvertSearchModelsToDomainModels();
+
+            DataCache[Shops.Biedronka.ToString()] = Results.Where(p => p.Seller == Shops.Biedronka.ToString()).Count();
+            DataCache[Shops.Kaufland.ToString()] = Results.Where(p => p.Seller == Shops.Kaufland.ToString()).Count();
             return Results.Count;
         }
 
@@ -70,6 +76,7 @@ namespace WEB.Shop.Application.Crawlers
         {
             await _searchEngine.RunCrawlerForBiedronkaAsync();
             ConvertSearchModelsToDomainModels();
+
             DataCache[Shops.Biedronka.ToString()] = Results.Count;
             return Results.Count;
         }
@@ -78,6 +85,7 @@ namespace WEB.Shop.Application.Crawlers
         {
             await _searchEngine.RunCrawlerForKauflandAsync();
             ConvertSearchModelsToDomainModels();
+
             DataCache[Shops.Kaufland.ToString()] = Results.Count;
             return Results.Count;
         }
@@ -90,35 +98,38 @@ namespace WEB.Shop.Application.Crawlers
 
         public async Task<int> ClearCacheBiedronkaEngineAsync()
         {
-            await Task.Run(() => Results.RemoveAll(p => p.Seller == "Biedronka"));
+            await Task.Run(() => Results.RemoveAll(p => p.Seller == Shops.Biedronka.ToString()));
             return Results.Count;
         }
 
         public async Task<int> ClearCacheKauflandEngineAsync()
         {
-            await Task.Run(() => Results.RemoveAll(p => p.Seller == "Kaufland"));
+            await Task.Run(() => Results.RemoveAll(p => p.Seller == Shops.Kaufland.ToString()));
             return Results.Count;
         }
 
         #endregion
 
         #region Database Update
-        public async Task<int> UpdateAllData()
+        public async Task UpdateAllData()
         {
             await ClearDataBaseAsync();
-            return await _crawlersDataBaseManager.UpdateDatabaseAsync(Results);
+            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results);
+            await CheckDataBase();
         }
 
-        public async Task<int> UpdateBiedronkaBase()
+        public async Task UpdateBiedronkaBase()
         {
             await ClearBiedronkaDataAsync();
-            return await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == "Biedronka").ToList());
+            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == Shops.Biedronka.ToString()).ToList());
+            await CheckDataBase();
         }
 
-        public async Task<int> UpdateKauflandBase()
+        public async Task UpdateKauflandBase()
         {
             await ClearKauflandDataAsync();
-            return await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == "Kaufland").ToList());
+            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == Shops.Kaufland.ToString()).ToList());
+            await CheckDataBase();
         }
 
         #endregion

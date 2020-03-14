@@ -90,42 +90,45 @@
             </div>
         }
 
-        <div>
-            <div>
-                <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
-                <button class="btn btn-primary" @onclick="ClearAllData">Clear All Data</button>
-                <button class="btn btn-primary" @onclick="ClearBiedronkaDataBase">Clear Biedronka Data</button>
-                <button class="btn btn-primary" @onclick="ClearKauflandDataBase">Clear Kaufland Data</button>
+        <div class="columns">
+            <div class="column is-3">
+                <div class="block">
+                    <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+                </div>
+                    <button class="button is-danger" @onclick="ClearAllData">Clear All Data</button>
+                    <button class="button is-danger" @onclick="ClearBiedronkaDataBase">Clear Biedronka Data</button>
+                    <button class="button is-danger" @onclick="ClearKauflandDataBase">Clear Kaufland Data</button>
+         
+                <div class="container">
+                    <button class="button is-warning" @onclick="UpdateDataBase">Update All Data</button>
+                    <button class="button btn-warning" @onclick="UpdateBiedronkaDataBase">Update Biedronka Data</button>
+                    <button class="button btn-warning" @onclick="UpdateKauflandDataBase">Update Kaufland Data</button>
+                </div>
             </div>
-
-            <div>
-                <button class="btn btn-primary" @onclick="UpdateDataBase">Update All Data</button>
-                <button class="btn btn-primary" @onclick="UpdateBiedronkaDataBase">Update Biedronka Data</button>
-                <button class="btn btn-primary" @onclick="UpdateKauflandDataBase">Update Kaufland Data</button>
-            </div>
-
-            <table class="table is-striped">
-                <tr>
-                    <th>Shop</th>
-                    <th>Products</th>
-                    <th>Oldest Record</th>
-                </tr>
-
-                @foreach (var item in commander.DataBaseCheck)
-                {
+            <div class="column is-6">
+                <table class="table is-striped">
                     <tr>
-                        <td>
-                            <p class="content is-medium">@item.Shop</p>
-                        </td>
-                        <td>
-                            <p class="content is-medium">@item.ProductsCount</p>
-                        </td>
-                        <td>
-                            <p class="content is-medium">@item.OldestEntry</p>
-                        </td>
+                        <th>Shop</th>
+                        <th>Products</th>
+                        <th>Oldest Record</th>
                     </tr>
-                }
-            </table>
+
+                    @foreach (var item in commander.DataBaseCheck)
+                    {
+                        <tr>
+                            <td>
+                                <p class="content is-medium">@item.Shop</p>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@item.ProductsCount</p>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@item.OldestEntry</p>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
 
         break;
