@@ -29,7 +29,7 @@ namespace WEB.Shop.DataBase
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> RefreshDatabaseAsync(List<Product> products)
+        public async Task<int> UpdateDatabaseAsync(List<Product> products)
         {
             int response;
             try

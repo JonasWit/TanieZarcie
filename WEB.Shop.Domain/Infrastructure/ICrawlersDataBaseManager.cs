@@ -8,7 +8,7 @@ namespace WEB.Shop.Domain.Infrastructure
 {
     public interface ICrawlersDataBaseManager
     {
-        Task<int> RefreshDatabaseAsync(List<Product> products);
+        Task<int> UpdateDatabaseAsync(List<Product> products);
         Task<int> ClearDataBaseAsync();
         Task<int> DeleteProductFromShops(string shop);
         List<(string, int, DateTime)> CheckDataBase();

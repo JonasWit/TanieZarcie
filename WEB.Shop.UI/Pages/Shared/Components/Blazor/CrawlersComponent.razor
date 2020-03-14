@@ -6,8 +6,8 @@
 <div>
     <div class="tabs is-centered">
         <ul>
-            <li><a @onclick="SelectMainTab">Main Options</a></li>
-            <li><a @onclick="SelectSummaryTab">Database Summary</a></li>
+            <li><a @onclick="SelectCrawlersTab">Crawlers</a></li>
+            <li><a @onclick="SelectDatabaseTab">Database</a></li>
         </ul>
     </div>
 </div>
@@ -16,10 +16,9 @@
 {
     case ActiveTab.Main:
 
-        @if (mainLoading)
+        @if (crawlersTabLoading)
         {
             <div class="container">
-                <h4 class="title is-4">@commander.CurrentAction</h4>
                 <progress class="progress is-small is-primary" max="100">25%</progress>
             </div>
         }
@@ -42,7 +41,7 @@
                                 <button class="button is-warning" @onclick="RunEngines">Run Crawler</button>
                             </td>
                             <td>
-                                <button class="button is-danger">Delete</button>
+                                <button class="button is-danger" @onclick="ClearAllData">Delete</button>
                             </td>
                             <td>
                                 <p class="content is-medium">@commander.DataCache.Values.Sum()</p>
@@ -56,7 +55,7 @@
                                 <button class="button is-warning" @onclick="RunBiedronkaEngine">Run Crawler</button>
                             </td>
                             <td>
-                                <button class="button is-danger">Delete</button>
+                                <button class="button is-danger" @onclick="ClearBiedronkaCache">Delete</button>
                             </td>
                             <td>
                                 <p class="content is-medium">@commander.DataCache["Biedronka"]</p>
@@ -70,26 +69,10 @@
                                 <button class="button is-warning" @onclick="RunKauflandEngine">Run Crawler</button>
                             </td>
                             <td>
-                                <button class="button is-danger">Delete</button>
+                                <button class="button is-danger" @onclick="ClearKauflandCache">Delete</button>
                             </td>
                             <td>
                                 <p class="content is-medium">@commander.DataCache["Kaufland"]</p>
-                            </td>
-                        </tr>
-
-                    </table>
-                    <table class="table is-striped">
-                        <tr>
-                            <th>Data Base Options</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="btn btn-primary" @onclick="ClearDataBase">Clear DataBase</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="btn btn-primary" @onclick="UpdateDataBase">Update Database with results</button>
                             </td>
                         </tr>
                     </table>
@@ -100,7 +83,7 @@
         break;
     case ActiveTab.Summary:
 
-        @if (summaryLoading)
+        @if (databaseTabLoading)
         {
             <div class="container">
                 <progress class="progress is-small is-primary" max="100">25%</progress>
@@ -110,6 +93,15 @@
         <div>
             <div>
                 <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+                <button class="btn btn-primary" @onclick="ClearAllData">Clear All Data</button>
+                <button class="btn btn-primary" @onclick="ClearBiedronkaDataBase">Clear Biedronka Data</button>
+                <button class="btn btn-primary" @onclick="ClearKauflandDataBase">Clear Kaufland Data</button>
+            </div>
+
+            <div>
+                <button class="btn btn-primary" @onclick="UpdateDataBase">Update All Data</button>
+                <button class="btn btn-primary" @onclick="UpdateBiedronkaDataBase">Update Biedronka Data</button>
+                <button class="btn btn-primary" @onclick="UpdateKauflandDataBase">Update Kaufland Data</button>
             </div>
 
             <table class="table is-striped">
@@ -145,8 +137,8 @@
 
 @code {
 
-    private bool mainLoading;
-    private bool summaryLoading;
+    private bool crawlersTabLoading;
+    private bool databaseTabLoading;
 
     private ActiveTab activeTab = ActiveTab.Main;
 
@@ -156,102 +148,218 @@
         Summary,
     }
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //todo: add db data refresh on init
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await commander.CheckDataBase();
+            databaseTabLoading = false;
+        }
+    }
 
-    private void SelectMainTab()
+    private void SelectCrawlersTab()
     {
         activeTab = ActiveTab.Main;
     }
 
-    private void SelectSummaryTab()
+    private void SelectDatabaseTab()
     {
         activeTab = ActiveTab.Summary;
     }
 
-    private async Task RefreshDataBaseSummary()
-    {
-        if (summaryLoading)
-        {
-            return;
-        }
-        else
-        {
-            summaryLoading = true;
-            await commander.CheckDataBase();
-            summaryLoading = false;
-        }
-    }
+    #region Crawlers
 
     private async Task RunEngines()
     {
-        if (mainLoading)
+        if (crawlersTabLoading)
         {
             return;
         }
         else
         {
-            mainLoading = true;
-            await commander.RunEngineAsync();
-            mainLoading = false;
+            crawlersTabLoading = true;
+            await commander.RunEnginesAsync();
+            crawlersTabLoading = false;
         }
     }
 
     private async Task RunBiedronkaEngine()
     {
-        if (mainLoading)
+        if (crawlersTabLoading)
         {
             return;
         }
         else
         {
-            mainLoading = true;
+            crawlersTabLoading = true;
             await commander.RunBiedronkaEngineAsync();
-            mainLoading = false;
+            crawlersTabLoading = false;
         }
     }
 
     private async Task RunKauflandEngine()
     {
-        if (mainLoading)
+        if (crawlersTabLoading)
         {
             return;
         }
         else
         {
-            mainLoading = true;
+            crawlersTabLoading = true;
             await commander.RunKauflandEngineAsync();
-            mainLoading = false;
+            crawlersTabLoading = false;
         }
     }
 
-    private async Task ClearDataBase()
+    private async Task ClearAllCache()
     {
-        if (mainLoading)
+        if (crawlersTabLoading)
         {
             return;
         }
         else
         {
-            mainLoading = true;
+            crawlersTabLoading = true;
+            await commander.ClearCacheFullAsync();
+            crawlersTabLoading = false;
+        }
+    }
+
+    private async Task ClearKauflandCache()
+    {
+        if (crawlersTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            crawlersTabLoading = true;
+            await commander.ClearCacheKauflandEngineAsync();
+            crawlersTabLoading = false;
+        }
+    }
+
+    private async Task ClearBiedronkaCache()
+    {
+        if (crawlersTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            crawlersTabLoading = true;
+            await commander.ClearCacheBiedronkaEngineAsync();
+            crawlersTabLoading = false;
+        }
+    }
+
+    #endregion
+
+    #region Database
+
+    private async Task RefreshDataBaseSummary()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await commander.CheckDataBase();
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task ClearAllData()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
             await commander.ClearDataBaseAsync();
-            mainLoading = false;
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task ClearBiedronkaDataBase()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await commander.ClearBiedronkaDataAsync();
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task ClearKauflandDataBase()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await commander.ClearKauflandDataAsync();
+            databaseTabLoading = false;
         }
     }
 
     private async Task UpdateDataBase()
     {
-        if (mainLoading)
+        if (databaseTabLoading)
         {
             return;
         }
         else
         {
-            mainLoading = true;
-            await commander.UpdateDataBase();
-            mainLoading = false;
+            databaseTabLoading = true;
+            await commander.UpdateAllData();
+            databaseTabLoading = false;
         }
     }
+
+    private async Task UpdateBiedronkaDataBase()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await commander.UpdateBiedronkaBase();
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task UpdateKauflandDataBase()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await commander.UpdateKauflandBase();
+            databaseTabLoading = false;
+        }
+    }
+
+    #endregion
+
 }
