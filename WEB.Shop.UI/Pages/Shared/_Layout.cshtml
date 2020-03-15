@@ -7,53 +7,80 @@
 
     <environment include="Development">
         @*<link href="~/lib/bulma-0.8.0/css/bulma.css" rel="stylesheet" />*@
-        <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
     </environment>
 
     <environment include="Production">
         @*<link href="~/lib/bulma-0.8.0/css/bulma.min.css" rel="stylesheet" />*@
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
 </head>
 
 <body>
-    <section class="hero is-fullheight">
+    <section>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+            <a class="navbar-brand" href="#">TANIE ŻARCIE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
-                <div class="navbar-menu">
-                    <div class="navbar-start">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="navbar-item" asp-page="/Admin/Index">Admin</a>
-                        }
-                        <a class="navbar-item" asp-page="/Index">Tanie Żarcie</a>
-                        <a class="navbar-item" asp-page="/MainProducts">Wszystkie Produkty</a>
-                    </div>
 
-                    <div class="navbar-end">
+                        }
+
+                    </li>
+                    <li class="nav-item">
+                        <a asp-page="/Index">Top Promocje</a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-page="/MainProducts">Wszystkie Produkty</a>
+
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
                         <vc:cart view="Small"></vc:cart>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <a class="navbar-item" asp-controller="Account" asp-action="Logout">Sign Out</a>
-                        }
-                    </div>
-                </div>
+                    </li>
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Logout">
+                                <span class="glyphicon glyphicon-log-in">
+                                </span>Logout
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-page="/Admin/Index">Admin</a>
+                        </li>
+                    }
+                                        
+                </ul>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
+
+
+
         </nav>
+
 
         <partial name="_CookieConsentPartial" />
         <div>
-
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
@@ -71,11 +98,13 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </environment>
     <environment include="Production">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
