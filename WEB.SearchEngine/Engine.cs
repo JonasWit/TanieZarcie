@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Crawlers;
 using WEB.SearchEngine.Enums;
@@ -18,7 +16,7 @@ namespace WEB.SearchEngine
 
             Crawlers.Add(new CrawlerBiedronka(Shops.Biedronka));
             Crawlers.Add(new CrawlerKaufland(Shops.Kaufland));
-            Crawlers.Add(new CrawlerLidl(Shops.Lidl));
+            //Crawlers.Add(new CrawlerLidl(Shops.Lidl));
             Crawlers.Add(new CrawlerCarrefour(Shops.Carrefour));
 
             foreach (var crawler in Crawlers)
@@ -42,6 +40,9 @@ namespace WEB.SearchEngine
                     Crawlers.Add(biedronkaCrawler);
                     break;
                 case Shops.Lidl:
+                    var lidlCrawler = new CrawlerLidl(shop);
+                    await Task.Run(() => lidlCrawler.GetData());
+                    Crawlers.Add(lidlCrawler);
                     break;
                 case Shops.Kaufland:
                     var kauflandCrawler = new CrawlerKaufland(shop);

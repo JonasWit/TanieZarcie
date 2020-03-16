@@ -76,6 +76,29 @@ namespace WEB.Shop.Application.Crawlers
             return Results.Count;
         }
 
+        private void ConvertSearchModelsToDomainModels()
+        {
+            Results = new List<Product>();
+
+            foreach (var crawler in _searchEngine.Crawlers)
+            {
+                foreach (var product in crawler.Products)
+                {
+                    Results.Add(new Product
+                    {
+                        Name = product.Name,
+                        Description = product.Description,
+                        Category = product.Category,
+                        Producer = product.Producer,
+                        Seller = product.Seller,
+                        SourceUrl = product.SourceUrl,
+                        TimeStamp = product.TimeStamp,
+                        Value = product.Value
+                    });
+                }
+            }
+        }
+
         #endregion
 
         #region Database Update
@@ -153,27 +176,6 @@ namespace WEB.Shop.Application.Crawlers
             }
         }
 
-        private void ConvertSearchModelsToDomainModels()
-        {
-            Results = new List<Product>();
 
-            foreach (var crawler in _searchEngine.Crawlers)
-            {
-                foreach (var product in crawler.Products)
-                {
-                    Results.Add(new Product
-                    {
-                        Name = product.Name,
-                        Description = product.Description,
-                        Category = product.Category,
-                        Producer = product.Producer,
-                        Seller = product.Seller,
-                        SourceUrl = product.SourceUrl,
-                        TimeStamp = product.TimeStamp,
-                        Value = product.Value
-                    });
-                }
-            }
-        }
     }
 }
