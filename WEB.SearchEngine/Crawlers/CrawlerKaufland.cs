@@ -18,7 +18,7 @@ namespace WEB.SearchEngine.Crawlers
             Shop = shop;
         }
 
-        public override string BaseUrl { get { return "https://www.kaufland.pl/"; } }
+        public override string[] BaseUrls { get { return new string[] { "https://www.kaufland.pl/" }; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {

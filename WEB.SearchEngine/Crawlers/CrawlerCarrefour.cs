@@ -17,7 +17,7 @@ namespace WEB.SearchEngine.Crawlers
             Shop = shop;
         }
 
-        public override string BaseUrl { get { return ""; } }
+        public override string[] BaseUrls { get { return new string[] { "" }; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {

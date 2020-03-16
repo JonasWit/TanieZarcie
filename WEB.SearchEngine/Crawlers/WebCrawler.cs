@@ -15,8 +15,7 @@ namespace WEB.SearchEngine.Crawlers
     public abstract class WebCrawler
     {
         public List<Product> Products { get; set; } = new List<Product>();
-        public virtual string BaseUrl { get { return ""; } } 
-        public virtual string BaseUrlForProducts { get; set; }
+        public virtual string[] BaseUrls { get { return new string[] { "" }; } } 
         public Shops Shop { get; set; }
 
         public struct LinkStruct
@@ -37,7 +36,7 @@ namespace WEB.SearchEngine.Crawlers
                 var tasks = new List<Task>();      
                 var webStructs = new List<LinkStruct>();
 
-                var linksToVisit = ParseLinks(BaseUrl);
+                var linksToVisit = ParseLinks(BaseUrls);
                 linksToVisit.RemoveAll(item => !item.Contains("http") || !item.Contains("https"));
 
                 foreach (var link in linksToVisit)
@@ -125,27 +124,29 @@ namespace WEB.SearchEngine.Crawlers
             return null;
         }
 
-        public List<string> ParseLinks(string urlToCrawl)
+        public List<string> ParseLinks(string[] urlsToCrawl)
         {
             byte[] data;
-
-            using (WebClient webClient = new WebClient())
-            {
-                data = webClient.DownloadData(urlToCrawl);
-            }
-
-            string download = Encoding.ASCII.GetString(data);
-
             HashSet<string> list = new HashSet<string>();
 
-            var doc = new HtmlDocument();
-            doc.LoadHtml(download);
-            HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//a[@href]");
-
-            foreach (var n in nodes)
+            foreach (var urlToCrawl in urlsToCrawl)
             {
-                string href = n.Attributes["href"].Value;
-                list.Add(GetAbsoluteUrlString(urlToCrawl, href));
+                using (WebClient webClient = new WebClient())
+                {
+                    data = webClient.DownloadData(urlToCrawl);
+                }
+
+                string download = Encoding.ASCII.GetString(data);
+
+                var doc = new HtmlDocument();
+                doc.LoadHtml(download);
+                HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//a[@href]");
+
+                foreach (var n in nodes)
+                {
+                    string href = n.Attributes["href"].Value;
+                    list.Add(GetAbsoluteUrlString(urlToCrawl, href));
+                }
             }
 
             return list.ToList();
