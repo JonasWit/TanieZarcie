@@ -39,30 +39,9 @@ namespace WEB.Shop.Application.Crawlers
             }
         }
 
-        #region Database Cleanup
-
-        public async Task ClearDataBaseAsync()
-        {
-            await _crawlersDataBaseManager.ClearDataBaseAsync();
-            await CheckDataBase();
-        }
-
-        public async Task ClearKauflandDataAsync()
-        {
-            await _crawlersDataBaseManager.DeleteProductFromShops(Shops.Kaufland.ToString());
-            await CheckDataBase();
-        }
-        public async Task ClearBiedronkaDataAsync()
-        {
-            await _crawlersDataBaseManager.DeleteProductFromShops(Shops.Biedronka.ToString());
-            await CheckDataBase();
-        }
-
-        #endregion
-
         #region Crawlers
 
-        public async Task<int> RunEnginesAsync()
+        public async Task<int> RunEngineAsync()
         {
             await _searchEngine.RunAllCrawlersAsync();
             ConvertSearchModelsToDomainModels();
@@ -72,39 +51,28 @@ namespace WEB.Shop.Application.Crawlers
             return Results.Count;
         }
 
-        public async Task<int> RunBiedronkaEngineAsync()
+        public async Task<int> RunEngineAsync(string shop)
         {
-            await _searchEngine.RunCrawlerForBiedronkaAsync();
+            var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
+
+            await _searchEngine.RunCrawlerForSpecificShopAsync(shopEnum);
             ConvertSearchModelsToDomainModels();
 
-            DataCache[Shops.Biedronka.ToString()] = Results.Count;
+            DataCache[shopEnum.ToString()] = Results.Count;
             return Results.Count;
         }
 
-        public async Task<int> RunKauflandEngineAsync()
-        {
-            await _searchEngine.RunCrawlerForKauflandAsync();
-            ConvertSearchModelsToDomainModels();
-
-            DataCache[Shops.Kaufland.ToString()] = Results.Count;
-            return Results.Count;
-        }
-
-        public async Task<int> ClearCacheFullAsync()
+        public async Task<int> ClearCacheAsync()
         {
             await Task.Run(() => Results.Clear());
             return Results.Count;
         }
 
-        public async Task<int> ClearCacheBiedronkaEngineAsync()
+        public async Task<int> ClearCacheAsync(string shop)
         {
-            await Task.Run(() => Results.RemoveAll(p => p.Seller == Shops.Biedronka.ToString()));
-            return Results.Count;
-        }
+            var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
-        public async Task<int> ClearCacheKauflandEngineAsync()
-        {
-            await Task.Run(() => Results.RemoveAll(p => p.Seller == Shops.Kaufland.ToString()));
+            await Task.Run(() => Results.RemoveAll(p => p.Seller == shopEnum.ToString()));
             return Results.Count;
         }
 
@@ -118,17 +86,51 @@ namespace WEB.Shop.Application.Crawlers
             await CheckDataBase();
         }
 
-        public async Task UpdateBiedronkaBase()
+        public async Task UpdateDataBase(string shop)
         {
-            await ClearBiedronkaDataAsync();
-            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == Shops.Biedronka.ToString()).ToList());
+            var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
+
+            switch (shopEnum)
+            {
+                case Shops.Biedronka:
+                    await ClearDataBaseAsync(shopEnum.ToString());
+                    break;
+                case Shops.Lidl:
+                    break;
+                case Shops.Kaufland:
+                    await ClearDataBaseAsync(shopEnum.ToString());
+                    break;
+                case Shops.Carrefour:
+                    break;
+                case Shops.Auchan:
+                    break;
+                case Shops.Stokrotka:
+                    break;
+                case Shops.Zabka:
+                    break;
+                default:
+                    break;
+            }
+
+            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == shopEnum.ToString()).ToList());
             await CheckDataBase();
         }
 
-        public async Task UpdateKauflandBase()
+        #endregion
+
+        #region Database Cleanup
+
+        public async Task ClearDataBaseAsync()
         {
-            await ClearKauflandDataAsync();
-            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == Shops.Kaufland.ToString()).ToList());
+            await _crawlersDataBaseManager.ClearDataBaseAsync();
+            await CheckDataBase();
+        }
+
+        public async Task ClearDataBaseAsync(string shop)
+        {
+            var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
+
+            await _crawlersDataBaseManager.DeleteProductFromShops(shopEnum.ToString());
             await CheckDataBase();
         }
 

@@ -4,7 +4,11 @@
     { 
         Biedronka = 0,
         Lidl = 1,
-        Kaufland = 3
+        Kaufland = 2,
+        Carrefour = 3,
+        Auchan = 4,
+        Stokrotka = 5,
+        Zabka = 6
     }
 
     public enum MatchDirection

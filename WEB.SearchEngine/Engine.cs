@@ -27,22 +27,35 @@ namespace WEB.SearchEngine
             await Task.Run(() => Task.WaitAll(tasks.ToArray()));
         }
 
-        public async Task RunCrawlerForBiedronkaAsync()
+        public async Task RunCrawlerForSpecificShopAsync(Shops shop)
         {
-            Crawlers.RemoveAll(c => c.Shop == Shops.Biedronka);
-            var crawler = new CrawlerBiedronka(Shops.Biedronka);
+            Crawlers.RemoveAll(c => c.Shop == shop);
 
-            await Task.Run(() => crawler.GetData());
-            Crawlers.Add(crawler);
-        }
-
-        public async Task RunCrawlerForKauflandAsync()
-        {
-            Crawlers.RemoveAll(c => c.Shop == Shops.Kaufland);
-            var crawler = new CrawlerKaufland(Shops.Kaufland);
-
-            await Task.Run(() => crawler.GetData());
-            Crawlers.Add(crawler);
+            switch (shop)
+            {
+                case Shops.Biedronka:
+                    var biedronkaCrawler = new CrawlerBiedronka(shop);
+                    await Task.Run(() => biedronkaCrawler.GetData());
+                    Crawlers.Add(biedronkaCrawler);
+                    break;
+                case Shops.Lidl:
+                    break;
+                case Shops.Kaufland:
+                    var kauflandCrawler = new CrawlerKaufland(shop);
+                    await Task.Run(() => kauflandCrawler.GetData());
+                    Crawlers.Add(kauflandCrawler);
+                    break;
+                case Shops.Carrefour:
+                    break;
+                case Shops.Auchan:
+                    break;
+                case Shops.Stokrotka:
+                    break;
+                case Shops.Zabka:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

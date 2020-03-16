@@ -6,8 +6,9 @@
 <div>
     <div class="tabs is-centered">
         <ul>
-            <li><a @onclick="SelectCrawlersTab">Crawlers</a></li>
-            <li><a @onclick="SelectDatabaseTab">Database</a></li>
+            <li><a @onclick="SelectCrawlersTab" class="title">Crawlers</a></li>
+            <li><a @onclick="SelectDatabaseTab" class="title">Database</a></li>
+            <li><a @onclick="SelectSummaryTab" class="title">Summary</a></li>
         </ul>
     </div>
 </div>
@@ -28,60 +29,51 @@
                 <div class="column">
                     <table class="table is-striped">
                         <tr>
-                            <th>Section</th>
-                            <th>Import</th>
-                            <th>Clear</th>
-                            <th>Search Engine Cache</th>
+                            <th class="subtitle">Section</th>
+                            <th class="subtitle">Import</th>
+                            <th class="subtitle">Clear</th>
+                            <th class="subtitle">Cache</th>
                         </tr>
                         <tr>
                             <td>
-                                <p>All Crawlers</p>
+                                <p class="content is-medium">All Crawlers</p>
                             </td>
                             <td>
-                                <button class="button is-warning" @onclick="RunEngines">Run Crawler</button>
+                                <button class="button is-warning is-outlined" @onclick="RunEngine">Run</button>
                             </td>
                             <td>
-                                <button class="button is-danger" @onclick="ClearAllData">Delete</button>
+                                <button class="button is-danger is-outlined" @onclick="ClearCache">Clear</button>
                             </td>
                             <td>
                                 <p class="content is-medium">@commander.DataCache.Values.Sum()</p>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <p>Bierdronka</p>
-                            </td>
-                            <td>
-                                <button class="button is-warning" @onclick="RunBiedronkaEngine">Run Crawler</button>
-                            </td>
-                            <td>
-                                <button class="button is-danger" @onclick="ClearBiedronkaCache">Delete</button>
-                            </td>
-                            <td>
-                                <p class="content is-medium">@commander.DataCache["Biedronka"]</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Kaufland</p>
-                            </td>
-                            <td>
-                                <button class="button is-warning" @onclick="RunKauflandEngine">Run Crawler</button>
-                            </td>
-                            <td>
-                                <button class="button is-danger" @onclick="ClearKauflandCache">Delete</button>
-                            </td>
-                            <td>
-                                <p class="content is-medium">@commander.DataCache["Kaufland"]</p>
-                            </td>
-                        </tr>
+
+                        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                        {
+                            <tr>
+                                <td>
+                                    <p class="content is-medium">@shop.ToString()</p>
+                                </td>
+                                <td>
+                                    <button class="button is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
+                                </td>
+                                <td>
+                                    <button class="button is-danger is-outlined" @onclick="(() => RunEngine(shop))">Clear</button>
+                                </td>
+                                <td>
+                                    <p class="content is-medium">@commander.DataCache[shop.ToString()]</p>
+                                </td>
+                            </tr>
+                        }
+
                     </table>
                 </div>
             </div>
         </div>
-
         break;
-    case ActiveTab.Summary:
+
+    case ActiveTab.Database:
 
         @if (databaseTabLoading)
         {
@@ -90,45 +82,71 @@
             </div>
         }
 
-        <div class="columns">
-            <div class="column is-3">
-                <div class="block">
-                    <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
-                </div>
-                    <button class="button is-danger" @onclick="ClearAllData">Clear All Data</button>
-                    <button class="button is-danger" @onclick="ClearBiedronkaDataBase">Clear Biedronka Data</button>
-                    <button class="button is-danger" @onclick="ClearKauflandDataBase">Clear Kaufland Data</button>
-         
-                <div class="container">
-                    <button class="button is-warning" @onclick="UpdateDataBase">Update All Data</button>
-                    <button class="button btn-warning" @onclick="UpdateBiedronkaDataBase">Update Biedronka Data</button>
-                    <button class="button btn-warning" @onclick="UpdateKauflandDataBase">Update Kaufland Data</button>
-                </div>
-            </div>
-            <div class="column is-6">
-                <table class="table is-striped">
-                    <tr>
-                        <th>Shop</th>
-                        <th>Products</th>
-                        <th>Oldest Record</th>
-                    </tr>
+        <div class="block">
+            <p class="subtitle has-text-centered">General Database Options</p>
+            <button class="button is-warning is-outlined" @onclick="UpdateDataBase">Update All Data</button>
+            <button class="button is-danger is-outlined" @onclick="ClearDataBase">Clear All Data</button>
+        </div>
 
-                    @foreach (var item in commander.DataBaseCheck)
-                    {
-                        <tr>
-                            <td>
-                                <p class="content is-medium">@item.Shop</p>
-                            </td>
-                            <td>
-                                <p class="content is-medium">@item.ProductsCount</p>
-                            </td>
-                            <td>
-                                <p class="content is-medium">@item.OldestEntry</p>
-                            </td>
-                        </tr>
-                    }
-                </table>
+        <div class="block">
+            <p class="subtitle has-text-centered">Update Database Options</p>
+            <table class="table is-striped">
+                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                {
+                    <tr>
+                        <td>
+                            <p class="content is-medium">@shop.ToString()</p>
+                        </td>
+                        <td>
+                            <button class="button is-warning is-outlined" @onclick="(() => UpdateDataBase(shop))">Update</button>
+                        </td>
+                        <td>
+                            <button class="button is-danger is-outlined" @onclick="(() => ClearDataBase(shop))">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        break;
+
+    case ActiveTab.Summary:
+
+        @if (summaryTabLoading)
+        {
+            <div class="container">
+                <progress class="progress is-small is-primary" max="100">25%</progress>
             </div>
+        }
+
+        <div class="block">
+            <p class="subtitle has-text-centered">General Database Options</p>
+            <button class="button is-success is-outlined" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+        </div>
+
+        <div class="block">
+            <table class="table is-striped">
+                <tr>
+                    <th>Shop</th>
+                    <th>Products</th>
+                    <th>Oldest Record</th>
+                </tr>
+
+                @foreach (var item in commander.DataBaseCheck)
+                {
+                    <tr>
+                        <td>
+                            <p class="content is-medium">@item.Shop</p>
+                        </td>
+                        <td>
+                            <p class="content is-medium">@item.ProductsCount</p>
+                        </td>
+                        <td>
+                            <p class="content is-medium">@item.OldestEntry</p>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
         break;
@@ -142,13 +160,26 @@
 
     private bool crawlersTabLoading;
     private bool databaseTabLoading;
+    private bool summaryTabLoading;
 
     private ActiveTab activeTab = ActiveTab.Main;
 
     private enum ActiveTab
     {
         Main,
-        Summary,
+        Database,
+        Summary
+    }
+
+    public enum Shops
+    {
+        Biedronka = 0,
+        Lidl = 1,
+        Kaufland = 2,
+        Carrefour = 3,
+        Auchan = 4,
+        Stokrotka = 5,
+        Zabka = 6
     }
 
     protected override async Task OnInitializedAsync()
@@ -172,12 +203,18 @@
 
     private void SelectDatabaseTab()
     {
+        activeTab = ActiveTab.Database;
+    }
+
+    private void SelectSummaryTab()
+    {
         activeTab = ActiveTab.Summary;
     }
 
+
     #region Crawlers
 
-    private async Task RunEngines()
+    private async Task RunEngine()
     {
         if (crawlersTabLoading)
         {
@@ -186,12 +223,12 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.RunEnginesAsync();
+            await commander.RunEngineAsync();
             crawlersTabLoading = false;
         }
     }
 
-    private async Task RunBiedronkaEngine()
+    private async Task RunEngine(Shops shop)
     {
         if (crawlersTabLoading)
         {
@@ -200,12 +237,12 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.RunBiedronkaEngineAsync();
+            await commander.RunEngineAsync(shop.ToString());
             crawlersTabLoading = false;
         }
     }
 
-    private async Task RunKauflandEngine()
+    private async Task ClearCache()
     {
         if (crawlersTabLoading)
         {
@@ -214,12 +251,12 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.RunKauflandEngineAsync();
+            await commander.ClearCacheAsync();
             crawlersTabLoading = false;
         }
     }
 
-    private async Task ClearAllCache()
+    private async Task ClearCache(Shops shop)
     {
         if (crawlersTabLoading)
         {
@@ -228,35 +265,7 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.ClearCacheFullAsync();
-            crawlersTabLoading = false;
-        }
-    }
-
-    private async Task ClearKauflandCache()
-    {
-        if (crawlersTabLoading)
-        {
-            return;
-        }
-        else
-        {
-            crawlersTabLoading = true;
-            await commander.ClearCacheKauflandEngineAsync();
-            crawlersTabLoading = false;
-        }
-    }
-
-    private async Task ClearBiedronkaCache()
-    {
-        if (crawlersTabLoading)
-        {
-            return;
-        }
-        else
-        {
-            crawlersTabLoading = true;
-            await commander.ClearCacheBiedronkaEngineAsync();
+            await commander.ClearCacheAsync(shop.ToString());
             crawlersTabLoading = false;
         }
     }
@@ -267,19 +276,19 @@
 
     private async Task RefreshDataBaseSummary()
     {
-        if (databaseTabLoading)
+        if (summaryTabLoading)
         {
             return;
         }
         else
         {
-            databaseTabLoading = true;
+            summaryTabLoading = true;
             await commander.CheckDataBase();
-            databaseTabLoading = false;
+            summaryTabLoading = false;
         }
     }
 
-    private async Task ClearAllData()
+    private async Task ClearDataBase()
     {
         if (databaseTabLoading)
         {
@@ -293,7 +302,7 @@
         }
     }
 
-    private async Task ClearBiedronkaDataBase()
+    private async Task ClearDataBase(Shops shop)
     {
         if (databaseTabLoading)
         {
@@ -302,21 +311,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.ClearBiedronkaDataAsync();
-            databaseTabLoading = false;
-        }
-    }
-
-    private async Task ClearKauflandDataBase()
-    {
-        if (databaseTabLoading)
-        {
-            return;
-        }
-        else
-        {
-            databaseTabLoading = true;
-            await commander.ClearKauflandDataAsync();
+            await commander.ClearDataBaseAsync(shop.ToString());
             databaseTabLoading = false;
         }
     }
@@ -335,7 +330,7 @@
         }
     }
 
-    private async Task UpdateBiedronkaDataBase()
+    private async Task UpdateDataBase(Shops shop)
     {
         if (databaseTabLoading)
         {
@@ -344,21 +339,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.UpdateBiedronkaBase();
-            databaseTabLoading = false;
-        }
-    }
-
-    private async Task UpdateKauflandDataBase()
-    {
-        if (databaseTabLoading)
-        {
-            return;
-        }
-        else
-        {
-            databaseTabLoading = true;
-            await commander.UpdateKauflandBase();
+            await commander.UpdateDataBase(shop.ToString());
             databaseTabLoading = false;
         }
     }
