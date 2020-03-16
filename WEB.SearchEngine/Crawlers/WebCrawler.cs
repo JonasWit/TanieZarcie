@@ -118,11 +118,7 @@ namespace WEB.SearchEngine.Crawlers
             return "";
         }
 
-        public virtual List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
-        {
-            //To be always overriten by derived classes.
-            return null;
-        }
+        public abstract List<Product> GetResultsForSingleUrl(LinkStruct linkStruct);
 
         public List<string> ParseLinks(string[] urlsToCrawl)
         {
