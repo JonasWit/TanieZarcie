@@ -1,14 +1,13 @@
 ﻿@page "/crawlerscommander"
-@using Microsoft.AspNetCore.Components.Authorization
 @using WEB.Shop.Application.Crawlers
 @inject CrawlersCommander commander
 
 <div>
     <div class="tabs is-centered">
         <ul>
-            <li><a @onclick="SelectCrawlersTab" class="title">Crawlers</a></li>
-            <li><a @onclick="SelectDatabaseTab" class="title">Database</a></li>
-            <li><a @onclick="SelectSummaryTab" class="title">Summary</a></li>
+            <li><a @onclick="SelectCrawlersTab" class="subtitle is-4">Crawlers</a></li>
+            <li><a @onclick="SelectDatabaseTab" class="subtitle is-4">Database</a></li>
+            <li><a @onclick="SelectSummaryTab" class="subtitle is-4">Summary</a></li>
         </ul>
     </div>
 </div>
@@ -20,57 +19,54 @@
         @if (crawlersTabLoading)
         {
             <div class="container">
-                <progress class="progress is-small is-primary" max="100">25%</progress>
+                <progress class="progress is-medium is-primary" max="100">25%</progress>
             </div>
         }
 
-        <div class="container">
-            <div class="columns">
-                <div class="column">
-                    <table class="table is-striped">
-                        <tr>
-                            <th class="subtitle">Section</th>
-                            <th class="subtitle">Import</th>
-                            <th class="subtitle">Clear</th>
-                            <th class="subtitle">Cache</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="content is-medium">All Crawlers</p>
-                            </td>
-                            <td>
-                                <button class="button is-warning is-outlined" @onclick="RunEngine">Run</button>
-                            </td>
-                            <td>
-                                <button class="button is-danger is-outlined" @onclick="ClearCache">Clear</button>
-                            </td>
-                            <td>
-                                <p class="content is-medium">@commander.DataCache.Values.Sum()</p>
-                            </td>
-                        </tr>
+        <div class="block">
+            <table class="table is-striped">
+                <tr>
+                    <th class="subtitle">Section</th>
+                    <th class="subtitle">Import</th>
+                    <th class="subtitle">Clear</th>
+                    <th class="subtitle">Cache</th>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="content is-medium">All Crawlers</p>
+                    </td>
+                    <td>
+                        <button class="button is-warning is-outlined" @onclick="RunEngine">Run</button>
+                    </td>
+                    <td>
+                        <button class="button is-danger is-outlined" @onclick="ClearCache">Clear</button>
+                    </td>
+                    <td>
+                        <p class="content is-medium">@commander.DataCache.Values.Sum()</p>
+                    </td>
+                </tr>
 
-                        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                        {
-                            <tr>
-                                <td>
-                                    <p class="content is-medium">@shop.ToString()</p>
-                                </td>
-                                <td>
-                                    <button class="button is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
-                                </td>
-                                <td>
-                                    <button class="button is-danger is-outlined" @onclick="(() => RunEngine(shop))">Clear</button>
-                                </td>
-                                <td>
-                                    <p class="content is-medium">@commander.DataCache[shop.ToString()]</p>
-                                </td>
-                            </tr>
-                        }
+                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                {
+                    <tr>
+                        <td>
+                            <p class="content is-medium">@shop.ToString()</p>
+                        </td>
+                        <td>
+                            <button class="button is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
+                        </td>
+                        <td>
+                            <button class="button is-danger is-outlined" @onclick="(() => RunEngine(shop))">Clear</button>
+                        </td>
+                        <td>
+                            <p class="content is-medium">@commander.DataCache[shop.ToString()]</p>
+                        </td>
+                    </tr>
+                }
 
-                    </table>
-                </div>
-            </div>
+            </table>
         </div>
+
         break;
 
     case ActiveTab.Database:
@@ -78,7 +74,7 @@
         @if (databaseTabLoading)
         {
             <div class="container">
-                <progress class="progress is-small is-primary" max="100">25%</progress>
+                <progress class="progress is-medium is-primary" max="100">25%</progress>
             </div>
         }
 
@@ -115,7 +111,7 @@
         @if (summaryTabLoading)
         {
             <div class="container">
-                <progress class="progress is-small is-primary" max="100">25%</progress>
+                <progress class="progress is-medium is-primary" max="100">25%</progress>
             </div>
         }
 
