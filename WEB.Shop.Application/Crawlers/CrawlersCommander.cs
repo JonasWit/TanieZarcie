@@ -102,6 +102,7 @@ namespace WEB.Shop.Application.Crawlers
         #endregion
 
         #region Database Update
+
         public async Task UpdateAllData()
         {
             await ClearDataBaseAsync();

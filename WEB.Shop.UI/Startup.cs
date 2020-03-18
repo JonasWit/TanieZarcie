@@ -8,10 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Net.Http;
 using WEB.Shop.DataBase;
-using WEB.Shop.Domain.Infrastructure;
-using WEB.Shop.UI.Infrastructure;
 
 namespace WEB.Shop.UI
 {
@@ -26,6 +23,7 @@ namespace WEB.Shop.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
             services.AddHttpContextAccessor();
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -54,9 +52,7 @@ namespace WEB.Shop.UI
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
-                //options.AddPolicy("Manager", policy => policy.RequireClaim("Role", "Manager"));
-                options.AddPolicy("Manager", policy => policy
-                    .RequireAssertion(context => 
+                options.AddPolicy("Manager", policy => policy.RequireAssertion(context => 
                         context.User.HasClaim("Role", "Manager")
                         || context.User.HasClaim("Role", "Admin")));
             });
@@ -103,11 +99,13 @@ namespace WEB.Shop.UI
 
             app.UseCookiePolicy();
             app.UseMvcWithDefaultRoute();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}");
             });
         }
     }

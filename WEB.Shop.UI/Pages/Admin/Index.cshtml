@@ -1,6 +1,11 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.Admin.IndexModel
 
+
+    @*<div>
+        <component type="typeof(Pages.Shared.Components.Blazor.AdminIndexComponent)" render-mode="ServerPrerendered" />
+    </div>*@
+
 <div id="app" class="container">
     <div v-if="!editing">
         <button class="button" @@click="newProduct">Add New Product</button>

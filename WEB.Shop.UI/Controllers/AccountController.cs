@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace WEB.Shop.UI.Controllers
@@ -24,8 +20,5 @@ namespace WEB.Shop.UI.Controllers
 
             return RedirectToPage("/Index");
         }
-
-
-
     }
 }

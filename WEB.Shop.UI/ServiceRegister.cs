@@ -29,6 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddTransient<IOrderManager, OrderManager>();
             @this.AddTransient<ICrawlersDataBaseManager, CrawlersDataBaseManager>();
             @this.AddScoped<ISessionManager, SessionManager>();
+            @this.AddSingleton<AppSettingsService>();
 
             return @this;
         }

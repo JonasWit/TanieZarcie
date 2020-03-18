@@ -28,6 +28,5 @@ namespace WEB.Shop.UI.Controllers
         [HttpPut("")]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProduct.Request request, [FromServices] UpdateProduct updateProduct) => 
             Ok(await updateProduct.DoAsync(request));
-
     }
 }

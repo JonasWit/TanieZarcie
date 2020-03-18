@@ -3,9 +3,10 @@
 }
 
 .navbar {
-    background-color:#000000 !important;
+    background-color: #ffc107 !important;
     
 }
+
 
 
 @media (max-width: 600px) {
