@@ -4,8 +4,7 @@ namespace WEB.Shop.UI.Controllers
 {
     public class InfoController : Controller
     {
-        [HttpGet("")]
-        public IActionResult Index()
+        public IActionResult WipPage()
         {
             return View();
         }
