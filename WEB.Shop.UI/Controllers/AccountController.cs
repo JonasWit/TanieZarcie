@@ -14,7 +14,7 @@ namespace WEB.Shop.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> LogoutAsync()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
 

@@ -91,14 +91,18 @@ namespace WEB.Shop.UI
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
   
             app.UseRouting();
+
             app.UseSession();
+
             app.UseAuthentication();
 
+
             app.UseCookiePolicy();
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>
             {
