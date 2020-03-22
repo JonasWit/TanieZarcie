@@ -8,11 +8,13 @@
     <environment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     </environment>
 
     <environment include="Production">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     </environment>
 </head>
 
@@ -30,17 +32,17 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a asp-controller="Info" asp-action="WipPage">Strona w budowie</a>
+                        <a class="nav-link" asp-controller="Info" asp-action="WipPage">Strona w budowie</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-page="/Index">Top Promocje</a>
+                        <a class="nav-link" asp-page="/Index">Top Promocje</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-page="/MainProducts">Wszystkie Produkty</a>
+                        <a class="nav-link" asp-page="/MainProducts">Wszystkie Produkty</a>
 
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class=" nav nav-pills nav navbar-nav navbar-right">
                     <li class="nav-item">
                         <vc:cart view="Small"></vc:cart>
                     </li>
@@ -48,22 +50,18 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a asp-controller="Account" asp-action="Logout">
+                            <a class="nav-link" asp-controller="Account" asp-action="Logout">
                                 <span class="glyphicon glyphicon-log-in">
                                 </span>Logout
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-page="/Admin/Index">Admin</a>
+                            <a class="nav-link" asp-page="/Admin/Index">Admin</a>
                         </li>
                     }
-                                        
+
                 </ul>
 
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
 
@@ -75,11 +73,81 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="content has-text-centered">
-            &copy; 2020 - TanieŻarcie - <a asp-area="" asp-page="/Privacy">Polityka Prywatności</a>
-            <a asp-page="/Admin/Index">Admin Login</a>
+    <footer class="page-footer font-small blue-grey lighten-5">
+        <div style="background-color: #000000;">
+            <div class="container">
+                <div class="row py-4 d-flex align-items-center">
+
+                    <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                        <h6 class="mb-0 text-light">Znajdź nas w mediach społecznościowych</h6>
+                    </div>
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+                        <!-- Facebook -->
+                        <a class="fb-ic">
+                            <i class="fab fa-facebook-f white-text mr-4" style="color: white"> </i>
+                        </a>
+                        <!--Linkedin -->
+                        <a class="li-ic">
+                            <i class="fab fa-linkedin-in white-text mr-4" style="color: white"> </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+        <div class="container text-center text-md-left mt-5">
+
+
+            <div class="row mt-3 dark-grey-text">
+
+
+                <div class="col-md-4 col-lg-4 col-xl-3 mb-4">
+
+
+                    <h6 class="text-uppercase font-weight-bold">Company name</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 col-lg-2 col-xl-2 mx-auto mb-4">
+
+
+                    <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a class="dark-grey-text" href="#!">Your Account</a>
+                    </p>
+                    <p>
+                        <a class="dark-grey-text" asp-page="/Admin/Index">Admin Login</a>
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+                    <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                    <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <i class="fas fa-home mr-3"></i> Kraków
+                    </p>
+                    <p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="footer-copyright text-center text-black-50 py-3">
+            © 2020 Copyright:TanieŻarcie - <a asp-area="" asp-page="/Privacy">Polityka Prywatności</a>
+
+        </div>
+
     </footer>
 
     <environment include="Development">
