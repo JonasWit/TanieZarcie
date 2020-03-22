@@ -100,8 +100,7 @@ namespace WEB.Shop.UI
 
             app.UseAuthentication();
 
-
-            app.UseCookiePolicy();
+           app.UseCookiePolicy();
             //app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>
