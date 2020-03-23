@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
 using WEB.SearchEngine.Enums;
 
@@ -41,6 +38,12 @@ namespace WEB.SearchEngine.Extensions
             }
 
             return false;
+        }
+
+        public static string NormalizeWithStandardRegex(this string input)
+        {
+            var regex = new Regex("[^a-zA-Z0-9]");
+            return regex.Replace(input, "").ToUpper();
         }
 
         public static bool ContainsAny(this string inputString, params string[] lookupStrings)

@@ -13,9 +13,8 @@ namespace WEB.Shop.UI.Pages
         public IEnumerable<GetProducts.ProductViewModel> Products { get; set; }
 
         [BindProperty]
-        public string WybranySklep { get; set; }
-
-        public List<string> Shops { get; set; } = new List<string>{ "Biedronka", "Kaufland" };
+        public string SelectedShop { get; set; }
+        public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland" };
 
         [BindProperty]
         public string SearchString { get; set; }
@@ -34,41 +33,122 @@ namespace WEB.Shop.UI.Pages
 
         public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetSearchString getSearchString)
         {
-     
-            if (getSearchString.Do(out string output))
-            {
-                if (!string.IsNullOrEmpty(output))
-                {
-                    Products = getProducts.Do(CurrentPage, PageSize, output);
-                    Count = getProducts.Do(output).Count();
-                }
-                else
-                {
-                    Products = getProducts.Do(CurrentPage, PageSize);
-                    Count = getProducts.Do().Count();
-                }
-            }
-            else
-            {
-                Products = getProducts.Do(CurrentPage, PageSize);
-                Count = getProducts.Do().Count();
-            }
+            getSearchString.Do(out string searchString);
+            SearchString = searchString;
+            HandleSearchActions(getProducts);
         }
 
         public void OnPost([FromServices] GetProducts getProducts, [FromServices] SaveSearchString saveSearchString)
         {
             saveSearchString.Do(SearchString);
+            HandleSearchActions(getProducts);
+        }
 
-            if (!string.IsNullOrEmpty(SearchString))
+        private void HandleSearchActions(GetProducts getProducts)
+        {
+            if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "All" && string.IsNullOrEmpty(SearchString))
             {
-                Products = getProducts.Do(CurrentPage, PageSize, SearchString);
-                Count = getProducts.Do(SearchString).Count();
+                Products = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.Shop, SelectedShop},
+                    { GetProducts.LookupCriteria.PageNumber, CurrentPage.ToString()},
+                    { GetProducts.LookupCriteria.PageSize, PageSize.ToString()},
+                });
+
+                Count = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.Shop, SelectedShop},
+                })
+                .Count();
+                return;
             }
-            else
+
+            if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "All" && !string.IsNullOrEmpty(SearchString))
             {
-                Products = getProducts.Do(CurrentPage, PageSize);
-                Count = getProducts.Do().Count();
+                Products = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.SearchString, SearchString},
+                    { GetProducts.LookupCriteria.PageNumber, CurrentPage.ToString()},
+                    { GetProducts.LookupCriteria.PageSize, PageSize.ToString()},
+                });
+
+                Count = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.SearchString, SearchString},
+                })
+                .Count();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(SelectedShop) && string.IsNullOrEmpty(SearchString))
+            {
+                Products = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.PageNumber, CurrentPage.ToString()},
+                    { GetProducts.LookupCriteria.PageSize, PageSize.ToString()},
+                });
+
+                Count = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>()).Count();
+
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(SelectedShop) && !string.IsNullOrEmpty(SearchString))
+            {
+                Products = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.SearchString, SearchString},
+                    { GetProducts.LookupCriteria.Shop, SelectedShop},
+                    { GetProducts.LookupCriteria.PageNumber, CurrentPage.ToString()},
+                    { GetProducts.LookupCriteria.PageSize, PageSize.ToString()},
+                });
+
+                Count = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.SearchString, SearchString},
+                    { GetProducts.LookupCriteria.Shop, SelectedShop},
+                })
+                .Count();
+
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(SelectedShop) && string.IsNullOrEmpty(SearchString))
+            {
+                Products = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.Shop, SelectedShop},
+                    { GetProducts.LookupCriteria.PageNumber, CurrentPage.ToString()},
+                    { GetProducts.LookupCriteria.PageSize, PageSize.ToString()},
+                });
+
+                Count = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.Shop, SelectedShop},
+                })
+                .Count();
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(SelectedShop) && !string.IsNullOrEmpty(SearchString))
+            {
+                Products = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.SearchString, SearchString},
+                    { GetProducts.LookupCriteria.PageNumber, CurrentPage.ToString()},
+                    { GetProducts.LookupCriteria.PageSize, PageSize.ToString()},
+                });
+
+                Count = getProducts.Do(new Dictionary<GetProducts.LookupCriteria, string>
+                {
+                    { GetProducts.LookupCriteria.SearchString, SearchString},
+                })
+                .Count();
+
+                return;
             }
         }
+
     }
 }
