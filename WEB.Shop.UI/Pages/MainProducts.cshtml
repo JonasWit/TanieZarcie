@@ -10,6 +10,15 @@
                 <div class="control is-expanded">
                     <input class="input" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu...">
                 </div>
+
+                <select name="WybranySklep">
+                    <option value="All">Wszystkie Sklepy</option>
+
+                    @foreach (var shop in Model.Shops)
+                    {
+                        <option value="@shop">@shop</option>
+                    }
+                </select>
                 <div class="control">
                     <button class="button is-info" type="submit">
                         Szukaj

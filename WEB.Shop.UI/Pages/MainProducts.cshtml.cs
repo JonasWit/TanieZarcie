@@ -13,6 +13,11 @@ namespace WEB.Shop.UI.Pages
         public IEnumerable<GetProducts.ProductViewModel> Products { get; set; }
 
         [BindProperty]
+        public string WybranySklep { get; set; }
+
+        public List<string> Shops { get; set; } = new List<string>{ "Biedronka", "Kaufland" };
+
+        [BindProperty]
         public string SearchString { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -29,6 +34,7 @@ namespace WEB.Shop.UI.Pages
 
         public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetSearchString getSearchString)
         {
+     
             if (getSearchString.Do(out string output))
             {
                 if (!string.IsNullOrEmpty(output))
