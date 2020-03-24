@@ -59,77 +59,35 @@ namespace WEB.Shop.DataBase
                 .Include(x => x.Stock)
                 .Select(selector)
                 .ToList();
-        
-        public IEnumerable<TResult> GetProductsWithStockSearchString<TResult>(string searchString, Func<Product, TResult> selector) =>
+
+
+        public IEnumerable<TResult> GetProductsWithStockWithCondition<TResult>(Func<Product, TResult> selector, Func<Product, bool> predicate) =>
             _context.Products
                 .Include(x => x.Stock)
                 .AsEnumerable()
-                .Where(x => x.Name.NormalizeWithStandardRegex().Contains(searchString.NormalizeWithStandardRegex()))
+                .Where(predicate)
                 .Select(selector)
                 .ToList();
-        
-        public IEnumerable<TResult> GetProductsWithStockPagination<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector) =>
-            _context.Products
-                .Include(x => x.Stock)
-                .OrderByDescending(x => x.Value)
-                .Select(selector)
-                .Reverse()
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-        
-        public IEnumerable<TResult> GetProductsWithStockPaginationSearchString<TResult>(int currentPage, int pageSize, string searchString, Func<Product, TResult> selector) => 
+
+        public IEnumerable<TResult> GetProductsWithStockWithPagination<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector) =>
             _context.Products
                 .Include(x => x.Stock)
                 .AsEnumerable()
-                .Where(x => x.Name.NormalizeWithStandardRegex().Contains(searchString.NormalizeWithStandardRegex()))
-                .OrderByDescending(x => x.Value)
-                .Select(selector)
-                .Reverse()
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-       
-        public IEnumerable<TResult> GetProductsWithStockPaginationSearchStringShop<TResult>(int currentPage, int pageSize, string searchString, string shop, Func<Product, TResult> selector) =>
-            _context.Products
-                .Include(x => x.Stock)
-                .AsEnumerable()
-                .Where(x => x.Name.NormalizeWithStandardRegex().Contains(searchString.NormalizeWithStandardRegex()) && 
-                        x.Seller.NormalizeWithStandardRegex() == shop.NormalizeWithStandardRegex())
-                .OrderByDescending(x => x.Value)
                 .Select(selector)
                 .Reverse()
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
-        public IEnumerable<TResult> GetProductsWithStockShop<TResult>(string shop, Func<Product, TResult> selector) =>
+        public IEnumerable<TResult> GetProductsWithStockWithPaginationAndCondition<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector, Func<Product, bool> predicate) =>
             _context.Products
                 .Include(x => x.Stock)
                 .AsEnumerable()
-                .Where(x => x.Seller.NormalizeWithStandardRegex() == shop.NormalizeWithStandardRegex())
-                .Select(selector)
-                .ToList();
-
-        public IEnumerable<TResult> GetProductsWithStockPaginationShop<TResult>(int currentPage, int pageSize, string shop, Func<Product, TResult> selector) =>
-            _context.Products
-                .Include(x => x.Stock)
-                .AsEnumerable()
-                .Where(x => x.Seller.NormalizeWithStandardRegex() == shop.NormalizeWithStandardRegex())
-                .OrderByDescending(x => x.Value)
+                .Where(predicate)
                 .Select(selector)
                 .Reverse()
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
-
-        public IEnumerable<TResult> GetProductsWithStockSearchStringShop<TResult>(string shop, string searchString, Func<Product, TResult> selector) =>
-            _context.Products
-                .Include(x => x.Stock)
-                .AsEnumerable()
-                .Where(x => x.Name.NormalizeWithStandardRegex().Contains(searchString.NormalizeWithStandardRegex()) &&
-                        x.Seller.NormalizeWithStandardRegex() == shop.NormalizeWithStandardRegex())
-                .Select(selector)
                 .ToList();
 
     }

@@ -14,13 +14,11 @@ namespace WEB.Shop.Domain.Infrastructure
 
         TResult GetProductByName<TResult>(string name, Func<Product, TResult> selector);
         TResult GetProductById<TResult>(int id, Func<Product, TResult> selector);
+
         IEnumerable<TResult> GetProductsWithStock<TResult>(Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockSearchString<TResult>(string serarchString, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockShop<TResult>(string shop, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockSearchStringShop<TResult>(string shop, string serarchString, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockPaginationShop<TResult>(int currentPage, int pageSize, string shop, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockPagination<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockPaginationSearchString<TResult>(int currentPage, int pageSize, string serarchString, Func<Product, TResult> selector);
-        IEnumerable<TResult> GetProductsWithStockPaginationSearchStringShop<TResult>(int currentPage, int pageSize, string serarchString, string shop, Func<Product, TResult> selector);
+        IEnumerable<TResult> GetProductsWithStockWithCondition<TResult>(Func<Product, TResult> selector, Func<Product, bool> predicate);
+
+        IEnumerable<TResult> GetProductsWithStockWithPagination<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector);
+        IEnumerable<TResult> GetProductsWithStockWithPaginationAndCondition<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector, Func<Product, bool> predicate);
     }
 }
