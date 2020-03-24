@@ -46,7 +46,6 @@ namespace WEB.Shop.DataBase
                 .Select(selector)
                 .FirstOrDefault();
         
-
         public TResult GetProductByName<TResult>(string name, Func<Product, TResult> selector) =>
             _context.Products
                 .Include(x => x.Stock)
@@ -59,7 +58,6 @@ namespace WEB.Shop.DataBase
                 .Include(x => x.Stock)
                 .Select(selector)
                 .ToList();
-
 
         public IEnumerable<TResult> GetProductsWithStockWithCondition<TResult>(Func<Product, TResult> selector, Func<Product, bool> predicate) =>
             _context.Products
@@ -89,6 +87,5 @@ namespace WEB.Shop.DataBase
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
     }
 }
