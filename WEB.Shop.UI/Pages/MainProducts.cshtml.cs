@@ -12,9 +12,9 @@ namespace WEB.Shop.UI.Pages
     {
         public IEnumerable<GetProducts.ProductViewModel> Products { get; set; }
 
-        [BindProperty]
+        [BindProperty(Name = "selectedShop", SupportsGet = true)]
         public string SelectedShop { get; set; }
-        public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland" };
+        public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland", "Lidl" };
 
         [BindProperty]
         public string SearchString { get; set; }
@@ -31,11 +31,22 @@ namespace WEB.Shop.UI.Pages
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetSearchString getSearchString)
+        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetSearchString getSearchString, string shopToSelect = "")
         {
-            getSearchString.Do(out string searchString);
-            SearchString = searchString;
-            HandleSearchActions(getProducts);
+            if (!string.IsNullOrEmpty(shopToSelect))
+            {
+                SelectedShop = shopToSelect;
+
+                getSearchString.Do(out string searchString);
+                SearchString = searchString;
+                HandleSearchActions(getProducts);
+            }
+            else
+            { 
+                getSearchString.Do(out string searchString);
+                SearchString = searchString;
+                HandleSearchActions(getProducts);         
+            }
         }
 
         public void OnPost([FromServices] GetProducts getProducts, [FromServices] SaveSearchString saveSearchString)
