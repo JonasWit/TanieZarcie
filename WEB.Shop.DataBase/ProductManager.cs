@@ -72,7 +72,6 @@ namespace WEB.Shop.DataBase
                 .Include(x => x.Stock)
                 .AsEnumerable()
                 .Select(selector)
-                .Reverse()
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
@@ -83,7 +82,6 @@ namespace WEB.Shop.DataBase
                 .AsEnumerable()
                 .Where(predicate)
                 .Select(selector)
-                .Reverse()
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();

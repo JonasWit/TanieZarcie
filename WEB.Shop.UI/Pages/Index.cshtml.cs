@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WEB.Shop.Application.Session;
 
 namespace WEB.Shop.UI.Pages
 {
@@ -18,27 +19,31 @@ namespace WEB.Shop.UI.Pages
         }
 
         [HttpPost]
-        public IActionResult OnPostAllShops()
+        public IActionResult OnPostAllShops([FromServices] SaveSelectedShop saveSelectedShop)
         {
-            return RedirectToPage("MainProducts", new { selectedShop = "All" });
+            saveSelectedShop.Do("Wszystkie");
+            return RedirectToPage("MainProducts");
         }
 
         [HttpPost]
-        public IActionResult OnPostBiedronka()
+        public IActionResult OnPostBiedronka([FromServices] SaveSelectedShop saveSelectedShop)
         {
-            return RedirectToPage("MainProducts", new { selectedShop = "Biedronka" });
+            saveSelectedShop.Do("Biedronka");
+            return RedirectToPage("MainProducts");
         }
 
         [HttpPost]
-        public IActionResult OnPostLidl()
+        public IActionResult OnPostLidl([FromServices] SaveSelectedShop saveSelectedShop)
         {
-            return RedirectToPage("MainProducts", new { selectedShop = "Lidl" });
+            saveSelectedShop.Do("Lidl");
+            return RedirectToPage("MainProducts");
         }
 
         [HttpPost]
-        public IActionResult OnPostKaufland()
+        public IActionResult OnPostKaufland([FromServices] SaveSelectedShop saveSelectedShop)
         {
-            return RedirectToPage("MainProducts", new { selectedShop = "Kaufland" });
+            saveSelectedShop.Do("Kaufland");
+            return RedirectToPage("MainProducts");
         }
     }
 }

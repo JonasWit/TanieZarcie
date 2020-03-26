@@ -12,6 +12,7 @@ namespace WEB.Shop.UI.Infrastructure
     {
         private const string KeyCart = "Cart";
         private const string KeySearchString = "SearchString";
+        private const string KeySelectedShop = "SelectedShop";
         private const string KeyCustomerInfo = "Customer-info";
         private readonly ISession _session;
 
@@ -123,6 +124,33 @@ namespace WEB.Shop.UI.Infrastructure
             if (_session.Keys.Contains(KeySearchString))
             {
                 output = _session.GetString(KeySearchString);
+                return true;
+            }
+            else
+            {
+                output = "";
+                return false;
+            }
+        }
+
+        public void SaveSelectedShop(string shop)
+        {
+            if (_session.Keys.Contains(KeySelectedShop))
+            {
+                _session.Remove(KeySelectedShop);
+            }
+
+            if (!string.IsNullOrEmpty(shop))
+            {
+                _session.SetString(KeySelectedShop, shop);
+            }
+        }
+
+        public bool GetSelectedShop(out string output)
+        {
+            if (_session.Keys.Contains(KeySelectedShop))
+            {
+                output = _session.GetString(KeySelectedShop);
                 return true;
             }
             else

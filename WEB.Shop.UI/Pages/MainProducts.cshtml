@@ -21,7 +21,7 @@
 
                         <div>
                             <select name="SelectedShop">
-                                <option value="All">Wszystkie Sklepy</option>
+                                <option value="Wszystkie">Wszystkie Sklepy</option>
 
                                 @foreach (var shop in Model.Shops)
                                 {
@@ -31,12 +31,26 @@
 
                         </div>
                         <div>
-                            <button type="submit">
-                                Szukaj
-                            </button>
+                            @*<button type="submit">Szukaj</button>*@
+                            <button asp-page-handler="Search">Szukaj</button>
+                            <button asp-page-handler="ShowAll">Pokaż Wszystko</button>
                         </div>
                     </div>
                 </form>
+
+                <form method="post">
+
+
+                </form>
+
+                <div>
+                    <p>Kryteria Wyszukiwania: </p>
+                    <p>Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Brak" : Model.SearchString)</p>
+                    <p>Wyszukiwany sklep - @Model.SelectedShop</p>
+                    <p>Wyszukane Produkty - @Model.Count</p>
+                    <p>Obecna Strona - @Model.CurrentPage</p>
+                    <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
+                </div>
 
                 <div class="block">
                     <nav class="pagination is-rounded">

@@ -31,27 +31,63 @@ namespace WEB.Shop.UI.Pages
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetSearchString getSearchString, string shopToSelect = "")
+        public void OnGet([FromServices] GetProducts getProducts, 
+            [FromServices] GetSearchString getSearchString, 
+            [FromServices] SaveSelectedShop saveSelectedShop, 
+            [FromServices] GetSelectedShop getSelectedShop,
+            [FromServices] SaveSearchString saveSearchString)
         {
-            if (!string.IsNullOrEmpty(shopToSelect))
-            {
-                SelectedShop = shopToSelect;
+            getSearchString.Do(out string searchString);
+            getSelectedShop.Do(out string selectedShop);
 
-                getSearchString.Do(out string searchString);
-                SearchString = searchString;
-                HandleSearchActions(getProducts);
-            }
-            else
-            { 
-                getSearchString.Do(out string searchString);
-                SearchString = searchString;
-                HandleSearchActions(getProducts);         
-            }
+            SearchString = searchString;
+            SelectedShop = selectedShop;
+
+            //if (!string.IsNullOrEmpty(shopToSelect))
+            //{
+            //    SelectedShop = shopToSelect;
+            //    saveSelectedShop.Do(SelectedShop);
+            //}
+            //else
+            //{
+            //    getSelectedShop.Do(out string selectedShop);
+            //    getSearchString.Do(out string searchString);
+            //    SearchString = searchString;
+            //    SelectedShop = selectedShop;    
+            //}
+
+            HandleSearchActions(getProducts);
         }
 
-        public void OnPost([FromServices] GetProducts getProducts, [FromServices] SaveSearchString saveSearchString)
+        public void OnPostShowAll([FromServices] GetProducts getProducts)
         {
-            saveSearchString.Do(SearchString);
+            Products = getProducts.GetAllProductsWithPagination(CurrentPage, PageSize);
+            Count = getProducts.GetAllProducts().Count();
+            return;
+        }
+
+        public void OnPostSearch(
+            [FromServices] GetProducts getProducts, 
+            [FromServices] SaveSearchString saveSearchString, 
+            [FromServices] SaveSelectedShop saveSelectedShop,
+            [FromServices] GetSearchString getSearchString,
+            [FromServices] GetSelectedShop getSelectedShop)
+        {
+            getSearchString.Do(out string searchString);
+            getSelectedShop.Do(out string selectedShop);
+
+            if (searchString != SearchString)
+            {
+                CurrentPage = 1;
+                saveSearchString.Do(SearchString);
+            }
+
+            if (selectedShop != SelectedShop)
+            {
+                CurrentPage = 1;
+                saveSelectedShop.Do(SelectedShop);
+            }
+
             HandleSearchActions(getProducts);
         }
 
@@ -64,14 +100,14 @@ namespace WEB.Shop.UI.Pages
                 return;
             }
 
-            if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "All" && string.IsNullOrEmpty(SearchString))
+            if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "Wszystkie" && string.IsNullOrEmpty(SearchString))
             {
                 Products = getProducts.GetAllProductsWithPagination(CurrentPage, PageSize);
                 Count = getProducts.GetAllProducts().Count();
                 return;
             }
 
-            if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "All" && !string.IsNullOrEmpty(SearchString))
+            if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "Wszystkie" && !string.IsNullOrEmpty(SearchString))
             {
                 Products = getProducts.GetProductsWithSearchStringAndPagination(CurrentPage, PageSize, SearchString);
                 Count = getProducts.GetProductsWithSearchString(SearchString).Count();

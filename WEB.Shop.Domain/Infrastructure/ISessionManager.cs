@@ -16,5 +16,8 @@ namespace WEB.Shop.Domain.Infrastructure
 
         void SaveSearchString(string input);
         bool GetSearchString(out string output);
+
+        void SaveSelectedShop(string input);
+        bool GetSelectedShop(out string output);
     }
 }
