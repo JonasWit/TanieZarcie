@@ -109,24 +109,48 @@
 
                                     string dispalyTime = "";
 
-                                    if (days <= 2 && days != 0)
+                                    if (days < 3 && days != 0)
                                     {
                                         dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} - {minutes} temu";
+                                        yellow = true;
                                     }
                                     else if (days > 2 && days != 0)
                                     {
                                         dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu. Informacje o ofercie starsze niż 2 dni!";
+                                        red = true;
                                     }
                                     else
                                     {
                                         dispalyTime = $"Informacje sprawdzone: {hours} godzin {minutes} minuty temu.";
+                                        green = true;
                                     }
 
-                                    <div class="card-footer text-center">
-                                        <small class="text-muted">
-                                           @dispalyTime
-                                        </small>
-                                    </div>
+                                    if (red)
+                                    {
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted">
+                                                @dispalyTime
+                                            </small>
+                                        </div>
+                                    }
+
+                                    if (yellow)
+                                    {
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted">
+                                                @dispalyTime
+                                            </small>
+                                        </div>
+                                    }
+
+                                    if (green)
+                                    {
+                                        <div class="card-footer text-center">
+                                            <small class="text-muted">
+                                                @dispalyTime
+                                            </small>
+                                        </div>
+                                    }
                                 }
 
                                 <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
