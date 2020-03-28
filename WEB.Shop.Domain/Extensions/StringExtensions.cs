@@ -12,5 +12,11 @@ namespace WEB.Shop.Domain.Extensions
             var regex = new Regex("[^a-zA-Z0-9]");
             return regex.Replace(input, "").ToUpper();
         }
+
+        public static bool StandardSearch(this string input, string match)
+        {
+            if (Regex.IsMatch(input, $@"\b{match}\b(?=\s)", RegexOptions.IgnoreCase)) return true;
+            else return false;
+        }
     }
 }

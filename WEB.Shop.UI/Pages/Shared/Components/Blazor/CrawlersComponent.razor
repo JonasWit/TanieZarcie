@@ -6,7 +6,6 @@
         <ul>
             <li><a @onclick="SelectCrawlersTab" class="subtitle is-4">Crawlers</a></li>
             <li><a @onclick="SelectDatabaseTab" class="subtitle is-4">Database</a></li>
-            <li><a @onclick="SelectSummaryTab" class="subtitle is-4">Summary</a></li>
         </ul>
     </div>
 </div>
@@ -18,7 +17,7 @@
         @if (crawlersTabLoading)
         {
             <div class="container">
-                <progress class="progress is-medium is-primary" max="100">25%</progress>
+                <progress class="progress is-small is-primary" max="100">25%</progress>
             </div>
         }
 
@@ -73,77 +72,74 @@
         @if (databaseTabLoading)
         {
             <div class="container">
-                <progress class="progress is-medium is-primary" max="100">25%</progress>
+                <progress class="progress is-small is-primary" max="100">25%</progress>
             </div>
         }
 
-        <div class="block">
-            <p class="subtitle has-text-centered">General Database Options</p>
-            <button class="button is-warning is-outlined" @onclick="UpdateDataBase">Update All Data</button>
-            <button class="button is-danger is-outlined" @onclick="ClearDataBase">Clear All Data</button>
-        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="block">
+                    <button class="button is-success is-outlined" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+                </div>
+                <table class="table is-striped">
+                    <tr>
+                        <th>Shop</th>
+                        <th>Products</th>
+                        <th>Oldest Record</th>
+                    </tr>
 
-        <div class="block">
-            <p class="subtitle has-text-centered">Update Database Options</p>
-            <table class="table is-striped">
-                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                {
+                    @foreach (var item in commander.DataBaseCheck)
+                    {
+                        <tr>
+                            <td>
+                                <p class="content is-medium">@item.Shop</p>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@item.ProductsCount</p>
+                            </td>
+                            <td>
+                                <p class="content is-medium">@item.OldestEntry</p>
+                            </td>
+                        </tr>
+                    }
+
                     <tr>
                         <td>
-                            <p class="content is-medium">@shop.ToString()</p>
+                            <p class="content is-medium is-bold">Total</p>
                         </td>
                         <td>
-                            <button class="button is-warning is-outlined" @onclick="(() => UpdateDataBase(shop))">Update</button>
+                            <p class="content is-medium is-bold">@commander.DataBaseCheck.Sum(x => x.ProductsCount)</p>
                         </td>
                         <td>
-                            <button class="button is-danger is-outlined" @onclick="(() => ClearDataBase(shop))">Delete</button>
+                            <p class="content is-medium is-bold">-</p>
                         </td>
                     </tr>
-                }
-            </table>
-        </div>
-
-        break;
-
-    case ActiveTab.Summary:
-
-        @if (summaryTabLoading)
-        {
-            <div class="container">
-                <progress class="progress is-medium is-primary" max="100">25%</progress>
+                </table>
             </div>
-        }
 
-        <div class="block">
-            <p class="subtitle has-text-centered">General Database Options</p>
-            <button class="button is-success is-outlined" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+            <div class="column">
+                <div class="block">
+                    <button class="button is-warning is-outlined" @onclick="UpdateDataBase">Update All Data</button>
+                    <button class="button is-danger is-outlined" @onclick="ClearDataBase">Clear All Data</button>
+                </div>
+                <table class="table is-striped">
+                    @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                    {
+                        <tr>
+                            <td>
+                                <p class="content is-medium">@shop.ToString()</p>
+                            </td>
+                            <td>
+                                <button class="button is-warning is-outlined" @onclick="(() => UpdateDataBase(shop))">Update</button>
+                            </td>
+                            <td>
+                                <button class="button is-danger is-outlined" @onclick="(() => ClearDataBase(shop))">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
-
-        <div class="block">
-            <table class="table is-striped">
-                <tr>
-                    <th>Shop</th>
-                    <th>Products</th>
-                    <th>Oldest Record</th>
-                </tr>
-
-                @foreach (var item in commander.DataBaseCheck)
-                {
-                    <tr>
-                        <td>
-                            <p class="content is-medium">@item.Shop</p>
-                        </td>
-                        <td>
-                            <p class="content is-medium">@item.ProductsCount</p>
-                        </td>
-                        <td>
-                            <p class="content is-medium">@item.OldestEntry</p>
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-
         break;
 
     default:
@@ -155,7 +151,6 @@
 
     private bool crawlersTabLoading;
     private bool databaseTabLoading;
-    private bool summaryTabLoading;
 
     private ActiveTab activeTab = ActiveTab.Main;
 
@@ -163,7 +158,6 @@
     {
         Main,
         Database,
-        Summary
     }
 
     public enum Shops
@@ -203,7 +197,7 @@
 
     private void SelectSummaryTab()
     {
-        activeTab = ActiveTab.Summary;
+        activeTab = ActiveTab.Database;
     }
 
     #region Crawlers
@@ -270,15 +264,15 @@
 
     private async Task RefreshDataBaseSummary()
     {
-        if (summaryTabLoading)
+        if (databaseTabLoading)
         {
             return;
         }
         else
         {
-            summaryTabLoading = true;
+            databaseTabLoading = true;
             await commander.CheckDataBase();
-            summaryTabLoading = false;
+            databaseTabLoading = false;
         }
     }
 
