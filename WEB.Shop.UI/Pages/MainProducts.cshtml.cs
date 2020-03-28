@@ -32,29 +32,14 @@ namespace WEB.Shop.UI.Pages
         public bool ShowLast => CurrentPage != TotalPages;
 
         public void OnGet([FromServices] GetProducts getProducts, 
-            [FromServices] GetSearchString getSearchString, 
-            [FromServices] SaveSelectedShop saveSelectedShop, 
-            [FromServices] GetSelectedShop getSelectedShop,
-            [FromServices] SaveSearchString saveSearchString)
+            [FromServices] GetSearchString getSearchString,
+            [FromServices] GetSelectedShop getSelectedShop)
         {
             getSearchString.Do(out string searchString);
             getSelectedShop.Do(out string selectedShop);
 
             SearchString = searchString;
             SelectedShop = selectedShop;
-
-            //if (!string.IsNullOrEmpty(shopToSelect))
-            //{
-            //    SelectedShop = shopToSelect;
-            //    saveSelectedShop.Do(SelectedShop);
-            //}
-            //else
-            //{
-            //    getSelectedShop.Do(out string selectedShop);
-            //    getSearchString.Do(out string searchString);
-            //    SearchString = searchString;
-            //    SelectedShop = selectedShop;    
-            //}
 
             HandleSearchActions(getProducts);
         }

@@ -12,16 +12,16 @@
                         <div class="input-group md-form form-sm form-2 pl-0">
                             <input class="form-control my-0 py-1 amber-border" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
                             <div class="input-group-append">
-                                <span class="input-group-text amber lighten-3" id="basic-text1">
-                                    <i class="fas fa-search text-grey"
+                                <span class="input-group-text btn-warning" id="basic-text1">
+                                    <i class="fas fa-search text-black"
                                        aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
 
-                        <div>
-                            <select name="SelectedShop">
-                                <option value="Wszystkie">Wszystkie Sklepy</option>
+                        <div class="pt-3">
+                            <select class="browser-default custom-select p-2" name="SelectedShop">
+                                <option selected value="Wszystkie">Wszystkie Sklepy</option>
 
                                 @foreach (var shop in Model.Shops)
                                 {
@@ -30,10 +30,10 @@
                             </select>
 
                         </div>
-                        <div>
+                        <div class="pt-3 pb-3">
                             @*<button type="submit">Szukaj</button>*@
-                            <button asp-page-handler="Search">Szukaj</button>
-                            <button asp-page-handler="ShowAll">Pokaż Wszystko</button>
+                            <button class="btn btn-warning" type="submit" asp-page-handler="Search">Szukaj</button>
+                            <button class="btn btn-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
                         </div>
                     </div>
                 </form>
