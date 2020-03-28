@@ -13,6 +13,7 @@ namespace WEB.Shop.UI.Infrastructure
         private const string KeyCart = "Cart";
         private const string KeySearchString = "SearchString";
         private const string KeySelectedShop = "SelectedShop";
+        private const string KeyCurrentPage = "KeyCurrentPage";
         private const string KeyCustomerInfo = "Customer-info";
         private readonly ISession _session;
 
@@ -158,6 +159,36 @@ namespace WEB.Shop.UI.Infrastructure
                 output = "";
                 return false;
             }
+        }
+
+        public void SaveCurrentPage(int input)
+        {
+            if (_session.Keys.Contains(KeyCurrentPage))
+            {
+                _session.Remove(KeyCurrentPage);
+            }
+
+            _session.SetString(KeyCurrentPage, input.ToString());
+        }
+
+        public bool GetCurrentPage(out int output)
+        {
+            if (_session.Keys.Contains(KeyCurrentPage))
+            {
+                if (int.TryParse(_session.GetString(KeyCurrentPage), out int result))
+                {
+                    output = result;
+                    return true;
+                }
+                else
+                {
+                    output = 0;
+                    return false;
+                }
+            }
+
+            output = 0;
+            return false;
         }
     }
 }

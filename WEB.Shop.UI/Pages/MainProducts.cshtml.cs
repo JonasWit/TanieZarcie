@@ -55,11 +55,14 @@ namespace WEB.Shop.UI.Pages
             [FromServices] GetProducts getProducts, 
             [FromServices] SaveSearchString saveSearchString, 
             [FromServices] SaveSelectedShop saveSelectedShop,
+            [FromServices] SaveCurrentPage saveCurrentPage,
             [FromServices] GetSearchString getSearchString,
-            [FromServices] GetSelectedShop getSelectedShop)
+            [FromServices] GetSelectedShop getSelectedShop,
+            [FromServices] GetCurrentPage getCurrentPage)
         {
             getSearchString.Do(out string searchString);
             getSelectedShop.Do(out string selectedShop);
+            getCurrentPage.Do(out int currentPage);
 
             if (searchString != SearchString)
             {
@@ -71,6 +74,11 @@ namespace WEB.Shop.UI.Pages
             {
                 CurrentPage = 1;
                 saveSelectedShop.Do(SelectedShop);
+            }
+
+            if (currentPage != CurrentPage)
+            {
+                saveCurrentPage.Do(CurrentPage);
             }
 
             HandleSearchActions(getProducts);

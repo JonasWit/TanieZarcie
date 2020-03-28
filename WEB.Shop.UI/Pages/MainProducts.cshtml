@@ -4,198 +4,203 @@
     ViewData["Title"] = "Home page";
 }
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg=3">
-                <form method="post">
-                    <div>
-                        <div class="input-group md-form form-sm form-2 pl-0">
-                            <input class="form-control my-0 py-1 amber-border" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
-                            <div class="input-group-append">
-                                <span class="input-group-text btn-warning" id="basic-text1">
-                                    <i class="fas fa-search text-black"
-                                       aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="pt-3">
-                            <select class="browser-default custom-select p-2" name="SelectedShop">
-                                <option selected value="Wszystkie">Wszystkie Sklepy</option>
-
-                                @foreach (var shop in Model.Shops)
-                                {
-                                    <option value="@shop">@shop</option>
-                                }
-                            </select>
-
-                        </div>
-                        <div class="pt-3 pb-3">
-                            @*<button type="submit">Szukaj</button>*@
-                            <button class="btn btn-warning" type="submit" asp-page-handler="Search">Szukaj</button>
-                            <button class="btn btn-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
+<div class="container-fluid" id="main-product">
+    <div class="row">
+        <div class="col-lg=3">
+            <form method="post" class="sticky-top">
+                <div>
+                    <div class="input-group md-form form-sm form-2 pl-0">
+                        <input class="form-control my-0 py-1 amber-border" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
+                        <div class="input-group-append">
+                            <span class="input-group-text btn-warning" id="basic-text1">
+                                <i class="fas fa-search text-black"
+                                   aria-hidden="true"></i>
+                            </span>
                         </div>
                     </div>
-                </form>
 
-                <form method="post">
+                    <div class="pt-3">
+                        <select class="browser-default custom-select p-2" name="SelectedShop">
+                            <option selected value="Wszystkie">Wszystkie Sklepy</option>
 
+                            @foreach (var shop in Model.Shops)
+                            {
+                                <option value="@shop">@shop</option>
+                            }
+                        </select>
 
-                </form>
-
-                <div>
-                    <p>Kryteria Wyszukiwania: </p>
-                    <p>Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Brak" : Model.SearchString)</p>
-                    <p>Wyszukiwany sklep - @Model.SelectedShop</p>
-                    <p>Wyszukane Produkty - @Model.Count</p>
-                    <p>Obecna Strona - @Model.CurrentPage</p>
-                    <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
+                    </div>
+                    <div class="pl-3 pt-3 pb-3">
+                        @*<button type="submit">Szukaj</button>*@
+                        <button class="btn btn-warning" type="submit" asp-page-handler="Search">Szukaj</button>
+                        <button class="btn btn-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
+                    </div>
                 </div>
+            </form>
 
-                <div class="block">
-                    <nav class="pagination is-rounded">
-                        <ul class="pagination-list">
-                            @if (Model.ShowFirst)
-                            {
-                                <li>
-                                    <a asp-page="/MainProducts" asp-route-CurrentPage="1" class="pagination-link">Początek</a>
-                                </li>
-                            }
+            <form method="post">
+            </form>
+        </div>
+        <div class="col-lg-9">
+            <div class="block d-flex align-items-center justify-content-center pb-3">
 
-                            @if (Model.ShowPrevious)
-                            {
-                                <li>
-                                    <a asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="pagination-link">Poprzednia Strona</a>
-                                </li>
-                            }
-
-                            @if (Model.ShowNext)
-                            {
-                                <li>
-                                    <a asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="pagination-link">Następna Strona</a>
-                                </li>
-                            }
-
-                            @if (Model.ShowLast)
-                            {
-                                <li>
-                                    <a asp-page="/MainProducts" asp-route-CurrentPage="@(Model.TotalPages)" class="pagination-link">Koniec</a>
-                                </li>
-                            }
-                        </ul>
-                    </nav>
-                </div>
+                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark">Co znaleźliśmy? </p>
+                <!--   <p class="font-weight-light">Produkt - @(String.IsNullOrEmpty(Model.SearchString) ? "Brak" : Model.SearchString)</p>
+                <p class="font-weight-light">Sklep - @Model.SelectedShop</p>-->
+                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark">Liczba promocji - @Model.Count</p>
+                <!--<p>Obecna Strona - @Model.CurrentPage</p>
+                <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>-->
             </div>
-            <div class="col-lg-9">
+            <div class="row">
 
-                <div class="row">
+                @foreach (var p in Model.Products)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-warning mb-3 h-100">
 
-                    @foreach (var p in Model.Products)
-                    {
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-
+                            <div class="card-body text-center">
                                 @{
+                                    string cssClass = "";
+                                    string message = "";
 
-                                    var offerTime = DateTime.Now - p.TimeStamp;
-
-                                    var days = offerTime.Days;
-                                    var hours = offerTime.Hours;
-                                    var minutes = offerTime.Minutes;
-
-                                    bool red = false;
-                                    bool yellow = false;
-                                    bool green = false;
-
-                                    string dispalyTime = "";
-
-                                    if (days < 3 && days != 0)
+                                    if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(" !PROMOCJA! "))
                                     {
-                                        dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} - {minutes} temu";
-                                        yellow = true;
-                                    }
-                                    else if (days > 2 && days != 0)
-                                    {
-                                        dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu. Informacje o ofercie starsze niż 2 dni!";
-                                        red = true;
-                                    }
-                                    else
-                                    {
-                                        dispalyTime = $"Informacje sprawdzone: {hours} godzin {minutes} minuty temu.";
-                                        green = true;
-                                    }
-
-                                    if (red)
-                                    {
-                                        <div class="card-footer text-center">
-                                            <small class="text-muted">
-                                                @dispalyTime
-                                            </small>
-                                        </div>
-                                    }
-
-                                    if (yellow)
-                                    {
-                                        <div class="card-footer text-center">
-                                            <small class="text-muted">
-                                                @dispalyTime
-                                            </small>
-                                        </div>
-                                    }
-
-                                    if (green)
-                                    {
-                                        <div class="card-footer text-center">
-                                            <small class="text-muted">
-                                                @dispalyTime
-                                            </small>
-                                        </div>
+                                        cssClass = "is-warning";
+                                        message = " PROMOCJA! ";
                                     }
                                 }
 
-                                <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")">
-                                    <div class="card-body">
-                                        @{
-                                            string cssClass = "";
-                                            string message = "";
+                                @if (!string.IsNullOrEmpty(p.Description))
+                                {
+                                    <!--  <div class="card-text @cssClass">
+                                        @message
+                                    </div>-->
+                                }
+                                <div class="card-title">
+                                    <h2 class="card-header-title mb-3"> @p.Seller </h2>
+                                </div>
 
-                                            if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(" !PROMOCJA! "))
-                                            {
-                                                cssClass = "is-warning";
-                                                message = " PROMOCJA! ";
-                                            }
-                                        }
-                                        @if (!string.IsNullOrEmpty(p.Description))
-                                        {
-                                            <div class="card-text @cssClass">
-                                                @message
-                                            </div>
-                                        }
-                                        <div class="card-title">
-                                            @p.Name
+                                <div class="card-text">
+                                    @p.Name
 
-                                        </div>
+                                </div>
+                                <div class="card-title">
+                                    @p.Description
+                                </div>
 
-                                        <div class="card-subtitle mb-2 text-muted">
-                                            @p.Value
-                                        </div>
-
-                                        <div class="card-title">
-                                            @p.Description
-                                        </div>
-
-                                        <div class="card-title">
-                                            @p.Seller
-                                        </div>
-                                    </div>
-                                </a>
-
-
+                                <div class="card-subtitle pt-2">
+                                    <h4>@p.Value</h4>
+                                </div>
                             </div>
+
+                            <div class="link d-flex justify-content-center p-3 ">
+                                <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="card-link text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
+                            </div>
+                            @{
+
+                                var offerTime = DateTime.Now - p.TimeStamp;
+
+                                var days = offerTime.Days;
+                                var hours = offerTime.Hours;
+                                var minutes = offerTime.Minutes;
+
+                                bool red = false;
+                                bool yellow = false;
+                                bool green = false;
+
+                                string dispalyTime = "";
+
+                                if (days < 3 && days != 0)
+                                {
+                                    dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu";
+                                    yellow = true;
+                                }
+                                else if (days > 2 && days != 0)
+                                {
+                                    dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu. Informacje o ofercie starsze niż 2 dni!";
+                                    red = true;
+                                }
+                                else
+                                {
+                                    dispalyTime = $"Informacje sprawdzone: {hours} godzin {minutes} minuty temu.";
+                                    green = true;
+                                }
+
+                                if (red)
+                                {
+                                    <div class="card-footer text-center p-1">
+                                        <small class="text-muted">
+                                            @dispalyTime
+                                        </small>
+                                    </div>
+                                }
+
+                                if (yellow)
+                                {
+                                    <div class="card-footer text-center">
+                                        <small class="text-muted">
+                                            @dispalyTime
+                                        </small>
+                                    </div>
+                                }
+
+                                if (green)
+                                {
+                                    <div class="card-footer text-center">
+                                        <small class="text-muted">
+                                            @dispalyTime
+                                        </small>
+                                    </div>
+                                }
+                            }
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
 
+
+            <div class="block d-flex align-items-center justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        @if (Model.ShowFirst)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Previous" asp-page="/MainProducts" asp-route-CurrentPage="1">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Początek</span>
+                                </a>
+                            </li>
+                        }
+
+                        @if (Model.ShowPrevious)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage -1)">Poprzednia Strona</a>
+                            </li>
+                        }
+
+                        @if (Model.ShowNext)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage + 1)">Następna Strona</a>
+
+                            </li>
+                        }
+
+                        @if (Model.ShowLast)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" aria-label="Next" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.TotalPages)">
+
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
+
+</div>

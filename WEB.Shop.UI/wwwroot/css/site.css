@@ -18,9 +18,14 @@
     color:#ffffff;
 }
 
+.pb-3 {
+    background-image: url('../images/background.jpg');
+    
+}
 
-
-
+#search {
+    position:fixed;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

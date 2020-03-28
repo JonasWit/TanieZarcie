@@ -32,5 +32,10 @@ namespace WEB.Shop.UI.Pages
                 //TODO: add a warning
                 return Page();
         }
+
+        public IActionResult OnPostReturn()
+        {
+            return RedirectToPage("MainProducts");
+        }
     }
 }
