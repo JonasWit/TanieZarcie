@@ -15,17 +15,47 @@
     background-image: url('../images/daria-volkova-bmnx7l9g5xc-unsplash2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    color:#ffffff;
+    color: #ffffff;
 }
 
-.pb-3 {
+#main-product {
     background-image: url('../images/background.jpg');
-    
 }
 
 #search {
-    position:fixed;
+    position: fixed;
 }
+
+.card {
+    border-radius: 25px 25px 0px 0px;
+}
+
+.summary {
+    border-radius: 25px;
+}
+
+#Biedronka {
+    border: 5px solid #f0930d;
+    border-radius: 25px;
+    background-color: #f5e011;
+    color: #df1313;
+}
+
+#Lidl {
+    border: 5px solid #f0930d;
+    border-radius: 25px;
+    background-color: #f5e011;
+    color: #df1313;
+}
+
+#Kaufland {
+    border: 5px solid #e30613;
+    border-radius: 25px;
+    background-color: #ffffff;
+    color: #d25e64;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

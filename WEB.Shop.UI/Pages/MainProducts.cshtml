@@ -44,10 +44,10 @@
         <div class="col-lg-9">
             <div class="block d-flex align-items-center justify-content-center pb-3">
 
-                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark">Co znaleźliśmy? </p>
+                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark summary">Co znaleźliśmy? </p>
                 <!--   <p class="font-weight-light">Produkt - @(String.IsNullOrEmpty(Model.SearchString) ? "Brak" : Model.SearchString)</p>
                 <p class="font-weight-light">Sklep - @Model.SelectedShop</p>-->
-                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark">Liczba promocji - @Model.Count</p>
+                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark summary">Liczba ofert - @Model.Count</p>
                 <!--<p>Obecna Strona - @Model.CurrentPage</p>
                 <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>-->
             </div>
@@ -56,9 +56,17 @@
                 @foreach (var p in Model.Products)
                 {
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card border-warning mb-3 h-100">
+
+                        <div class="card mb-4 h-100">
+
+
+                            <div class="card-title text-center">
+                                <h2 id="@p.Seller" class="card-header mb-2"> @p.Seller </h2>
+                            </div>
+
 
                             <div class="card-body text-center">
+
                                 @{
                                     string cssClass = "";
                                     string message = "";
@@ -72,20 +80,17 @@
 
                                 @if (!string.IsNullOrEmpty(p.Description))
                                 {
-                                    <!--  <div class="card-text @cssClass">
+                                    <div class="card-text .text-danger font-weight-bold pb-2 ">
                                         @message
-                                    </div>-->
+                                    </div>
                                 }
-                                <div class="card-title">
-                                    <h2 class="card-header-title mb-3"> @p.Seller </h2>
-                                </div>
 
                                 <div class="card-text">
                                     @p.Name
 
                                 </div>
                                 <div class="card-title">
-                                    @p.Description
+                                    @p.Description?.Replace("!PROMOCJA!", "")
                                 </div>
 
                                 <div class="card-subtitle pt-2">
@@ -112,7 +117,7 @@
 
                                 if (days < 3 && days != 0)
                                 {
-                                    dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu";
+                                    dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu.";
                                     yellow = true;
                                 }
                                 else if (days > 2 && days != 0)
@@ -128,7 +133,7 @@
 
                                 if (red)
                                 {
-                                    <div class="card-footer text-center p-1">
+                                    <div class="card-footer text-center p-1 text-white bg-danger">
                                         <small class="text-muted">
                                             @dispalyTime
                                         </small>
@@ -137,7 +142,7 @@
 
                                 if (yellow)
                                 {
-                                    <div class="card-footer text-center">
+                                    <div class="card-footer text-center text-white bg-warning">
                                         <small class="text-muted">
                                             @dispalyTime
                                         </small>
@@ -146,7 +151,7 @@
 
                                 if (green)
                                 {
-                                    <div class="card-footer text-center">
+                                    <div class="card-footer text-center text-white bg-success">
                                         <small class="text-muted">
                                             @dispalyTime
                                         </small>
