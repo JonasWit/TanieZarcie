@@ -20,6 +20,6 @@ namespace WEB.Shop.UI.Pages
             return RedirectToPage("MainProducts");
         }
 
-        //todo: inject session and add button to clear cart
+        //todo: zrobic metode na wyczyszczenia koszyka
     }
 }

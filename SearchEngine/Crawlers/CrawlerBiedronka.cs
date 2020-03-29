@@ -32,7 +32,6 @@ namespace SearchEngine.Crawlers
                 foreach (var div in divs)
                 {
                     var product = new Product();
-                    //todo: SE zrobic metody na kazde wyszukanie
                     product.Provider = "Biedronka";
                     product.Name = div.Descendants(htmlPattern.Name.Descendant).FirstOrDefault().Attributes[htmlPattern.Name.AttributeValue].Value.Replace(@"&quot;","");
                     product.Url = linkStruct.Link;

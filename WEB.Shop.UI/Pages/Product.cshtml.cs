@@ -29,7 +29,6 @@ namespace WEB.Shop.UI.Pages
             if (stockAdded)
                 return RedirectToPage("Cart");
             else
-                //TODO: add a warning
                 return Page();
         }
 
