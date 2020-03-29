@@ -18,28 +18,24 @@ namespace WEB.Shop.UI.Pages
 
         }
 
-        [HttpPost]
         public IActionResult OnPostAllShops([FromServices] SaveSelectedShop saveSelectedShop)
         {
             saveSelectedShop.Do("Wszystkie");
             return RedirectToPage("MainProducts");
         }
 
-        [HttpPost]
         public IActionResult OnPostBiedronka([FromServices] SaveSelectedShop saveSelectedShop)
         {
             saveSelectedShop.Do("Biedronka");
             return RedirectToPage("MainProducts");
         }
 
-        [HttpPost]
         public IActionResult OnPostLidl([FromServices] SaveSelectedShop saveSelectedShop)
         {
             saveSelectedShop.Do("Lidl");
             return RedirectToPage("MainProducts");
         }
 
-        [HttpPost]
         public IActionResult OnPostKaufland([FromServices] SaveSelectedShop saveSelectedShop)
         {
             saveSelectedShop.Do("Kaufland");
