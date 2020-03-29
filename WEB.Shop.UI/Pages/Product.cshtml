@@ -3,98 +3,96 @@
 @{
 }
 
-<div class="hero">
-    <div class="hero-body">
-        <div class="container">
-            <div class="columns">
-  
-                <div class="column is-6">
-                    <section class="content">
-                        <header>
-                            <p class="title">@Model.Product.Seller</p>
-                            <p class="title">@Model.Product.Name</p>
-                            <p class="subtitle">@Model.Product.Description</p>
-                            <p class="subtitle">@Model.Product.Value</p>
-                            <p class="subtitle">@Model.Product.SourceUrl</p>
-                        </header>
-                        <main>
-                        </main>
-                        <footer>
-                            <form method="post">
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                        <label class="label">Sprzedawca</label>
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field is-narrow">
-                                            <div class="control">
-                                                <div class="select is-fullwidth">
-                                                    <select asp-for="CartViewModel.StockId" onchange="toggleStock(event)">
-                                                        @foreach (var s in Model.Product.Stock)
-                                                        {
-                                                            bool disabled = s.Quantity <= 0;
-                                                            <option value="@s.Id" disabled="@disabled">@s.Description</option>
-                                                        }
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                        <label class="label">Ilość</label>
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field is-narrow">
-                                            <div class="control">
-                                                <input min="0" class="input" asp-for="CartViewModel.Quantity" value="1" />
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(Model.Product.Description))
-                                            {
-                                                <p class="help is-warning is-hidden low-stock">PROMOCJA!</p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
+<div id="product" class="container-fluid">
 
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field is-narrow">
-                                            <div class="control">
-                                                <button class="button is-success" type="submit">Dodaj do Koszyka!</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+    <div class="card mb-4 h-100">
+        <div>
+            <header class="card-header mb-2 pt-4">
+            </header>
+            <div class="row">
 
-                            <form method="post"  asp-page-handler="Return">
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field is-narrow">
-                                            <div class="control">
-                                                <button class="button is-success" type="submit">Wróć!</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                <div class="col-6">
 
-                        </footer>
-                    </section>
+                    <div>
+                        <h4 class="pt-2 ml-4">@Model.Product.Seller</h4>
+
+                    </div>
+                    <div>
+                        <p class="pt-2 ml-4">@Model.Product.Name</p>
+                    </div>
+
+                    <div>
+                        <h5 class="pt-2 ml-4">@Model.Product.Value</h5>
+                    </div>
+                    <div>
+                        <a class="btn btn-warning pt-2 ml-4" href="@Model.Product.SourceUrl" target="_blank">Zobacz na stronie sklepu!</a>
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <form method="post">
+                        <div>
+                            <div>
+                                <div class="text-danger font-weight-bold pb-2 pt-2 ml-4">@Model.Product.Description?.Replace("!PROMOCJA!", "")</div>
+
+                                <label class="card-title pt-2 ml-4">Sprzedawca</label>
+                            </div>
+
+                            <div>
+                                <select class="border border-warning ml-4" asp-for="CartViewModel.StockId" onchange="toggleStock(event)">
+                                    @foreach (var s in Model.Product.Stock)
+                                    {
+                                        bool disabled = s.Quantity <= 0;
+                                        <option value="@s.Id" disabled="@disabled">@s.Description</option>
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div>
+                                <label class="card-title pt-2 ml-4">Ilość</label>
+                            </div>
+
+                            <div>
+                                <div>
+                                    <input class="input ml-4 border border-warning" min="0" asp-for="CartViewModel.Quantity" value="1" />
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.Product.Description))
+                                {
+                                    <p class="card-text text-danger font-weight-bold pb-2 pt-2 ml-4">PROMOCJA!</p>
+                                }
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <div>
+                                <button class="btn btn-warning ml-4" type="submit">Dodaj do Koszyka!</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <form method="post" asp-page-handler="Return">
+                        <div>
+                            <button class="btn btn-warning mt-3 ml-4 mb-4" type="submit">Wróć!</button>
+                        </div>
+                    </form>
+
+
+
+
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
+
 <script>
-  
+
     var toggleStock = function (e) {
 
         var stockToHide = document.querySelectorAll('.low-stock');
@@ -110,7 +108,7 @@
 
         var stockToShow = document.getElementById('low-stock-' + id);
 
-        if(stockToShow !== null && stockToShow !== undefined)
+        if (stockToShow !== null && stockToShow !== undefined)
             stockToShow.classList.remove('is-hidden');
     }
 

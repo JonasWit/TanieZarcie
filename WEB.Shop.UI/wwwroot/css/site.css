@@ -34,7 +34,6 @@
 
 .card {
     border-radius: 25px 25px 0px 0px;
-  
 }
 
 .card-text {
@@ -44,7 +43,9 @@
 .text-muted {
     font-size: 9px;
 }
+
 .summary {
+    display: block;
     border-radius: 25px;
 }
 
@@ -69,7 +70,35 @@
     color: #d25e64;
 }
 
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #000000;
+    background-color: #ffc107 !important;
+    border: 1px solid #ffc107;
+}
 
+.page-item {
+    border-radius: 25px;
+}
+
+.card-header {
+    display: flex;
+    border-radius: 25px 25px 0px 0px;
+    background-image: url('../images/jakub-kapusnak-vnnfwky7tj4-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
+    height: 9em;
+}
+
+.btn {
+    font-size: 12px;
+
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

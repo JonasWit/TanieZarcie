@@ -43,11 +43,10 @@
         </div>
         <div class="col-lg-9">
             <div class="block d-flex align-items-center justify-content-center pb-3">
+                <p class="p-2 mb-1 bg-warning text-dark summary">Co znaleźliśmy? Liczba ofert - @Model.Count</p>
 
-                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark summary">Co znaleźliśmy? </p>
                 <!--   <p class="font-weight-light">Produkt - @(String.IsNullOrEmpty(Model.SearchString) ? "Brak" : Model.SearchString)</p>
-                <p class="font-weight-light">Sklep - @Model.SelectedShop</p>-->
-                <p class="font-weight-bold p-1 mb-1 bg-warning text-dark summary">Liczba ofert - @Model.Count</p>
+                            <p class="font-weight-light">Sklep - @Model.SelectedShop</p>-->
                 <!--<p>Obecna Strona - @Model.CurrentPage</p>
                 <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>-->
             </div>
@@ -92,12 +91,13 @@
                                 <div class="card-title text-danger font-weight-bold pb-2 ">
                                     @p.Description?.Replace("!PROMOCJA!", "")
                                 </div>
-
+                                <hr>
                                 <div class="card-text ">
                                     <h5>@p.Value</h5>
+                                    <hr>
                                 </div>
                             </div>
-
+                            
                             <div class="link d-flex justify-content-center pb-3">
                                 <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="card-link text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
                             </div>
