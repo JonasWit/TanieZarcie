@@ -98,6 +98,17 @@
     height: 9em;
 }
 
+
+.cart-header {
+    display: flex;
+    border-radius: 25px 25px 0px 0px;
+    background-image: url('../images/daria-volkova-bmnx7l9g5xc-unsplash2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #000000;
+    height: 9em;
+    width: 100%;
+}
 .btn {
     font-size: 12px;
 
