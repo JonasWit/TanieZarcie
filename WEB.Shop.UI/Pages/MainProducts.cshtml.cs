@@ -22,7 +22,7 @@ namespace WEB.Shop.UI.Pages
         [BindProperty(SupportsGet = true)]
         public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
-        public int PageSize { get; set; } = 20;
+        public int PageSize { get; set; } = 12;
 
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
