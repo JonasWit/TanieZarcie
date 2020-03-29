@@ -48,6 +48,7 @@ namespace WEB.Shop.Application.Crawlers
 
             DataCache[Shops.Biedronka.ToString()] = Results.Where(p => p.Seller == Shops.Biedronka.ToString()).Count();
             DataCache[Shops.Kaufland.ToString()] = Results.Where(p => p.Seller == Shops.Kaufland.ToString()).Count();
+            DataCache[Shops.Lidl.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
             return Results.Count;
         }
 
