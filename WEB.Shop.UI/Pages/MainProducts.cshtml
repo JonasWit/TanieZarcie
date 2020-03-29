@@ -55,13 +55,13 @@
 
                 @foreach (var p in Model.Products)
                 {
-                    <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="col-lg-3 col-md-6 mb-4">
 
                         <div class="card mb-4 h-100">
 
 
                             <div class="card-title text-center">
-                                <h2 id="@p.Seller.ToLower()" class="card-header mb-2"> @p.Seller </h2>
+                                <h5 id="@p.Seller.ToLower()" class="card-header mb-2"> @p.Seller </h5>
                             </div>
 
 
@@ -80,7 +80,7 @@
 
                                 @if (!string.IsNullOrEmpty(p.Description))
                                 {
-                                    <div class="card-text .text-danger font-weight-bold pb-2 ">
+                                    <div class="card-text text-danger font-weight-bold pb-2 ">
                                         @message
                                     </div>
                                 }
@@ -89,16 +89,16 @@
                                     @p.Name
 
                                 </div>
-                                <div class="card-title">
+                                <div class="card-title text-danger font-weight-bold pb-2 ">
                                     @p.Description?.Replace("!PROMOCJA!", "")
                                 </div>
 
-                                <div class="card-subtitle pt-2">
-                                    <h4>@p.Value</h4>
+                                <div class="card-text ">
+                                    <h5>@p.Value</h5>
                                 </div>
                             </div>
 
-                            <div class="link d-flex justify-content-center p-3 ">
+                            <div class="link d-flex justify-content-center pb-3">
                                 <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="card-link text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
                             </div>
                             @{
@@ -133,7 +133,7 @@
 
                                 if (red)
                                 {
-                                    <div class="card-footer text-center p-1 text-white bg-danger">
+                                    <div class="card-footer text-center text-white bg-danger">
                                         <small class="text-muted">
                                             @dispalyTime
                                         </small>

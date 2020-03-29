@@ -34,12 +34,12 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                ExtractProduct(div, linkStruct);
+                //ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
-                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
-            //.WaitAll(tasks.ToArray());
+            Task.WaitAll(tasks.ToArray());
 
             result.RemoveAll(x => string.IsNullOrEmpty(x.Name));
             result.TrimExcess();
@@ -51,24 +51,15 @@ namespace WEB.SearchEngine.Crawlers
             var result = new Product();
 
             if (!productNode.Descendants()
-                .Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricefield__price", MatchDireciton.InputContainsMatch))))
-            {
-                return null;
-            }
+                .Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricefield__price", MatchDireciton.InputContainsMatch)))) return null;
 
             var price = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricefield__price", MatchDireciton.Equals)))
                 .FirstOrDefault()?
                 .InnerText.RemoveMetacharacters();
 
-            if (decimal.TryParse(price, out decimal plnDecimal))
-            {
-                result.Value = plnDecimal / 100;
-            }
-            else
-            {
-                return null;
-            }
+            if (decimal.TryParse(price, out decimal plnDecimal)) result.Value = plnDecimal / 100;
+            else return null;
 
             result.SourceUrl = linkStruct.Link;
 
@@ -95,10 +86,7 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText.RemoveMetacharacters())
                 .ToList();
 
-            if (promoCommnets.Count != 0)
-            {
-                result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
-            }
+            if (promoCommnets.Count != 0) result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
             result.TimeStamp = DateTime.Now;

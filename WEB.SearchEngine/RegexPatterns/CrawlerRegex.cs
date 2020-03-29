@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace WEB.SearchEngine.RegexPatterns
 {
@@ -17,11 +14,7 @@ namespace WEB.SearchEngine.RegexPatterns
         public const string StandardNormalization = "[^a-zA-Z0-9]";
         public const string Metacharactes = "[\t|\n|\r]";
 
-        public static Regex GetStandardNormalizationRegex()
-        {
-            return new Regex(StandardNormalization);
-        
-        }
+        public static Regex GetStandardNormalizationRegex() => new Regex(StandardNormalization);
 
         public static bool StandardMatch(string input, string match, MatchDireciton matchDireciton)
         {
@@ -31,40 +24,19 @@ namespace WEB.SearchEngine.RegexPatterns
             switch (matchDireciton)
             {
                 case MatchDireciton.Equals:
-                    if (normalizedInput.Equals(normalizedMatch))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false; 
-                    }
+                    if (normalizedInput.Equals(normalizedMatch)) return true;
+                    else return false; 
                 case MatchDireciton.InputContainsMatch:
-                    if (normalizedInput.Contains(normalizedMatch))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    if (normalizedInput.Contains(normalizedMatch)) return true;
+                    else return false;
                 case MatchDireciton.MatchContainsInput:
-                    if (normalizedMatch.Contains(normalizedInput))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    if (normalizedMatch.Contains(normalizedInput)) return true;
+                    else return false;
                 default:
                     return false;
             }
         }
 
-        public static string RemoveMetacharacters(this string input)
-        {
-            return Regex.Replace(input, Metacharactes, "");
-        }
+        public static string RemoveMetacharacters(this string input) => Regex.Replace(input, Metacharactes, "");
     }
 }

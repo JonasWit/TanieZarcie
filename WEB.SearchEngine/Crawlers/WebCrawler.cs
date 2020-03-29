@@ -49,7 +49,7 @@ namespace WEB.SearchEngine.Crawlers
                 webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
                 webStructs.GroupBy(x => x.Link).Select(x => x.First());
 
-                Products = ExtractDataFromRecordsAsync(webStructs);
+                Products = ExtractDataFromRecords(webStructs);
 
                 var distinctProducts = Products.GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
                     .Select(p => p.First())
@@ -66,17 +66,11 @@ namespace WEB.SearchEngine.Crawlers
 
         private bool LinkCleanUp(string link, string output)
         {
-            if (link.MatchWithRegex(output, @"[^a-zA-Z0-9]", MatchDirection.InputContainsOutput))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (link.MatchWithRegex(output, @"[^a-zA-Z0-9]", MatchDirection.InputContainsOutput)) return true;
+            else return false;
         }
 
-        private List<Product> ExtractDataFromRecordsAsync(List<LinkStruct> webStructs)
+        private List<Product> ExtractDataFromRecords(List<LinkStruct> webStructs)
         {
             var result = new List<Product>();
 
@@ -152,10 +146,7 @@ namespace WEB.SearchEngine.Crawlers
         {
             var uri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-            if (!uri.IsAbsoluteUri)
-            {
-                uri = new Uri(new Uri(baseUrl), uri);
-            }
+            if (!uri.IsAbsoluteUri) uri = new Uri(new Uri(baseUrl), uri);
 
             return uri.ToString();
         }

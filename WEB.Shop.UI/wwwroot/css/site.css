@@ -1,4 +1,10 @@
-﻿.align-self-center {
+﻿* body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.align-self-center {
     align-self: center,
 }
 
@@ -28,8 +34,16 @@
 
 .card {
     border-radius: 25px 25px 0px 0px;
+  
 }
 
+.card-text {
+    font-size: 14px;
+}
+
+.text-muted {
+    font-size: 9px;
+}
 .summary {
     border-radius: 25px;
 }
@@ -37,21 +51,21 @@
 #biedronka {
     border: 5px solid #f0930d;
     border-radius: 25px;
-    background-color: #f5e011;
+    /*background-color: #f5e011;*/
     color: #df1313;
 }
 
 #lidl {
     border: 5px solid #f0930d;
     border-radius: 25px;
-    background-color: #f5e011;
+    /*background-color: #f5e011;*/
     color: #df1313;
 }
 
 #kaufland {
     border: 5px solid #e30613;
     border-radius: 25px;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     color: #d25e64;
 }
 

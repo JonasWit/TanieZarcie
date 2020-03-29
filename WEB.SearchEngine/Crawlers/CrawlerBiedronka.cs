@@ -50,10 +50,7 @@ namespace WEB.SearchEngine.Crawlers
         {
             var result = new Product();
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals))))
-            {
-                return new Product();
-            }
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))) return new Product();
 
             var pln = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
@@ -63,14 +60,8 @@ namespace WEB.SearchEngine.Crawlers
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
                 .FirstOrDefault().InnerText;
 
-            if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal))
-            {
-                result.Value = plnDecimal + (grDecimal / 100);
-            }
-            else
-            {
-                return new Product();
-            }
+            if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
+            else return new Product();
 
             result.SourceUrl = linkStruct.Link;
 
@@ -79,10 +70,7 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText)
                 .ToList();
 
-            if (promoCommnets.Count != 0)
-            {
-                result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
-            }
+            if (promoCommnets.Count != 0) result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
 
