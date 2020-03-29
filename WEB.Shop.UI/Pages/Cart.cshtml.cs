@@ -15,6 +15,11 @@ namespace WEB.Shop.UI.Pages
             return Page();
         }
 
+        public IActionResult OnPostReturn()
+        {
+            return RedirectToPage("MainProducts");
+        }
+
         //todo: inject session and add button to clear cart
     }
 }
