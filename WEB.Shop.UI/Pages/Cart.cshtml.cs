@@ -15,10 +15,15 @@ namespace WEB.Shop.UI.Pages
             return Page();
         }
 
-        public IActionResult OnPostReturn()
-        {
-            return RedirectToPage("MainProducts");
-        }
+        //public IActionResult OnGetReturn()
+        //{
+        //    return RedirectToPage("MainProducts");
+        //}
+
+        //public IActionResult OnPostReturn()
+        //{
+        //    return RedirectToPage("MainProducts");
+        //}
 
         //todo: zrobic metode na wyczyszczenia koszyka
     }

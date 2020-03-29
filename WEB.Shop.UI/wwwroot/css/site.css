@@ -42,6 +42,9 @@
 
 .text-muted {
     font-size: 9px;
+    color: #ffffff !important;
+    
+    
 }
 
 .summary {
@@ -85,7 +88,7 @@
     border-radius: 25px;
 }
 
-.card-header {
+.main-header {
     display: flex;
     border-radius: 25px 25px 0px 0px;
     background-image: url('../images/jakub-kapusnak-vnnfwky7tj4-unsplash.jpg');
@@ -98,6 +101,14 @@
 .btn {
     font-size: 12px;
 
+}
+
+#cart-partial {
+    margin-top: 20px;
+    background-image: url('../images/daria-volkova-bmnx7l9g5xc-unsplash2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #ffffff;
 }
 /* Sticky footer styles
 -------------------------------------------------- */

@@ -1,18 +1,13 @@
 ﻿@page "{name}"
 @model WEB.Shop.UI.Pages.ProductModel
-@{
-}
 
 <div id="product" class="container-fluid">
-
     <div class="card mb-4 h-100">
         <div>
-            <header class="card-header mb-2 pt-4">
+            <header class="main-header mb-2 pt-4">
             </header>
             <div class="row">
-
                 <div class="col-6">
-
                     <div>
                         <h4 class="pt-2 ml-4">@Model.Product.Seller</h4>
 
@@ -27,7 +22,6 @@
                     <div>
                         <a class="btn btn-warning pt-2 ml-4" href="@Model.Product.SourceUrl" target="_blank">Zobacz na stronie sklepu!</a>
                     </div>
-
                 </div>
                 <div class="col-6">
                     <form method="post">
@@ -68,7 +62,7 @@
 
                         <div>
                             <div>
-                                <button class="btn btn-warning ml-4" type="submit">Dodaj do Koszyka!</button>
+                                <button class="btn btn-warning ml-4 mt-3" type="submit">Dodaj do Koszyka!</button>
                             </div>
                         </div>
 
@@ -79,10 +73,6 @@
                             <button class="btn btn-warning mt-3 ml-4 mb-4" type="submit">Wróć!</button>
                         </div>
                     </form>
-
-
-
-
                 </div>
             </div>
         </div>

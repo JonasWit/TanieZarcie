@@ -29,7 +29,7 @@ namespace WEB.Shop.UI.Controllers
         }
 
         [HttpPost("{stockId}/{quantity}")]
-        public async Task<IActionResult> Remove(int stockId, int quantity, [FromServices] RemoveFromCart removeFromCart)
+        public async Task<IActionResult> Remove(int stockId, int quantity, [FromServices] RemoveFromCart removeFromCart, [FromServices] GetCart getCart)
         {
             var request = new RemoveFromCart.Request
             {

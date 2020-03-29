@@ -45,14 +45,11 @@
             </div>
         </div>
     }
-    <div class="has-text-right">
-        <form method="post" asp-page-handler="Return">
-            <button class="button is-success" type="submit">Kup no coś jeszcze!</button>
-        </form>
-        @if (Model.Count() > 0)
-        {
-            <a asp-page="/Checkout/Payment" class="button is-success">Przelicz koszyk</a>
-        }
-
-    </div>
+<div class="has-text-right">
+    <a asp-page="/MainProducts" class="button is-text">Szukaj dalej!</a>
+    @if (Model.Count() > 0)
+    {
+        <a asp-page="/Checkout/Payment" class="button is-success">Przelicz koszyk</a>
+    }
+</div>
 </div>
