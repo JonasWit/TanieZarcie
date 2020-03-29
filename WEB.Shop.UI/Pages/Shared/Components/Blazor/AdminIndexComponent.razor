@@ -11,8 +11,8 @@
     {
         var client = HttpFactory.CreateClient();
         var baseUrl = MyNavigationManager.Uri;
-        client.BaseAddress = new Uri(baseUrl);
-        var result = await client.GetJsonAsync<GetProducts.Response[]>("/products");
+        //client.BaseAddress = new Uri(baseUrl);
+        var result = await client.GetAsync("{baseUrl}/products");
         var content = result.ToString();
     }
 
