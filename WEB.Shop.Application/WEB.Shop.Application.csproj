@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <UserSecretsId>557a699d-b5ca-44e4-aac9-c9e897f67f61</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
   
   <ItemGroup>

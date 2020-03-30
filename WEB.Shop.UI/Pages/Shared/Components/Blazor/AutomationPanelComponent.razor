@@ -1,0 +1,31 @@
+﻿@using WEB.Shop.Application.Automations
+@using WEB.Shop.Application.Crawlers 
+@inject AutomationController AutomationController
+
+
+<h3>AutomationPanelComponent</h3>
+
+<p>Test Counter: @AutomationController.GetCounter()</p>
+
+<p>Scheduler active: @AutomationController.CheckScheduler().ToString()</p>
+
+<button class="btn btn-primary" @onclick="StartScheduler">Click me</button>
+
+@code {
+
+    int testCounter = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    private async Task StartScheduler()
+    {
+        await AutomationController.SetUpScheduler();
+        await AutomationController.ScheduleCrawlersAutomation();
+    }
+
+
+
+}

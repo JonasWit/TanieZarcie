@@ -177,7 +177,5 @@ namespace WEB.Shop.Application.Crawlers
                 });
             }
         }
-
-
     }
 }

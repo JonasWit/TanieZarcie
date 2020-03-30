@@ -1,5 +1,5 @@
 ﻿@using WEB.Shop.Application.Crawlers
-@inject CrawlersCommander commander
+@inject CrawlersCommander Commander
 
 <div>
     <div class="tabs is-centered">
@@ -40,7 +40,7 @@
                         <button class="button is-danger is-outlined" @onclick="ClearCache">Clear</button>
                     </td>
                     <td>
-                        <p class="content is-medium">@commander.DataCache.Values.Sum()</p>
+                        <p class="content is-medium">@Commander.DataCache.Values.Sum()</p>
                     </td>
                 </tr>
 
@@ -57,7 +57,7 @@
                             <button class="button is-danger is-outlined" @onclick="(() => RunEngine(shop))">Clear</button>
                         </td>
                         <td>
-                            <p class="content is-medium">@commander.DataCache[shop.ToString()]</p>
+                            <p class="content is-medium">@Commander.DataCache[shop.ToString()]</p>
                         </td>
                     </tr>
                 }
@@ -88,7 +88,7 @@
                         <th>Oldest Record</th>
                     </tr>
 
-                    @foreach (var item in commander.DataBaseCheck)
+                    @foreach (var item in Commander.DataBaseCheck)
                     {
                         <tr>
                             <td>
@@ -108,7 +108,7 @@
                             <p class="content is-medium is-bold">Total</p>
                         </td>
                         <td>
-                            <p class="content is-medium is-bold">@commander.DataBaseCheck.Sum(x => x.ProductsCount)</p>
+                            <p class="content is-medium is-bold">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</p>
                         </td>
                         <td>
                             <p class="content is-medium is-bold">-</p>
@@ -180,7 +180,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.CheckDataBase();
+            await Commander.CheckDataBase();
             databaseTabLoading = false;
         }
     }
@@ -211,7 +211,7 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.RunEngineAsync();
+            await Commander.RunEngineAsync();
             crawlersTabLoading = false;
         }
     }
@@ -225,7 +225,7 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.RunEngineAsync(shop.ToString());
+            await Commander.RunEngineAsync(shop.ToString());
             crawlersTabLoading = false;
         }
     }
@@ -239,7 +239,7 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.ClearCacheAsync();
+            await Commander.ClearCacheAsync();
             crawlersTabLoading = false;
         }
     }
@@ -253,7 +253,7 @@
         else
         {
             crawlersTabLoading = true;
-            await commander.ClearCacheAsync(shop.ToString());
+            await Commander.ClearCacheAsync(shop.ToString());
             crawlersTabLoading = false;
         }
     }
@@ -271,7 +271,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.CheckDataBase();
+            await Commander.CheckDataBase();
             databaseTabLoading = false;
         }
     }
@@ -285,7 +285,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.ClearDataBaseAsync();
+            await Commander.ClearDataBaseAsync();
             databaseTabLoading = false;
         }
     }
@@ -299,7 +299,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.ClearDataBaseAsync(shop.ToString());
+            await Commander.ClearDataBaseAsync(shop.ToString());
             databaseTabLoading = false;
         }
     }
@@ -313,7 +313,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.UpdateAllData();
+            await Commander.UpdateAllData();
             databaseTabLoading = false;
         }
     }
@@ -327,7 +327,7 @@
         else
         {
             databaseTabLoading = true;
-            await commander.UpdateDataBase(shop.ToString());
+            await Commander.UpdateDataBase(shop.ToString());
             databaseTabLoading = false;
         }
     }
