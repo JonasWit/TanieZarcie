@@ -2,7 +2,7 @@
 
 namespace WEB.Shop.Application.Session
 {
-    [Service]
+    [TransientService]
     public class GetCurrentPage
     {
         private ISessionManager _sessionManager;

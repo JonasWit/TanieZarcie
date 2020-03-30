@@ -5,7 +5,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.StockAdmin
 {
-    [Service]
+    [TransientService]
     public class UpdateStock
     {
         private IStockManager _stockManager;

@@ -2,7 +2,7 @@
 
 namespace WEB.Shop.Application.Session
 {
-    [Service]
+    [TransientService]
     public class SaveSelectedShop
     {
         private ISessionManager _sessionManager;

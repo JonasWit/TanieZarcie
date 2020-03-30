@@ -5,7 +5,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
-    [Service]
+    [TransientService]
     public class CreateProduct
     {
         private IProductManager _productManager;

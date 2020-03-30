@@ -4,7 +4,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.StockAdmin
 {
-    [Service]
+    [TransientService]
     public class CreateStock
     {
         private IStockManager _stockManager;

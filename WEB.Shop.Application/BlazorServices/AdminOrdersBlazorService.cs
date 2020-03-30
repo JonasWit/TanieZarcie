@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace WEB.Shop.Application.BlazorServices
 {
+    [TransientService]
     public class AdminOrdersBlazorService
     {
+
+
     }
 }

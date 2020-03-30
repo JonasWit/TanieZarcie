@@ -7,7 +7,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Orders
 {
-    [Service]
+    [TransientService]
     public class GetOrder
     {
         private IOrderManager _orderManager;

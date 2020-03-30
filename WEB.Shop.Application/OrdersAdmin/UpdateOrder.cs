@@ -4,7 +4,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.OrdersAdmin
 {
-    [Service]
+    [TransientService]
     public class UpdateOrder
     {
         private IOrderManager _orderManager;

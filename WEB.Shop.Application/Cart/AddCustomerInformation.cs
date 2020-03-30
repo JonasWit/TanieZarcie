@@ -3,7 +3,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Cart
 {
-    [Service]
+    [TransientService]
     public class AddCustomerInformation
     {
         private ISessionManager _sessionManager;

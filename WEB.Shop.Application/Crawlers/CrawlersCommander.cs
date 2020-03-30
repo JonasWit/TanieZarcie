@@ -9,6 +9,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Crawlers
 {
+    [ScopedService]
     public class CrawlersCommander
     {
         private readonly ICrawlersDataBaseManager _crawlersDataBaseManager;

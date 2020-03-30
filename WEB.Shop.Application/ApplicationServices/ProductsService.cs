@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WEB.Shop.Application.ApplicationServices
 {
-    [Service]
+    [TransientService]
     public class ProductsService
     {
 

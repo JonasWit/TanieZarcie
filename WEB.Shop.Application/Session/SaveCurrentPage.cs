@@ -5,7 +5,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Session
 {
-    [Service]
+    [TransientService]
     public class SaveCurrentPage
     {
         private ISessionManager _sessionManager;

@@ -2,7 +2,7 @@
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
-    [Service]
+    [TransientService]
     public class GetProduct
     {
         private IProductManager _productManager;

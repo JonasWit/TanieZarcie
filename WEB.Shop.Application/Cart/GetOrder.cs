@@ -4,7 +4,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
-    [Service]
+    [TransientService]
     public class GetOrder
     {
         private ISessionManager _sessionManager;

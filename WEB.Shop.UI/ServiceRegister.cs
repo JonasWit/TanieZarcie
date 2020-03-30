@@ -2,7 +2,6 @@
 using System.Reflection;
 using WEB.Shop.Application;
 using WEB.Shop.Application.Automations;
-using WEB.Shop.Application.Crawlers;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.UI.Infrastructure;
@@ -13,15 +12,24 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicaitonServices(this IServiceCollection @this)
         {
-            var serviceType = typeof(Service);
-            var definedTypes = serviceType.Assembly.DefinedTypes;
+            var transientServiceType = typeof(TransientService);
+            var scopedServiceType = typeof(ScopedService);
+            var definedTypes = transientServiceType.Assembly.DefinedTypes;
 
-            var services = definedTypes
-                .Where(x => x.GetTypeInfo().GetCustomAttribute<Service>() != null);
+            var transientServices = definedTypes
+                .Where(x => x.GetTypeInfo().GetCustomAttribute<TransientService>() != null);
 
-            foreach (var service in services)
+            var scopedServices = definedTypes
+                .Where(x => x.GetTypeInfo().GetCustomAttribute<ScopedService>() != null);
+
+            foreach (var service in transientServices)
             {
                 @this.AddTransient(service);
+            }
+
+            foreach (var service in scopedServices)
+            {
+                @this.AddScoped(service);
             }
 
             @this.AddTransient<IStockManager, StockManager>();
@@ -29,8 +37,6 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddTransient<IOrderManager, OrderManager>();
             @this.AddTransient<ICrawlersDataBaseManager, CrawlersDataBaseManager>();
 
-            @this.AddScoped<CrawlersCommander>();
-            @this.AddScoped<AutomationController>();
             @this.AddScoped<ISessionManager, SessionManager>();
 
             @this.AddSingleton<AppSettingsService>();

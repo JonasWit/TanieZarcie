@@ -3,7 +3,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Cart
 {
-    [Service]
+    [TransientService]
     public class RemoveFromCart
     {
         private ISessionManager _sessionManager;

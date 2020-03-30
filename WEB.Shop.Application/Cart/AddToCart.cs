@@ -4,7 +4,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.Cart
 {
-    [Service]
+    [TransientService]
     public class AddToCart
     {
         private ISessionManager _sessionManager;

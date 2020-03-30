@@ -2,7 +2,7 @@
 
 namespace WEB.Shop.Application.Session
 {
-    [Service]
+    [TransientService]
     public class GetSearchString
     {
         private ISessionManager _sessionManager;

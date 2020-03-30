@@ -3,6 +3,7 @@ using WEB.Shop.Application.Crawlers;
 
 namespace WEB.Shop.Application.Automations
 {
+    [ScopedService]
     public class AutomationController
     {
         private readonly CrawlersCommander _crawlersCommander;

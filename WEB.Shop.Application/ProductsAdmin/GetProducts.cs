@@ -3,7 +3,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.ProductsAdmin
 {
-    [Service]
+    [TransientService]
     public class GetProducts
     {
         private IProductManager _productManager;

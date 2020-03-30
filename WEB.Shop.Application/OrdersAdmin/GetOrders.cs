@@ -5,7 +5,7 @@ using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.OrdersAdmin
 {
-    [Service]
+    [TransientService]
     public class GetOrders
     {
         private IOrderManager _orderManager;
