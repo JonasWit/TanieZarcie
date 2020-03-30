@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WEB.Shop.Application.Crawlers;
-using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.Automations
 {
@@ -27,8 +23,6 @@ namespace WEB.Shop.Application.Automations
         {
             await _automationManager.ScheduleCrawlersAutomationJob(_crawlersCommander);
         }
-
-        public int GetCounter() => _automationManager.Counter;
 
         public bool CheckScheduler() => _automationManager.SchedulerPresent;
      

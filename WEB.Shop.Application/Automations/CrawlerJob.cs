@@ -1,5 +1,6 @@
 ﻿using Quartz;
 using System.Threading.Tasks;
+using WEB.Shop.Application.Crawlers;
 
 namespace WEB.Shop.Application.Automations
 {
@@ -8,6 +9,8 @@ namespace WEB.Shop.Application.Automations
         public async Task Execute(IJobExecutionContext context)
         {
             var dataMap = context.JobDetail.JobDataMap;
+
+            var commander = (CrawlersCommander)dataMap["CrawlersCommander"];
 
             await Task.FromResult(0);
         }

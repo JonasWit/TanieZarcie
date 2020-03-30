@@ -2,28 +2,14 @@
 using Quartz.Impl;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using WEB.SearchEngine;
 using WEB.Shop.Application.Crawlers;
 
 namespace WEB.Shop.Application.Automations
 {
     public class AutomationManager
     {
-        public int Counter { get; set; }
         public IScheduler Scheduler { get; set; }
-        public bool SchedulerPresent
-        {
-            get
-            {
-                if (Scheduler != null) return true;
-                else return false;
-            }
-        }
-
-        public AutomationManager()
-        {
-
-        }
+        public bool SchedulerPresent { get { if (Scheduler != null) { return true; } else { return false; } } }
 
         public async Task CreateScheduler()
         {
