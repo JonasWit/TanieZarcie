@@ -1,6 +1,6 @@
 ﻿namespace WEB.Shop.Application.BlazorServices
 {
-    [TransientService]
+    [ScopedService]
     public class AdminStockBlazorService
     {
 
