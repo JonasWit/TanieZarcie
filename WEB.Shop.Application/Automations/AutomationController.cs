@@ -14,15 +14,11 @@ namespace WEB.Shop.Application.Automations
             _automationManager = automationManager;
         }
 
-        public async Task SetUpScheduler()
-        {
-            await _automationManager.CreateScheduler();
-        }
+        public async Task CreateScheduler() => await _automationManager.CreateScheduler();
 
-        public async Task ScheduleCrawlersAutomation()
-        {
-            await _automationManager.ScheduleCrawlersAutomationJob(_crawlersCommander);
-        }
+        public async Task DisposeScheduler() => await _automationManager.DisposeScheduler();
+
+        public async Task ScheduleCrawlersAutomation() => await _automationManager.ScheduleCrawlersAutomationJob(_crawlersCommander);
 
         public bool CheckScheduler() => _automationManager.SchedulerPresent;
      

@@ -1,11 +1,14 @@
 ﻿@using WEB.Shop.Application.Automations
-@using WEB.Shop.Application.Crawlers 
 @inject AutomationController AutomationController
-
 
 <h3>AutomationPanelComponent</h3>
 
-<p>Test Counter: @AutomationController.GetCounter()</p>
+@if (loading)
+{
+    <div class="container">
+        <progress class="progress is-small is-primary" max="100">25%</progress>
+    </div>
+}
 
 <p>Scheduler active: @AutomationController.CheckScheduler().ToString()</p>
 
@@ -13,17 +16,40 @@
 
 @code {
 
-    int testCounter = 0;
+    bool loading = false;
 
-    protected override async Task OnInitializedAsync()
-    {
+    //protected override async Task OnInitializedAsync()
+    //{
 
-    }
+    //}
 
     private async Task StartScheduler()
     {
-        await AutomationController.SetUpScheduler();
-        await AutomationController.ScheduleCrawlersAutomation();
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await AutomationController.CreateScheduler();
+            await AutomationController.ScheduleCrawlersAutomation();
+            loading = false;
+        }
+    }
+
+    private async Task StopScheduler()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await AutomationController.DisposeScheduler();
+            loading = false;
+        }
     }
 
 
