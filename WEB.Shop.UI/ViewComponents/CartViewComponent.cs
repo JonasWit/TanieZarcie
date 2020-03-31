@@ -14,7 +14,7 @@ namespace WEB.Shop.UI.ViewComponents
             _getCart = getCart;
         }
 
-        public IViewComponentResult Invoke(string view = "Default")
+        public IViewComponentResult Invoke(string view = "Summary")
         {
             if (view == "Small")
             {
