@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WEB.Shop.Application.BlazorServices
 {
-    [ScopedService]
+    [TransientService]
     public class AdminOrdersBlazorService
     {
 

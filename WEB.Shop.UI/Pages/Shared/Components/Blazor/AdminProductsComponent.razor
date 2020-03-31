@@ -1,26 +1,136 @@
-﻿
+﻿@using WEB.Shop.Application.BlazorServices
+@using WEB.Shop.Application.ProductsAdmin
+@inject AdminProductsBlazorService AdminProductsBlazorService
 
+    <div class="block">
+        <button class="button" @onclick="Add">Add New Product</button>
+        <table class="table is-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Producer</th>
+                    <th>Seller</th>
+                    <th>Category</th>
+                    <th>SourceUrl</th>
+                    <th>Value</th>
+                    <th>TimeStamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.Producer</td>
+                        <td>@product.Seller</td>
+                        <td>@product.Category</td>
+                        <td>@product.SourceUrl</td>
+                        <td>@product.Value</td>
+                        <td>@product.TimeStamp</td>
+                        <td>
+                            <button class="button is-warning is-outlined" @onclick="(() => Update(product.Id))">Update</button>
+                        </td>
+                        <td><a>Remove</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
+    @if (editing)
+    {
+        <div>
+            <div class="field">
+                <label class="label">Product Name</label>
+                <div class="control">
+                    <input class="input" v-model="productModel.name" />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                    <input class="input" v-model="productModel.description" />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Value</label>
+                <div class="control">
+                    <input class="input" v-model="productModel.value" />
+                </div>
+            </div>
 
-
-
-<h3>AdminProductsComponent</h3>
-
-
-
-
+            <button class="button is-success" @@click="createProduct" v-if="!productModel.id">Create Product</button>
+            <button class="button is-warning" @@click="updateProduct" v-else>Update Product</button>
+            <button class="button" @@click="cancel">Cancel</button>
+        </div>
+    }
 
 
 @code {
 
     bool loading = false;
+    bool editing = false;
+    List<GetProducts.Response> products = new List<GetProducts.Response>();
+
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
 
+        products = AdminProductsBlazorService.GetProducts().ToList();
+
+        loading = false;
     }
 
+    private async Task Add()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+
+            products = AdminProductsBlazorService.GetProducts().ToList();
+
+            loading = false;
+        }
+    }
+
+    private async Task Update(int id)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
 
 
 
+            loading = false;
+        }
+    }
+
+    private async Task Delete(int id)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+
+
+
+            loading = false;
+        }
+    }
 }

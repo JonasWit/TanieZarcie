@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WEB.Shop.Application.ProductsAdmin;
 
 namespace WEB.Shop.Application.BlazorServices
 {
-    [ScopedService]
+    [TransientService]
     public class AdminProductsBlazorService
     {
         private readonly GetProducts _getProducts;
@@ -21,9 +22,9 @@ namespace WEB.Shop.Application.BlazorServices
             _updateProduct = updateProduct;
         }
 
-        public void GetProducts() => _getProducts.Do();
+        public IEnumerable<GetProducts.Response> GetProducts() => _getProducts.Do();
 
-        public void GetProduct(int id) => _getProduct.Do(id);
+        public GetProduct.Response GetProduct(int id) => _getProduct.Do(id);
 
         public async Task CreateProduct(CreateProduct.Request request) => await _createProduct.DoAsync(request);
 
