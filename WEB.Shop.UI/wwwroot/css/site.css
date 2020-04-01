@@ -24,9 +24,9 @@
     color: #ffffff;
 }
 
-#main-product {
+/*#main-product {
     background-image: url('../images/background.jpg');
-}
+}*/
 
 #search {
     position: fixed;
@@ -53,21 +53,21 @@
 }
 
 #biedronka {
-    border: 5px solid #f0930d;
+   /*border: 5px solid #f0930d;*/ 
     border-radius: 25px;
     /*background-color: #f5e011;*/
     color: #df1313;
 }
 
 #lidl {
-    border: 5px solid #f0930d;
+    /*border: 5px solid #f0930d;*/
     border-radius: 25px;
     /*background-color: #f5e011;*/
     color: #df1313;
 }
 
 #kaufland {
-    border: 5px solid #e30613;
+    /*border: 5px solid #e30613;*/
     border-radius: 25px;
     /*background-color: #ffffff;*/
     color: #d25e64;
