@@ -54,11 +54,15 @@ namespace WEB.SearchEngine.Crawlers
 
             var pln = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
-                .FirstOrDefault().InnerText;
+                .FirstOrDefault()?
+                .InnerText
+                .RemoveMetacharacters();
 
             var gr = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
-                .FirstOrDefault().InnerText;
+                .FirstOrDefault()?
+                .InnerText
+                .RemoveMetacharacters();
 
             if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
             else return new Product();
@@ -67,7 +71,7 @@ namespace WEB.SearchEngine.Crawlers
 
             var promoCommnets = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "productpromo", MatchDireciton.InputContainsMatch)))
-                .Select(z => z.InnerText)
+                .Select(z => z.InnerText.RemoveMetacharacters())
                 .ToList();
 
             if (promoCommnets.Count != 0) result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
@@ -77,7 +81,8 @@ namespace WEB.SearchEngine.Crawlers
             var name = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "tilename", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
-                .FirstOrDefault();
+                .FirstOrDefault()?
+                .RemoveMetacharacters();
 
             result.Name = name;
 

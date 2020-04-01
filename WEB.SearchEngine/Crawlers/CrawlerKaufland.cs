@@ -57,7 +57,8 @@ namespace WEB.SearchEngine.Crawlers
             var price = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
                 .FirstOrDefault()?
-                .InnerText.RemoveMetacharacters();
+                .InnerText
+                .RemoveMetacharacters();
 
             if (decimal.TryParse(price, out decimal plnDecimal)) result.Value = plnDecimal / 100;
             else return null;

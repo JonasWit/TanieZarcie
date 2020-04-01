@@ -2,29 +2,17 @@
 @using WEB.Shop.Application.ProductsAdmin
 @inject AdminProductsBlazorService AdminProductsBlazorService
 
-
-
-
-
-    <div class="tabs is-centered">
-        <ul>
-            @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-            {
-                @*<li><a @onclick="SelectCrawlersTab" class="subtitle is-4">Crawlers</a></li>*@
-            }
-            <li v-bind:class="{'is-active': status === 2}"><a @@click="status = 2">Shipped</a></li>
-        </ul>
-    </div>
-
-
-
-
-
-
-
+<div class="tabs is-centered">
+    <ul>
+        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+        {
+            <li><a @onclick="(() => SelectTab(shop))">@shop.ToString()</a></li>
+        }
+    </ul>
+</div>
 
 <div class="table-container">
-    <button class="button" @onclick="Add">Add New Product</button>
+    <button class="button is-success" @onclick="Add">Add New Product</button>
     <table class="table is-striped is-small is-narrow">
         <thead>
             <tr>
@@ -64,7 +52,7 @@
     </table>
 </div>
 
-@if (editing)
+@*@if (editing)
 {
     <div>
         <div class="field">
@@ -90,7 +78,7 @@
         <button class="button is-warning" @@click="updateProduct" v-else>Update Product</button>
         <button class="button" @@click="cancel">Cancel</button>
     </div>
-}
+}*@
 
 
 @code {
@@ -113,12 +101,12 @@
     {
         loading = true;
 
-        products = AdminProductsBlazorService.GetProducts().ToList();
+        products = AdminProductsBlazorService.GetShopProducts(Shops.Biedronka.ToString()).ToList();
 
         loading = false;
     }
 
-    private async Task SelectTab(Shops shop)
+    private void SelectTab(Shops shop)
     {
         if (loading)
         {
@@ -128,7 +116,7 @@
         {
             loading = true;
 
-            products = AdminProductsBlazorService.GetProducts().ToList();
+            products = AdminProductsBlazorService.GetShopProducts(shop.ToString()).ToList();
 
             loading = false;
         }

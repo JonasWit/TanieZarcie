@@ -4,7 +4,7 @@ using WEB.Shop.Application.ProductsAdmin;
 
 namespace WEB.Shop.Application.BlazorServices
 {
-    [TransientService]
+    [ScopedService]
     public class AdminProductsBlazorService
     {
         private readonly GetProducts _getProducts;
@@ -22,7 +22,9 @@ namespace WEB.Shop.Application.BlazorServices
             _updateProduct = updateProduct;
         }
 
-        public IEnumerable<GetProducts.Response> GetProducts() => _getProducts.Do();
+        public IEnumerable<GetProducts.Response> GetProducts() => _getProducts.GetAllProducts();
+
+        public IEnumerable<GetProducts.Response> GetShopProducts(string shop) => _getProducts.GetShopProducts(shop);
 
         public GetProduct.Response GetProduct(int id) => _getProduct.Do(id);
 

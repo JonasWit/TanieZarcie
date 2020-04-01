@@ -11,7 +11,7 @@ namespace WEB.Shop.UI.Controllers
     {
         [HttpGet("")]
         public IActionResult GetProducts([FromServices] GetProducts getProducts) => 
-            Ok(getProducts.Do());
+            Ok(getProducts.GetAllProducts());
 
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id, [FromServices] GetProduct getProduct) => 
