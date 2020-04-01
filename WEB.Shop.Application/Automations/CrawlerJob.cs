@@ -11,11 +11,8 @@ namespace WEB.Shop.Application.Automations
             var dataMap = context.JobDetail.JobDataMap;
             var commander = (CrawlersCommander)dataMap["CrawlersCommander"];
 
-
-
-
-
-            await Task.FromResult(0);
+            await commander.RunEngineAsync();
+            await commander.UpdateAllData();
         }
     }
 }
