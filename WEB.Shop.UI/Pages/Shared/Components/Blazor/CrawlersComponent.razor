@@ -1,11 +1,12 @@
 ﻿@using WEB.Shop.Application.Crawlers
+@using WEB.Shop.Application.Enums 
 @inject CrawlersCommander Commander
 
 <div>
     <div class="tabs is-centered">
         <ul>
-            <li><a @onclick="SelectCrawlersTab" class="subtitle is-4">Crawlers</a></li>
-            <li><a @onclick="SelectDatabaseTab" class="subtitle is-4">Database</a></li>
+            <li><a @onclick="SelectCrawlersTab">Crawlers</a></li>
+            <li><a @onclick="SelectDatabaseTab">Database</a></li>
         </ul>
     </div>
 </div>
@@ -158,17 +159,6 @@
     {
         Main,
         Database,
-    }
-
-    public enum Shops
-    {
-        Biedronka = 0,
-        Lidl = 1,
-        Kaufland = 2,
-        Carrefour = 3,
-        Auchan = 4,
-        Stokrotka = 5,
-        Zabka = 6
     }
 
     protected override async Task OnInitializedAsync()

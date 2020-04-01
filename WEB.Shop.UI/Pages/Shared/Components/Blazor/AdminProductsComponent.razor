@@ -1,5 +1,6 @@
 ﻿@using WEB.Shop.Application.BlazorServices
 @using WEB.Shop.Application.ProductsAdmin
+@using WEB.Shop.Application.Enums
 @inject AdminProductsBlazorService AdminProductsBlazorService
 
 <div class="tabs is-centered">
@@ -11,74 +12,83 @@
     </ul>
 </div>
 
-<div class="table-container">
-    <button class="button is-success" @onclick="Add">Add New Product</button>
-    <table class="table is-striped is-small is-narrow">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Producer</th>
-                <th>Seller</th>
-                <th>Category</th>
-                <th>SourceUrl</th>
-                <th>Value</th>
-                <th>TimeStamp</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in products)
-            {
-                <tr>
-                    <td>@product.Id</td>
-                    <td>@product.Name</td>
-                    <td>@product.Description</td>
-                    <td>@product.Producer</td>
-                    <td>@product.Seller</td>
-                    <td>@product.Category</td>
-                    <td>@product.SourceUrl</td>
-                    <td>@product.Value</td>
-                    <td>@product.TimeStamp</td>
-                    <td>
-                        <button class="button is-warning is-outlined" @onclick="(() => Update(product.Id))">Update</button>
-                    </td>
-                    <td>
-                        <button class="button is-warning is-outlined" @onclick="(() => Delete(product.Id))">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+@if (loading)
+{
+    <div class="container">
+        <progress class="progress is-small is-primary" max="100">25%</progress>
+    </div>
+}
 
-@*@if (editing)
+@if (!editing)
+{
+    <div class="table-container">
+        <button class="button is-success" @onclick="Add">Add New Product</button>
+        <table class="table is-striped is-small is-narrow">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Producer</th>
+                    <th>Seller</th>
+                    <th>Category</th>
+                    <th>SourceUrl</th>
+                    <th>Value</th>
+                    <th>TimeStamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.Producer</td>
+                        <td>@product.Seller</td>
+                        <td>@product.Category</td>
+                        <td>@product.SourceUrl</td>
+                        <td>@product.Value</td>
+                        <td>@product.TimeStamp</td>
+                        <td>
+                            <button class="button is-warning is-outlined" @onclick="(() => Update(product.Id))">Update</button>
+                        </td>
+                        <td>
+                            <button class="button is-warning is-outlined" @onclick="(() => Delete(product.Id))">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
 {
     <div>
         <div class="field">
             <label class="label">Product Name</label>
             <div class="control">
-                <input class="input" v-model="productModel.name" />
+                <input class="input" />
             </div>
         </div>
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <input class="input" v-model="productModel.description" />
+                <input class="input" />
             </div>
         </div>
         <div class="field">
             <label class="label">Value</label>
             <div class="control">
-                <input class="input" v-model="productModel.value" />
+                <input class="input" />
             </div>
         </div>
 
         <button class="button is-success" @@click="createProduct" v-if="!productModel.id">Create Product</button>
         <button class="button is-warning" @@click="updateProduct" v-else>Update Product</button>
-        <button class="button" @@click="cancel">Cancel</button>
+        <button class="button" @onclick="CancelEdit">Cancel</button>
     </div>
-}*@
+}
 
 
 @code {
@@ -89,13 +99,6 @@
 
     int currentPage = 0;
     int pageSize = 30;
-
-    private enum Shops
-    {
-        Biedronka,
-        Kaufland,
-        Lidl
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -118,6 +121,20 @@
 
             products = AdminProductsBlazorService.GetShopProducts(shop.ToString()).ToList();
 
+            loading = false;
+        }
+    }
+
+    private void CancelEdit()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            editing = false;
             loading = false;
         }
     }
@@ -147,6 +164,7 @@
         else
         {
             loading = true;
+            editing = true;
 
 
 
