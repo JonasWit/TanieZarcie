@@ -1,15 +1,15 @@
 ﻿@using WEB.Shop.Application.Crawlers
-@using WEB.Shop.Application.Enums 
+@using WEB.Shop.Application.Enums
 @inject CrawlersCommander Commander
 
-<div>
-    <div class="tabs is-centered">
-        <ul>
-            <li><a @onclick="SelectCrawlersTab">Crawlers</a></li>
-            <li><a @onclick="SelectDatabaseTab">Database</a></li>
-        </ul>
-    </div>
+
+<div class="tabs is-centered">
+    <ul>
+        <li><a @onclick="SelectCrawlersTab">Crawlers</a></li>
+        <li><a @onclick="SelectDatabaseTab">Database</a></li>
+    </ul>
 </div>
+
 
 @switch (activeTab)
 {
@@ -17,52 +17,54 @@
 
         @if (crawlersTabLoading)
         {
-            <div class="container">
-                <progress class="progress is-small is-primary" max="100">25%</progress>
+            <div class="block">
+                <progress class="progress is-small is-warning" max="100">25%</progress>
             </div>
         }
 
         <div class="block">
-            <table class="table is-striped">
-                <tr>
-                    <th class="subtitle">Section</th>
-                    <th class="subtitle">Import</th>
-                    <th class="subtitle">Clear</th>
-                    <th class="subtitle">Cache</th>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="content is-medium">All Crawlers</p>
-                    </td>
-                    <td>
-                        <button class="button is-warning is-outlined" @onclick="RunEngine">Run</button>
-                    </td>
-                    <td>
-                        <button class="button is-danger is-outlined" @onclick="ClearCache">Clear</button>
-                    </td>
-                    <td>
-                        <p class="content is-medium">@Commander.DataCache.Values.Sum()</p>
-                    </td>
-                </tr>
-
-                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                {
+            <table class="table is-narrow is-striped is-small">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Import</th>
+                        <th>Clear</th>
+                        <th>Cache</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td>
-                            <p class="content is-medium">@shop.ToString()</p>
+                            <p class="content is-small">All Crawlers</p>
                         </td>
                         <td>
-                            <button class="button is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
+                            <button class="button is-small is-warning is-outlined" @onclick="RunEngine">Run</button>
                         </td>
                         <td>
-                            <button class="button is-danger is-outlined" @onclick="(() => RunEngine(shop))">Clear</button>
+                            <button class="button is-small is-danger is-outlined" @onclick="ClearCache">Clear</button>
                         </td>
                         <td>
-                            <p class="content is-medium">@Commander.DataCache[shop.ToString()]</p>
+                            <p class="content is-small">@Commander.DataCache.Values.Sum()</p>
                         </td>
                     </tr>
-                }
-
+                    @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                    {
+                        <tr>
+                            <td>
+                                <p class="content is-small">@shop.ToString()</p>
+                            </td>
+                            <td>
+                                <button class="button is-small is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
+                            </td>
+                            <td>
+                                <button class="button is-small is-danger is-outlined" @onclick="(() => ClearCache(shop))">Clear</button>
+                            </td>
+                            <td>
+                                <p class="content is-small">@Commander.DataCache[shop.ToString()]</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
 
@@ -72,72 +74,76 @@
 
         @if (databaseTabLoading)
         {
-            <div class="container">
-                <progress class="progress is-small is-primary" max="100">25%</progress>
+            <div class="block">
+                <progress class="progress is-small is-warning" max="100">25%</progress>
             </div>
         }
 
         <div class="columns">
             <div class="column">
                 <div class="block">
-                    <button class="button is-success is-outlined" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+                    <button class="button is-success is-outlined is-small" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
                 </div>
-                <table class="table is-striped">
-                    <tr>
-                        <th>Shop</th>
-                        <th>Products</th>
-                        <th>Oldest Record</th>
-                    </tr>
-
-                    @foreach (var item in Commander.DataBaseCheck)
-                    {
+                <table class="table is-narrow is-striped is-small">
+                    <thead>
+                        <tr>
+                            <th>Shop</th>
+                            <th>Products</th>
+                            <th>Oldest Record</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Commander.DataBaseCheck)
+                        {
+                            <tr>
+                                <td>
+                                    <p class="content is-small">@item.Shop</p>
+                                </td>
+                                <td>
+                                    <p class="content is-small">@item.ProductsCount</p>
+                                </td>
+                                <td>
+                                    <p class="content is-small">@item.OldestEntry</p>
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <td>
-                                <p class="content is-medium">@item.Shop</p>
+                                <p class="content is-small is-bold">Total</p>
                             </td>
                             <td>
-                                <p class="content is-medium">@item.ProductsCount</p>
+                                <p class="content is-small is-bold">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</p>
                             </td>
                             <td>
-                                <p class="content is-medium">@item.OldestEntry</p>
+                                <p class="content is-small is-bold">-</p>
                             </td>
                         </tr>
-                    }
-
-                    <tr>
-                        <td>
-                            <p class="content is-medium is-bold">Total</p>
-                        </td>
-                        <td>
-                            <p class="content is-medium is-bold">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</p>
-                        </td>
-                        <td>
-                            <p class="content is-medium is-bold">-</p>
-                        </td>
-                    </tr>
+                    </tbody>
                 </table>
             </div>
 
             <div class="column">
                 <div class="block">
-                    <button class="button is-warning is-outlined" @onclick="UpdateDataBase">Update All Data</button>
-                    <button class="button is-danger is-outlined" @onclick="ClearDataBase">Clear All Data</button>
+                    <button class="button is-warning is-outlined is-small" @onclick="UpdateDataBase">Update All Data</button>
+                    <button class="button is-danger is-outlined is-small" @onclick="ClearDataBase">Clear All Data</button>
                 </div>
-                <table class="table is-striped">
-                    @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                    {
-                        <tr>
-                            <td>
-                                <p class="content is-medium">@shop.ToString()</p>
-                            </td>
-                            <td>
-                                <button class="button is-warning is-outlined" @onclick="(() => UpdateDataBase(shop))">Update</button>
-                            </td>
-                            <td>
-                                <button class="button is-danger is-outlined" @onclick="(() => ClearDataBase(shop))">Delete</button>
-                            </td>
-                        </tr>
-                    }
+                <table class="table is-narrow is-striped is-small">
+                    <tbody>
+                        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                        {
+                            <tr>
+                                <td>
+                                    <p class="content is-small">@shop.ToString()</p>
+                                </td>
+                                <td>
+                                    <button class="button is-small is-outlined is-warning" @onclick="(() => UpdateDataBase(shop))">Update</button>
+                                </td>
+                                <td>
+                                    <button class="button is-small is-outlined is-danger" @onclick="(() => ClearDataBase(shop))">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>

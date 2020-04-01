@@ -14,15 +14,15 @@
 
 @if (loading)
 {
-    <div class="container">
-        <progress class="progress is-small is-primary" max="100">25%</progress>
+    <div class="block">
+        <progress class="progress is-small is-warning" max="100">25%</progress>
     </div>
 }
 
 @if (!editing)
 {
     <div class="table-container">
-        <button class="button is-success" @onclick="Add">Add New Product</button>
+        <button class="button is-success is-small" @onclick="Add">Add New Product</button>
         <table class="table is-striped is-small is-narrow">
             <thead>
                 <tr>
@@ -41,20 +41,38 @@
                 @foreach (var product in products)
                 {
                     <tr>
-                        <td>@product.Id</td>
-                        <td>@product.Name</td>
-                        <td>@product.Description</td>
-                        <td>@product.Producer</td>
-                        <td>@product.Seller</td>
-                        <td>@product.Category</td>
-                        <td>@product.SourceUrl</td>
-                        <td>@product.Value</td>
-                        <td>@product.TimeStamp</td>
                         <td>
-                            <button class="button is-warning is-outlined" @onclick="(() => Update(product.Id))">Update</button>
+                            <p class="content is-small">@product.Id</p>
                         </td>
                         <td>
-                            <button class="button is-warning is-outlined" @onclick="(() => Delete(product.Id))">Delete</button>
+                            <p class="content is-small">@product.Name</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.Description</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.Producer</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.Seller</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.Category</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.SourceUrl</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.Value</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@product.TimeStamp</p>
+                        </td>
+                        <td>
+                            <button class="button is-warning is-outlined is-small" @onclick="(() => Update(product.Id))">Update</button>
+                        </td>
+                        <td>
+                            <button class="button is-warning is-outlined is-small" @onclick="(() => Delete(product.Id))">Delete</button>
                         </td>
                     </tr>
                 }

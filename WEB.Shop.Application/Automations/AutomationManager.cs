@@ -20,6 +20,7 @@ namespace WEB.Shop.Application.Automations
                 ["quartz.threadPool.threadCount"] = "3",
                 ["quartz.jobStore.type"] = "Quartz.Simpl.RAMJobStore, Quartz",
             };
+
             var schedulerFactory = new StdSchedulerFactory(properties);
             var scheduler = schedulerFactory.GetScheduler().Result;
             await scheduler.Start();

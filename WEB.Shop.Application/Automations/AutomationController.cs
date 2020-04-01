@@ -1,4 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using Quartz;
+using Quartz.Impl;
+using Quartz.Impl.Matchers;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using WEB.Shop.Application.Crawlers;
 
 namespace WEB.Shop.Application.Automations
@@ -22,6 +27,40 @@ namespace WEB.Shop.Application.Automations
         public async Task ScheduleCrawlersAutomation() => await _automationManager.ScheduleCrawlersAutomationJob(_crawlersCommander);
 
         public bool CheckScheduler() => _automationManager.SchedulerPresent;
+
+        public List<Response> GetActiveJobs()
+        {
+            var result = new List<Response>();
+
+            if (!_automationManager.SchedulerPresent) return result;
+
+            var scheduler = _automationManager.Scheduler;
+            var allTriggerKeys = scheduler.GetTriggerKeys(GroupMatcher<TriggerKey>.AnyGroup());
+
+            foreach (var triggerKey in allTriggerKeys.Result)
+            {
+                var triggerDetails = scheduler.GetTrigger(triggerKey);
+                var jobDetails = scheduler.GetJobDetail(triggerDetails.Result.JobKey);
+
+                result.Add(new Response
+                {
+                    JobKey = triggerDetails.Result.JobKey.Name,
+                    TriggerKey = triggerDetails.Result.Key.Name,
+                    JobStatus = jobDetails.Status.ToString(),
+                });
+            }
+
+            return result;
+        }
+
+        public class Response
+        {
+            public string JobKey { get; set; }
+            public string TriggerKey { get; set; }
+            public string JobSchedule { get; set; }
+            public string JobStatus { get; set; }
+            public string JobObject { get; set; }
+        }
      
     }
 }

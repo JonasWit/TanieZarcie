@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
-using WEB.SearchEngine.Extensions;
+using WEB.SearchEngine.RegexPatterns;
 using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
@@ -66,7 +66,7 @@ namespace WEB.SearchEngine.Crawlers
 
         private bool LinkCleanUp(string link, string output)
         {
-            if (link.MatchWithRegex(output, @"[^a-zA-Z0-9]", MatchDirection.InputContainsOutput)) return true;
+            if (CrawlerRegex.StandardMatch(link, output, MatchDireciton.InputContainsMatch)) return true;
             else return false;
         }
 
@@ -121,10 +121,9 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var urlToCrawl in urlsToCrawl)
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    data = webClient.DownloadData(urlToCrawl);
-                }
+                using WebClient webClient = new WebClient();
+                
+                data = webClient.DownloadData(urlToCrawl);
 
                 string download = Encoding.ASCII.GetString(data);
 

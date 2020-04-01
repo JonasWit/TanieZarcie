@@ -5,23 +5,56 @@
 
 @if (loading)
 {
-    <div class="container">
-        <progress class="progress is-small is-primary" max="100">25%</progress>
+    <div class="block">
+        <progress class="progress is-small is-warning" max="100">25%</progress>
     </div>
 }
 
 <p>Scheduler active: @AutomationController.CheckScheduler().ToString()</p>
 
-<button class="btn btn-primary" @onclick="StartScheduler">Click me</button>
+<div class="columns">
+    <div class="column">
+        <button class="button is-primary is-small" @onclick="StartScheduler">Click me</button>
+        <button class="button is-primary is-small" @onclick="GetActiveJobs">Check Active Jobs</button>
+    </div>
+    <div class="column">
+        <table class="table is-narrow is-striped is-small">
+            <thead>
+                <tr>
+                    <th>Job Key</th>
+                    <th>Job Schedule</th>
+                    <th>Job Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in automationDetails)
+                {
+                    <tr>
+                        <td>
+                            <p class="content is-small">@item.JobKey</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@item.JobSchedule</p>
+                        </td>
+                        <td>
+                            <p class="content is-small">@item.JobStatus</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 @code {
 
     bool loading = false;
+    List<AutomationController.Response> automationDetails;
 
-    //protected override async Task OnInitializedAsync()
-    //{
-
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        automationDetails = new List<AutomationController.Response>();
+    }
 
     private async Task StartScheduler()
     {
@@ -34,6 +67,20 @@
             loading = true;
             await AutomationController.CreateScheduler();
             await AutomationController.ScheduleCrawlersAutomation();
+            loading = false;
+        }
+    }
+
+    private void GetActiveJobs()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            automationDetails = AutomationController.GetActiveJobs();
             loading = false;
         }
     }

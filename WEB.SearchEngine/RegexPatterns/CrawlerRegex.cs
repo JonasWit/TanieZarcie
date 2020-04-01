@@ -13,6 +13,7 @@ namespace WEB.SearchEngine.RegexPatterns
     {
         public const string StandardNormalization = @"[^a-zA-Z0-9]";
         public const string Metacharactes = @"[\t|\n|\r\|(&quot;)]";
+        public const string NonNumeric = @"[^0-9,]";
 
         public static Regex GetStandardNormalizationRegex() => new Regex(StandardNormalization);
 
@@ -38,6 +39,8 @@ namespace WEB.SearchEngine.RegexPatterns
         }
 
         public static string RemoveMetacharacters(this string input) => Regex.Replace(input, Metacharactes, "");
+
+        public static string RemoveNonNumeric(this string input) => Regex.Replace(input, NonNumeric, "");
 
         public static string NormalizeWithStandardRegex(this string input) => GetStandardNormalizationRegex().Replace(input, "").ToUpper();
     }
