@@ -34,7 +34,7 @@
                             <div class="column is-2">
                                 <a @onclick="(() => SelectShop(shop))">@shop.ToString()</a>
                             </div>
-                            <div class="column">
+                            <div class="column is-2">
                                 <div class="tags has-addons">
                                     <span class="tag">Cached Data</span>
                                     @if (Commander.DataCache[shop.ToString()] != 0)
@@ -47,6 +47,12 @@
                                     }
                                 </div>
                             </div>
+                            <div class="column is-3">
+                                <div class="tags has-addons">
+                                    <span class="tag">Crawler Status</span>
+                                    <span class="tag is-success">No Issues</span>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 }
@@ -55,7 +61,7 @@
                         <div class="column is-2">
                             <a @onclick="SelectAllShops">All</a>
                         </div>
-                        <div class="column">
+                        <div class="column is-2">
                             <div class="tags has-addons">
                                 <span class="tag">Cached Data</span>
                                 @if (Commander.Results.Count != 0)
@@ -68,7 +74,7 @@
                                 }
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column is-3">
                             <div class="tags has-addons">
                                 <span class="tag">Crawler Status</span>
                                 <span class="tag is-success">No Issues</span>         
@@ -76,11 +82,26 @@
                         </div>
                     </div>
                 </li>
-
             </ul>
         </aside>
 
+        @if (activeAll)
+        {
+
+        }
+        else
+        { 
         
+        
+        
+        }
+        <div class="box">
+
+
+
+
+        </div>
+
 
         <div class="section">
             <div class="box">
