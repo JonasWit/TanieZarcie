@@ -23,9 +23,7 @@
         }
 
         <aside class="menu">
-            <p class="menu-label">
-                Crawlers
-            </p>
+            <p class="menu-label">Crawlers</p>
             <ul class="menu-list">
                 @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
                 {
@@ -77,7 +75,7 @@
                         <div class="column is-3">
                             <div class="tags has-addons">
                                 <span class="tag">Crawler Status</span>
-                                <span class="tag is-success">No Issues</span>         
+                                <span class="tag is-success">No Issues</span>
                             </div>
                         </div>
                     </div>
@@ -85,109 +83,20 @@
             </ul>
         </aside>
 
-        @if (activeAll)
-        {
-
-        }
-        else
-        { 
-        
-        
-        
-        }
         <div class="box">
+            @if (activeAll)
+            {
+                <p class="content is-small">Options for All</p>
+                <button class="button is-small is-warning" @onclick="RunEngine">Run Engine for All Crawlers</button>
+                <button class="button is-small is-danger" @onclick="ClearCache">Clear All</button>
+            }
+            else
+            {
+                <p class="content is-small">Options for @activeShop.ToString()</p>
+                <button class="button is-small is-warning" @onclick="(() => RunEngine(activeShop))">Run Crawler for @activeShop.ToString()</button>
+                <button class="button is-small is-danger" @onclick="(() => ClearCache(activeShop))">Clear data for @activeShop.ToString()</button>
+            }
 
-
-
-
-        </div>
-
-
-        <div class="section">
-            <div class="box">
-                <div class="columns">
-                    <div class="column is-2">
-                        <p class="content is-small">All Crawlers</p>
-                    </div>
-                    <div class="column is-2">
-                        <button class="button is-small is-warning is-outlined" @onclick="RunEngine">Run</button>
-                    </div>
-                    <div class="column is-2">
-                        <button class="button is-small is-danger is-outlined" @onclick="ClearCache">Clear</button>
-                    </div>
-                    <div class="column is-2">
-                        <p class="content is-small">@Commander.DataCache.Values.Sum()</p>
-                    </div>
-                </div>
-
-                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                {
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="content is-small">@shop.ToString()</p>
-                        </div>
-                        <div class="column is-2">
-                            <button class="button is-small is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
-                        </div>
-                        <div class="column is-2">
-                            <button class="button is-small is-danger is-outlined" @onclick="(() => ClearCache(shop))">Clear</button>
-                        </div>
-                        <div class="column is-1">
-                            <p class="content is-small">Cached Data:</p>
-                        </div>
-                        <div class="column is-1">
-                            <p class="content is-small">@Commander.DataCache[shop.ToString()]</p>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-
-
-        <div class="block">
-            <table class="table is-narrow is-striped is-small">
-                <thead>
-                    <tr>
-                        <th>Section</th>
-                        <th>Import</th>
-                        <th>Clear</th>
-                        <th>Cache</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <p class="content is-small">All Crawlers</p>
-                        </td>
-                        <td>
-                            <button class="button is-small is-warning is-outlined" @onclick="RunEngine">Run</button>
-                        </td>
-                        <td>
-                            <button class="button is-small is-danger is-outlined" @onclick="ClearCache">Clear</button>
-                        </td>
-                        <td>
-                            <p class="content is-small">@Commander.DataCache.Values.Sum()</p>
-                        </td>
-                    </tr>
-                    @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                    {
-                        <tr>
-                            <td>
-                                <p class="content is-small">@shop.ToString()</p>
-                            </td>
-                            <td>
-                                <button class="button is-small is-warning is-outlined" @onclick="(() => RunEngine(shop))">Run</button>
-                            </td>
-                            <td>
-                                <button class="button is-small is-danger is-outlined" @onclick="(() => ClearCache(shop))">Clear</button>
-                            </td>
-                            <td>
-                                <p class="content is-small">@Commander.DataCache[shop.ToString()]</p>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
         </div>
 
         break;
