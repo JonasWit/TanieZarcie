@@ -47,10 +47,10 @@
     
 }
 
-.summary {
+/*.summary {
     display: block;
     border-radius: 25px;
-}
+}*/
 
 #biedronka {
    /*border: 5px solid #f0930d;*/ 
@@ -113,6 +113,44 @@
 
 }
 
+#main-product {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #000000;
+   
+}
+
+.table {
+
+    background-color: #ffffff;
+    border-radius: 15px;
+
+
+}
+thead {
+    background-color: #000000;
+    color: #ffffff;
+}
+  th {
+
+    padding: 5px;
+    text-align: center;
+    vertical-align: top;
+}
+
+#search-product {
+    background-color: #000000;
+    color: #ffffff;
+    
+}
+
+#cart-partial-jumbo {
+    background-image: url('../images/cart.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #000000;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
