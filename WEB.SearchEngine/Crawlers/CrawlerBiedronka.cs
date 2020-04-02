@@ -83,7 +83,7 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText)
                 .FirstOrDefault()?
                 .RemoveMetaCharacters()
-                .RemoveUnwantedWords();
+                .Replace(@"&quot;", "");
 
             result.Name = name;
 

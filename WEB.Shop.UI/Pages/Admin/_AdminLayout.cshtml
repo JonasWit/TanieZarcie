@@ -10,10 +10,12 @@
 
     <environment include="Development">
         <link href="~/lib/bulma-0.8.0/css/bulma.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     </environment>
 
     <environment include="Production">
         <link href="~/lib/bulma-0.8.0/css/bulma.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     </environment>
 </head>
 
@@ -30,18 +32,24 @@
         <div class="columns">
             <div class="column is-3">
                 <div class="menu">
+
+                    <p class="menu-label is-large">Main Menu</p>
+                    <ul class="menu-list">
+                        <li><a asp-page="/Admin/Index">Summary</a></li>
+                    </ul>
+
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
-                        <p class="menu-label">Store Menu</p>
+                        <p class="menu-label is-large">Store Menu</p>
                         <ul class="menu-list">
-                            <li><a asp-page="/Admin/Index">Products</a></li>
+                            <li><a asp-page="/Admin/Products">Products</a></li>
                             <li><a asp-page="/Admin/OrderManagement">Order Management</a></li>
                             <li><a asp-page="/Admin/Stock">Stock</a></li>
                         </ul>
                     }
                     @if ((await authService.AuthorizeAsync(User, "Admin")).Succeeded)
                     {
-                        <p class="menu-label">Admin Menu</p>
+                        <p class="menu-label is-large">Admin Menu</p>
                         <ul class="menu-list">
                             <li><a asp-page="/Admin/CrawlersManagement">Crawlers</a></li>
                             <li><a asp-page="/Admin/AutomationPanel">Automation</a></li>
@@ -54,7 +62,9 @@
                 </div>
             </div>
             <div class="column is-9">
-                @RenderBody()
+                <div class="container">
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </div>

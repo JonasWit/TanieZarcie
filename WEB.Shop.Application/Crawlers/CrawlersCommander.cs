@@ -17,6 +17,7 @@ namespace WEB.Shop.Application.Crawlers
 
         public List<Product> Results { get; private set; }
         public Dictionary<string, int> DataCache { get; set; }
+        public Dictionary<string, bool> CrawlerIssues { get; set; }
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
         public List<DataBaseSummary> DataBaseCheck { get; set; } = new List<DataBaseSummary>();
 
@@ -33,6 +34,7 @@ namespace WEB.Shop.Application.Crawlers
             _searchEngine = new Engine();
 
             DataCache = new Dictionary<string, int>();
+            Results = new List<Product>();
 
             foreach (var item in Enum.GetValues(typeof(Shops)))
             {
@@ -73,6 +75,8 @@ namespace WEB.Shop.Application.Crawlers
         public async Task<int> ClearCacheAsync(string shop)
         {
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
+
+            DataCache[shop.ToString()] = 0;
 
             await Task.Run(() => Results.RemoveAll(p => p.Seller == shopEnum.ToString()));
             return Results.Count;

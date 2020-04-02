@@ -1,8 +1,6 @@
 ﻿@using WEB.Shop.Application.Automations
 @inject AutomationController AutomationController
 
-<h3>AutomationPanelComponent</h3>
-
 @if (loading)
 {
     <div class="block">
@@ -10,14 +8,47 @@
     </div>
 }
 
-<p>Scheduler active: @AutomationController.CheckScheduler().ToString()</p>
-
-<div class="columns">
-    <div class="column">
-        <button class="button is-primary is-small" @onclick="StartScheduler">Click me</button>
-        <button class="button is-primary is-small" @onclick="GetActiveJobs">Check Active Jobs</button>
+<div class="section">
+    <div class="box">
+        <div class="columns">
+            <div class="column is-3">
+                <button class="button is-success is-small" @onclick="StartScheduler">Start Automation</button>
+            </div>
+            <div class="column is-3">
+                <button class="button is-warning is-small" @onclick="StopScheduler">Stop Automation</button>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-3">
+                <button class="button is-primary is-small" @onclick="GetActiveJobs">Check Active Jobs</button>
+            </div>
+        </div>
     </div>
-    <div class="column">
+</div>
+
+<div class="section">
+    <div class="box">
+        <div class="columns">
+            <div class="column is-4">
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">Scheduler</span>
+                        @if (AutomationController.CheckScheduler())
+                        {
+                            <span class="tag is-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="tag is-warning">Inactive</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="columns">
         <table class="table is-narrow is-striped is-small">
             <thead>
                 <tr>
@@ -43,8 +74,8 @@
                 }
             </tbody>
         </table>
-    </div>
-</div>
+    </div>*@
+
 
 @code {
 
