@@ -96,12 +96,96 @@
                 <button class="button is-small is-warning" @onclick="(() => RunEngine(activeShop))">Run Crawler for @activeShop.ToString()</button>
                 <button class="button is-small is-danger" @onclick="(() => ClearCache(activeShop))">Clear data for @activeShop.ToString()</button>
             }
-
         </div>
 
         break;
 
     case ActiveTab.Database:
+
+        @if (databaseTabLoading)
+        {
+            <div class="block">
+                <progress class="progress is-small is-warning" max="100">25%</progress>
+            </div>
+        }
+
+        <aside class="menu">
+            <p class="menu-label">Data Base</p>
+            <ul class="menu-list">
+                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                {
+                    <li>
+                        <div class="columns">
+                            <div class="column is-2">
+                                <a @onclick="(() => SelectShop(shop))">@shop.ToString()</a>
+                            </div>
+                            <div class="column is-2">
+                                <div class="tags has-addons">
+                                    <span class="tag">Cached Data</span>
+                                    @if (Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).ToList().Count != 0)
+                                    {
+                                        <span class="tag is-warning">@Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.ProductsCount</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="tag is-success">0</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="column is-3">
+                                <div class="tags has-addons">
+                                    <span class="tag">Crawler Status</span>
+                                    <span class="tag is-success">No Issues</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+                <li>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <a @onclick="SelectAllShops">All</a>
+                        </div>
+                        <div class="column is-2">
+                            <div class="tags has-addons">
+                                <span class="tag">Cached Data</span>
+                                @if (@Commander.DataBaseCheck.Sum(x => x.ProductsCount) != 0)
+                                {
+                                    <span class="tag is-warning">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                }
+                                else
+                                {
+                                    <span class="tag is-success">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="column is-3">
+                            <div class="tags has-addons">
+                                <span class="tag">Crawler Status</span>
+                                <span class="tag is-success">No Issues</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+
+        <div class="box">
+            @if (activeAll)
+            {
+                <p class="content is-small">Options for All</p>
+                <button class="button is-small is-warning" @onclick="UpdateDataBase">Update Data Base</button>
+                <button class="button is-small is-danger" @onclick="ClearDataBase">Delete All Data</button>
+            }
+            else
+            {
+                <p class="content is-small">Options for @activeShop.ToString()</p>
+                <button class="button is-small is-warning" @onclick="(() => UpdateDataBase(activeShop))">Load data for @activeShop.ToString()</button>
+                <button class="button is-small is-danger" @onclick="(() => ClearDataBase(activeShop))">Delete data for @activeShop.ToString()</button>
+            }
+        </div>
+
+
 
         @if (databaseTabLoading)
         {
@@ -153,30 +237,6 @@
                 </table>
             </div>
 
-            <div class="column">
-                <div class="block">
-                    <button class="button is-warning is-outlined is-small" @onclick="UpdateDataBase">Update All Data</button>
-                    <button class="button is-danger is-outlined is-small" @onclick="ClearDataBase">Clear All Data</button>
-                </div>
-                <table class="table is-narrow is-striped is-small">
-                    <tbody>
-                        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                        {
-                            <tr>
-                                <td>
-                                    <p class="content is-small">@shop.ToString()</p>
-                                </td>
-                                <td>
-                                    <button class="button is-small is-outlined is-warning" @onclick="(() => UpdateDataBase(shop))">Update</button>
-                                </td>
-                                <td>
-                                    <button class="button is-small is-outlined is-danger" @onclick="(() => ClearDataBase(shop))">Delete</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
         </div>
         break;
 

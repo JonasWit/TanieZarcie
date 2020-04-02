@@ -45,21 +45,26 @@ namespace WEB.Shop.Application.Automations
                 result.Add(new Response
                 {
                     JobKey = triggerDetails.Result.JobKey.Name,
-                    TriggerKey = triggerDetails.Result.Key.Name,
+                    TriggerName = triggerDetails.Result.Key.Name,
                     JobStatus = jobDetails.Status.ToString(),
+                    JobInitialized = triggerDetails.Result.StartTimeUtc.DateTime,
+                    JobName = jobDetails.Result.Key.Name,
+                    JobGroup = jobDetails.Result.Key.Group
                 });
             }
 
-            return result;
+             return result;
         }
 
         public class Response
         {
             public string JobKey { get; set; }
-            public string TriggerKey { get; set; }
+            public string JobName { get; set; }
+            public string JobGroup { get; set; }
+            public DateTime JobInitialized { get; set; }
             public string JobSchedule { get; set; }
             public string JobStatus { get; set; }
-            public string JobObject { get; set; }
+            public string TriggerName { get; set; }
         }
      
     }
