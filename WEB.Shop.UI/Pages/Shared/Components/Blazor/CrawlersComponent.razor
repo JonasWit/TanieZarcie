@@ -86,15 +86,15 @@
         <div class="box">
             @if (activeAll)
             {
-                <p class="content is-small">Options for All</p>
-                <button class="button is-small is-warning" @onclick="RunEngine">Run Engine for All Crawlers</button>
-                <button class="button is-small is-danger" @onclick="ClearCache">Clear All</button>
+                <p class="content ">Options for All</p>
+                <button class="button is-warning" @onclick="RunEngine">Run Engine for All Crawlers</button>
+                <button class="button is-danger" @onclick="ClearCache">Clear All</button>
             }
             else
             {
-                <p class="content is-small">Options for @activeShop.ToString()</p>
-                <button class="button is-small is-warning" @onclick="(() => RunEngine(activeShop))">Run Crawler for @activeShop.ToString()</button>
-                <button class="button is-small is-danger" @onclick="(() => ClearCache(activeShop))">Clear data for @activeShop.ToString()</button>
+                <p class="content">Options for @activeShop.ToString()</p>
+                <button class="button is-warning" @onclick="(() => RunEngine(activeShop))">Run Crawler for @activeShop.ToString()</button>
+                <button class="button is-danger" @onclick="(() => ClearCache(activeShop))">Clear data for @activeShop.ToString()</button>
             }
         </div>
 
@@ -138,6 +138,44 @@
                                     <span class="tag is-success">No Issues</span>
                                 </div>
                             </div>
+                            <div class="column is-3">
+                                <div class="tags has-addons">
+                                    <span class="tag">Oldest Record</span>
+                                    @{
+                                        var olderstRecord = Commander.DataBaseCheck
+                                            .Where(x => x.Shop == shop.ToString()).FirstOrDefault()?
+                                            .OldestEntry;
+
+                                        if (olderstRecord != null)
+                                        {
+
+                                            var offerTime = DateTime.Now - (DateTime)olderstRecord;
+
+                                            var days = offerTime.Days;
+                                            var hours = offerTime.Hours;
+                                            var minutes = offerTime.Minutes;
+
+
+                                            if (days < 3 && days != 0)
+                                            {
+                                                <span class="tag is-warning">@olderstRecord.ToString()</span>
+                                            }
+                                            else if (days > 2 && days != 0)
+                                            {
+                                                <span class="tag is-danger">@olderstRecord.ToString()</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="tag is-success">@olderstRecord.ToString()</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="tag is-warning">No data</span>
+                                        }
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </li>
                 }
@@ -173,70 +211,21 @@
         <div class="box">
             @if (activeAll)
             {
-                <p class="content is-small">Options for All</p>
-                <button class="button is-small is-warning" @onclick="UpdateDataBase">Update Data Base</button>
-                <button class="button is-small is-danger" @onclick="ClearDataBase">Delete All Data</button>
+                <p class="content">Options for All</p>
+                <button class="button is-warning" @onclick="UpdateDataBase">Update Data Base</button>
+                <button class="button is-danger" @onclick="ClearDataBase">Delete All Data</button>
             }
             else
             {
-                <p class="content is-small">Options for @activeShop.ToString()</p>
-                <button class="button is-small is-warning" @onclick="(() => UpdateDataBase(activeShop))">Load data for @activeShop.ToString()</button>
-                <button class="button is-small is-danger" @onclick="(() => ClearDataBase(activeShop))">Delete data for @activeShop.ToString()</button>
+                <p class="content">Options for @activeShop.ToString()</p>
+                <button class="button is-warning" @onclick="(() => UpdateDataBase(activeShop))">Load data for @activeShop.ToString()</button>
+                <button class="button is-danger" @onclick="(() => ClearDataBase(activeShop))">Delete data for @activeShop.ToString()</button>
             }
         </div>
 
-
-
-        @if (databaseTabLoading)
-        {
-            <div class="block">
-                <progress class="progress is-small is-warning" max="100">25%</progress>
-            </div>
-        }
-
-        <div class="columns">
-            <div class="column">
-                <div class="block">
-                    <button class="button is-success is-outlined is-small" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
-                </div>
-                <table class="table is-narrow is-striped is-small">
-                    <thead>
-                        <tr>
-                            <th>Shop</th>
-                            <th>Products</th>
-                            <th>Oldest Record</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Commander.DataBaseCheck)
-                        {
-                            <tr>
-                                <td>
-                                    <p class="content is-small">@item.Shop</p>
-                                </td>
-                                <td>
-                                    <p class="content is-small">@item.ProductsCount</p>
-                                </td>
-                                <td>
-                                    <p class="content is-small">@item.OldestEntry</p>
-                                </td>
-                            </tr>
-                        }
-                        <tr>
-                            <td>
-                                <p class="content is-small is-bold">Total</p>
-                            </td>
-                            <td>
-                                <p class="content is-small is-bold">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</p>
-                            </td>
-                            <td>
-                                <p class="content is-small is-bold">-</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+        <div class="box">
+            <p class="content">Data Base Options</p>
+            <button class="button is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
         </div>
         break;
 
