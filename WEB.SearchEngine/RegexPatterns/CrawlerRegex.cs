@@ -11,7 +11,7 @@ namespace WEB.SearchEngine.RegexPatterns
 
     public static class CrawlerRegex
     {
-        public const string StandardNormalization = @"[^a-zA-Z0-9]";
+        public const string StandardNormalization = @"[^AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż0-9]";
         public const string Metacharactes = @"[\t|\n|\r]";
         public const string NonNumeric = @"[^0-9,]";
 

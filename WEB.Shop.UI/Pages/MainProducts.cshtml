@@ -51,10 +51,10 @@
                     <div class="block d-flex align-items-center justify-content-center pb-3">
                         <h4 class="p-2 mb-1 summary">Co znaleźliśmy? Liczba produktów - @Model.Count</h4>
 
-                        <!--   <p class="font-weight-light">Produkt - @(String.IsNullOrEmpty(Model.SearchString) ? "Brak" : Model.SearchString)</p>
-                        <p class="font-weight-light">Sklep - @Model.SelectedShop</p>-->
-                        <!--<p>Obecna Strona - @Model.CurrentPage</p>
-                        <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>-->
+                           <p class="font-weight-light">Produkt - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie Produkty" : Model.SearchString)</p>
+                        <p class="font-weight-light">Sklep - @Model.SelectedShop</p>
+                        <p>Obecna Strona - @Model.CurrentPage</p>
+                        <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
                     </div>
 
                     <form method="post">

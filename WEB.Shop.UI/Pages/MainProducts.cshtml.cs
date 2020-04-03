@@ -44,10 +44,19 @@ namespace WEB.Shop.UI.Pages
             HandleSearchActions(getProducts);
         }
 
-        public void OnPostShowAll([FromServices] GetProducts getProducts)
+        public void OnPostShowAll(
+            [FromServices] GetProducts getProducts,
+            [FromServices] SaveSearchString saveSearchString,
+            [FromServices] SaveSelectedShop saveSelectedShop,
+            [FromServices] SaveCurrentPage saveCurrentPage)
         {
             Products = getProducts.GetAllProductsWithPagination(CurrentPage, PageSize);
             Count = getProducts.GetAllProducts().Count();
+
+            saveSearchString.Do("");
+            saveSelectedShop.Do("");
+            saveCurrentPage.Do(1);
+
             return;
         }
 

@@ -42,7 +42,7 @@ namespace WEB.SearchEngine.Extensions
 
         public static string NormalizeWithStandardRegex(this string input)
         {
-            var regex = new Regex("[^a-zA-Z0-9]");
+            var regex = new Regex("[^AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż0-9]");
             return regex.Replace(input, "").ToUpper();
         }
 
