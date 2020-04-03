@@ -17,7 +17,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerBiedronka(Shops.Biedronka));
             Crawlers.Add(new CrawlerKaufland(Shops.Kaufland));
             Crawlers.Add(new CrawlerLidl(Shops.Lidl));
-            Crawlers.Add(new CrawlerCarrefour(Shops.Carrefour));
+            //Crawlers.Add(new CrawlerCarrefour(Shops.Carrefour));
 
             foreach (var crawler in Crawlers)
             {

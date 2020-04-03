@@ -21,22 +21,22 @@ namespace WEB.Shop.Application.Products
         public async Task<ProductViewModel> DoAsync(string name)
         {
             await _stockManager.RetrieveExpiredStockOnHold();
-            return _productManager.GetProductByName(name, x => new ProductViewModel
+            return _productManager.GetProductByName(name, product => new ProductViewModel
                 {
-                    Name = x.Name,
-                    Description = x.Description,
-                    Producer = x.Producer,
-                    Seller = x.Seller,
-                    Category = x.Category,
-                    SourceUrl = x.SourceUrl,
-                    Value = x.Value.MonetaryValue(),
+                    Name = product.Name,
+                    Description = product.Description,
+                    Producer = product.Producer,
+                    Seller = product.Seller,
+                    Category = product.Category,
+                    SourceUrl = product.SourceUrl,
+                    Value = product.Value.MonetaryValue(),
 
-                    Stock = x.Stock.Select(y => new StockViewModel
+                    Stock = product.Stock.Select(stock => new StockViewModel
                     {
-                        Id = y.Id,
-                        Description = y.Description,
-                        Quantity = y.Quantity,
-                        InStock = y.Quantity > 0
+                        Id = stock.Id,
+                        Description = stock.Description,
+                        Quantity = stock.Quantity,
+                        InStock = stock.Quantity > 0
                     })
                 });
         }

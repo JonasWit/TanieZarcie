@@ -17,34 +17,34 @@ namespace WEB.Shop.Application.ProductsAdmin
         }
 
         public IEnumerable<Response> GetAllProducts() =>
-            _productManager.GetProductsWithStock(x => new Response
+            _productManager.GetProductsWithStock(product => new Response
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Producer = x.Producer,
-                Seller = x.Seller,
-                Category = x.Category,
-                SourceUrl = x.SourceUrl,
-                Value = x.Value,
-                StockCount = x.Stock.Sum(y => y.Quantity),
-                TimeStamp = x.TimeStamp
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Producer = product.Producer,
+                Seller = product.Seller,
+                Category = product.Category,
+                SourceUrl = product.SourceUrl,
+                Value = product.Value,
+                StockCount = product.Stock.Sum(y => y.Quantity),
+                TimeStamp = product.TimeStamp
             });
 
         public IEnumerable<Response> GetShopProducts(string shop) =>
-            _productManager.GetProductsWithStockWithCondition(x => new Response
+            _productManager.GetProductsWithStockWithCondition(product => new Response
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Producer = x.Producer,
-                Seller = x.Seller,
-                Category = x.Category,
-                SourceUrl = x.SourceUrl,
-                Value = x.Value,
-                StockCount = x.Stock.Sum(y => y.Quantity),
-                TimeStamp = x.TimeStamp
-            }, x => x.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Producer = product.Producer,
+                Seller = product.Seller,
+                Category = product.Category,
+                SourceUrl = product.SourceUrl,
+                Value = product.Value,
+                StockCount = product.Stock.Sum(y => y.Quantity),
+                TimeStamp = product.TimeStamp
+            }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
 
         public class Response
         {

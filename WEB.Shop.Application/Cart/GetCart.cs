@@ -35,16 +35,16 @@ namespace WEB.Shop.Application.Cart
 
         public IEnumerable<Response> Do() =>
             _sessionManager
-                .GetCart(x => new Response
+                .GetCart(cartProduct => new Response
                 {
-                    Name = x.ProductName,
-                    Description = x.Description,
-                    Seller = x.Seller,
-                    Category = x.Category,
-                    SourceUrl = x.SourceUrl,
-                    Value = x.Value,
-                    StockId = x.StockId,
-                    Quantity = x.Quantity
+                    Name = cartProduct.ProductName,
+                    Description = cartProduct.Description,
+                    Seller = cartProduct.Seller,
+                    Category = cartProduct.Category,
+                    SourceUrl = cartProduct.SourceUrl,
+                    Value = cartProduct.Value,
+                    StockId = cartProduct.StockId,
+                    Quantity = cartProduct.Quantity
                 });
     }
 }

@@ -18,7 +18,7 @@ namespace WEB.Shop.Application.Cart
         {
             public IEnumerable<Product> Products { get; set; }
             public CustomerInformation CustomerInformation { get; set; }
-            public int GetTotalCharge() => Products.Sum(x => x.Value * x.Quantity);
+            public int GetTotalCharge() => Products.Sum(product => product.Value * product.Quantity);
         }
 
         public class Product
@@ -44,12 +44,12 @@ namespace WEB.Shop.Application.Cart
         public Response Do()
         {
             var listOfProducts = _sessionManager
-                .GetCart(x => new Product
+                .GetCart(cartProduct => new Product
                 {
-                    ProductId = x.ProductId,
-                    StockId = x.StockId,
-                    Value = (int)(x.Value * 100),
-                    Quantity = x.Quantity
+                    ProductId = cartProduct.ProductId,
+                    StockId = cartProduct.StockId,
+                    Value = (int)(cartProduct.Value * 100),
+                    Quantity = cartProduct.Quantity
                 });
   
 

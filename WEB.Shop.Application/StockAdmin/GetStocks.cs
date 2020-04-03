@@ -16,16 +16,16 @@ namespace WEB.Shop.Application.StockAdmin
 
         public IEnumerable<ProductViewModel> Do()
         {
-            return _productManager.GetProductsWithStock(x => 
+            return _productManager.GetProductsWithStock(product => 
                 new ProductViewModel
                 {
-                    Id = x.Id,
-                    Description = x.Description,
-                    Stock = x.Stock.Select(y => new StockViewModel
+                    Id = product.Id,
+                    Description = product.Description,
+                    Stock = product.Stock.Select(stock => new StockViewModel
                     {
-                        Id = y.Id,
-                        Description = y.Description,
-                        Quantity = y.Quantity,
+                        Id = stock.Id,
+                        Description = stock.Description,
+                        Quantity = stock.Quantity,
                     })
                 });
         }

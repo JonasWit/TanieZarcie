@@ -13,12 +13,12 @@ namespace WEB.Shop.Application.ProductsAdmin
         }
 
         public Response Do(int id) =>
-            _productManager.GetProductById(id, x => new Response
+            _productManager.GetProductById(id, product => new Response
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                Value = x.Value
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Value = product.Value
             });
 
         public class Response

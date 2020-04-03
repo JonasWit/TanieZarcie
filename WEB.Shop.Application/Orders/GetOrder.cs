@@ -47,29 +47,29 @@ namespace WEB.Shop.Application.Orders
 
         public Response Do(int id) => _orderManager.GetOrderById(id, Projection);
 
-        private static Func<Order, Response> Projection = (x) =>
+        private static Func<Order, Response> Projection = (order) =>
             new Response
             {
-                OrderReference = x.OrderReference,
+                OrderReference = order.OrderReference,
 
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Email = x.Email,
-                PhoneNumber = x.PhoneNumber,
-                Address1 = x.Address1,
-                Address2 = x.Address2,
-                City = x.City,
-                PostCode = x.PostCode,
+                FirstName = order.FirstName,
+                LastName = order.LastName,
+                Email = order.Email,
+                PhoneNumber = order.PhoneNumber,
+                Address1 = order.Address1,
+                Address2 = order.Address2,
+                City = order.City,
+                PostCode = order.PostCode,
 
-                Products = x.OrderStocks.Select(y => new Product
+                Products = order.OrderStocks.Select(orderStock => new Product
                 {
-                    Name = y.Stock.Product.Name,
-                    Description = y.Stock.Product.Description,
-                    Value = y.Stock.Product.Value.MonetaryValue(),
-                    Quantity = y.Quantity,
-                    StockDescription = y.Stock.Description
+                    Name = orderStock.Stock.Product.Name,
+                    Description = orderStock.Stock.Product.Description,
+                    Value = orderStock.Stock.Product.Value.MonetaryValue(),
+                    Quantity = orderStock.Quantity,
+                    StockDescription = orderStock.Stock.Description
                 }),
-                TotalValue = x.OrderStocks.Sum(y => y.Stock.Product.Value).MonetaryValue()
+                TotalValue = order.OrderStocks.Sum(orderStock => orderStock.Stock.Product.Value).MonetaryValue()
             };
     }
 }

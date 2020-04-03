@@ -57,10 +57,10 @@ namespace WEB.Shop.Application.Orders
                 City = request.City,
                 PostCode = request.PostCode,
 
-                OrderStocks = request.Stocks.Select(x => new OrderStock
+                OrderStocks = request.Stocks.Select(stock => new OrderStock
                 {
-                    StockId = x.StockId,
-                    Quantity = x.Quantity
+                    StockId = stock.StockId,
+                    Quantity = stock.Quantity
                 }).ToList()
             };
 

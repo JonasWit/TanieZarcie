@@ -24,11 +24,11 @@ namespace WEB.Shop.Application.OrdersAdmin
 
         public IEnumerable<Response> Do(int status) =>
             _orderManager.GetOrdersByStatus((OrderStatus)status,
-                x => new Response
+                order => new Response
                 {
-                    Id = x.Id,
-                    OrderRef = x.OrderReference,
-                    Email = x.Email
+                    Id = order.Id,
+                    OrderRef = order.OrderReference,
+                    Email = order.Email
                 });
     }
 }
