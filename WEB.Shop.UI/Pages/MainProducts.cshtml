@@ -50,11 +50,6 @@
                 <div class="jumbotron" id="search-product">
                     <div class="block d-flex align-items-center justify-content-center pb-3">
                         <h4 class="p-2 mb-1 summary">Co znaleźliśmy? Liczba produktów - @Model.Count</h4>
-
-                           <p class="font-weight-light">Produkt - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie Produkty" : Model.SearchString)</p>
-                        <p class="font-weight-light">Sklep - @Model.SelectedShop</p>
-                        <p>Obecna Strona - @Model.CurrentPage</p>
-                        <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
                     </div>
 
                     <form method="post">
@@ -85,6 +80,14 @@
                                 <button class="btn btn-warning" style="font-size: 16px;" type="submit" asp-page-handler="Search">Szukaj</button>
                                 <button class="btn btn-warning" style="font-size: 16px;" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
                             </div>
+
+                            <div class="pl-3 pt-3 pb-3 text-center">
+                                <p>Obecna Strona - @Model.CurrentPage</p>
+                                <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
+                                <p class="font-weight-light">Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie Produkty" : Model.SearchString)</p>
+                                <p class="font-weight-light">Sklep - @Model.SelectedShop</p>
+                            </div>
+
                         </div>
                     </form>
 
