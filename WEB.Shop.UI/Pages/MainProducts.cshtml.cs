@@ -53,7 +53,8 @@ namespace WEB.Shop.UI.Pages
             Products = getProducts.GetAllProductsWithPagination(CurrentPage, PageSize);
             Count = getProducts.GetAllProducts().Count();
 
-            saveSearchString.Do("");
+            SearchString = "";
+            saveSearchString.Do(SearchString);
             saveSelectedShop.Do("");
             saveCurrentPage.Do(1);
 

@@ -66,7 +66,7 @@
 
                             <div class="pt-3">
                                 <select class="browser-default custom-select p-2" name="SelectedShop">
-                                    <option selected value="Wszystkie">Wszystkie Sklepy</option>
+                                    <option selected value="Wszystkie">Wszystkie dostępne sklepy</option>
 
                                     @foreach (var shop in Model.Shops)
                                     {
@@ -84,7 +84,7 @@
                             <div class="pl-3 pt-3 pb-3 text-center">
                                 <p>Obecna Strona - @Model.CurrentPage</p>
                                 <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
-                                <p class="font-weight-light">Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie Produkty" : Model.SearchString)</p>
+                                <p class="font-weight-light">Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)</p>
                                 <p class="font-weight-light">Sklep - @Model.SelectedShop</p>
                             </div>
 
