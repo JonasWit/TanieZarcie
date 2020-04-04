@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Domain.Extensions;
@@ -31,6 +32,11 @@ namespace WEB.Shop.Application.Products
                     SourceUrl = product.SourceUrl,
                     Value = product.Value.MonetaryValue(),
 
+                    OnSale = product.OnSale,
+                    SaleValue = product.SaleValue,
+                    SaleDescription = product.SaleDescription,
+                    SaleDeadline = product.SaleDeadline,
+
                     Stock = product.Stock.Select(stock => new StockViewModel
                     {
                         Id = stock.Id,
@@ -50,6 +56,11 @@ namespace WEB.Shop.Application.Products
             public string Category { get; set; }
             public string SourceUrl { get; set; }
             public string Value { get; set; }
+
+            public bool OnSale { get; set; }
+            public decimal SaleValue { get; set; }
+            public string SaleDescription { get; set; }
+            public DateTime SaleDeadline { get; set; }
 
             public IEnumerable<StockViewModel> Stock { get; set; }
         }

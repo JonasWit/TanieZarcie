@@ -55,7 +55,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Biedronka</h4>
                                 <p class="card-text">
-                                  
+                                    @*@Model.Products.Where(product => product.Seller == "Biedronka" && product.Description != null ? product.Description.Contains("PROMOCJA") : false).Count()*@
                                 </p>
                                 <form method="post" asp-page-handler="Biedronka">
                                     <button class="btn btn-warning" type="submit">Sprawdź</button>
@@ -72,7 +72,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Lidl</h4>
                                 <p class="card-text">
-
+                                    @*@Model.Products.Where(product => product.Seller == "Lidl" && product.Description != null ? product.Description.Contains("PROMOCJA") : false).Count()*@
                                 </p>
                                 <form method="post" asp-page-handler="Lidl">
                                     <button class="btn btn-warning" type="submit">Sprawdź</button>
@@ -88,7 +88,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Kaufland</h4>
                                 <p class="card-text">
-
+                                    @*@Model.Products.Where(product => product.Seller == "Kaufland" && product.Description != null ? product.Description.Contains("PROMOCJA") : false).Count()*@
                                 </p>
                                 <form method="post" asp-page-handler="Kaufland">
                                     <button class="btn btn-warning" type="submit">Sprawdź</button>

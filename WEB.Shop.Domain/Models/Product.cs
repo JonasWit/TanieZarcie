@@ -13,6 +13,12 @@ namespace WEB.Shop.Domain.Models
         public string Category { get; set; }
         public string SourceUrl { get; set; }
         public decimal Value { get; set; }
+
+        public bool OnSale { get; set; }
+        public decimal SaleValue { get; set; }
+        public string SaleDescription { get; set; }
+        public DateTime SaleDeadline { get; set; }
+
         public DateTime TimeStamp { get; set; }
 
         public ICollection<Stock> Stock { get; set; }

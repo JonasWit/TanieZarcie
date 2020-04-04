@@ -113,24 +113,28 @@
 
 }
 
-#main-product {
+.product {
     background-image: url('../images/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     color: #000000;
-   
+}
+
+#product-card {
+    background-color: #000000;
+    color: #ffffff;
+
+
 }
 
 .table {
-
     background-color: #ffffff;
     border-radius: 15px;
-
-
 }
 thead {
     background-color: #000000;
     color: #ffffff;
+   
 }
   th {
 
@@ -146,10 +150,12 @@ thead {
 }
 
 #cart-partial-jumbo {
-    background-image: url('../images/cart.jpg');
+    /*background-image: url('../images/cart.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    color: #000000;
+    color: #000000;*/
+    background-color: #000000;
+    color: #ffffff;
 }
 
 td {
@@ -213,7 +219,7 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
+     Margin bottom by footer height 
     margin-bottom: 60px;
 }
 

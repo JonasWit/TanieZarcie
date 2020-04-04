@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using WEB.Shop.Application.Products;
 using WEB.Shop.Application.Session;
 
@@ -16,7 +13,7 @@ namespace WEB.Shop.UI.Pages
 
         public IEnumerable<GetProducts.ProductViewModel> Products { get; set; }
 
-        public void OnGet([FromServices] GetProducts getProducts) => Products = getProducts.GetAllProducts();
+        public void OnGet([FromServices] GetProducts getProducts) => Products = getProducts.GetAllProducts();       
 
         public IActionResult OnPostAllShops([FromServices] SaveSelectedShop saveSelectedShop)
         {

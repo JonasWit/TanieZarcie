@@ -99,7 +99,12 @@ namespace WEB.Shop.Application.Crawlers
                         Seller = product.Seller,
                         SourceUrl = product.SourceUrl,
                         TimeStamp = product.TimeStamp,
-                        Value = product.Value
+                        Value = product.Value,
+
+                        OnSale = product.OnSale,
+                        SaleDeadline = product.SaleDeadline,
+                        SaleDescription = product.SaleDescription,
+                        SaleValue = product.SaleValue
                     });
                 }
             }

@@ -27,6 +27,12 @@ namespace WEB.Shop.Application.ProductsAdmin
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value,
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(y => y.Quantity),
                 TimeStamp = product.TimeStamp
             });
@@ -42,6 +48,12 @@ namespace WEB.Shop.Application.ProductsAdmin
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value,
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(y => y.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
@@ -56,6 +68,12 @@ namespace WEB.Shop.Application.ProductsAdmin
             public string Category { get; set; }
             public string SourceUrl { get; set; }
             public decimal Value { get; set; }
+
+            public bool OnSale { get; set; }
+            public decimal SaleValue { get; set; }
+            public string SaleDescription { get; set; }
+            public DateTime SaleDeadline { get; set; }
+
             public int StockCount { get; set; }
             public DateTime TimeStamp { get; set; }
         }

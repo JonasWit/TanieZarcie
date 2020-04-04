@@ -9,9 +9,10 @@
 @if (showBanner)
 {
     <div id="cookieConsent" class="alert alert-warning alert-dismissible fade show" role="alert">
-        Use this space to summarize your privacy and cookie use policy. <a asp-page="/Privacy">Learn More</a>.
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-            <span aria-hidden="true">Accept</span>
+        <h3>Strona wykorzystuje pliki cookies!</h3>
+        <p>W ramach naszej witryny stosujemy pliki cookies. Korzystanie z witryny bez zmiany ustawień dotyczących cookies oznacza, że będą one zamieszczane w Twoim urządzeniu końcowym. Pmiętaj, że w każdym momencie możesz dokonać zmiany ustawień dotyczących cookies. Więcej szczegółów w naszej <a asp-page="/Privacy">"Polityce Prywatności"</a>.</p>
+        <button type="button" class="accept-policy close btn btn-warning" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+            <span aria-hidden="true">Akceptuję</span>
         </button>
     </div>
 

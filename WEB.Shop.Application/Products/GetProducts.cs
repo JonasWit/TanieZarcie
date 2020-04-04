@@ -34,6 +34,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             });
@@ -48,6 +54,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             });
@@ -62,6 +74,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
@@ -76,6 +94,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
@@ -90,6 +114,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
@@ -104,6 +134,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
@@ -118,6 +154,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
@@ -133,6 +175,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
@@ -148,6 +196,12 @@ namespace WEB.Shop.Application.Products
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(),
+
+                OnSale = product.OnSale,
+                SaleValue = product.SaleValue,
+                SaleDescription = product.SaleDescription,
+                SaleDeadline = product.SaleDeadline,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
@@ -162,6 +216,12 @@ namespace WEB.Shop.Application.Products
             public string Category { get; set; }
             public string SourceUrl { get; set; }
             public string Value { get; set; }
+
+            public bool OnSale { get; set; }
+            public decimal SaleValue { get; set; }
+            public string SaleDescription { get; set; }
+            public DateTime SaleDeadline { get; set; }
+
             public int StockCount { get; set; }
             public DateTime TimeStamp { get; set; }
         }
