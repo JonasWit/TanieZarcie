@@ -151,10 +151,31 @@ thead {
     background-size: cover;
     color: #000000;
 }
+
+td {
+    font-size: 12px;
+}
+
+th {
+    font-size: 14px;
+
+
+
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
     font-size: 14px;
+}
+
+.btn {
+font-size: 16px;
+
+
+}
+
+li {
+    margin-bottom: 3px;
 }
 
 @media (min-width: 768px) {
@@ -180,6 +201,10 @@ button.accept-policy {
     line-height: inherit;
 }
 
+.page-footer {
+    font-size: 12px;
+
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

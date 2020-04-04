@@ -77,18 +77,26 @@
                             </div>
                             <div class="pl-3 pt-3 pb-3 text-center">
                                 @*<button type="submit">Szukaj</button>*@
-                                <button class="btn btn-warning" style="font-size: 16px;" type="submit" asp-page-handler="Search">Szukaj</button>
-                                <button class="btn btn-warning" style="font-size: 16px;" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
+                                <button class="btn btn-warning" type="submit" asp-page-handler="Search">Szukaj</button>
+                                <button class="btn btn-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
                             </div>
 
-                            <div class="pl-3 pt-3 pb-3 text-center">
-                                <p>Obecna Strona - @Model.CurrentPage</p>
-                                <p>Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
-                                <p class="font-weight-light">Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)</p>
-                                <p class="font-weight-light">Sklep - @Model.SelectedShop</p>
+                            <div class="row" style="font-size:12px;">
+                                <div class="col-3">
+                                    <p class="pl-3 pt-3 text-center">Obecna Strona - @Model.CurrentPage</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="pl-3 pt-3 text-center">Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="pl-3 pt-3 text-center">Wyszukiwana fraza - @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="pl-3 pt-3 text-center">Sklep - @Model.SelectedShop</p>
+                                </div>
                             </div>
-
                         </div>
+
                     </form>
 
                 </div>
@@ -96,201 +104,201 @@
                 <div class="row">
 
 
-                    <div class="table-container">
+                    <div class="table-container table-responsive-sm table-responsive-md w-auto overflow-y: hidden">
 
-                        <table class="table table-hover table-responsive w-auto overflow-y: hidden">
-                            <thead class="text-center">
+                        <table class="table table-hover">
+                            <thead class="text-center  ">
                                 <tr>
                                     <th>
                                         Sklep
-                                        <i class="fas fa-sort ml-1"></i>
+                                        <!--<i class="fas fa-sort ml-1"></i>-->
                                     </th>
                                     <th> </th>
                                     <th>Opis</th>
                                     <th>
                                         Produkt
-                                        <i class="fas fa-sort ml-1"></i>
+                                        <!-- <i class="fas fa-sort ml-1"></i>-->
                                     </th>
                                     <th>
                                         Jak tanio?
-                                        <i class="fas fa-sort ml-1"></i>
+                                        <!-- <i class="fas fa-sort ml-1"></i>-->
                                     </th>
                                     <th>
                                         Cena
-                                        <i class="fas fa-sort ml-1"></i>
+                                        <!--  <i class="fas fa-sort ml-1"></i>-->
                                     </th>
-                                    <th>Sprawdź szczegóły</th>
-                                    <th>Aktualizacja</th>
-                                </tr>
-                            </thead>
-
-                            @foreach (var p in Model.Products)
-                            {
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p id="@p.Seller.ToLower()"> @p.Seller</p>
-
-                                        </td>
-                                        <td>
-                                            @{
-                                                string cssClass = "";
-                                                string message = "";
-
-                                                if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(" !PROMOCJA! "))
-                                                {
-                                                    cssClass = "is-warning";
-                                                    message = " PROMOCJA! ";
-                                                }
-                                            }
-
-                                        </td>
-                                        <td>
-                                            @if (!string.IsNullOrEmpty(p.Description))
-                                            {
-                                                <div class="text-center text-danger font-weight-bold pb-2 ">
-                                                    @message
-                                                </div>
-                                            }
-
-                                        </td>
-                                        <td>
-                                            <p>@p.Name</p>
-                                        </td>
-
-                                        <td>
-                                            <p class="text-danger font-weight-bold pb-2 text-center"> @p.Description?.Replace("!PROMOCJA!", "")</p>
-
-                                        </td>
-
-                                        <td>
-                                            <p class="text-center font-weight-bold">
-                                                @p.Value
-                                            </p>
-
-                                        </td>
-
-                                        <td>
-                                            <div class="link d-flex justify-content-center pb-3">
-                                                <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
-                                            </div>
-
-                                        </td>
-
-                                        <td>
-                                            @{
-
-                                                var offerTime = DateTime.Now - p.TimeStamp;
-
-                                                var days = offerTime.Days;
-                                                var hours = offerTime.Hours;
-                                                var minutes = offerTime.Minutes;
-
-                                                bool red = false;
-                                                bool yellow = false;
-                                                bool green = false;
-
-                                                string dispalyTime = "";
-
-                                                if (days < 3 && days != 0)
-                                                {
-                                                    dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu.";
-                                                    yellow = true;
-                                                }
-                                                else if (days > 2 && days != 0)
-                                                {
-                                                    dispalyTime = $"Informacje sprawdzone: {days} dni, {hours} godzin {minutes} minuty temu. Informacje o produkcie starsze niż 2 dni!";
-                                                    red = true;
-                                                }
-                                                else
-                                                {
-                                                    dispalyTime = $"Informacje sprawdzone: {hours} godzin {minutes} minuty temu.";
-                                                    green = true;
-                                                }
-
-                                                if (red)
-                                                {
-                                                    <div class="text-center p-1 bg-danger">
-                                                        <small class="text-muted">
-                                                            @dispalyTime
-                                                        </small>
-                                                    </div>
-                                                }
-
-                                                if (yellow)
-                                                {
-                                                    <div class="text-center p-1 text-white bg-warning">
-                                                        <small class="text-muted">
-                                                            @dispalyTime
-                                                        </small>
-                                                    </div>
-                                                }
-
-                                                if (green)
-                                                {
-                                                    <div class="text-center p-1 text-white bg-success">
-                                                        <small class="text-muted">
-                                                            @dispalyTime
-                                                        </small>
-                                                    </div>
-                                                }
-                                            }
-                                        </td>
-
+                                        <th>Sprawdź szczegóły</th>
+                                        <th>Aktualizacja</th>
                                     </tr>
+                                </thead>
 
-                                </tbody>
-                            }
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="block d-flex align-items-center justify-content-center">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    @if (Model.ShowFirst)
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link" aria-label="Previous" asp-page="/MainProducts" asp-route-CurrentPage="1">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                <span class="sr-only">Początek</span>
-                                            </a>
-                                        </li>
-                                    }
+                                @foreach (var p in Model.Products)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p id="@p.Seller.ToLower()"> @p.Seller</p>
 
-                                    @if (Model.ShowPrevious)
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage -1)">Poprzednia Strona</a>
-                                        </li>
-                                    }
+                                            </td>
+                                            <td>
+                                                @{
+                                                    string cssClass = "";
+                                                    string message = "";
 
-                                    @if (Model.ShowNext)
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage + 1)">Następna Strona</a>
+                                                    if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(" !PROMOCJA! "))
+                                                    {
+                                                        cssClass = "is-warning";
+                                                        message = " PROMOCJA! ";
+                                                    }
+                                                }
 
-                                        </li>
-                                    }
+                                            </td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(p.Description))
+                                                {
+                                                    <div class="text-center text-danger font-weight-bold pb-2 ">
+                                                        @message
+                                                    </div>
+                                                }
 
-                                    @if (Model.ShowLast)
-                                    {
-                                        <li class="page-item">
-                                            <a class="page-link" aria-label="Next" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.TotalPages)">
+                                            </td>
+                                            <td>
+                                                <p>@p.Name</p>
+                                            </td>
 
-                                                <span aria-hidden="true">&raquo;</span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
-                                    }
-                                </ul>
-                            </nav>
+                                            <td>
+                                                <p class="text-danger font-weight-bold pb-2 text-center"> @p.Description?.Replace("!PROMOCJA!", "")</p>
+
+                                            </td>
+
+                                            <td>
+                                                <p class="text-center font-weight-bold">
+                                                    @p.Value
+                                                </p>
+
+                                            </td>
+
+                                            <td>
+                                                <div class="link d-flex justify-content-center pb-3">
+                                                    <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
+                                                </div>
+
+                                            </td>
+
+                                            <td>
+                                                @{
+
+                                                    var offerTime = DateTime.Now - p.TimeStamp;
+
+                                                    var days = offerTime.Days;
+                                                    var hours = offerTime.Hours;
+                                                    var minutes = offerTime.Minutes;
+
+                                                    bool red = false;
+                                                    bool yellow = false;
+                                                    bool green = false;
+
+                                                    string dispalyTime = "";
+
+                                                    if (days < 3 && days != 0)
+                                                    {
+                                                        dispalyTime = $"Sprawdzone: {days} dni temu.";
+                                                        yellow = true;
+                                                    }
+                                                    else if (days > 2 && days != 0)
+                                                    {
+                                                        dispalyTime = $"Informacje o produkcie starsze niż 2 dni!";
+                                                        red = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        dispalyTime = $"Sprawdzone: {hours} godzin {minutes} minuty temu.";
+                                                        green = true;
+                                                    }
+
+                                                    if (red)
+                                                    {
+                                                        <div class="text-center p-1 bg-danger">
+                                                            <small class="text-muted">
+                                                                @dispalyTime
+                                                            </small>
+                                                        </div>
+                                                    }
+
+                                                    if (yellow)
+                                                    {
+                                                        <div class="text-center p-1 text-white bg-warning">
+                                                            <small class="text-muted">
+                                                                @dispalyTime
+                                                            </small>
+                                                        </div>
+                                                    }
+
+                                                    if (green)
+                                                    {
+                                                        <div class="text-center p-1 text-white bg-success">
+                                                            <small class="text-muted">
+                                                                @dispalyTime
+                                                            </small>
+                                                        </div>
+                                                    }
+                                                }
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                }
+                            </table>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="block d-flex align-items-center justify-content-center">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        @if (Model.ShowFirst)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" aria-label="Previous" asp-page="/MainProducts" asp-route-CurrentPage="1">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Początek</span>
+                                                </a>
+                                            </li>
+                                        }
 
+                                        @if (Model.ShowPrevious)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage -1)">Poprzednia Strona</a>
+                                            </li>
+                                        }
+
+                                        @if (Model.ShowNext)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.CurrentPage + 1)">Następna Strona</a>
+
+                                            </li>
+                                        }
+
+                                        @if (Model.ShowLast)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" aria-label="Next" asp-page="/MainProducts" asp-route-CurrentPage="@(Model.TotalPages)">
+
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
