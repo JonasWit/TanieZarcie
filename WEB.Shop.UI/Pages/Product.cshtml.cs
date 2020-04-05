@@ -34,7 +34,7 @@ namespace WEB.Shop.UI.Pages
 
         public IActionResult OnPostReturn()
         {
-            return RedirectToPage("MainProducts");
+            return RedirectToPage("MainProducts", "Redirection");
         }
     }
 }

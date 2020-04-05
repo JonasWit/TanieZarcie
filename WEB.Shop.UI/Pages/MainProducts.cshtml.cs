@@ -13,7 +13,7 @@ namespace WEB.Shop.UI.Pages
         public IEnumerable<GetProducts.ProductViewModel> Products { get; set; }
 
         [BindProperty(Name = "selectedShop", SupportsGet = true)]
-        public string SelectedShop { get; set; }
+        public string SelectedShop { get; set; } = "Wszystkie";
         public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland", "Lidl", "Careffour" };
 
         [BindProperty]
@@ -31,15 +31,36 @@ namespace WEB.Shop.UI.Pages
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public void OnGet([FromServices] GetProducts getProducts, 
+        public void OnGet(
+            [FromServices] GetProducts getProducts,
             [FromServices] GetSearchString getSearchString,
-            [FromServices] GetSelectedShop getSelectedShop)
+            [FromServices] GetSelectedShop getSelectedShop,
+            [FromServices] SaveCurrentPage saveCurrentPage)
         {
             getSearchString.Do(out string searchString);
             getSelectedShop.Do(out string selectedShop);
 
             SearchString = searchString;
             SelectedShop = selectedShop;
+
+            saveCurrentPage.Do(CurrentPage);
+
+            HandleSearchActions(getProducts);
+        }
+
+        public void OnGetRedirection(
+            [FromServices] GetProducts getProducts,
+            [FromServices] GetSearchString getSearchString,
+            [FromServices] GetSelectedShop getSelectedShop,
+            [FromServices] GetCurrentPage getCurrentPage)
+        {
+            getSearchString.Do(out string searchString);
+            getSelectedShop.Do(out string selectedShop);
+            getCurrentPage.Do(out int currentPage);
+
+            SearchString = searchString;
+            SelectedShop = selectedShop;
+            CurrentPage = currentPage;
 
             HandleSearchActions(getProducts);
         }
