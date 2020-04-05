@@ -123,7 +123,8 @@
                         <td>
                             <div class="level-item">
                                 <p class="pt-2 mt-2 mb-2 title text-center ">
-                                    @product.Name
+                                    
+                                    <a asp-page="Product" asp-route-name="@product.Name.Replace(" ","-")" class="text-warning">@product.Name<i class="fas fa-angle-double-right ml-2"></i></a>
                                 </p>
                                 <p class="subtitle">
                                 </p>
@@ -168,12 +169,6 @@
                             </div>
                         </td>
                         <td>
-
-                            @* JW to do zrobienia jeszcze *@
-                            <div class="link d-flex justify-content-center pb-3">
-                                <a asp-page="Product" asp-route-name="@product.Name.Replace(" ","-")" class="text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
-                            </div>
-
                             <div class="column is-12 text-center">
 
                                 <a class=" has-text-danger text-warning pt-2 mt-2 mb-2 fas fa-trash-alt" style='font-size:24px'
