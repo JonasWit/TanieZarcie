@@ -48,6 +48,8 @@ namespace WEB.SearchEngine.Crawlers
 
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
+            //todo JW - v1.1 - wykorzystac nowe pola w modelu
+
             var result = new Product();
 
             if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))) return new Product();

@@ -34,6 +34,7 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
+                //todo JW - v1.1 - zalatwic crawlera
                 ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
                 //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
@@ -48,6 +49,8 @@ namespace WEB.SearchEngine.Crawlers
 
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
+            //todo JW - v1.1 - wykorzystac nowe pola w modelu
+
             var result = new Product();
 
             if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price-box", MatchDireciton.Equals))))

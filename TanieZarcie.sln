@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.Application", "WEB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.Shop.DataBase", "WEB.Shop.DataBase\WEB.Shop.DataBase.csproj", "{56539E4C-988B-4B0A-87BF-E608FD25C53D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchEngine", "SearchEngine\SearchEngine.csproj", "{A93BBE08-951C-45C9-8136-272F734B60BD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEB.SearchEngine", "WEB.SearchEngine\WEB.SearchEngine.csproj", "{F33E4230-6DF2-4E31-AE13-EEA4A87228A6}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56539E4C-988B-4B0A-87BF-E608FD25C53D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A93BBE08-951C-45C9-8136-272F734B60BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A93BBE08-951C-45C9-8136-272F734B60BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A93BBE08-951C-45C9-8136-272F734B60BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A93BBE08-951C-45C9-8136-272F734B60BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F33E4230-6DF2-4E31-AE13-EEA4A87228A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F33E4230-6DF2-4E31-AE13-EEA4A87228A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F33E4230-6DF2-4E31-AE13-EEA4A87228A6}.Release|Any CPU.ActiveCfg = Release|Any CPU

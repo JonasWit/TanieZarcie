@@ -49,6 +49,8 @@ namespace WEB.SearchEngine.Crawlers
 
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
+            //todo JW - v1.1 - wykorzystac nowe pola w modelu
+
             var result = new Product();
 
             if (!productNode.Descendants()

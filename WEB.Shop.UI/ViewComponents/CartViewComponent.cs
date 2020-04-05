@@ -23,8 +23,6 @@ namespace WEB.Shop.UI.ViewComponents
             }
             else if (view == "Summary")
             {
-                //todo: dodać podsumowanie sklep, cena promocja itp.
-
                 return View(view, _getCart.Do());
             }
 

@@ -14,17 +14,5 @@ namespace WEB.Shop.UI.Pages
             Cart = getCart.Do();
             return Page();
         }
-
-        //public IActionResult OnGetReturn()
-        //{
-        //    return RedirectToPage("MainProducts");
-        //}
-
-        //public IActionResult OnPostReturn()
-        //{
-        //    return RedirectToPage("MainProducts");
-        //}
-
-        //todo: zrobic metode na wyczyszczenia koszyka
     }
 }

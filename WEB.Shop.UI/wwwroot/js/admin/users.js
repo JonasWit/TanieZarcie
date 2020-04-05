@@ -7,7 +7,6 @@ var app = new Vue({
         }
     },
     mounted() {
-        //todo: get all users
     },
     methods: {
         createUser() {
