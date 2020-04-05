@@ -33,7 +33,7 @@ namespace WEB.Shop.UI
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["DefaultConnection"]));
+                options.UseSqlServer(Configuration["DevConnection"]));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options => 
             {
