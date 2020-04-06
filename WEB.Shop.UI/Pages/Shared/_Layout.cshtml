@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="News" asp-action="Index">Aktualności</a>
+                        <a class="nav-link" asp-controller="News" asp-action="NewsOverview">Aktualności</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Info" asp-action="WipPage">Top Promocje</a>
@@ -44,15 +44,17 @@
                     </li>
                 </ul>
                 <ul class="nav nav-pills nav navbar-nav navbar-right">
+
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="News" asp-action="Edit">Add News</a>
+                            <a class="nav-link" asp-controller="Manager" asp-action="Edit">Add News</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="News" asp-action="Index">News Panel</a>
+                            <a class="nav-link" asp-controller="Manager" asp-action="Index">News Management Panel</a>
                         </li>
                     }
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
@@ -65,6 +67,7 @@
                             <a class="nav-link" asp-page="/Admin/Index">Admin</a>
                         </li>
                     }
+
                     <li class="nav-item">
                         <vc:cart view="Small"></vc:cart>
                     </li>

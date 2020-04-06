@@ -1,0 +1,15 @@
+﻿@model WEB.Shop.UI.ViewModels.News.NewsViewModel
+
+<div class="mine-container">
+    <div class="mine-post mine-no-shadow">
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            var imagePath = $"/Image/{Model.ImagePath}";
+            <img src="@imagePath" />
+            <span class="mine-title">@Model.Title</span>
+        }
+    </div>
+    <div class="mine-post-body">
+        @Html.Raw(Model.Body)
+    </div>
+</div>

@@ -1,22 +1,56 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using WEB.Shop.Application.Files;
+using WEB.Shop.Application.News;
+using WEB.Shop.UI.ViewModels.News;
 
 namespace WEB.Shop.UI.Controllers
 {
     public class NewsController : Controller
     {
-        //todo JW - v1.1 - zrobic ta funkcjonalnosc tak jak w blogu
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult NewsOverview(string category, [FromServices] GetNews getNews)
         {
-            return View();
+            var posts = string.IsNullOrEmpty(category) ? getNews.Do() : getNews.Do(category);
+            var viewModels = new List<NewsViewModel>();
+
+            foreach (var post in posts)
+            {
+                viewModels.Add(new NewsViewModel
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Body = post.Body,
+                    ImagePath = post.Image,
+                    Created = post.Created,
+                    Description = post.Description,
+                    Tags = post.Tags,
+                    Category = post.Category
+                });
+            }
+
+            return View(viewModels);
         }
 
-        public IActionResult Edit()
+        [HttpGet]
+        public IActionResult SingleNewsDisplay(int id, [FromServices] GetOneNews getSingleNews)
         {
-            return View();
+            var singleNews = getSingleNews.Do(id);
+
+            return View(new NewsViewModel
+            {
+                Id = singleNews.Id,
+                Title = singleNews.Title,
+                Body = singleNews.Body,
+                ImagePath = singleNews.Image,
+                Created = singleNews.Created,
+                Description = singleNews.Description,
+                Tags = singleNews.Tags,
+                Category = singleNews.Category
+            });
         }
+
+        [HttpGet("/image/{image}")]
+        public IActionResult Image(string image, [FromServices] GetFile getFile) => new FileStreamResult(getFile.Do(image), $"image/{image.Substring(image.LastIndexOf('.') + 1)}");
     }
 }

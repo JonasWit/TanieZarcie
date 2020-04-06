@@ -35,7 +35,7 @@ namespace WEB.Shop.UI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration["DevConnection"]));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => 
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
@@ -52,7 +52,7 @@ namespace WEB.Shop.UI
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "Admin"));
-                options.AddPolicy("Manager", policy => policy.RequireAssertion(context => 
+                options.AddPolicy("Manager", policy => policy.RequireAssertion(context =>
                         context.User.HasClaim("Role", "Manager")
                         || context.User.HasClaim("Role", "Admin")));
             });
@@ -91,16 +91,12 @@ namespace WEB.Shop.UI
             }
 
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
-  
             app.UseRouting();
-
             app.UseSession();
-
             app.UseAuthentication();
-
-           app.UseCookiePolicy();
+            app.UseAuthorization();
+            app.UseCookiePolicy();
             //app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>

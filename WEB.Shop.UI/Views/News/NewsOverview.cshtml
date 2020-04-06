@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WEB.Shop.UI.ViewModels.News.NewsViewModel>
+
+<div class="mine-main-img">
+    <span class="mine-title">Aktualności</span>
+</div>
+
+<div class="mine-container">
+    @foreach (var singleNews in Model)
+    {
+        var imageNews = $"/Image/{singleNews.ImagePath}";
+        <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
+            <img src="@imageNews" width="500" />
+            <span class="mine-title">
+                @singleNews.Title
+            </span>
+        </a>
+    }
+</div>
