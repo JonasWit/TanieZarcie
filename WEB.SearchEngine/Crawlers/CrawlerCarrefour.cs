@@ -49,8 +49,6 @@ namespace WEB.SearchEngine.Crawlers
 
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
-            //todo JW - v1.1 - wykorzystac nowe pola w modelu
-
             var result = new Product();
 
             if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price-box", MatchDireciton.Equals))))
@@ -72,9 +70,7 @@ namespace WEB.SearchEngine.Crawlers
 
                 if (decimal.TryParse(price, out decimal priceDecimal)) result.Value = priceDecimal / 100;
 
-
-
-
+                result.OnSale = false;
             }
             else
             {
@@ -97,32 +93,17 @@ namespace WEB.SearchEngine.Crawlers
                     .FirstOrDefault()?
                     .InnerText;
 
-                //var promoCommnets = productNode.Descendants()
-                //    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "productpromo", MatchDireciton.InputContainsMatch)))
-                //    .Select(z => z.InnerText)
-                //    .ToList();
-
-                //if (promoCommnets.Count != 0) result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
+                result.OnSale = true;
             }
-
-
-            //var pln = productNode.Descendants()
-            //    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
-            //    .FirstOrDefault().InnerText;
-
-            //var gr = productNode.Descendants()
-            //    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
-            //    .FirstOrDefault().InnerText;
-
-            //if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
-
 
             result.SourceUrl = linkStruct.Link;
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
 
+
+            //todo: problem z nazwa
             var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "text4 text-primary", MatchDireciton.InputContainsMatch)))
+                .Where(x => x.Attributes.Any(y => y.Name == "span" && CrawlerRegex.StandardMatch(y.Value, "visible-lg visible-md", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
                 .FirstOrDefault();
 

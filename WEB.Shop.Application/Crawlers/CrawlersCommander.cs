@@ -131,29 +131,7 @@ namespace WEB.Shop.Application.Crawlers
         {
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
-            switch (shopEnum)
-            {
-                case Shops.Biedronka:
-                    await ClearDataBaseAsync(shopEnum.ToString());
-                    break;
-                case Shops.Lidl:
-                    await ClearDataBaseAsync(shopEnum.ToString());
-                    break;
-                case Shops.Kaufland:
-                    await ClearDataBaseAsync(shopEnum.ToString());
-                    break;
-                case Shops.Carrefour:
-                    break;
-                case Shops.Auchan:
-                    break;
-                case Shops.Stokrotka:
-                    break;
-                case Shops.Zabka:
-                    break;
-                default:
-                    break;
-            }
-
+            await ClearDataBaseAsync(shopEnum.ToString());
             await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Seller == shopEnum.ToString()).ToList());
             await CheckDataBase();
         }
