@@ -34,10 +34,9 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                //todo JW - v1.1 - zalatwic crawlera
-                ExtractProduct(div, linkStruct);
+                //ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
-                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -86,12 +85,18 @@ namespace WEB.SearchEngine.Crawlers
                 var regularPrice = regularPriceNode.Descendants()
                     .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))
                     .FirstOrDefault()?
-                    .InnerText;
+                    .InnerText
+                    .RemoveNonNumeric();
 
-                var promoPrice = regularPriceNode.Descendants()
+                var promoPrice = promoPriceNode.Descendants()
                     .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price text-red", MatchDireciton.Equals)))
                     .FirstOrDefault()?
-                    .InnerText;
+                    .InnerText
+                    .RemoveNonNumeric(); ;
+
+
+                if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+                if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
 
                 result.OnSale = true;
             }
@@ -100,14 +105,13 @@ namespace WEB.SearchEngine.Crawlers
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
 
-
-            //todo: problem z nazwa
             var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "span" && CrawlerRegex.StandardMatch(y.Value, "visible-lg visible-md", MatchDireciton.InputContainsMatch)))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "visible-lg visible-md", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
-                .FirstOrDefault();
+                .FirstOrDefault()
+                ;
 
-            result.Name = name;
+            result.Name = CrawlerRegex.RemoveMetaCharacters(name).Trim();
 
             result.TimeStamp = DateTime.Now;
 

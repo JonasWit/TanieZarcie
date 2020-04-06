@@ -37,7 +37,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -58,7 +58,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -79,7 +79,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -100,7 +100,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -121,7 +121,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -142,7 +142,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -163,7 +163,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -185,7 +185,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -207,7 +207,7 @@ namespace WEB.Shop.Application.Products
                 Value = product.Value.MonetaryValue(),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue,
+                SaleValue = product.SaleValue.MonetaryValue(),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -228,7 +228,7 @@ namespace WEB.Shop.Application.Products
             public string Value { get; set; }
 
             public bool OnSale { get; set; }
-            public decimal SaleValue { get; set; }
+            public string SaleValue { get; set; }
             public string SaleDescription { get; set; }
             public DateTime SaleDeadline { get; set; }
 

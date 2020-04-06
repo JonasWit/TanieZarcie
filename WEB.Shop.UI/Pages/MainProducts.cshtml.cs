@@ -14,7 +14,7 @@ namespace WEB.Shop.UI.Pages
 
         [BindProperty(Name = "selectedShop", SupportsGet = true)]
         public string SelectedShop { get; set; } = "Wszystkie";
-        public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland", "Lidl", "Careffour" };
+        public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland", "Lidl", "Carrefour" };
 
         [BindProperty]
         public string SearchString { get; set; }
