@@ -137,6 +137,7 @@ namespace WEB.Shop.Application.Crawlers
                     await ClearDataBaseAsync(shopEnum.ToString());
                     break;
                 case Shops.Lidl:
+                    await ClearDataBaseAsync(shopEnum.ToString());
                     break;
                 case Shops.Kaufland:
                     await ClearDataBaseAsync(shopEnum.ToString());

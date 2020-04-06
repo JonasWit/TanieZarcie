@@ -42,6 +42,7 @@ namespace WEB.Shop.DataBase
 
         public TResult GetProductById<TResult>(int id, Func<Product, TResult> selector) =>
             _context.Products
+                .Include(x => x.Stock)
                 .Where(x => x.Id == id)
                 .Select(selector)
                 .FirstOrDefault();

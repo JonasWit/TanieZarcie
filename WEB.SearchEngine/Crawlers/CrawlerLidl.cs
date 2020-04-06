@@ -34,7 +34,6 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                //todo JW - v1.1 - zalatwic crawlera
                 //ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
                 tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));

@@ -15,12 +15,21 @@ namespace WEB.Shop.UI.Pages
 
         public async Task<IActionResult> OnGet(string name, [FromServices] GetProduct getProduct)
         {
-            Product = await getProduct.DoAsync(name.Replace("-", " "));
+            Product = await getProduct.DoAsync(int.Parse(name));
             if (Product == null)
                 return RedirectToPage("Index");
             else
                 return Page();
         }
+
+        //public async Task<IActionResult> OnGet(string id, [FromServices] GetProduct getProduct)
+        //{
+        //    Product = await getProduct.DoAsync(int.Parse(id));
+        //    if (Product == null)
+        //        return RedirectToPage("Index");
+        //    else
+        //        return Page();
+        //}
 
         public async Task<IActionResult> OnPost([FromServices] AddToCart addToCart)
         {

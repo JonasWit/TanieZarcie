@@ -16,9 +16,6 @@ namespace WEB.Shop.Application.Automations
             var properties = new NameValueCollection
             {
                 ["quartz.scheduler.instanceName"] = "DataFeedAutomation",
-                ["quartz.threadPool.type"] = "Quartz.Simpl.SimpleThreadPool, Quartz",
-                ["quartz.threadPool.threadCount"] = "3",
-                ["quartz.jobStore.type"] = "Quartz.Simpl.RAMJobStore, Quartz",
             };
 
             var schedulerFactory = new StdSchedulerFactory(properties);

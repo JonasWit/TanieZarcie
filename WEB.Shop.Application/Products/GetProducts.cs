@@ -27,6 +27,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetAllProducts() =>
             _productManager.GetProductsWithStock(product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -47,6 +48,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetAllProductsWithPagination(int pageNumber, int pageSize) =>
             _productManager.GetProductsWithStockWithPagination(pageNumber, pageSize, product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -67,6 +69,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetProductsWithSearchString(string searchString) =>
             _productManager.GetProductsWithStockWithCondition(product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -87,6 +90,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetProductsWithSearchStringAndPagination(int pageNumber, int pageSize, string searchString) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -107,6 +111,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetShopProducts(string shop) =>
             _productManager.GetProductsWithStockWithCondition(product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -127,6 +132,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetShopProductsWithPagination(int pageNumber, int pageSize, string shop) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -147,6 +153,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetShopProductsWithSearchString(string shop, string searchString) =>
             _productManager.GetProductsWithStockWithCondition(product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -168,6 +175,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetShopProductsWithSearchStringAndPagination(int pageNumber, int pageSize, string shop, string searchString) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -189,6 +197,7 @@ namespace WEB.Shop.Application.Products
         public IEnumerable<ProductViewModel> GetShopProductsWithPagination(int pageNumber, int pageSize, string shop, string searchString) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer,
@@ -209,6 +218,7 @@ namespace WEB.Shop.Application.Products
 
         public class ProductViewModel
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public string Producer { get; set; }

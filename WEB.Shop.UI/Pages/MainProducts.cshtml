@@ -130,9 +130,8 @@
                                             </td>
                                             <td>
                                                 <div class="link d-flex justify-content-center pb-3">
-                                                    <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
+                                                    <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
                                                 </div>
-
                                             </td>
                                             <td>
                                                 @{
