@@ -116,9 +116,15 @@ namespace WEB.Shop.Application.Crawlers
 
         public async Task UpdateAllData()
         {
-            await ClearDataBaseAsync();
+            await _crawlersDataBaseManager.ClearDataBaseAsync();
             await _crawlersDataBaseManager.UpdateDatabaseAsync(Results);
             await CheckDataBase();
+        }
+
+        public async Task UpdateAllDataAutomated()
+        {
+            await _crawlersDataBaseManager.ClearDataBaseAsync();
+            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results);
         }
 
         public async Task UpdateDataBase(string shop)

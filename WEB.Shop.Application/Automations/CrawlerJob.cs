@@ -12,7 +12,7 @@ namespace WEB.Shop.Application.Automations
             var commander = (CrawlersCommander)dataMap["CrawlersCommander"];
 
             await commander.RunEngineAsync();
-            await commander.UpdateAllData();
+            await commander.UpdateAllDataAutomated();
         }
     }
 }

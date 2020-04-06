@@ -31,7 +31,7 @@ namespace WEB.Shop.UI.Pages.Accounts
 
             if (result.Succeeded)
             {
-                return RedirectToPage("/Admin/Index");
+                return RedirectToPage("/Index");
             }
             else 
             {

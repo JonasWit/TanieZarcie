@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WEB.Shop.Domain.Models
 {
-    public class News
+    public class OneNews
     {
         public int Id { get; set; }
 

@@ -14,10 +14,5 @@
     <ProjectReference Include="..\WEB.SearchEngine\WEB.SearchEngine.csproj" />
     <ProjectReference Include="..\WEB.Shop.Domain\WEB.Shop.Domain.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Files\" />
-    <Folder Include="News\" />
-  </ItemGroup>
 
 </Project>

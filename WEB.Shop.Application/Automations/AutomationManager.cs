@@ -49,11 +49,8 @@ namespace WEB.Shop.Application.Automations
             TriggerBuilder.Create()
                 .WithIdentity("Crawlers Trigger")
                 .StartNow()
-                    .WithSchedule(CronScheduleBuilder
-                    .DailyAtHourAndMinute(03, 30))
-                //.WithSimpleSchedule(x => x
-                //    .WithIntervalInSeconds(2)
-                //    .RepeatForever())
+                    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(03, 30))
+                    .WithSimpleSchedule(x => x.WithIntervalInHours(24).RepeatForever())        
                 .Build();
     }
 }

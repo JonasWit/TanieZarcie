@@ -41,14 +41,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-page="/MainProducts">Wszystkie Produkty</a>
-
                     </li>
                 </ul>
-                <ul class=" nav nav-pills nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <vc:cart view="Small"></vc:cart>
-                    </li>
-
+                <ul class="nav nav-pills nav navbar-nav navbar-right">
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
                         <li class="nav-item">
@@ -58,7 +53,6 @@
                             <a class="nav-link" asp-controller="News" asp-action="Index">News Panel</a>
                         </li>
                     }
-
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
@@ -71,9 +65,10 @@
                             <a class="nav-link" asp-page="/Admin/Index">Admin</a>
                         </li>
                     }
-
+                    <li class="nav-item">
+                        <vc:cart view="Small"></vc:cart>
+                    </li>
                 </ul>
-
             </div>
         </nav>
         <div>
