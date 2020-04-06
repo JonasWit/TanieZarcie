@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using System.Linq;
 using WEB.Shop.Application.Products;
 using WEB.Shop.Application.Session;
 
@@ -12,8 +13,16 @@ namespace WEB.Shop.UI.Pages
         public string ShopDirection { get; set; }
 
         public IEnumerable<GetProducts.ProductViewModel> Products { get; set; }
+        public List<string> Shops { get; set; }
 
-        public void OnGet([FromServices] GetProducts getProducts) => Products = getProducts.GetAllProducts();       
+        public void OnGet([FromServices] GetProducts getProducts)
+        {
+            Products = getProducts.GetAllProducts();
+            Shops = Products.GroupBy(p => new { p.Seller })
+                .Select(p => p.First())
+                .Select(p => p.Seller)
+                .ToList();
+        }
 
         public IActionResult OnPostAllShops([FromServices] SaveSelectedShop saveSelectedShop)
         {

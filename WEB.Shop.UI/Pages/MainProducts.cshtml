@@ -97,53 +97,43 @@
                                         <tr>
                                             <td>
                                                 <p id="@p.Seller.ToLower()"> @p.Seller</p>
-
                                             </td>
                                             <td>
                                                 @{
-                                                    string cssClass = "";
                                                     string message = "";
 
-                                                    if (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(" !PROMOCJA! "))
+                                                    if (p.OnSale)
                                                     {
-                                                        cssClass = "is-warning";
                                                         message = " PROMOCJA! ";
                                                     }
                                                 }
 
                                             </td>
                                             <td>
-                                                @if (!string.IsNullOrEmpty(p.Description))
+                                                @if (!string.IsNullOrEmpty(p.SaleDescription))
                                                 {
                                                     <div class="text-center text-danger font-weight-bold pb-2 ">
                                                         @message
                                                     </div>
                                                 }
-
                                             </td>
                                             <td>
                                                 <p>@p.Name</p>
                                             </td>
-
                                             <td>
-                                                <p class="text-danger font-weight-bold pb-2 text-center"> @p.Description?.Replace("!PROMOCJA!", "")</p>
-
+                                                <p class="text-danger font-weight-bold pb-2 text-center"> @p.Description</p>
                                             </td>
-
                                             <td>
                                                 <p class="text-center font-weight-bold">
                                                     @p.Value
                                                 </p>
-
                                             </td>
-
                                             <td>
                                                 <div class="link d-flex justify-content-center pb-3">
                                                     <a asp-page="Product" asp-route-name="@p.Name.Replace(" ","-")" class="text-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></a>
                                                 </div>
 
                                             </td>
-
                                             <td>
                                                 @{
 
@@ -203,9 +193,7 @@
                                                     }
                                                 }
                                             </td>
-
                                         </tr>
-
                                     </tbody>
                                 }
                             </table>

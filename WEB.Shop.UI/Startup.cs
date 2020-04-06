@@ -97,7 +97,6 @@ namespace WEB.Shop.UI
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCookiePolicy();
-            //app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>
             {

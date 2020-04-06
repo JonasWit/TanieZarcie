@@ -90,7 +90,11 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText.RemoveMetaCharacters())
                 .ToList();
 
-            if (promoCommnets.Count != 0) result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
+            if (promoCommnets.Count != 0)
+            {
+                result.SaleDescription = String.Join(", ", promoCommnets.ToArray());
+                result.OnSale = true;
+            }
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
             result.TimeStamp = DateTime.Now;

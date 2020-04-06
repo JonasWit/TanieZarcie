@@ -50,7 +50,6 @@ namespace WEB.SearchEngine.Crawlers
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
             //todo JW - v1.1 - wykorzystac nowe pola w modelu
-
             var result = new Product();
 
             if (!productNode.Descendants()
@@ -89,7 +88,11 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText.RemoveMetaCharacters())
                 .ToList();
 
-            if (promoCommnets.Count != 0) result.Description = " !PROMOCJA! " + String.Join(", ", promoCommnets.ToArray());
+            if (promoCommnets.Count != 0)
+            {
+                result.Description = String.Join(", ", promoCommnets.ToArray());
+                result.OnSale = true;
+            }
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
             result.TimeStamp = DateTime.Now;
