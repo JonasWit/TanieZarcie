@@ -52,5 +52,13 @@ namespace WEB.Shop.UI.Controllers
 
         [HttpGet("/image/{image}")]
         public IActionResult Image(string image, [FromServices] GetFile getFile) => new FileStreamResult(getFile.Do(image), $"image/{image.Substring(image.LastIndexOf('.') + 1)}");
+
+        [HttpGet]
+        public IActionResult TEST([FromServices] GetFilesForContent getFilesForContent)
+        {
+            getFilesForContent.Do("News");
+
+            return RedirectToAction("NewsOverview", new NewsViewModel());
+        }
     }
 }

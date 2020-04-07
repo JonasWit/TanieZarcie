@@ -48,25 +48,19 @@ namespace WEB.Shop.DataBase
             }
         }
 
-        public List<string> GetAllPicturesFromContent(ContentStore contentSubfolder)
+        public string[] GetAllPicturesFromContent(string contentSubfolder)
         {
-            var reult = new List<string>();
-
-            
+            string[] result;
 
             switch (contentSubfolder)
             {
-                case ContentStore.News:
-                    Directory.GetFiles(_newsImagesPath);
-                    break;
-                case ContentStore.Carousel:
-                    Directory.GetFiles(_carouselImagesPath);
-                    break;
+                case "News":
+                    return result = Directory.GetFiles(Path.Combine(_newsImagesPath));
+                case "Carousel":
+                    return result = Directory.GetFiles(Path.Combine(_carouselImagesPath));
                 default:
-                    break;
+                    return null;
             }
-
-            return reult;
         }
 
         public bool DeleteImage(string image)
