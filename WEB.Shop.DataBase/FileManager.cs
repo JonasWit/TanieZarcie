@@ -50,17 +50,12 @@ namespace WEB.Shop.DataBase
 
         public string[] GetAllPicturesFromContent(string contentSubfolder)
         {
-            string[] result;
-
-            switch (contentSubfolder)
+            return contentSubfolder switch
             {
-                case "News":
-                    return result = Directory.GetFiles(Path.Combine(_newsImagesPath));
-                case "Carousel":
-                    return result = Directory.GetFiles(Path.Combine(_carouselImagesPath));
-                default:
-                    return null;
-            }
+                "News" => Directory.GetFiles(Path.Combine(_newsImagesPath)),
+                "Carousel" => Directory.GetFiles(Path.Combine(_carouselImagesPath)),
+                _ => null,
+            };
         }
 
         public bool DeleteImage(string image)

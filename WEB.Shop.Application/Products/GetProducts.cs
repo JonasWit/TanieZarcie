@@ -85,7 +85,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
+            }, product => product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetProductsWithSearchStringAndPagination(int pageNumber, int pageSize, string searchString) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
@@ -106,7 +106,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
+            }, product => product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetShopProducts(string shop) =>
             _productManager.GetProductsWithStockWithCondition(product => new ProductViewModel
@@ -170,7 +170,7 @@ namespace WEB.Shop.Application.Products
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
-               product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
+               product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetShopProductsWithSearchStringAndPagination(int pageNumber, int pageSize, string shop, string searchString) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
@@ -192,7 +192,7 @@ namespace WEB.Shop.Application.Products
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
-               product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
+               product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetShopProductsWithPagination(int pageNumber, int pageSize, string shop, string searchString) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
@@ -214,7 +214,7 @@ namespace WEB.Shop.Application.Products
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
-               product.Name.StandardSearch(searchString.NormalizeWithStandardRegex()));
+               product.Name.StandardSearch(searchString));
 
         public class ProductViewModel
         {
