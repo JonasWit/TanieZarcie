@@ -15,7 +15,7 @@ namespace WEB.Shop.Domain.Extensions
 
         public static bool StandardSearch(this string input, string match)
         {
-            if (input.ToUpper().Contains(match.ToUpper())) return true;
+            if (input.ToUpper().Contains(match.ToUpper().Trim())) return true;
             else return false;
 
             //if (Regex.IsMatch(input, $@"\b{match}\b(?=\s|,)", RegexOptions.IgnoreCase)) return true;

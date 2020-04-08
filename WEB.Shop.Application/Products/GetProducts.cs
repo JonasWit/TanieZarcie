@@ -32,6 +32,12 @@ namespace WEB.Shop.Application.Products
 
         public int CountAllProducts() => _productManager.CountAllProductsWithStock();
 
+        public int CountAllProductsWithSearchString(string searchString) =>
+            _productManager.CountProductsWithStockWithCondition(product => product.Name.StandardSearch(searchString));
+
+        public int CountProductsForShopWithSearchString(string shop, string searchString) =>
+            _productManager.CountProductsWithStockWithCondition(product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) && product.Name.StandardSearch(searchString));
+
         public IEnumerable<ProductViewModel> GetAllProducts() =>
             _productManager.GetProductsWithStock(product => new ProductViewModel
             {

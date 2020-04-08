@@ -134,14 +134,14 @@ namespace WEB.Shop.UI.Pages
             if (!string.IsNullOrEmpty(SelectedShop) && SelectedShop == "Wszystkie" && !string.IsNullOrEmpty(SearchString))
             {
                 Products = getProducts.GetProductsWithSearchStringAndPagination(CurrentPage, PageSize, SearchString);
-                Count = getProducts.GetProductsWithSearchString(SearchString).Count();
+                Count = getProducts.CountAllProductsWithSearchString(SearchString);
                 return;
             }
 
             if (!string.IsNullOrEmpty(SelectedShop) && !string.IsNullOrEmpty(SearchString))
             {
                 Products = getProducts.GetShopProductsWithSearchStringAndPagination(CurrentPage, PageSize, SelectedShop, SearchString);
-                Count = getProducts.GetShopProductsWithSearchString(SelectedShop, SearchString).Count();
+                Count = getProducts.CountProductsForShopWithSearchString(SelectedShop, SearchString);
                 return;
             }
 
@@ -155,7 +155,7 @@ namespace WEB.Shop.UI.Pages
             if (string.IsNullOrEmpty(SelectedShop) && !string.IsNullOrEmpty(SearchString))
             {
                 Products = getProducts.GetProductsWithSearchStringAndPagination(CurrentPage, PageSize, SearchString);
-                Count = getProducts.GetProductsWithSearchString(SearchString).Count();
+                Count = getProducts.CountAllProductsWithSearchString(SearchString);
                 return;
             }
         }
