@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using WEB.SearchEngine.ResultModels;
 
 namespace WEB.SearchEngine.SearchResultsModels
 {

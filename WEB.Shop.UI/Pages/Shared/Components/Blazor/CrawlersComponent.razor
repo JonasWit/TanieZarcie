@@ -35,13 +35,13 @@
                             <div class="column is-2">
                                 <div class="tags has-addons">
                                     <span class="tag">Cached Data</span>
-                                    @if (Commander.DataCache[shop.ToString()] != 0)
+                                    @if (Commander.DataCacheCount[shop.ToString()] != 0)
                                     {
-                                        <span class="tag is-warning">@Commander.DataCache[shop.ToString()]</span>
+                                        <span class="tag is-warning">@Commander.DataCacheCount[shop.ToString()]</span>
                                     }
                                     else
                                     {
-                                        <span class="tag is-success">@Commander.DataCache[shop.ToString()]</span>
+                                        <span class="tag is-success">@Commander.DataCacheCount[shop.ToString()]</span>
                                     }
                                 </div>
                             </div>

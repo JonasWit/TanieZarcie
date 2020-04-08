@@ -16,7 +16,7 @@ namespace WEB.Shop.Application.Crawlers
         private readonly Engine _searchEngine;
 
         public List<Product> Results { get; private set; }
-        public Dictionary<string, int> DataCache { get; set; }
+        public Dictionary<string, int> DataCacheCount { get; set; }
         public Dictionary<string, bool> CrawlerIssues { get; set; }
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
         public List<DataBaseSummary> DataBaseCheck { get; set; } = new List<DataBaseSummary>();
@@ -33,12 +33,12 @@ namespace WEB.Shop.Application.Crawlers
             _crawlersDataBaseManager = crawlersDataBaseManager;
             _searchEngine = new Engine();
 
-            DataCache = new Dictionary<string, int>();
+            DataCacheCount = new Dictionary<string, int>();
             Results = new List<Product>();
 
             foreach (var item in Enum.GetValues(typeof(Shops)))
             {
-                DataCache.Add(item.ToString(), 0);
+                DataCacheCount.Add(item.ToString(), 0);
             }
         }
 
@@ -49,9 +49,11 @@ namespace WEB.Shop.Application.Crawlers
             await _searchEngine.RunAllCrawlersAsync();
             ConvertSearchModelsToDomainModels();
 
-            DataCache[Shops.Biedronka.ToString()] = Results.Where(p => p.Seller == Shops.Biedronka.ToString()).Count();
-            DataCache[Shops.Kaufland.ToString()] = Results.Where(p => p.Seller == Shops.Kaufland.ToString()).Count();
-            DataCache[Shops.Lidl.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
+            DataCacheCount[Shops.Biedronka.ToString()] = Results.Where(p => p.Seller == Shops.Biedronka.ToString()).Count();
+            DataCacheCount[Shops.Kaufland.ToString()] = Results.Where(p => p.Seller == Shops.Kaufland.ToString()).Count();
+            DataCacheCount[Shops.Lidl.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
+            DataCacheCount[Shops.Carrefour.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
+            DataCacheCount[Shops.Auchan.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
             return Results.Count;
         }
 
@@ -62,7 +64,7 @@ namespace WEB.Shop.Application.Crawlers
             await _searchEngine.RunCrawlerForSpecificShopAsync(shopEnum);
             ConvertSearchModelsToDomainModels();
 
-            DataCache[shopEnum.ToString()] = Results.Count;
+            DataCacheCount[shopEnum.ToString()] = Results.Count;
             return Results.Count;
         }
 
@@ -76,7 +78,7 @@ namespace WEB.Shop.Application.Crawlers
         {
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
-            DataCache[shop.ToString()] = 0;
+            DataCacheCount[shop.ToString()] = 0;
 
             await Task.Run(() => Results.RemoveAll(p => p.Seller == shopEnum.ToString()));
             return Results.Count;

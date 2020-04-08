@@ -48,7 +48,9 @@ namespace WEB.SearchEngine.Extensions
 
         public static bool ContainsAny(this string inputString, params string[] lookupStrings) => lookupStrings.Any(inputString.Contains);
 
-        public static string RemoveUnwantedStrings(this string input) => input.Replace("&quot", "");
+        public static string RemoveUnwantedStrings(this string input) => 
+            input.Replace("&quot;", "")
+            .Replace("&nbsp;","");
 
     }
 }

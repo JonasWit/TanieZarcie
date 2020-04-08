@@ -47,5 +47,17 @@ namespace WEB.Shop.UI.Pages
             saveSelectedShop.Do("Kaufland");
             return RedirectToPage("MainProducts");
         }
+
+        public IActionResult OnPostCarrefour([FromServices] SaveSelectedShop saveSelectedShop)
+        {
+            saveSelectedShop.Do("Carrefour");
+            return RedirectToPage("MainProducts");
+        }
+
+        public IActionResult OnPostAuchan([FromServices] SaveSelectedShop saveSelectedShop)
+        {
+            saveSelectedShop.Do("Auchan");
+            return RedirectToPage("MainProducts");
+        }
     }
 }

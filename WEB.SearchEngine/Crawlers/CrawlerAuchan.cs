@@ -9,9 +9,9 @@ using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
 {
-    public class CrawlerCarrefour : WebCrawler
+    public class CrawlerAuchan : WebCrawler
     {
-        public override string[] BaseUrls { get { return new string[] { "https://www.carrefour.pl/" }; } }
+        public override string[] BaseUrls { get { return new string[] { "" }; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
@@ -28,9 +28,9 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                //ExtractProduct(div, linkStruct);
+                ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
-                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -46,14 +46,14 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
-                if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price-box", MatchDireciton.Equals)))) return new Product();
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "content", MatchDireciton.Equals)))) return new Product();
 
             #endregion
 
             #region Get Name
 
             var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "visible-lg visible-md", MatchDireciton.InputContainsMatch)))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "about", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
                 .FirstOrDefault();
 

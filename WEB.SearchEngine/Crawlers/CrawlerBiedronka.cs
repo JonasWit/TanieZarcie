@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Extensions;
 using WEB.SearchEngine.RegexPatterns;
 using WEB.SearchEngine.SearchResultsModels;
@@ -12,11 +11,6 @@ namespace WEB.SearchEngine.Crawlers
 {
     public class CrawlerBiedronka : WebCrawler
     {
-        public CrawlerBiedronka(Shops shop)
-        {
-            Shop = shop;
-        }
-
         public override string[] BaseUrls { get { return new string[] { "https://www.biedronka.pl/pl/" }; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
@@ -48,10 +42,41 @@ namespace WEB.SearchEngine.Crawlers
 
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
-            //todo JW - v1.1 - wykorzystac nowe pola w modelu
             var result = new Product();
 
+            #region Check if product node exists
+
             if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))) return new Product();
+
+            #endregion
+
+            #region Get Name
+
+            var name = productNode.Descendants()
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "tilename", MatchDireciton.InputContainsMatch)))
+                .Select(z => z.InnerText)
+                .FirstOrDefault()?
+                .RemoveMetaCharacters()
+                .RemoveUnwantedStrings()
+                .Replace(";", "");
+
+            result.Name = name;
+
+            #endregion
+
+            #region Get Description
+
+            #endregion
+
+            #region Get Producer
+
+            #endregion
+
+            #region Get Category
+
+            #endregion
+
+            #region Get Price and Sale Price, set OnSale Flag
 
             var pln = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
@@ -68,7 +93,9 @@ namespace WEB.SearchEngine.Crawlers
             if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
             else return new Product();
 
-            result.SourceUrl = linkStruct.Link;
+            #endregion
+
+            #region Get Sale Description
 
             var promoCommnets = productNode.Descendants()
                 .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "productpromo", MatchDireciton.InputContainsMatch)))
@@ -77,25 +104,25 @@ namespace WEB.SearchEngine.Crawlers
 
 
             if (promoCommnets.Count != 0)
-            { 
+            {
                 result.SaleDescription = String.Join(", ", promoCommnets.ToArray());
-                result.OnSale = true;        
-            } 
+                result.OnSale = true;
+            }
+
+            #endregion
+
+            #region Get Sale Deadline
+
+            #endregion
+
+            #region Get Seller, TimeStamp, URL
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
-
-            var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "tilename", MatchDireciton.InputContainsMatch)))
-                .Select(z => z.InnerText)
-                .FirstOrDefault()?
-                .RemoveMetaCharacters()
-                .RemoveUnwantedStrings()
-                .Replace(";","");
-
-            result.Name = name;
-
             result.TimeStamp = DateTime.Now;
+            result.SourceUrl = linkStruct.Link;
 
+            #endregion
+  
             return result;
         }
     }
