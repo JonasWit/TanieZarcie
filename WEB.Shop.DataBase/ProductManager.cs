@@ -14,10 +14,7 @@ namespace WEB.Shop.DataBase
     {
         private ApplicationDbContext _context;
 
-        public ProductManager(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public ProductManager(ApplicationDbContext context) => _context = context;
 
         public Task<int> CreateProduct(Product product)
         {
@@ -86,5 +83,17 @@ namespace WEB.Shop.DataBase
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
+
+        public int CountProductsWithStockWithCondition(Func<Product, bool> predicate) =>
+            _context.Products
+                .Include(x => x.Stock)
+                .AsEnumerable()
+                .Count(predicate);
+
+        public int CountAllProductsWithStock() =>
+            _context.Products
+                .Include(x => x.Stock)
+                .AsEnumerable()
+                .Count();
     }
 }

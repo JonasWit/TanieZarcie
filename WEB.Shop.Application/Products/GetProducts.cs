@@ -24,6 +24,14 @@ namespace WEB.Shop.Application.Products
             _productManager = productManager;
         }
 
+        public int CountProductForShop(string shop) =>
+            _productManager.CountProductsWithStockWithCondition(product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
+
+        public int CountProductOnSaleForShop(string shop) =>
+            _productManager.CountProductsWithStockWithCondition(product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) && product.OnSale);
+
+        public int CountAllProducts() => _productManager.CountAllProductsWithStock();
+
         public IEnumerable<ProductViewModel> GetAllProducts() =>
             _productManager.GetProductsWithStock(product => new ProductViewModel
             {

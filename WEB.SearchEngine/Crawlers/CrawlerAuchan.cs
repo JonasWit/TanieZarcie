@@ -11,7 +11,7 @@ namespace WEB.SearchEngine.Crawlers
 {
     public class CrawlerAuchan : WebCrawler
     {
-        public override string[] BaseUrls { get { return new string[] { "" }; } }
+        public override string[] BaseUrls { get { return new string[] { "https://www.auchan.pl/pl" }; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {

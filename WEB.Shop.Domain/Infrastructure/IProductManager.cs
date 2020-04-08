@@ -12,6 +12,9 @@ namespace WEB.Shop.Domain.Infrastructure
         Task<int> DeleteProduct(int id);
         Task<int> UpdateProduct(Product product);
 
+        int CountProductsWithStockWithCondition(Func<Product, bool> predicate);
+        int CountAllProductsWithStock();
+
         TResult GetProductByName<TResult>(string name, Func<Product, TResult> selector);
         TResult GetProductById<TResult>(int id, Func<Product, TResult> selector);
 
