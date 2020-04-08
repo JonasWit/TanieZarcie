@@ -4,19 +4,20 @@
     <span class="mine-title">Aktualności</span>
 </div>
 
-<a class="mine-post" asp-controller="News" asp-action="TEST">
+<a asp-controller="News" asp-action="TEST">
     <span>TEST</span>
 </a>
 
+@foreach (var singleNews in Model)
+{
+    var imageNews = $"/Image/{singleNews.ImagePath}";
     <div class="mine-container">
-        @foreach (var singleNews in Model)
-        {
-            var imageNews = $"/Image/{singleNews.ImagePath}";
-            <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
-                <img src="@imageNews" width="500" />
-                <span class="mine-title">
-                    @singleNews.Title
-                </span>
-            </a>
-        }
+        <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
+            <img src="@imageNews" width="500" />
+            <span class="mine-title">
+                @singleNews.Title
+            </span>
+        </a>
     </div>
+}
+

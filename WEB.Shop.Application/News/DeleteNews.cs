@@ -10,8 +10,28 @@ namespace WEB.Shop.Application.News
     public class DeleteNews
     {
         private readonly INewsManager _newsManager;
-        public DeleteNews(INewsManager newsManager) => _newsManager = newsManager;
+        private readonly IFileManager _fileManager;
 
-        public Task<int> Do(int id) =>  _newsManager.DeleteOneNews(id);
+        public DeleteNews(INewsManager newsManager, IFileManager fileManager)
+        { 
+            _newsManager = newsManager;
+            _fileManager = fileManager;
+        }
+
+
+        public async Task<int> Do(int id)
+        {
+            var post = _newsManager.GetOneNews(id, x => x);
+
+            if (await _newsManager.DeleteOneNews(id) > 0)
+            {
+                _fileManager.DeleteImage(post.Image);
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
     }
 }

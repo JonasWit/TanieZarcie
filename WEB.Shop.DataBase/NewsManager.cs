@@ -10,7 +10,8 @@ namespace WEB.Shop.DataBase
     public class NewsManager : INewsManager
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        public NewsManager(ApplicationDbContext applicationDbContext) => _applicationDbContext = applicationDbContext;
+
+        public NewsManager(ApplicationDbContext applicationDbContext) =>_applicationDbContext = applicationDbContext;
 
         public Task<int> CreateOneNews(OneNews post)
         {
@@ -23,14 +24,12 @@ namespace WEB.Shop.DataBase
         {
             var post = _applicationDbContext.News.FirstOrDefault(x => x.Id == id);
             _applicationDbContext.News.Remove(post);
-
             return _applicationDbContext.SaveChangesAsync();
         }
 
         public Task<int> UpdateOneNews(OneNews post)
         {
             _applicationDbContext.News.Update(post);
-
             return _applicationDbContext.SaveChangesAsync();
         }
 

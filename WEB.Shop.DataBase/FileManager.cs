@@ -63,9 +63,7 @@ namespace WEB.Shop.DataBase
             try
             {
                 var file = Path.Combine(_newsImagesPath, image);
-
                 if (File.Exists(file)) File.Delete(file);
-
                 return true;
             }
             catch (Exception ex)
