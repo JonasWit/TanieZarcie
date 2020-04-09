@@ -52,8 +52,9 @@ namespace WEB.Shop.Application.Crawlers
             DataCacheCount[Shops.Biedronka.ToString()] = Results.Where(p => p.Seller == Shops.Biedronka.ToString()).Count();
             DataCacheCount[Shops.Kaufland.ToString()] = Results.Where(p => p.Seller == Shops.Kaufland.ToString()).Count();
             DataCacheCount[Shops.Lidl.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
-            DataCacheCount[Shops.Carrefour.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
-            DataCacheCount[Shops.Auchan.ToString()] = Results.Where(p => p.Seller == Shops.Lidl.ToString()).Count();
+            DataCacheCount[Shops.Carrefour.ToString()] = Results.Where(p => p.Seller == Shops.Carrefour.ToString()).Count();
+            DataCacheCount[Shops.Auchan.ToString()] = Results.Where(p => p.Seller == Shops.Auchan.ToString()).Count();
+            DataCacheCount[Shops.Zabka.ToString()] = Results.Where(p => p.Seller == Shops.Zabka.ToString()).Count();
             return Results.Count;
         }
 

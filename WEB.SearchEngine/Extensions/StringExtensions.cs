@@ -48,6 +48,8 @@ namespace WEB.SearchEngine.Extensions
 
         public static bool ContainsAny(this string inputString, params string[] lookupStrings) => lookupStrings.Any(inputString.Contains);
 
+        public static bool EqualsTrim(this string inputString, params string[] lookupStrings) => lookupStrings.Any(x => inputString.Trim().Equals(x.Trim()));
+
         public static string RemoveUnwantedStrings(this string input) => 
             input.Replace("&quot;", "")
             .Replace("&nbsp;","");

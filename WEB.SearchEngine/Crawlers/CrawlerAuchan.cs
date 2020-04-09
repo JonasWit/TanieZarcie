@@ -135,19 +135,19 @@ namespace WEB.SearchEngine.Crawlers
                         .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "standard", MatchDireciton.Equals)))
                         .FirstOrDefault();
 
-                    var promoPricePLN = regularPriceNode.Descendants()
+                    var regularPricePLN = regularPriceNode.Descendants()
                         .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-nb", MatchDireciton.Equals)))
                         .FirstOrDefault()?
                         .InnerText
                         .RemoveNonNumeric();
 
-                    var promoPriceGR = regularPriceNode.Descendants()
+                    var regularPriceGR = regularPriceNode.Descendants()
                         .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-cents", MatchDireciton.Equals)))
                         .FirstOrDefault()?
                         .InnerText
                         .RemoveNonNumeric();
 
-                    if (decimal.TryParse(promoPricePLN + promoPriceGR, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+                    if (decimal.TryParse(regularPricePLN + regularPriceGR, out decimal priceDecimal)) result.Value = priceDecimal / 100;
 
                     result.OnSale = false;
                 }

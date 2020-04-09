@@ -19,6 +19,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerLidl());
             Crawlers.Add(new CrawlerCarrefour());
             Crawlers.Add(new CrawlerAuchan());
+            Crawlers.Add(new CrawlerZabka());
 
             foreach (var crawler in Crawlers)
             {
@@ -63,6 +64,9 @@ namespace WEB.SearchEngine
                 case Shops.Stokrotka:
                     break;
                 case Shops.Zabka:
+                    var zabkaCrawler = new CrawlerZabka();
+                    await Task.Run(() => zabkaCrawler.GetData());
+                    Crawlers.Add(zabkaCrawler);
                     break;
                 default:
                     break;

@@ -32,9 +32,9 @@ namespace WEB.SearchEngine.Crawlers
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(linkStruct.Html);
 
-            var divs = htmlDocument.DocumentNode.Descendants("article")
+            var divs = htmlDocument.DocumentNode.Descendants("div")
                 .Where(node => node.GetAttributeValue("class", "")
-                .ContainsAny("product"))
+                .EqualsTrim("product"))
                 .ToList();
 
             var tasks = new List<Task>();
@@ -59,14 +59,14 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "content", MatchDireciton.Equals)))) return new Product();
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "product__title title", MatchDireciton.Equals)))) return new Product();
 
             #endregion
 
             #region Get Name
 
             var name = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "about", MatchDireciton.InputContainsMatch)))
+                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "product__title title", MatchDireciton.InputContainsMatch)))
                 .Select(z => z.InnerText)
                 .FirstOrDefault();
 
@@ -75,11 +75,6 @@ namespace WEB.SearchEngine.Crawlers
             #endregion
 
             #region Get Description
-
-            if (CrawlerRegex.StandardMatch(linkStruct.Link, "direct", MatchDireciton.InputContainsMatch))
-            {
-                result.Description = "Znalezione na Auchan Direct!";
-            }
 
             #endregion
 
@@ -93,61 +88,45 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Price and Sale Price, set OnSale Flag
 
-            if (productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "prices", MatchDireciton.Equals))))
+            if (productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "product__price-wrapper", MatchDireciton.Equals))))
             {
                 var priceNode = productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "prices", MatchDireciton.Equals)))
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "product__price-wrapper", MatchDireciton.Equals)))
                     .FirstOrDefault();
 
-                if (priceNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "discount", MatchDireciton.Equals))))
+                if (priceNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price product__old-price", MatchDireciton.Equals))))
                 {
-                    var regularPrice = priceNode.Descendants()
-                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "discount", MatchDireciton.Equals)))
-                        .FirstOrDefault()?
-                        .InnerText
-                        .RemoveNonNumeric();
-
-                    var promoPriceNode = productNode.Descendants()
-                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "normal", MatchDireciton.Equals)))
+                    var regularPriceNode = productNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price product__price", MatchDireciton.Equals)))
                         .FirstOrDefault();
 
-                    var promoPricePLN = promoPriceNode.Descendants()
-                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-nb", MatchDireciton.Equals)))
-                        .FirstOrDefault()?
-                        .InnerText
-                        .RemoveNonNumeric();
+                    var promoPriceNode = productNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price product__old-price", MatchDireciton.Equals)))
+                        .FirstOrDefault();
 
-                    var promoPriceGR = promoPriceNode.Descendants()
-                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-cents", MatchDireciton.Equals)))
-                        .FirstOrDefault()?
-                        .InnerText
-                        .RemoveNonNumeric();
+                    var regularPricePLN = regularPriceNode.InnerText.RemoveNonNumeric();
+                    var promoPricePLN = promoPriceNode.InnerText.RemoveNonNumeric();
 
-
-                    if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.Value = priceDecimal / 100;
-                    if (decimal.TryParse(promoPricePLN + promoPriceGR, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
+                    if (decimal.TryParse(regularPricePLN, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+                    if (decimal.TryParse(promoPricePLN, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
 
                     result.OnSale = true;
                 }
                 else
                 {
-                    var regularPriceNode = priceNode.Descendants()
-                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "standard", MatchDireciton.Equals)))
+                    var regularPriceNode = productNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price product__price", MatchDireciton.Equals)))
                         .FirstOrDefault();
 
-                    var promoPricePLN = regularPriceNode.Descendants()
-                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-nb", MatchDireciton.Equals)))
-                        .FirstOrDefault()?
-                        .InnerText
-                        .RemoveNonNumeric();
+                    var regularPricePLN = regularPriceNode.InnerText.RemoveNonNumeric();
 
-                    var promoPriceGR = regularPriceNode.Descendants()
+                    var regularPriceGR = regularPriceNode.Descendants()
                         .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-cents", MatchDireciton.Equals)))
                         .FirstOrDefault()?
                         .InnerText
                         .RemoveNonNumeric();
 
-                    if (decimal.TryParse(promoPricePLN + promoPriceGR, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+                    if (decimal.TryParse(regularPricePLN + regularPriceGR, out decimal priceDecimal)) result.Value = priceDecimal / 100;
 
                     result.OnSale = false;
                 }
