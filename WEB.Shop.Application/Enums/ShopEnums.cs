@@ -11,7 +11,6 @@ namespace WEB.Shop.Application.Enums
         Kaufland = 2,
         Carrefour = 3,
         Auchan = 4,
-        Stokrotka = 5,
-        Zabka = 6
+        Zabka = 5
     }
 }

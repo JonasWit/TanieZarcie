@@ -10,11 +10,11 @@ using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
 {
-    public class CrawlerAuchan : WebCrawler
+    public class CrawlerZabka : WebCrawler
     {
-        public override string[] BaseUrls { get { return new string[] { "https://www.auchan.pl/pl", "https://www.auchandirect.pl/" }; } }
+        public override string[] BaseUrls { get { return new string[] { "https://www.zabka.pl/" }; } }
 
-        public CrawlerAuchan()
+        public CrawlerZabka()
         {
             if (Enum.TryParse(this.GetType().Name.Replace("Crawler", ""), true, out Shops shop))
             {

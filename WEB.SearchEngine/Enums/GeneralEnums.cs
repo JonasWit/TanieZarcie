@@ -2,13 +2,14 @@
 {
     public enum Shops
     { 
-        Biedronka = 0,
-        Lidl = 1,
-        Kaufland = 2,
-        Carrefour = 3,
-        Auchan = 4,
-        Stokrotka = 5,
-        Zabka = 6
+        None = 0,
+        Biedronka = 1,
+        Lidl = 2,
+        Kaufland = 3,
+        Carrefour = 4,
+        Auchan = 5,
+        Stokrotka = 6,
+        Zabka = 7
     }
 
     public enum MatchDirection

@@ -14,6 +14,18 @@ namespace WEB.SearchEngine.Crawlers
     {
         public override string[] BaseUrls { get { return new string[] { "https://www.lidl.pl/pl/" }; } }
 
+        public CrawlerLidl()
+        {
+            if (Enum.TryParse(this.GetType().Name.Replace("Crawler", ""), true, out Shops shop))
+            {
+                Shop = shop;
+            }
+            else
+            {
+                Shop = Shops.None;
+            }
+        }
+
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
             var result = new List<Product>();

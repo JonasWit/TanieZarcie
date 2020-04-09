@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Enums;
 using WEB.SearchEngine.Extensions;
@@ -14,6 +13,18 @@ namespace WEB.SearchEngine.Crawlers
     public class CrawlerKaufland : WebCrawler
     {
         public override string[] BaseUrls { get { return new string[] { "https://www.kaufland.pl/" }; } }
+
+        public CrawlerKaufland()
+        {
+            if (Enum.TryParse(this.GetType().Name.Replace("Crawler", ""), true, out Shops shop))
+            {
+                Shop = shop;
+            }
+            else
+            {
+                Shop = Shops.None;
+            }
+        }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
