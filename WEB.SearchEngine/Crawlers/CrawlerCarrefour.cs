@@ -115,8 +115,8 @@ namespace WEB.SearchEngine.Crawlers
                     .RemoveNonNumeric(); ;
 
 
-                if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.Value = priceDecimal / 100;
-                if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
+                if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.SaleValue = priceDecimal / 100;
+                if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.Value = promoPriceDecimal / 100;
 
                 result.OnSale = true;
             }

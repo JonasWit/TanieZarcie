@@ -11,7 +11,7 @@ namespace WEB.SearchEngine.Crawlers
 {
     public class CrawlerAuchan : WebCrawler
     {
-        public override string[] BaseUrls { get { return new string[] { "https://www.auchan.pl/pl" }; } }
+        public override string[] BaseUrls { get { return new string[] { "https://www.auchan.pl/pl", "https://www.auchandirect.pl/" }; } }
 
         public override List<Product> GetResultsForSingleUrl(LinkStruct linkStruct)
         {
@@ -75,51 +75,71 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Price and Sale Price, set OnSale Flag
 
-            if (productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "regular-price", MatchDireciton.Equals))))
+            if (productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals))))
             {
                 var priceNode = productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "regular-price", MatchDireciton.Equals)))
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))
                     .FirstOrDefault();
 
-                var price = priceNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))
-                    .FirstOrDefault()
-                    .InnerText
-                    .RemoveNonNumeric();
+                if (priceNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "discount", MatchDireciton.Equals))))
+                {
+                    var regularPrice = priceNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "discount", MatchDireciton.Equals)))
+                        .FirstOrDefault()?
+                        .InnerText
+                        .RemoveNonNumeric();
 
-                if (decimal.TryParse(price, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+                    var promoPriceNode = productNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "normal", MatchDireciton.Equals)))
+                        .FirstOrDefault();
 
-                result.OnSale = false;
+                    var promoPricePLN = promoPriceNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-nb", MatchDireciton.Equals)))
+                        .FirstOrDefault()?
+                        .InnerText
+                        .RemoveNonNumeric();
+
+                    var promoPriceGR = promoPriceNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-cents", MatchDireciton.Equals)))
+                        .FirstOrDefault()?
+                        .InnerText
+                        .RemoveNonNumeric();
+
+
+                    if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+                    if (decimal.TryParse(promoPricePLN + promoPriceGR, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
+
+                    result.OnSale = true;
+                }
+                else
+                {
+                    var regularPriceNode = priceNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "standard", MatchDireciton.Equals)))
+                        .FirstOrDefault();
+
+                    var promoPricePLN = regularPriceNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-nb", MatchDireciton.Equals)))
+                        .FirstOrDefault()?
+                        .InnerText
+                        .RemoveNonNumeric();
+
+                    var promoPriceGR = regularPriceNode.Descendants()
+                        .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "p-cents", MatchDireciton.Equals)))
+                        .FirstOrDefault()?
+                        .InnerText
+                        .RemoveNonNumeric();
+
+                    if (decimal.TryParse(promoPricePLN + promoPriceGR, out decimal priceDecimal)) result.Value = priceDecimal / 100;
+
+                    result.OnSale = false;
+                }
             }
             else
             {
-                var regularPriceNode = productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "old-price", MatchDireciton.Equals)))
-                    .FirstOrDefault();
-
-                var promoPriceNode = productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "special-price", MatchDireciton.Equals)))
-                    .FirstOrDefault();
-
-
-                var regularPrice = regularPriceNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))
-                    .FirstOrDefault()?
-                    .InnerText
-                    .RemoveNonNumeric();
-
-                var promoPrice = promoPriceNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price text-red", MatchDireciton.Equals)))
-                    .FirstOrDefault()?
-                    .InnerText
-                    .RemoveNonNumeric(); ;
-
-
-                if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.Value = priceDecimal / 100;
-                if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
-
-                result.OnSale = true;
+                return new Product();
             }
+
+            if (result.Value == 0) return new Product();
 
             #endregion
 

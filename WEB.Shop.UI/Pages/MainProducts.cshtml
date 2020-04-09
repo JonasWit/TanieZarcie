@@ -70,6 +70,7 @@
                                 <tr>
                                     <th> Sklep </th>
                                     <th> Produkt </th>
+                                    <th> Opis </th>
                                     <th> Jak tanio? </th>
                                     <th> Cena </th>
                                     <th> Sprawdź szczegóły </th>
@@ -88,6 +89,9 @@
                                             <p>@p.Name</p>
                                         </td>
                                         <td>
+                                            <p>@p.Description</p>
+                                        </td>
+                                        <td>
                                             @if (p.OnSale)
                                             {
                                                 <p class="text-danger font-weight-bold pb-2 text-center">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
@@ -102,7 +106,8 @@
                                             {
                                                 if (!string.IsNullOrEmpty(p.SaleValue))
                                                 {
-                                                    <p class="text-danger text-center font-weight-bold"> @p.SaleValue </p>
+                                                    <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
+                                                    <p class="text-danger text-center font-weight-bold"> @p.Value </p>
                                                 }
                                                 else
                                                 {
@@ -134,7 +139,12 @@
 
                                                 string dispalyTime = "";
 
-                                                if (days < 3 && days != 0)
+                                                if (days == 1 && days != 0)
+                                                {
+                                                    dispalyTime = $"Sprawdzone: {days} dzień temu.";
+                                                    green = true;
+                                                }
+                                                else if (days < 3 && days != 0)
                                                 {
                                                     dispalyTime = $"Sprawdzone: {days} dni temu.";
                                                     yellow = true;

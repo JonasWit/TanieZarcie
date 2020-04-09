@@ -1,12 +1,22 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.Accounts.LoginModel
 
-<form method="post" class="has-background-primary">
-    <input asp-for="Input.UserName" />
-    <input asp-for="Input.Password" />
-
-    <input type="submit" value="Sign In" />
-
+<form method="post" class="mt-2">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="sr-only" for="inlineFormInput">Username</label>
+            <input asp-for="Input.UserName" type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Username">
+        </div>
+        <div class="col-auto">
+            <label class="sr-only" for="inlineFormInputGroup">Password</label>
+            <div class="input-group mb-2">
+                <input asp-for="Input.Password" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2 btn-warning">Submit</button>
+        </div>
+    </div>
 </form>
 
 

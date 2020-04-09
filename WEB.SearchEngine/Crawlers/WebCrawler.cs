@@ -15,7 +15,7 @@ namespace WEB.SearchEngine.Crawlers
     public abstract class WebCrawler
     {
         public List<Product> Products { get; set; } = new List<Product>();
-        public virtual string[] BaseUrls { get { return new string[] { "" }; } } 
+        public virtual string[] BaseUrls { get { return new string[] { "https://www.auchan.pl/pl", "https://www.auchandirect.pl/" }; } } 
         public Shops Shop { get; set; }
 
         public struct LinkStruct
@@ -130,6 +130,8 @@ namespace WEB.SearchEngine.Crawlers
                 var doc = new HtmlDocument();
                 doc.LoadHtml(download);
                 HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes("//a[@href]");
+
+                if (nodes == null) continue;
 
                 foreach (var n in nodes)
                 {
