@@ -1,5 +1,4 @@
 ﻿using Quartz;
-using Quartz.Impl;
 using Quartz.Impl.Matchers;
 using System;
 using System.Collections.Generic;
