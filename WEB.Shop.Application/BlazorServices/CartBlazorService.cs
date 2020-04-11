@@ -38,29 +38,23 @@ namespace WEB.Shop.Application.BlazorServices
             return false;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     //[Route("[controller]/[action]")]
     //public class CartController : Controller
     //{
-    //    [HttpPost("{stockId}")]
-    //    public async Task<IActionResult> AddOneAsync(int stockId, [FromServices] AddToCart addToCart)
-    //    {
-    //        var request = new AddToCart.Request
-    //        {
-    //            StockId = stockId,
-    //            Quantity = 1
-    //        };
-
-    //        var success = await addToCart.DoAsync(request);
-
-    //        if (success)
-    //        {
-    //            return Ok("Dodane!");
-    //        }
-
-    //        return BadRequest("Nie udało się dodać!");
-    //    }
 
     //    [HttpPost("{stockId}/{quantity}")]
     //    public async Task<IActionResult> Remove(int stockId, int quantity, [FromServices] RemoveFromCart removeFromCart, [FromServices] GetCart getCart)

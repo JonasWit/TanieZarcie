@@ -2,16 +2,21 @@
 {
     public static class DecimalExtensions
     {
-        public static string MonetaryValue(this decimal value)
+        public static string MonetaryValue(this decimal value, bool allowNull)
         {
-            if (value != 0)
+            if (allowNull)
             {
-                return $"{value:N2} zł";
+                if (value != 0)
+                {
+                    return $"{value:N2} zł";
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
-            {
-                return null;
-            }
+
+            return $"{value:N2} zł";
         }
     }
 }

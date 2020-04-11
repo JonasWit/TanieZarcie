@@ -49,9 +49,15 @@ namespace WEB.SearchEngine.Crawlers
                 webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
                 webStructs.GroupBy(x => x.Link).Select(x => x.First());
 
-                Products = ExtractDataFromRecords(webStructs);
+                Products = new List<Product>();
 
-                var distinctProducts = Products.GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
+                foreach (var webStruct in webStructs)
+                {
+                    Products.AddRange(GetResultsForSingleUrl(webStruct));
+                }
+
+                var distinctProducts = Products
+                    .GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
                     .Select(p => p.First())
                     .ToList();
 
@@ -68,18 +74,6 @@ namespace WEB.SearchEngine.Crawlers
         {
             if (CrawlerRegex.StandardMatch(link, output, MatchDireciton.InputContainsMatch)) return true;
             else return false;
-        }
-
-        private List<Product> ExtractDataFromRecords(List<LinkStruct> webStructs)
-        {
-            var result = new List<Product>();
-
-            foreach (var webStruct in webStructs)
-            {
-                result.AddRange(GetResultsForSingleUrl(webStruct));
-            }
-
-            return result;
         }
 
         private string GetSingleHtml(string link)

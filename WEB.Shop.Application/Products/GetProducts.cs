@@ -48,10 +48,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -69,10 +69,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -90,10 +90,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -111,10 +111,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -132,10 +132,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -153,10 +153,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -174,10 +174,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -196,10 +196,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
@@ -218,10 +218,10 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
-                SaleValue = product.SaleValue.MonetaryValue(),
+                SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 

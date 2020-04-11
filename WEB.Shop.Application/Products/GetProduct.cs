@@ -30,7 +30,7 @@ namespace WEB.Shop.Application.Products
                     Seller = product.Seller,
                     Category = product.Category,
                     SourceUrl = product.SourceUrl,
-                    Value = product.Value.MonetaryValue(),
+                    Value = product.Value.MonetaryValue(false),
 
                     OnSale = product.OnSale,
                     SaleValue = product.SaleValue,
@@ -59,7 +59,7 @@ namespace WEB.Shop.Application.Products
                 Seller = product.Seller,
                 Category = product.Category,
                 SourceUrl = product.SourceUrl,
-                Value = product.Value.MonetaryValue(),
+                Value = product.Value.MonetaryValue(false),
 
                 OnSale = product.OnSale,
                 SaleValue = product.SaleValue,

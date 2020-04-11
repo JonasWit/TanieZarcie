@@ -65,11 +65,11 @@ namespace WEB.Shop.Application.Orders
                 {
                     Name = orderStock.Stock.Product.Name,
                     Description = orderStock.Stock.Product.Description,
-                    Value = orderStock.Stock.Product.Value.MonetaryValue(),
+                    Value = orderStock.Stock.Product.Value.MonetaryValue(false),
                     Quantity = orderStock.Quantity,
                     StockDescription = orderStock.Stock.Description
                 }),
-                TotalValue = order.OrderStocks.Sum(orderStock => orderStock.Stock.Product.Value).MonetaryValue()
+                TotalValue = order.OrderStocks.Sum(orderStock => orderStock.Stock.Product.Value).MonetaryValue(false)
             };
     }
 }

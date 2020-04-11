@@ -25,8 +25,8 @@ namespace WEB.Shop.Application.Cart
             public decimal TotalValue { get { return Value * Quantity; } }
             public decimal Value { get; set; }
 
-            public string TotalValueDisplay { get { return TotalValue.MonetaryValue(); } }
-            public string ValueDisplay { get { return Value.MonetaryValue(); } }
+            public string TotalValueDisplay { get { return TotalValue.MonetaryValue(false); } }
+            public string ValueDisplay { get { return Value.MonetaryValue(false); } }
 
             public int StockId { get; set; }
             public int Quantity { get; set; }

@@ -29,7 +29,7 @@ namespace WEB.Shop.UI.Controllers
         }
 
         [HttpPost("{stockId}/{quantity}")]
-        public async Task<IActionResult> Remove(int stockId, int quantity, [FromServices] RemoveFromCart removeFromCart, [FromServices] GetCart getCart)
+        public async Task<IActionResult> Remove(int stockId, int quantity, [FromServices] RemoveFromCart removeFromCart)
         {
             var request = new RemoveFromCart.Request
             {
@@ -51,7 +51,7 @@ namespace WEB.Shop.UI.Controllers
         public IActionResult GetCartComponent([FromServices] GetCart getCart)
         {
             var totalValue = getCart.Do().Sum(x => x.Value * x.Quantity);
-            return PartialView("Components/Cart/Small", totalValue.MonetaryValue());
+            return PartialView("Components/Cart/Small", totalValue.MonetaryValue(false));
         }
 
         [HttpGet]

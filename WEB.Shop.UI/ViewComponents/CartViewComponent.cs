@@ -9,17 +9,14 @@ namespace WEB.Shop.UI.ViewComponents
     {
         private GetCart _getCart;
 
-        public CartViewComponent(GetCart getCart)
-        {
-            _getCart = getCart;
-        }
+        public CartViewComponent(GetCart getCart) => _getCart = getCart;
 
         public IViewComponentResult Invoke(string view = "Summary")
         {
             if (view == "Small")
             {
                 var totalValue = _getCart.Do().Sum(x => x.Value * x.Quantity);
-                return View(view, totalValue.MonetaryValue());
+                return View(view, totalValue.MonetaryValue(false));
             }
             else if (view == "Summary")
             {
