@@ -26,7 +26,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\content\carousel\" />
     <Folder Include="wwwroot\content\news\" />
-    <Folder Include="wwwroot\js\css\" />
   </ItemGroup>
 
   <ItemGroup>
