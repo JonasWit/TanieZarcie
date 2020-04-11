@@ -104,7 +104,7 @@
                                         <td>
                                             @if (p.OnSale)
                                             {
-                                                if (!string.IsNullOrEmpty(p.SaleValue))
+                                                if (p.SaleValue != "0.00 zł")
                                                 {
                                                     <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
                                                     <p class="text-danger text-center font-weight-bold"> @p.Value </p>
