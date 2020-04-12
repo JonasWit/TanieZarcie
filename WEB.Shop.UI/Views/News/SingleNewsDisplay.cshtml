@@ -12,4 +12,13 @@
     <div class="mine-post-body">
         @Html.Raw(Model.Body)
     </div>
+
+    <div class="container">
+        @Html.RenderPartialAsync("_MainComment", new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = 0 })
+
+        @foreach (var comment in Model.MainComments)
+        {
+            <p>@comment.Message --- @comment.Created</p>
+        }
+    </div>
 </div>

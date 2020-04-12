@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,10 +14,9 @@ namespace WEB.Shop.DataBase
 
         public NewsManager(ApplicationDbContext applicationDbContext) =>_applicationDbContext = applicationDbContext;
 
-        public Task<int> CreateOneNews(OneNews post)
+        public Task<int> CreateOneNews(OneNews news)
         {
-            _applicationDbContext.News.Add(post);
-
+            _applicationDbContext.News.Add(news);
             return _applicationDbContext.SaveChangesAsync();
         }
 
@@ -27,27 +27,73 @@ namespace WEB.Shop.DataBase
             return _applicationDbContext.SaveChangesAsync();
         }
 
-        public Task<int> UpdateOneNews(OneNews post)
+        public Task<int> UpdateOneNews(OneNews news)
         {
-            _applicationDbContext.News.Update(post);
+            _applicationDbContext.News.Update(news);
             return _applicationDbContext.SaveChangesAsync();
         }
 
-        public TResult GetOneNews<TResult>(int id, Func<OneNews, TResult> selector)
-        {
-            return _applicationDbContext.News
+        public TResult GetOneNews<TResult>(int id, Func<OneNews, TResult> selector) => 
+            _applicationDbContext.News
+                .Include(x => x.MainComments)
+                    .ThenInclude(x => x.SubComments)
                 .Where(x => x.Id == id)
                 .Select(selector)
                 .FirstOrDefault();
-        }
 
         public List<OneNews> GetNew() => _applicationDbContext.News.ToList();
 
         public IEnumerable<TResult> GetNews<TResult>(Func<OneNews, TResult> selector) =>
-            _applicationDbContext.News.Select(selector).ToList();
+            _applicationDbContext.News
+                .Include(x => x.MainComments)
+                    .ThenInclude(x => x.SubComments)
+                .Select(selector)
+                .ToList();
 
         public IEnumerable<TResult> GetNews<TResult>(string category, Func<OneNews, TResult> selector, Func<OneNews, bool> predicate) =>
-            _applicationDbContext.News.Where(predicate).Select(selector).ToList();
+            _applicationDbContext.News
+                .Include(x => x.MainComments)
+                    .ThenInclude(x => x.SubComments)
+                .Where(predicate)
+                .Select(selector)
+                .ToList();
 
+        public Task<int> CreateNewsMainComment(NewsMainComment mainComment)
+        {
+            _applicationDbContext.NewsMainComments.Add(mainComment);
+            return _applicationDbContext.SaveChangesAsync();
+        }
+
+        public Task<int> CreateNewsSubComment(NewsSubComment subComment)
+        {
+            _applicationDbContext.NewsSubComments.Add(subComment);
+            return _applicationDbContext.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateNewsMainComment(NewsMainComment mainComment)
+        {
+            _applicationDbContext.NewsMainComments.Update(mainComment);
+            return _applicationDbContext.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateNewsSubComment(NewsSubComment subComment)
+        {
+            _applicationDbContext.NewsSubComments.Update(subComment);
+            return _applicationDbContext.SaveChangesAsync();
+        }
+
+        public Task<int> DeleteNewsMainComment(int id)
+        {
+            var news = _applicationDbContext.NewsMainComments.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.NewsMainComments.Remove(news);
+            return _applicationDbContext.SaveChangesAsync();
+        }
+
+        public Task<int> DeleteNewsSubComment(int id)
+        {
+            var news = _applicationDbContext.NewsSubComments.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.NewsSubComments.Remove(news);
+            return _applicationDbContext.SaveChangesAsync();
+        }
     }
 }

@@ -8,9 +8,19 @@ namespace WEB.Shop.Domain.Infrastructure
 {
     public interface INewsManager
     {
-        Task<int> CreateOneNews(OneNews post);
-        Task<int> UpdateOneNews(OneNews post);
+        Task<int> CreateOneNews(OneNews news);
+        Task<int> UpdateOneNews(OneNews news);
         Task<int> DeleteOneNews(int id);
+
+        Task<int> CreateNewsMainComment(NewsMainComment mainComment);
+        Task<int> CreateNewsSubComment(NewsSubComment subComment);
+
+        Task<int> UpdateNewsMainComment(NewsMainComment mainComment);
+        Task<int> UpdateNewsSubComment(NewsSubComment subComment);
+
+        Task<int> DeleteNewsMainComment(int id);
+        Task<int> DeleteNewsSubComment(int id);
+
         TResult GetOneNews<TResult>(int id, Func<OneNews, TResult> selector);
 
         IEnumerable<TResult> GetNews<TResult>(string category, Func<OneNews, TResult> selector, Func<OneNews, bool> predicate);

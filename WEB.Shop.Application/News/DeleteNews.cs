@@ -18,7 +18,6 @@ namespace WEB.Shop.Application.News
             _fileManager = fileManager;
         }
 
-
         public async Task<int> Do(int id)
         {
             var post = _newsManager.GetOneNews(id, x => x);

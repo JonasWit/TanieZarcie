@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,7 +57,11 @@ namespace WEB.Shop.UI
             });
 
             services
-                .AddMvc(option => option.EnableEndpointRouting = false)
+                .AddMvc(option => 
+                { 
+                    option.EnableEndpointRouting = false;
+                    option.CacheProfiles.Add("Weekly", new CacheProfile { Duration = 60 * 60 * 24 * 7 });
+                })
                 .AddRazorRuntimeCompilation()
                 .AddRazorPagesOptions(options =>
                 {

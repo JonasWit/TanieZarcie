@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Domain.Infrastructure;
+using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.News
 {
@@ -19,34 +22,33 @@ namespace WEB.Shop.Application.News
 
         public async Task<Response> DoAsync(Request request)
         {
-            var post = _newsManager.GetOneNews(request.Id, x => x);
+            var oneNews = _newsManager.GetOneNews(request.Id, x => x);
 
-            post.Title = request.Title;
-            post.Body = request.Body;
-            post.Created = request.Created;
+            oneNews.Title = request.Title ?? oneNews.Title;
+            oneNews.Body = request.Body ?? oneNews.Body; 
 
-            post.Description = request.Description;
-            post.Tags = request.Tags;
-            post.Category = request.Category;
+            oneNews.Description = request.Description ?? oneNews.Description;
+            oneNews.Tags = request.Tags ?? oneNews.Tags;
+            oneNews.Category = request.Category ?? oneNews.Category;
 
             if (request.Image != null)
             {
-                _fileManager.DeleteImage(post.Image);
-                post.Image = await _fileManager.SaveImageAsync(request.Image);
+                _fileManager.DeleteImage(oneNews.Image);
+                oneNews.Image = await _fileManager.SaveImageAsync(request.Image);
             }
 
-            await _newsManager.UpdateOneNews(post);
+            await _newsManager.UpdateOneNews(oneNews);
 
             return new Response
             {
-                Id = post.Id,
-                Title = post.Title,
-                Body = post.Body,
-                Image = post.Image,
-                Created = post.Created,
-                Description = post.Description,
-                Tags = post.Tags,
-                Category = post.Category
+                Id = oneNews.Id,
+                Title = oneNews.Title,
+                Body = oneNews.Body,
+                Image = oneNews.Image,
+                Created = oneNews.Created,
+                Description = oneNews.Description,
+                Tags = oneNews.Tags,
+                Category = oneNews.Category,
             };
         }
 

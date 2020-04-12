@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WEB.Shop.Domain.Models
 {
@@ -15,5 +16,7 @@ namespace WEB.Shop.Domain.Models
         public string Category { get; set; } = "";
 
         public DateTime Created { get; set; } = DateTime.Now;
+
+        public List<NewsMainComment> MainComments { get; set; }
     }
 }

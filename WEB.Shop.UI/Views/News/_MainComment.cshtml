@@ -1,0 +1,10 @@
+﻿@model NewsCommentViewModel
+
+<div>
+    <form method="post" asp-controller="News" asp-action="Comment">
+        <input asp-for="NewsMainCommentId" type="hidden" />
+        <input asp-for="NewsId" type="hidden" />
+        <input asp-for="Message" />
+        <button type="submit">Add Comment</button>
+    </form>
+</div>

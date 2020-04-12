@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WEB.Shop.UI.ViewModels.News
 {
@@ -16,6 +14,8 @@ namespace WEB.Shop.UI.ViewModels.News
         public string Description { get; set; }
         public string Tags { get; set; }
         public string Category { get; set; }
+
+        public List<NewsCommentViewModel> MainComments { get; set; }
 
         public IFormFile Image { get; set; } = null;
         public DateTime Created { get; set; }

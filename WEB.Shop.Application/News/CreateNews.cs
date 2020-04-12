@@ -46,7 +46,7 @@ namespace WEB.Shop.Application.News
                 Created = singleNews.Created,
                 Description = singleNews.Description,
                 Tags = singleNews.Tags,
-                Category = singleNews.Category
+                Category = singleNews.Category,
             };
         }
 
