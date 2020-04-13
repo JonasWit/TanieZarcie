@@ -28,85 +28,47 @@
 </div>
 
 <div class="container-fluid mt-3 mb-7 block d-flex align-items-center justify-content-center">
-
     <div class="l-container">
-        <div class="card game-card">
-            <div class="game-card__cover">
-                <img class="card-img-top" alt="Card image cap"
-                     src="~/images/claudio-schwarz-purzlbaum-KcPK_kzqWC8-unsplash.jpg" />
-                <div class="card-body">
-                    <h4 class="card-title">Biedronka</h4>
-                    <p class="card-text">
-                        liczba produktów -
-                    </p>
-                    <p class="card-text">
-                        liczba wykrytych promocji -
-                    </p>
-                    <form method="post" asp-page-handler="Biedronka">
-                        <button class="btn btn-warning" type="submit">Sprawdź</button>
-                    </form>
+        @foreach (var shop in Model.Shops)
+        {
+            <a class="game-card" asp-page-handler="@shop">
+                <div class="card">
+                    <img class="card-img-top" alt="Card image cap"
+                         src="~/images/claudio-schwarz-purzlbaum-KcPK_kzqWC8-unsplash.jpg" />
+                    <div class="card-body">
+                        <h4 class="card-title">@shop</h4>
+                        <p class="card-text">
+                            liczba produktów - @Model.Products[shop]
+                        </p>
+                        <p class="card-text">
+                            liczba wykrytych promocji - @Model.ProductsOnSale[shop]
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="card ">
-            <div class="">
-                <img class="card-img-top" alt="Card image cap"
-                     src="~/images/markus-spiske-BTKF6G-O8fU-unsplash.jpg" />
-                <div class="card-body">
-                    <h4 class="card-title">Lidl</h4>
-                    <p class="card-text">
-                        liczba produktów -
-                    </p>
-                    <p class="card-text">
-                        liczba wykrytych promocji -
-                    </p>
-
-                    <form method="post" asp-page-handler="Lidl">
-                        <button class="btn btn-warning" type="submit">Sprawdź</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="">
-                <img class="card-img-top" alt="Card image cap"
-                     src="~/images/claudio-schwarz-purzlbaum-zKT64MtVKQ0-unsplash.jpg" />
-                <div class="card-body">
-                    <h4 class="card-title">Kaufland</h4>
-                    <p class="card-text">
-                        liczba produktów -
-                    </p>
-                    <p class="card-text">
-                        liczba wykrytych promocji -
-                    </p>
-                    <form method="post" asp-page-handler="Kaufland">
-                        <button class="btn btn-warning" type="submit">Sprawdź</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="">
-                <img class="card-img-top" alt="Card image cap"
-                     src="~/images/claudio-schwarz-purzlbaum-zKT64MtVKQ0-unsplash.jpg" />
-                <div class="card-body">
-                    <h4 class="card-title">Kaufland</h4>
-                    <p class="card-text">
-                        liczba produktów -
-                    </p>
-                    <p class="card-text">
-                        liczba wykrytych promocji -
-                    </p>
-                    <form method="post" asp-page-handler="Kaufland">
-                        <button class="btn btn-warning" type="submit">Sprawdź</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+            </a>
+        }
     </div>
-
 </div>
 
+<div class="container-fluid mt-3 mb-7 block d-flex align-items-center justify-content-center">
+    <div class="l-container">
+        @foreach (var shop in Model.Shops)
+        {
+            <a class="card1" asp-page-handler="@shop">
+                <div class="card cover">
+                    <img class="card-img-top" alt="Card image cap"
+                         src="~/images/claudio-schwarz-purzlbaum-KcPK_kzqWC8-unsplash.jpg" />
+                    <div class="card-body">
+                        <h4 class="card-title">@shop</h4>
+                        <p class="card-text">
+                            liczba produktów - @Model.Products[shop]
+                        </p>
+                        <p class="card-text">
+                            liczba wykrytych promocji - @Model.ProductsOnSale[shop]
+                        </p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
