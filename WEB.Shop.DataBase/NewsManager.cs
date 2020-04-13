@@ -84,15 +84,15 @@ namespace WEB.Shop.DataBase
 
         public Task<int> DeleteNewsMainComment(int id)
         {
-            var news = _applicationDbContext.NewsMainComments.FirstOrDefault(x => x.Id == id);
-            _applicationDbContext.NewsMainComments.Remove(news);
+            var comment = _applicationDbContext.NewsMainComments.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.NewsMainComments.Remove(comment);
             return _applicationDbContext.SaveChangesAsync();
         }
 
         public Task<int> DeleteNewsSubComment(int id)
         {
-            var news = _applicationDbContext.NewsSubComments.FirstOrDefault(x => x.Id == id);
-            _applicationDbContext.NewsSubComments.Remove(news);
+            var comment = _applicationDbContext.NewsSubComments.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.NewsSubComments.Remove(comment);
             return _applicationDbContext.SaveChangesAsync();
         }
     }

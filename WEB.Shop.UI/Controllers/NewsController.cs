@@ -88,17 +88,7 @@ namespace WEB.Shop.UI.Controllers
             if (!ModelState.IsValid)
             {
                 var singleNews = getOneNews.Do(vm.NewsId);
-                return View("SingleNewsDisplay", new NewsViewModel
-                {
-                    Id = singleNews.Id,
-                    Title = singleNews.Title,
-                    Body = singleNews.Body,
-                    ImagePath = singleNews.Image,
-                    Created = singleNews.Created,
-                    Description = singleNews.Description,
-                    Tags = singleNews.Tags,
-                    Category = singleNews.Category
-                });
+                return RedirectToAction("SingleNewsDisplay", new { id = singleNews.Id });
             }
 
             var news = getOneNews.Do(vm.NewsId);
@@ -126,5 +116,20 @@ namespace WEB.Shop.UI.Controllers
 
             return RedirectToAction("SingleNewsDisplay", new { id = news.Id });
         }
+
+        public async Task<IActionResult> DeleteMainComment(int newsId, int commentId,
+            [FromServices] DeleteComment deleteComment)
+        {
+            await deleteComment.DeleteMainComment(commentId);
+            return RedirectToAction("SingleNewsDisplay", new { id = newsId });
+        }
+
+        public async Task<IActionResult> DeleteSubComment(int newsId, int commentId,
+            [FromServices] DeleteComment deleteComment)
+        {
+            await deleteComment.DeleteSubComment(commentId);
+            return RedirectToAction("SingleNewsDisplay", new { id = newsId });
+        }
+
     }
 }

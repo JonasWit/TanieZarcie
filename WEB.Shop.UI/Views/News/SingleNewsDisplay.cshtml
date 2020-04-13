@@ -14,11 +14,30 @@
     </div>
 
     <div class="container">
-        @Html.RenderPartialAsync("_MainComment", new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = 0 })
+        <div>
+            <partial name="_MainComment" model="@(new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = 0 })" />
+        </div>
 
         @foreach (var comment in Model.MainComments)
         {
             <p>@comment.Message --- @comment.Created</p>
+            <a asp-controller="News" asp-action="DeleteMainComment" asp-route-newsId="@Model.Id" asp-route-commentId="@comment.Id">
+                Delete
+            </a>
+
+            <div>
+                <h5>Sub Comments</h5>
+                <div>
+                    <partial name="_MainComment" model="@(new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = comment.Id })" />
+                </div>
+                @foreach (var subComment in comment.SubComments)
+                {
+                    <p>@subComment.Message --- @subComment.Created</p>
+                    <a asp-controller="News" asp-action="DeleteSubComment" asp-route-newsId="@Model.Id" asp-route-commentId="@subComment.Id">
+                        Delete
+                    </a>
+                }
+            </div>
         }
     </div>
 </div>
