@@ -12,6 +12,9 @@ namespace WEB.Shop.Domain.Infrastructure
         Task<int> UpdateOneNews(OneNews news);
         Task<int> DeleteOneNews(int id);
 
+        int CountNews(string category);
+        int CountNews();
+
         Task<int> CreateNewsMainComment(NewsMainComment mainComment);
         Task<int> CreateNewsSubComment(NewsSubComment subComment);
 
@@ -25,5 +28,8 @@ namespace WEB.Shop.Domain.Infrastructure
 
         IEnumerable<TResult> GetNews<TResult>(string category, Func<OneNews, TResult> selector, Func<OneNews, bool> predicate);
         IEnumerable<TResult> GetNews<TResult>(Func<OneNews, TResult> selector);
+
+        IEnumerable<TResult> GetNews<TResult>(int pageSize, int pageNumber, string category, Func<OneNews, TResult> selector, Func<OneNews, bool> predicate);
+        IEnumerable<TResult> GetNews<TResult>(int pageSize, int pageNumber, Func<OneNews, TResult> selector);
     }
 }

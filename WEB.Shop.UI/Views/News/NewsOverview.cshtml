@@ -1,23 +1,47 @@
-﻿@model IEnumerable<WEB.Shop.UI.ViewModels.News.NewsViewModel>
+﻿@model NewsPageViewModel
 
 <div class="mine-main-img">
     <span class="mine-title">Aktualności</span>
 </div>
 
-<a asp-controller="News" asp-action="TEST">
-    <span>TEST</span>
-</a>
+<div class="container">
+    <a class="mine-post" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
 
-@foreach (var singleNews in Model)
-{
-    var imageNews = $"/Image/{singleNews.ImagePath}";
-    <div class="mine-container">
-        <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
-            <img src="@imageNews" width="500" />
-            <span class="mine-title">
-                @singleNews.Title
-            </span>
-        </a>
+    @foreach (var category in Model.Categories)
+    {
+        <a class="mine-post" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1"
+           asp-route-category="@category">@category</a>
+    }
+</div>
+
+<div class="container">
+    @foreach (var singleNews in Model.News)
+    {
+        var imageNews = $"/Image/{singleNews.ImagePath}";
+        <div class="mine-container">
+            <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
+                <img src="@imageNews" width="500" />
+                <span class="mine-title">
+                    @singleNews.Title --- @singleNews.Category --- @singleNews.Created.ToShortDateString()
+                </span>
+            </a>
+        </div>
+    }
+
+    <div>
+        @if (Model.PageNumber > 1)
+        {
+            <a class="mine-post" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="@(Model.PageNumber - 1)"
+               asp-route-category="@Model.Category">Poprzednia Strona</a>
+        }
+
+        @if (Model.NextPage)
+        {
+            <a class="mine-post" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="@(Model.PageNumber + 1)"
+                asp-route-category="@Model.Category">Następna Strona</a>
+        }
     </div>
-}
+</div>
+
+
 

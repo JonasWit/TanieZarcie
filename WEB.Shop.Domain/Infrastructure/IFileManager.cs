@@ -9,6 +9,7 @@ namespace WEB.Shop.Domain.Infrastructure
     {
         Task<string> SaveImageAsync(IFormFile image);
         FileStream ImageStream(string image);
+        FileStream ImageStream(string image, string imageUsage, int width, int height);
         string[] GetAllPicturesFromContent(string contentSubfolder);
         bool DeleteImage(string image);
     }

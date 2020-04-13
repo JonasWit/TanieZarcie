@@ -1,4 +1,4 @@
-﻿@model WEB.Shop.UI.ViewModels.News.NewsViewModel
+﻿@model NewsViewModel
 
 <link href="~/lib/Trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
 
@@ -20,8 +20,10 @@
         <div>
             <label>Category</label>
             <select asp-for="Category">
-                <option value="Plany">Plany</option>
-                <option value="Informacje">Informacje</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@(category)">@category</option>
+                }
             </select>
         </div>
         <div>

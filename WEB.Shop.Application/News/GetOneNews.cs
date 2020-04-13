@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using WEB.Shop.Domain.Infrastructure;
-using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.News
 {

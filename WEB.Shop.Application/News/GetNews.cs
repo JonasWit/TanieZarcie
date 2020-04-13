@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using WEB.Shop.Domain.Infrastructure;
-using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.News
 {
@@ -38,7 +37,6 @@ namespace WEB.Shop.Application.News
                         NewsMainCommentId = subComment.NewsMainCommentId,
                     })
                 }),
-
                 Category = singleNews.Category
             });
 
@@ -60,7 +58,7 @@ namespace WEB.Shop.Application.News
                     Creator = comment.Creator,
                     Message = comment.Message,
                     SubComments = comment.SubComments.Select(subComment => new Comment
-                    { 
+                    {
                         Id = subComment.Id,
                         Created = subComment.Created,
                         Creator = subComment.Creator,
@@ -68,9 +66,70 @@ namespace WEB.Shop.Application.News
                         NewsMainCommentId = subComment.NewsMainCommentId,
                     })
                 }),
-
                 Category = singleNews.Category
             }, post => post.Category.ToUpper() == category.ToUpper());
+
+        public int Count() => _newsManager.CountNews();
+
+        public int Count(string category) => _newsManager.CountNews(category);
+
+        public IEnumerable<Response> Do(int pageSize, int pageNumber) =>
+            _newsManager.GetNews(pageSize, pageNumber, singleNews => new Response
+            {
+                Id = singleNews.Id,
+                Title = singleNews.Title,
+                Body = singleNews.Body,
+                Image = singleNews.Image,
+                Created = singleNews.Created,
+                Description = singleNews.Description,
+                Tags = singleNews.Tags,
+
+                MainComments = singleNews.MainComments.Select(comment => new Comment
+                {
+                    Id = comment.Id,
+                    Created = comment.Created,
+                    Creator = comment.Creator,
+                    Message = comment.Message,
+                    SubComments = comment.SubComments.Select(subComment => new Comment
+                    {
+                        Id = subComment.Id,
+                        Created = subComment.Created,
+                        Creator = subComment.Creator,
+                        Message = subComment.Message,
+                        NewsMainCommentId = subComment.NewsMainCommentId,
+                    })
+                }),
+                Category = singleNews.Category
+            });
+
+        public IEnumerable<Response> Do(int pageSize, int pageNumber, string category) =>
+            _newsManager.GetNews(pageSize, pageNumber, category, singleNews => new Response
+            {
+                Id = singleNews.Id,
+                Title = singleNews.Title,
+                Body = singleNews.Body,
+                Image = singleNews.Image,
+                Created = singleNews.Created,
+                Description = singleNews.Description,
+                Tags = singleNews.Tags,
+
+                MainComments = singleNews.MainComments.Select(comment => new Comment
+                {
+                    Id = comment.Id,
+                    Created = comment.Created,
+                    Creator = comment.Creator,
+                    Message = comment.Message,
+                    SubComments = comment.SubComments.Select(subComment => new Comment
+                    {
+                        Id = subComment.Id,
+                        Created = subComment.Created,
+                        Creator = subComment.Creator,
+                        Message = subComment.Message,
+                        NewsMainCommentId = subComment.NewsMainCommentId,
+                    })
+                }),
+                Category = singleNews.Category
+            }, singleNews => singleNews.Category.ToUpper() == category.ToUpper());
 
         public class Response
         {

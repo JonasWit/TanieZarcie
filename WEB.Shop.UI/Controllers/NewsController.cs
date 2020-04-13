@@ -12,28 +12,53 @@ namespace WEB.Shop.UI.Controllers
 {
     public class NewsController : Controller
     {
-        [HttpGet]
-        public IActionResult NewsOverview(string category, [FromServices] GetNews getNews)
-        {
-            var posts = string.IsNullOrEmpty(category) ? getNews.Do() : getNews.Do(category);
-            var viewModels = new List<NewsViewModel>();
+        public int PageSize { get; set; } = 5;
 
-            foreach (var post in posts)
+        [HttpGet]
+        public IActionResult NewsOverview(int pageNumber, string category, [FromServices] GetNews getNews)
+        {
+            if (pageNumber < 1)
             {
-                viewModels.Add(new NewsViewModel
+                return RedirectToAction("NewsOverview", new { pageNumber = 1, category });
+            }
+
+            var news = string.IsNullOrEmpty(category) ? getNews.Do(PageSize, pageNumber) : getNews.Do(PageSize, pageNumber, category);
+            var newsVm = new List<NewsViewModel>();
+
+            foreach (var singleNews in news)
+            {
+                newsVm.Add(new NewsViewModel
                 {
-                    Id = post.Id,
-                    Title = post.Title,
-                    Body = post.Body,
-                    ImagePath = post.Image,
-                    Created = post.Created,
-                    Description = post.Description,
-                    Tags = post.Tags,
-                    Category = post.Category
+                    Id = singleNews.Id,
+                    Title = singleNews.Title,
+                    Body = singleNews.Body,
+                    ImagePath = singleNews.Image,
+                    Created = singleNews.Created,
+                    Description = singleNews.Description,
+                    Tags = singleNews.Tags,
+                    Category = singleNews.Category
                 });
             }
 
-            return View(viewModels);
+            newsVm = newsVm.OrderByDescending(x => x.Created).ToList();
+
+            var viewModel = new NewsPageViewModel
+            {
+                News = newsVm,
+                PageNumber = pageNumber,
+                Category = category            
+            };
+
+            int newsCount = string.IsNullOrEmpty(category) ? getNews.Count() : getNews.Count(category);
+            int skipAmount = PageSize * (pageNumber - 1);
+            int capacity = skipAmount + PageSize;
+
+            if (newsCount > capacity)
+            {
+                viewModel.NextPage = true;
+            }
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -72,13 +97,6 @@ namespace WEB.Shop.UI.Controllers
         [HttpGet("/image/{image}")]
         [ResponseCache(CacheProfileName = "Weekly")]
         public IActionResult Image(string image, [FromServices] GetFile getFile) => new FileStreamResult(getFile.Do(image), $"image/{image.Substring(image.LastIndexOf('.') + 1)}");
-
-        [HttpGet]
-        public IActionResult TEST([FromServices] GetFilesForContent getFilesForContent)
-        {
-            getFilesForContent.Do("News");
-            return RedirectToAction("NewsOverview", new NewsViewModel());
-        }
 
         [HttpPost]
         public async Task<IActionResult> Comment(NewsCommentViewModel vm,

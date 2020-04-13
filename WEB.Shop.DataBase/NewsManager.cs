@@ -12,7 +12,11 @@ namespace WEB.Shop.DataBase
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public NewsManager(ApplicationDbContext applicationDbContext) =>_applicationDbContext = applicationDbContext;
+        public NewsManager(ApplicationDbContext applicationDbContext) => _applicationDbContext = applicationDbContext;
+
+        public int CountNews(string category) => _applicationDbContext.News.Count(news => news.Category == category);
+        
+        public int CountNews() => _applicationDbContext.News.Count();
 
         public Task<int> CreateOneNews(OneNews news)
         {
@@ -33,7 +37,7 @@ namespace WEB.Shop.DataBase
             return _applicationDbContext.SaveChangesAsync();
         }
 
-        public TResult GetOneNews<TResult>(int id, Func<OneNews, TResult> selector) => 
+        public TResult GetOneNews<TResult>(int id, Func<OneNews, TResult> selector) =>
             _applicationDbContext.News
                 .Include(x => x.MainComments)
                     .ThenInclude(x => x.SubComments)
@@ -57,6 +61,24 @@ namespace WEB.Shop.DataBase
                 .Where(predicate)
                 .Select(selector)
                 .ToList();
+
+        public IEnumerable<TResult> GetNews<TResult>(int pageSize, int pageNumber, string category, Func<OneNews, TResult> selector, Func<OneNews, bool> predicate) => _applicationDbContext.News
+                .Include(x => x.MainComments)
+                    .ThenInclude(x => x.SubComments)
+                .Where(predicate)
+                .Select(selector)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize)
+                .ToList();
+  
+        public IEnumerable<TResult> GetNews<TResult>(int pageSize, int pageNumber, Func<OneNews, TResult> selector) => 
+            _applicationDbContext.News
+               .Include(x => x.MainComments)
+                   .ThenInclude(x => x.SubComments)
+               .Select(selector)
+               .Skip(pageSize * (pageNumber - 1))
+               .Take(pageSize)
+               .ToList();
 
         public Task<int> CreateNewsMainComment(NewsMainComment mainComment)
         {

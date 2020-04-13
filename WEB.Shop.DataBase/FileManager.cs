@@ -50,6 +50,30 @@ namespace WEB.Shop.DataBase
             }
         }
 
+        public FileStream ImageStream(string image, string imageUsage, int width, int height)
+        {
+            //try
+            //{
+            //    var savePath = Path.Combine(_newsImagesPath);
+
+            //    if (!Directory.Exists(savePath)) Directory.CreateDirectory(savePath);
+
+            //    var fileName = $"img_{DateTime.Now:dd-MM-yyyy-HH-mm-ss}{image.FileName.Substring(image.FileName.LastIndexOf('.'))}";
+
+            //    using var fileStream = new FileStream(Path.Combine(savePath, fileName), FileMode.Create);
+
+            //    //await image.CopyToAsync(fileStream);
+            //    await Task.Run(() => MagicImageProcessor.ProcessImage(image.OpenReadStream(), fileStream, ImageOptions()));
+
+            //    return fileName;
+            //}
+            //catch (Exception ex)
+            //{
+            //    return ex.Message;
+            //}
+            throw new NotImplementedException();
+        }
+
         public string[] GetAllPicturesFromContent(string contentSubfolder)
         {
             return contentSubfolder switch
@@ -78,8 +102,8 @@ namespace WEB.Shop.DataBase
         private ProcessImageSettings ImageOptions() => new ProcessImageSettings
         {
             Width = 800,
-            Height = 500,
-            ResizeMode = CropScaleMode.Crop,
+            Height = 600,
+            ResizeMode = CropScaleMode.Contain,
             SaveFormat = FileFormat.Jpeg,
             JpegQuality = 100,
             JpegSubsampleMode = ChromaSubsampleMode.Subsample420
