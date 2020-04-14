@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,11 @@ namespace WEB.Shop.UI.Pages.Accounts
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (string.IsNullOrEmpty(Input.UserName) || string.IsNullOrEmpty(Input.Password))
+            {
+                return Page();
+            }
+
             var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, false, false);
 
             if (result.Succeeded)
@@ -42,7 +48,9 @@ namespace WEB.Shop.UI.Pages.Accounts
 
     public class LoginViewModel
     {
+        [Required]
         public string UserName { get; set; }
+        [Required]
         public string Password { get; set; }
     }
 }
