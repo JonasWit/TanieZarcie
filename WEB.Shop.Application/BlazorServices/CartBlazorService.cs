@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Application.Cart;
+using WEB.Shop.Domain.Extensions;
 
 namespace WEB.Shop.Application.BlazorServices
 {
@@ -13,12 +14,20 @@ namespace WEB.Shop.Application.BlazorServices
         private readonly GetCart _getCart;
         private readonly RemoveFromCart _removeFromCart;
 
+        public event Action RefreshRequested;
+
+        public string TotalValue => _getCart.Do().Sum(x => x.Value * x.Quantity).MonetaryValue(false);
+
         public CartBlazorService(AddToCart addToCart, GetCart getCart, RemoveFromCart removeFromCart)
         {
             _addToCart = addToCart;
             _getCart = getCart;
             _removeFromCart = removeFromCart;
         }
+
+        public void CallRequestRefresh() => RefreshRequested?.Invoke();
+
+        public IEnumerable<GetCart.Response> GetCartProducts() => _getCart.Do();
 
         public async Task<bool> AddOneAsync(int stockId)
         {
@@ -60,45 +69,12 @@ namespace WEB.Shop.Application.BlazorServices
 
 
 
+
+
+
+
+
+
     }
-
-    //[Route("[controller]/[action]")]
-    //public class CartController : Controller
-    //{
-
-
-    //    [HttpGet]
-    //    public IActionResult GetCartComponent([FromServices] GetCart getCart)
-    //    {
-    //        var totalValue = getCart.Do().Sum(x => x.Value * x.Quantity);
-    //        return PartialView("Components/Cart/Small", totalValue.MonetaryValue());
-    //    }
-
-    //    [HttpGet]
-    //    public IActionResult GetCartMain([FromServices] GetCart getCart)
-    //    {
-    //        var cart = getCart.Do();
-    //        return PartialView("_CartPartial", cart);
-    //    }
-
-    //    [HttpPost("{stockId}")]
-    //    public async Task<IActionResult> RemoveAll(int stockId, [FromServices] RemoveFromCart removeFromCart)
-    //    {
-    //        var request = new RemoveFromCart.Request
-    //        {
-    //            StockId = stockId,
-    //            All = true
-    //        };
-
-    //        var success = await removeFromCart.DoAsync(request);
-
-    //        if (success)
-    //        {
-    //            return Ok("Usunięte!");
-    //        }
-
-    //        return BadRequest("Nie udało się usunąć!");
-    //    }
-    //}
 
 }

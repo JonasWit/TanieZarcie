@@ -70,7 +70,8 @@
                 </ul>
                 <ul class="nav nav-pills nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <vc:cart view="Small"></vc:cart>
+                        @*<vc:cart view="Small"></vc:cart>*@
+                        <component type="typeof(Pages.Shared.Components.Blazor.Cart.SmallCartComponentComponent)" render-mode="ServerPrerendered" />
                     </li>
                 </ul>
             </div>
@@ -179,12 +180,14 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="~/_framework/blazor.server.js"></script>
     </environment>
     <environment include="Production">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="~/_framework/blazor.server.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

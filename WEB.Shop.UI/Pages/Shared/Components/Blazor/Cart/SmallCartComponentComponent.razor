@@ -1,0 +1,12 @@
+﻿@using WEB.Shop.Application.BlazorServices
+@inject CartBlazorService cartBlazorService
+
+<a class="nav-link" href="/Cart" id="cart-nav">
+    <button class="btn btn-warning"> Twój koszyk: @cartBlazorService.TotalValue<i class="fa fa-shopping-cart"></i></button>
+</a>
+
+@code {
+
+    protected override async Task OnInitializedAsync() => await Task.Run(() => cartBlazorService.RefreshRequested += RefreshMe);
+    private void RefreshMe() => StateHasChanged();
+}

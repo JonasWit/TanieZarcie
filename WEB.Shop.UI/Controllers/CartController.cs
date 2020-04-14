@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Application.Cart;
@@ -9,6 +10,13 @@ namespace WEB.Shop.UI.Controllers
     [Route("[controller]/[action]")]
     public class CartController : Controller
     {
+        private readonly GetCart _getCart;
+
+        public CartController(GetCart getCart)
+        {
+            _getCart = getCart;
+        }
+
         [HttpPost("{stockId}")]
         public async Task<IActionResult> AddOneAsync(int stockId, [FromServices] AddToCart addToCart)
         {
@@ -48,9 +56,9 @@ namespace WEB.Shop.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCartComponent([FromServices] GetCart getCart)
+        public IActionResult GetCartComponent()
         {
-            var totalValue = getCart.Do().Sum(x => x.Value * x.Quantity);
+            var totalValue = _getCart.Do().Sum(x => x.Value * x.Quantity);
             return PartialView("Components/Cart/Small", totalValue.MonetaryValue(false));
         }
 
@@ -60,6 +68,9 @@ namespace WEB.Shop.UI.Controllers
             var cart = getCart.Do();
             return PartialView("_CartPartial", cart);
         }
+
+        [HttpGet]
+        public IEnumerable<GetCart.Response> GetCart([FromServices] GetCart getCart) => getCart.Do().ToList();
 
         [HttpPost("{stockId}")]
         public async Task<IActionResult> RemoveAll(int stockId, [FromServices] RemoveFromCart removeFromCart)

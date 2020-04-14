@@ -32,7 +32,7 @@ namespace WEB.Shop.UI
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["DevConnection"]));
+                options.UseSqlServer(Configuration["ProdConnection"]));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -93,13 +93,13 @@ namespace WEB.Shop.UI
                 app.UseHsts();
             }
 
+            app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {

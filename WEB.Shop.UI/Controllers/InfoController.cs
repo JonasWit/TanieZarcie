@@ -8,5 +8,10 @@ namespace WEB.Shop.UI.Controllers
         {
             return View();
         }
+
+
+
+
+
     }
 }

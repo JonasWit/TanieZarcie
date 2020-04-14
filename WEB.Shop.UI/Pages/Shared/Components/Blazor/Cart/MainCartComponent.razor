@@ -1,6 +1,8 @@
-﻿@*@model IEnumerable<Shop.Application.Cart.GetCart.Response>
-@using WEB.Shop.Domain.Extensions;
-
+﻿@using WEB.Shop.Domain.Extensions
+@using WEB.Shop.Application.Cart
+@using WEB.Shop.Application.BlazorServices
+@using System.Net.Http
+@inject CartBlazorService cartBlazorService
 
 <div class="container-fluid" id="cart-main">
     <h2 class="text-center" style="background-color: #000000; opacity: 0.6; color: #ffffff;">Dodaj produkty do koszyka i porównaj ich ceny!</h2>
@@ -10,19 +12,18 @@
                 <div>
                     <i class="mb-2 fa fa-shopping-cart text-warning" style="font-size:60px"></i>
                     <div>
-                        <h4 class="p-2 mt-2" style="color: #ffffff;">Twój koszyk: @Model.Sum(x => x.TotalValue).MonetaryValue(false)</h4>
+                        <h4 class="p-2 mt-2" style="color: #ffffff;">Twój koszyk: @products?.Sum(x => x.TotalValue).MonetaryValue(false)</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 text-center  ">
-                        <a asp-page="/MainProducts" class="btn btn-warning pt-2 ml-4 mt-2 button is-text">Szukaj dalej!</a>
+                        <a href="/MainProducts" class="btn btn-warning pt-2 ml-4 mt-2 button is-text">Szukaj dalej!</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    @if (Model.ToList().Count != 0)
+    @if (products.Count != 0)
     {
         <div class="table-container">
             <table class="table table-striped table-hover">
@@ -35,7 +36,7 @@
                         <th>Usuń z koszyka</th>
                     </tr>
                 </thead>
-                @foreach (var product in Model)
+                @foreach (var product in products)
                 {
                     <tbody>
                         <tr>
@@ -52,33 +53,25 @@
                             <td>
                                 <div class="level-item pt-2 text-center ">
                                     <p class="pt-2 mt-2 mb-2 text-danger">@product.TotalValueDisplay</p>
-
                                 </div>
                             </td>
                             <td>
                                 <div class="row">
                                     <div class="col-12 level-item ">
                                         <div class="row">
-
                                             <div class="col-4 column is-4 text-center pt-2 mt-2 mb-2">
                                                 <button class="button btn btn-warning"
                                                         type="button"
-                                                        onclick="removeOneFromCart(event)"
-                                                        data-stock-id="@product.StockId">
+                                                        @onclick="(() => Remove(product.StockId, 1))">
                                                     -
                                                 </button>
                                             </div>
-
                                             <div class="col-4 column is-4 align-self-center text-center pt-2 mt-2 mb-2"
                                                  id="stock-quantity-@product.StockId">
                                                 <p>@product.Quantity</p>
                                             </div>
-
                                             <div class=" col-4 column is-4 text-center pt-2 mt-2 mb-2">
-                                                <button class="button btn btn-warning"
-                                                        type="button"
-                                                        onclick="addOneToCart(event)"
-                                                        data-stock-id="@product.StockId">
+                                                <button class="button btn btn-warning" @onclick="(() => AddOne(product.StockId))">
                                                     +
                                                 </button>
                                             </div>
@@ -90,15 +83,60 @@
                             <td>
                                 <div class="column is-12 text-center">
                                     <a class=" has-text-danger text-warning pt-2 mt-2 mb-2 fas fa-trash-alt" style='font-size:24px'
-                                       onclick="removeAllFromCart(event)"
-                                       data-stock-id="@product.StockId"></a>
+                                       @onclick="(() => Remove(product.StockId, product.Quantity))"></a>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 }
-
             </table>
         </div>
     }
-</div>*@
+</div>
+
+@code {
+
+    private List<GetCart.Response> products = new List<GetCart.Response>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            products = await Task.Run(() => cartBlazorService.GetCartProducts().ToList());
+            cartBlazorService.CallRequestRefresh();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private async Task AddOne(int stockId)
+    {
+        try
+        {
+            await cartBlazorService.AddOneAsync(stockId);
+            products = cartBlazorService.GetCartProducts().ToList();
+            cartBlazorService.CallRequestRefresh();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    private async Task Remove(int stockId, int quantity)
+    {
+        try
+        {
+            await cartBlazorService.Remove(stockId, quantity);
+            products = cartBlazorService.GetCartProducts().ToList();
+            cartBlazorService.CallRequestRefresh();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+}

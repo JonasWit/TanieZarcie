@@ -1,13 +1,19 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.CartModel
 
-<div class="container-fluid product">
+@*<div class="container-fluid product">
     <div>
         <partial name="_CartPartial" model="@Model.Cart" />
     </div>
+</div>*@
+
+<div class="container-fluid product">
+    <div>
+        <component type="typeof(Pages.Shared.Components.Blazor.Cart.MainCartComponent)" render-mode="ServerPrerendered" />
+    </div>
 </div>
 
-@section scripts {
+@*@section scripts {
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="~/js/mainjs/cartScripts.js"></script>
-}
+}*@
