@@ -29,6 +29,7 @@
                 <thead class="text-center">
                     <tr>
                         <th>Nazwa produktu</th>
+                        <th>Cena za sztuke</th>
                         <th>Cena</th>
                         <th>Ilość</th>
                         <th>Usuń z koszyka</th>
@@ -40,10 +41,12 @@
                         <tr>
                             <td>
                                 <div class="level-item">
-                                    <p class="pt-2 mt-2 mb-2 title text-center ">@product.Name</p>
-                                    @*<a asp-page="Product" asp-route-name="@product.Name.Replace(" ","-")" class="text-warning">@product.Name<i class="fas fa-angle-double-right ml-2"></i></a>*@
-                                    <p class="subtitle">
-                                    </p>
+                                    <a class="pt-2 mt-2 mb-2 title text-center" href=@($"/Product/{product.Id}") target="_blank">@product.Name</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="level-item pt-2 text-center ">
+                                    <p class="pt-2 mt-2 mb-2 text-danger">@product.ValueDisplay</p>
                                 </div>
                             </td>
                             <td>

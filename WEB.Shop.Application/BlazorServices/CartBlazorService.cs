@@ -60,11 +60,6 @@ namespace WEB.Shop.Application.BlazorServices
 
 
 
-
-
-
-
-
     }
 
     //[Route("[controller]/[action]")]

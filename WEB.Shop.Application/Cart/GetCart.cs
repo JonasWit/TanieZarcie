@@ -16,6 +16,7 @@ namespace WEB.Shop.Application.Cart
 
         public class Response
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public string Producer { get; set; }
@@ -37,6 +38,7 @@ namespace WEB.Shop.Application.Cart
             _sessionManager
                 .GetCart(cartProduct => new Response
                 {
+                    Id = cartProduct.ProductId,
                     Name = cartProduct.ProductName,
                     Description = cartProduct.Description,
                     Seller = cartProduct.Seller,
