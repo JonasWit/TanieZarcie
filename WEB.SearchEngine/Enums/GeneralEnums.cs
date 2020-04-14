@@ -9,7 +9,8 @@
         Carrefour = 4,
         Auchan = 5,
         Stokrotka = 6,
-        Zabka = 7
+        Zabka = 7,
+        Castorama = 8
     }
 
     public enum MatchDirection

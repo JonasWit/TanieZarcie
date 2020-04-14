@@ -20,6 +20,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerCarrefour());
             Crawlers.Add(new CrawlerAuchan());
             Crawlers.Add(new CrawlerZabka());
+            //Crawlers.Add(new CrawlerCastorama());
 
             foreach (var crawler in Crawlers)
             {
@@ -67,6 +68,11 @@ namespace WEB.SearchEngine
                     var zabkaCrawler = new CrawlerZabka();
                     await Task.Run(() => zabkaCrawler.GetData());
                     Crawlers.Add(zabkaCrawler);
+                    break;
+                case Shops.Castorama:
+                    var castoramaCrawler = new CrawlerCastorama();
+                    await Task.Run(() => castoramaCrawler.GetData());
+                    Crawlers.Add(castoramaCrawler);
                     break;
                 default:
                     break;

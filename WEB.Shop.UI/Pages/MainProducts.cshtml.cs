@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WEB.Shop.Application.Enums;
 using WEB.Shop.Application.Products;
 using WEB.Shop.Application.Session;
 
@@ -14,7 +15,7 @@ namespace WEB.Shop.UI.Pages
 
         [BindProperty(Name = "selectedShop", SupportsGet = true)]
         public string SelectedShop { get; set; } = "Wszystkie";
-        public List<string> Shops { get; set; } = new List<string> { "Biedronka", "Kaufland", "Lidl", "Carrefour", "Auchan", "Zabka" };
+        public List<string> Shops { get; set; } = Enum.GetNames(typeof(Shops)).ToList();
 
         [BindProperty]
         public string SearchString { get; set; }
