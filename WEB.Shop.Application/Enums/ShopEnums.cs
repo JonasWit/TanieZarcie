@@ -12,6 +12,6 @@ namespace WEB.Shop.Application.Enums
         Carrefour = 3,
         Auchan = 4,
         Zabka = 5,
-        Castorama = 6
+        Castorama = 6,
     }
 }

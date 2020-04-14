@@ -1,0 +1,22 @@
+﻿@using WEB.Shop.Application.BlazorServices
+@inject SummariesBlazorService summariesBlazorService
+@inject IJSRuntime jsRunTime
+
+
+<h3>SummariesIndexComponent</h3>
+
+<div id="chartdiv"></div>
+
+<button class="btn btn-primary" @onclick="GetSummary">Generate Chart</button>
+
+@code {
+
+    List<SummariesBlazorService.ShopOverview> overview = new List<SummariesBlazorService.ShopOverview>();
+
+    private async Task GetSummary()
+    {
+        overview = summariesBlazorService.GetShopsData();
+
+        await jsRunTime.InvokeVoidAsync("GeneratePieChart", overview);
+    }
+}

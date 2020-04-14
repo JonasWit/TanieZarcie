@@ -38,13 +38,13 @@
                         <a class="nav-link" asp-controller="Info" asp-action="WipPage">Top Promocje</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Info" asp-action="WipPage">Zestawienia</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" asp-page="/MainProducts">Wszystkie Produkty</a>
                     </li>
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Summaries" asp-action="Index">Zestawienia</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="News" asp-action="NewsOverview">Aktualności</a>
                         </li>
@@ -181,6 +181,10 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="~/_framework/blazor.server.js"></script>
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+        <script src="~/js/mainjs/blazorChart.js"></script>
     </environment>
     <environment include="Production">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -188,6 +192,10 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="~/_framework/blazor.server.js"></script>
+        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+        <script src="~/js/mainjs/blazorChart.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
