@@ -141,22 +141,30 @@
 
                                                 if (days == 1 && days != 0)
                                                 {
-                                                    dispalyTime = $"Sprawdzone: {days} dzień temu.";
+                                                    dispalyTime = $"Sprawdzone: {days} dzień temu";
                                                     green = true;
                                                 }
                                                 else if (days < 3 && days != 0)
                                                 {
-                                                    dispalyTime = $"Sprawdzone: {days} dni temu.";
+                                                    dispalyTime = $"Sprawdzone: {days} dni temu";
                                                     yellow = true;
                                                 }
                                                 else if (days > 2 && days != 0)
                                                 {
-                                                    dispalyTime = $"Informacje o produkcie starsze niż 2 dni!";
+                                                    dispalyTime = $"Informacje starsze niż 2 dni!";
                                                     red = true;
                                                 }
                                                 else
                                                 {
-                                                    dispalyTime = $"Sprawdzone: {hours} godzin {minutes} minuty temu.";
+                                                    if (hours == 0)
+                                                    {
+                                                        dispalyTime = $"Sprawdzone: {minutes} min. temu";
+                                                    }
+                                                    else
+                                                    {
+                                                        dispalyTime = $"Sprawdzone: {hours} godz. {minutes} min. temu";
+                                                    }
+
                                                     green = true;
                                                 }
 

@@ -12,7 +12,7 @@ namespace WEB.SearchEngine.Crawlers
 {
     public class CrawlerCastorama : WebCrawler
     {
-        public override string[] BaseUrls { get { return new string[] { "https://www.auchan.pl/pl", "https://www.auchandirect.pl/" }; } }
+        public override string[] BaseUrls { get { return new string[] { "https://www.castorama.pl" }; } }
 
         public CrawlerCastorama()
         {
@@ -32,9 +32,9 @@ namespace WEB.SearchEngine.Crawlers
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(linkStruct.Html);
 
-            var divs = htmlDocument.DocumentNode.Descendants("article")
+            var divs = htmlDocument.DocumentNode.Descendants("div")
                 .Where(node => node.GetAttributeValue("class", "")
-                .ContainsAny("product"))
+                .ContainsAny("product-tile"))
                 .ToList();
 
             var tasks = new List<Task>();

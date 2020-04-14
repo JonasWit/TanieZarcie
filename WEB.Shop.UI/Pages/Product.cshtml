@@ -33,7 +33,6 @@
 
                                     <label class="card-title pt-2 ml-4">Sprzedawca</label>
                                 </div>
-
                                 <div>
                                     <select class="border border-warning ml-4" asp-for="CartViewModel.StockId" onchange="toggleStock(event)">
                                         @foreach (var s in Model.Product.Stock)
