@@ -8,6 +8,7 @@ namespace WEB.Shop.UI.ViewModels.News
     {
         public IEnumerable<NewsViewModel> News { get; set; }
         public int PageNumber { get; set; }
+        public int PageCount { get; set; }
         public bool NextPage { get; set; }
         public string Category { get; set; }
 

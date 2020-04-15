@@ -23,6 +23,11 @@ namespace WEB.Shop.UI.Controllers
             }
 
             var news = string.IsNullOrEmpty(category) ? getNews.Do(PageSize, pageNumber) : getNews.Do(PageSize, pageNumber, category);
+            int newsCount = string.IsNullOrEmpty(category) ? getNews.Count() : getNews.Count(category);
+
+            int skipAmount = PageSize * (pageNumber - 1);
+            int capacity = skipAmount + PageSize;
+
             var newsVm = new List<NewsViewModel>();
 
             foreach (var singleNews in news)
@@ -46,12 +51,9 @@ namespace WEB.Shop.UI.Controllers
             {
                 News = newsVm,
                 PageNumber = pageNumber,
-                Category = category            
+                Category = category,
+                PageCount = (int)Math.Ceiling((double)newsCount / PageSize)
             };
-
-            int newsCount = string.IsNullOrEmpty(category) ? getNews.Count() : getNews.Count(category);
-            int skipAmount = PageSize * (pageNumber - 1);
-            int capacity = skipAmount + PageSize;
 
             if (newsCount > capacity)
             {
@@ -96,7 +98,18 @@ namespace WEB.Shop.UI.Controllers
 
         [HttpGet("/image/{image}")]
         [ResponseCache(CacheProfileName = "Weekly")]
-        public IActionResult Image(string image, [FromServices] GetFile getFile) => new FileStreamResult(getFile.Do(image), $"image/{image.Substring(image.LastIndexOf('.') + 1)}");
+        public IActionResult Image(string image, [FromServices] GetFile getFile)
+        {
+            try
+            {
+                FileStreamResult result = new FileStreamResult(getFile.Do(image), $"image/{image.Substring(image.LastIndexOf('.') + 1)}");
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }   
+        } 
 
         [HttpPost]
         public async Task<IActionResult> Comment(NewsCommentViewModel vm,
