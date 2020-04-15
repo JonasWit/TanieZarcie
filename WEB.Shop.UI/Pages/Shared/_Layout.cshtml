@@ -37,8 +37,11 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Info" asp-action="WipPage">Top Promocje</a>
                     </li>
-                    <li class="nav-item">
+                    @*<li class="nav-item">
                         <a class="nav-link" asp-page="/MainProducts">Wszystkie Produkty</a>
+                    </li>*@
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/ProductsOverview">Wyszukiwarka</a>
                     </li>
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
@@ -70,7 +73,6 @@
                 </ul>
                 <ul class="nav nav-pills nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        @*<vc:cart view="Small"></vc:cart>*@
                         <component type="typeof(Pages.Shared.Components.Blazor.Cart.SmallCartComponentComponent)" render-mode="ServerPrerendered" />
                     </li>
                 </ul>

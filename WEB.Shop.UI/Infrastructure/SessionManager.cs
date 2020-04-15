@@ -11,9 +11,6 @@ namespace WEB.Shop.UI.Infrastructure
     public class SessionManager : ISessionManager
     {
         private const string KeyCart = "Cart";
-        private const string KeySearchString = "SearchString";
-        private const string KeySelectedShop = "SelectedShop";
-        private const string KeyCurrentPage = "KeyCurrentPage";
         private const string KeyCustomerInfo = "Customer-info";
         private readonly ISession _session;
 
@@ -105,90 +102,6 @@ namespace WEB.Shop.UI.Infrastructure
 
             stringObject = JsonConvert.SerializeObject(cartList);
             _session.SetString(KeyCart, stringObject);
-        }
-
-        public void SaveSearchString(string input)
-        {
-            if (_session.Keys.Contains(KeySearchString))
-            {
-                _session.Remove(KeySearchString);
-            }
-
-            if (!string.IsNullOrEmpty(input))
-            {
-                _session.SetString(KeySearchString, input);
-            }
-        }        
-        
-        public bool GetSearchString(out string output)
-        {
-            if (_session.Keys.Contains(KeySearchString))
-            {
-                output = _session.GetString(KeySearchString);
-                return true;
-            }
-            else
-            {
-                output = "";
-                return false;
-            }
-        }
-
-        public void SaveSelectedShop(string shop)
-        {
-            if (_session.Keys.Contains(KeySelectedShop))
-            {
-                _session.Remove(KeySelectedShop);
-            }
-
-            if (!string.IsNullOrEmpty(shop))
-            {
-                _session.SetString(KeySelectedShop, shop);
-            }
-        }
-
-        public bool GetSelectedShop(out string output)
-        {
-            if (_session.Keys.Contains(KeySelectedShop))
-            {
-                output = _session.GetString(KeySelectedShop);
-                return true;
-            }
-            else
-            {
-                output = "";
-                return false;
-            }
-        }
-
-        public void SaveCurrentPage(int input)
-        {
-            if (_session.Keys.Contains(KeyCurrentPage))
-            {
-                _session.Remove(KeyCurrentPage);
-            }
-
-            _session.SetString(KeyCurrentPage, input.ToString());
-        }
-
-        public bool GetCurrentPage(out int output)
-        {
-            if (_session.Keys.Contains(KeyCurrentPage))
-            {
-                if (int.TryParse(_session.GetString(KeyCurrentPage), out int result))
-                {
-                    output = result;
-                    return true;
-                }
-                else
-                {
-                    output = 0;
-                    return false;
-                }
-            }
-
-            output = 0;
-            return false;
         }
     }
 }

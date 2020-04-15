@@ -1,0 +1,51 @@
+﻿@model NewsPageViewModel
+
+<div class="container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            @{
+                List<int> pages = Model.PageNumbers(Model.PageNumber, Model.PageCount).ToList();
+            }
+            @if (Model.PageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-controller="News"
+                       asp-action="NewsOverview"
+                       asp-route-pageNumber="@(Model.PageNumber - 1)"
+                       asp-route-category="@Model.Category">Poprzednia</a>
+                </li>
+            }
+            @foreach (var p in pages)
+            {
+                if (p == -1)
+                {
+                    <li class="page-item @(p == Model.PageNumber ? "active" : "")">
+                        <span>...</span>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item @(p == Model.PageNumber ? "active" : "")">
+                        <a class="page-link"
+                           asp-controller="News"
+                           asp-action="NewsOverview"
+                           asp-route-category="@Model.Category"
+                           asp-route-pageNumber="@p">@p</a>
+                    </li>
+                }
+            }
+            @if (Model.NextPage)
+            {
+                <li class="page-item">
+
+                    <a class="page-link"
+                       asp-controller="News"
+                       asp-action="NewsOverview"
+                       asp-route-pageNumber="@(Model.PageNumber + 1)"
+                       asp-route-category="@Model.Category">Następna</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

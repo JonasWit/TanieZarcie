@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using WEB.Shop.Application.Enums;
 using WEB.Shop.Application.Products;
-using WEB.Shop.Application.Session;
 
 namespace WEB.Shop.UI.Pages
 {
@@ -32,40 +31,17 @@ namespace WEB.Shop.UI.Pages
             }
         }
 
-        public IActionResult OnPostAllShops([FromServices] SaveSelectedShop saveSelectedShop)
-        {
-            saveSelectedShop.Do("Wszystkie");
-            return RedirectToPage("MainProducts");
-        }
+        public IActionResult OnPostAllShops() => RedirectToPage("ProductsOverview", new { selectedShop = "Wszystkie" });
 
-        public IActionResult OnGetBiedronka([FromServices] SaveSelectedShop saveSelectedShop)
-        {
-            saveSelectedShop.Do("Biedronka");
-            return RedirectToPage("MainProducts");
-        }
+        public IActionResult OnGetBiedronka() => RedirectToPage("ProductsOverview", new { selectedShop = "Biedronka" });
 
-        public IActionResult OnGetLidl([FromServices] SaveSelectedShop saveSelectedShop)
-        {
-            saveSelectedShop.Do("Lidl");
-            return RedirectToPage("MainProducts");
-        }
+        public IActionResult OnGetLidl() => RedirectToPage("ProductsOverview", new { selectedShop = "Lidl" });
 
-        public IActionResult OnGetKaufland([FromServices] SaveSelectedShop saveSelectedShop)
-        {
-            saveSelectedShop.Do("Kaufland");
-            return RedirectToPage("MainProducts");
-        }
+        public IActionResult OnGetKaufland() => RedirectToPage("ProductsOverview", new { selectedShop = "Kaufland" });
 
-        public IActionResult OnGetCarrefour([FromServices] SaveSelectedShop saveSelectedShop)
-        {
-            saveSelectedShop.Do("Carrefour");
-            return RedirectToPage("MainProducts");
-        }
+        public IActionResult OnGetCarrefour() => RedirectToPage("ProductsOverview", new { selectedShop = "Carrefour" });
 
-        public IActionResult OnGetAuchan([FromServices] SaveSelectedShop saveSelectedShop)
-        {
-            saveSelectedShop.Do("Auchan");
-            return RedirectToPage("MainProducts");
-        }
+        public IActionResult OnGetAuchan() => RedirectToPage("ProductsOverview", new { selectedShop = "Auchan" });
+
     }
 }

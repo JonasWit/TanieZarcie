@@ -15,6 +15,7 @@
 </div>
 
 <div class="container">
+    <partial name="_NewsPagination" model="Model" />
     @foreach (var singleNews in Model.News)
     {
         var imageNews = $"/Image/{singleNews.ImagePath}";
@@ -27,36 +28,7 @@
             </a>
         </div>
     }
-    <div class="container">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                @if (Model.PageNumber > 1)
-                {
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="@(Model.PageNumber - 1)"
-                           asp-route-category="@Model.Category">Wróć</a>
-                    </li>
-                }
-                @for (int i = 1; i <= Model.PageCount; i++)
-                {       
-                    string activeClass = i == Model.PageNumber ? "active" : "";
-
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="@i"
-                           asp-route-category="@Model.Category">@i</a>
-                    </li>
-                }
-                @if (Model.NextPage)
-                {
-                    <li class="page-item">
-
-                        <a class="page-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="@(Model.PageNumber + 1)"
-                           asp-route-category="@Model.Category">Dalej</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
+    <partial name="_NewsPagination" model="Model" />
 </div>
 
 

@@ -6,7 +6,7 @@ using WEB.Shop.Application.ProductsAdmin;
 namespace WEB.Shop.UI.Controllers
 {
     [Route("[controller]")]
-    //[Authorize(Policy = "Manager")]
+    [Authorize(Policy = "Manager")]
     public class ProductsController : Controller
     {
         [HttpGet("")]
