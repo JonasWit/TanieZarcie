@@ -36,15 +36,20 @@ namespace WEB.Shop.DataBase
             {
                 foreach (var product in products)
                 {
-                    _context.Products.Add(product);
-                    await _context.SaveChangesAsync();
-
-                    _context.Stock.Add(new Stock
+                    product.Stock = new List<Stock>
                     {
-                        Description = product.Seller,
-                        Quantity = 100,
-                        ProductId = product.Id
-                    });
+                        new Stock { Description = product.Seller, Quantity = 100 }
+                    };
+
+                    _context.Products.Add(product);
+                    //await _context.SaveChangesAsync();
+
+                    //_context.Stock.Add(new Stock
+                    //{
+                    //    Description = product.Seller,
+                    //    Quantity = 100,
+                    //    ProductId = product.Id
+                    //});
                 }
 
                 response = await _context.SaveChangesAsync();

@@ -24,11 +24,11 @@ namespace WEB.Shop.DataBase
             return _applicationDbContext.SaveChangesAsync();
         }
 
-        public Task<int> DeleteOneNews(int id)
+        public int DeleteOneNews(int id)
         {
-            var post = _applicationDbContext.News.FirstOrDefault(x => x.Id == id);
-            _applicationDbContext.News.Remove(post);
-            return _applicationDbContext.SaveChangesAsync();
+            var news = _applicationDbContext.News.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.News.Remove(news);
+            return _applicationDbContext.SaveChanges();
         }
 
         public Task<int> UpdateOneNews(OneNews news)

@@ -24,14 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Blazor\" />
-    <Folder Include="wwwroot\content\carousel\" />
-    <Folder Include="wwwroot\content\news\" />
+    <Content Update="wwwroot/content/news/*.*" CopyToPublishDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\lib\Trumbowyg-master\.github\FUNDING.yml" />
     <None Include="wwwroot\lib\Trumbowyg-master\.github\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\content\news\" />
   </ItemGroup>
 
 </Project>

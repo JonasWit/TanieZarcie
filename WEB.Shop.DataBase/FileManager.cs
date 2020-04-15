@@ -103,7 +103,7 @@ namespace WEB.Shop.DataBase
         {
             Width = 800,
             Height = 600,
-            ResizeMode = CropScaleMode.Contain,
+            ResizeMode = CropScaleMode.Crop,
             SaveFormat = FileFormat.Jpeg,
             JpegQuality = 100,
             JpegSubsampleMode = ChromaSubsampleMode.Subsample420

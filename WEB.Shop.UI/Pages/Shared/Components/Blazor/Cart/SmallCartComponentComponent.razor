@@ -1,5 +1,4 @@
-﻿@using WEB.Shop.Application.BlazorServices
-@inject CartBlazorService cartBlazorService
+﻿@inject CartBlazorService cartBlazorService
 
 <a class="nav-link" href="/Cart" id="cart-nav">
     <button class="btn btn-warning"> Twój koszyk: @cartBlazorService.TotalValue<i class="fa fa-shopping-cart"></i></button>

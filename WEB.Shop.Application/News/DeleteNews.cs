@@ -15,13 +15,13 @@ namespace WEB.Shop.Application.News
             _fileManager = fileManager;
         }
 
-        public async Task<int> Do(int id)
+        public int Do(int id)
         {
-            var post = _newsManager.GetOneNews(id, x => x);
+            var news = _newsManager.GetOneNews(id, x => x);
 
-            if (await _newsManager.DeleteOneNews(id) > 0)
+            if (_newsManager.DeleteOneNews(id) > 0)
             {
-                _fileManager.DeleteImage(post.Image);
+                _fileManager.DeleteImage(news.Image);
                 return 0;
             }
             else

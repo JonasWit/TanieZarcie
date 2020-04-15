@@ -10,7 +10,7 @@ namespace WEB.Shop.Domain.Infrastructure
     {
         Task<int> CreateOneNews(OneNews news);
         Task<int> UpdateOneNews(OneNews news);
-        Task<int> DeleteOneNews(int id);
+        int DeleteOneNews(int id);
 
         int CountNews(string category);
         int CountNews();

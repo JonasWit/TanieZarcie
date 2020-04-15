@@ -5,9 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Tanie Zarcie !!!</title>
-
+    <base href="/" />
     <environment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -27,7 +26,7 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
 
-            <a class="navbar-brand" asp-page="/Index">TANIE <span> <img style="height:20px;"   src="~/content/browserIcons/udko.png" alt="Udeczko"/> </span> ŻARCIE</a>
+            <a class="navbar-brand" asp-page="/Index">TANIE <span> <img style="height:20px;" src="~/content/browserIcons/udko.png" alt="Udeczko" /> </span> ŻARCIE</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -175,28 +174,22 @@
 
     </footer>
 
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="~/js/mainjs/blazorChart.js"></script>
+
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="~/_framework/blazor.server.js"></script>
-        <script src="https://www.amcharts.com/lib/4/core.js"></script>
-        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-        <script src="~/js/mainjs/blazorChart.js"></script>
     </environment>
     <environment include="Production">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="~/_framework/blazor.server.js"></script>
-        <script src="https://www.amcharts.com/lib/4/core.js"></script>
-        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-        <script src="~/js/mainjs/blazorChart.js"></script>
     </environment>
+
+    <script src="~/_framework/blazor.server.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

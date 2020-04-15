@@ -10,7 +10,7 @@ namespace WEB.Shop.Application.Enums
         Lidl = 1,
         Kaufland = 2,
         Carrefour = 3,
-        Auchan = 4,
+        //Auchan = 4,
         Zabka = 5,
         Castorama = 6,
     }

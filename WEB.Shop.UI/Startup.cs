@@ -56,8 +56,9 @@ namespace WEB.Shop.UI
                         || context.User.HasClaim("Role", "Admin")));
             });
 
-            services
-                .AddMvc(option => 
+            services.AddServerSideBlazor();
+
+            services.AddMvc(option => 
                 { 
                     option.EnableEndpointRouting = false;
                     option.CacheProfiles.Add("Weekly", new CacheProfile { Duration = 60 * 60 * 24 * 7 });
@@ -76,7 +77,6 @@ namespace WEB.Shop.UI
                 options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
             });
 
-            services.AddServerSideBlazor();
             services.AddRazorPages();
             services.AddApplicaitonServices();
         }

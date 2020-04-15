@@ -249,5 +249,7 @@ namespace WEB.Shop.Application.Products
             public int StockCount { get; set; }
             public DateTime TimeStamp { get; set; }
         }
+
+        //todo: zrobic count response, zamknac wszystko w 1 request
     }
 }

@@ -15,25 +15,29 @@ namespace WEB.Shop.Application.BlazorServices
 
         public class ShopOverview
         {
+            public int Id { get; set; }
             public string Shop { get; set; }
-            public decimal Products { get; set; }
-            public decimal ProductsOnSale { get; set; }
-            public string SalePercentage => Products != 0 ? $"{Math.Round((ProductsOnSale * 100) / Products, 2)} %" : "";
+            public decimal TotalProducts { get; set; }
+            public decimal TotalProductsOnSale { get; set; }
+            public string SalePercentage => TotalProducts != 0 ? $"{Math.Round((TotalProductsOnSale * 100) / TotalProducts, 2)} %" : "";
         }
 
         public List<ShopOverview> GetShopsData()
         {
             var data = _getProducts.GetAllProducts().ToList();
             var result = new List<ShopOverview>();
+            var id = 1;
 
             foreach (var shop in Enum.GetNames(typeof(Shops)).ToList())
             {
                 result.Add(new ShopOverview
                 { 
+                    Id = id,
                     Shop = shop.ToString(),
-                    Products = data.Count(product => product.Seller == shop),
-                    ProductsOnSale = data.Count(product => product.Seller == shop && product.OnSale)
-                });    
+                    TotalProducts = data.Count(product => product.Seller == shop),
+                    TotalProductsOnSale = data.Count(product => product.Seller == shop && product.OnSale)
+                });
+                id++;
             }
 
             return result;

@@ -18,7 +18,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerKaufland());
             Crawlers.Add(new CrawlerLidl());
             Crawlers.Add(new CrawlerCarrefour());
-            Crawlers.Add(new CrawlerAuchan());
+            //Crawlers.Add(new CrawlerAuchan());
             Crawlers.Add(new CrawlerZabka());
             //Crawlers.Add(new CrawlerCastorama());
 
