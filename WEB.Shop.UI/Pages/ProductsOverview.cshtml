@@ -39,16 +39,8 @@
                                     <button class="btn btn-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
                                 </div>
                             </div>
-
                             <div class="col-5">
-
                                 <div class="row mt-3 ml-5" style="font-size:12px;">
-                                    <div class="">
-                                        <p class="pl-3 text-center">Obecna Strona - @Model.CurrentPage</p>
-                                    </div>
-                                    <div class="">
-                                        <p class="pl-3 text-center">Wszystkie Strony - @(Model.TotalPages == 0 ? 1 : Model.TotalPages)</p>
-                                    </div>
                                     <div class="">
                                         <p class="pl-3 text-center">@(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)</p>
                                     </div>
