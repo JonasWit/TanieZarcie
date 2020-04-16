@@ -163,8 +163,7 @@ namespace WEB.Shop.UI.Pages
             bool yellow = false;
             bool green = false;
 
-            string dispalyTime = "";
-
+            string dispalyTime;
             if (days == 1 && days != 0)
             {
                 dispalyTime = $"Sprawdzone: {days} dzień temu";

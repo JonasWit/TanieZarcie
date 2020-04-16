@@ -1,0 +1,63 @@
+﻿
+
+@*@using System.Net.Http
+    @using WEB.Shop.Application.ProductsAdmin
+    @inject IHttpClientFactory HttpFactory
+    @inject NavigationManager MyNavigationManager
+
+    <h3>AdminIndexComponent</h3>
+
+    <button class="button is-warning" @onclick="TestApi">TEST</button>
+
+    @code {
+
+
+
+
+
+    }*@
+
+@*@code {
+
+        protected override async Task OnInitializedAsync()
+        {
+
+        }
+
+        private void TestApi()
+        {
+            try
+            {
+                using var client = HttpFactory.CreateClient();
+
+                HttpRequestMessage httpRequestMessage= new HttpRequestMessage();
+                httpRequestMessage.Method = new HttpMethod("POST");
+                httpRequestMessage.RequestUri = new Uri($"{MyNavigationManager.Uri}/Cart/AddOneAsync/1");
+
+                var response = client.SendAsync(httpRequestMessage).Result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }*@
+
+@*@using System.Net.Http
+    @using WEB.Shop.UI
+    @inject IHttpClientFactory HttpFactory
+    @inject NavigationManager MyNavigationManager
+
+    <h3>AdminIndexComponent</h3>
+
+    @code {
+
+        protected override async Task OnInitializedAsync()
+        {
+            var client = HttpFactory.CreateClient();
+            var baseUrl = MyNavigationManager.Uri;
+            client.BaseAddress = new Uri(baseUrl);
+            var result = await client.GetJsonAsync<GetProducts.Response[]>("/products");
+            var content = result.ToString();
+        }
+    }*@
