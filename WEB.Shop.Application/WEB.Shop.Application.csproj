@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Session\**" />
+    <EmbeddedResource Remove="Session\**" />
+    <None Remove="Session\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Quartz" Version="3.0.7" />
   </ItemGroup>
@@ -13,10 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WEB.SearchEngine\WEB.SearchEngine.csproj" />
     <ProjectReference Include="..\WEB.Shop.Domain\WEB.Shop.Domain.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Session\" />
   </ItemGroup>
 
 </Project>
