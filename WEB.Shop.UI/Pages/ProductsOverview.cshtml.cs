@@ -150,5 +150,51 @@ namespace WEB.Shop.UI.Pages
                 }
             }
         }
+
+        public Tuple<bool, bool, bool, string> UpdateData(DateTime timeStamp)
+        {
+            var offerTime = DateTime.Now - timeStamp;
+
+            var days = offerTime.Days;
+            var hours = offerTime.Hours;
+            var minutes = offerTime.Minutes;
+
+            bool red = false;
+            bool yellow = false;
+            bool green = false;
+
+            string dispalyTime = "";
+
+            if (days == 1 && days != 0)
+            {
+                dispalyTime = $"Sprawdzone: {days} dzień temu";
+                green = true;
+            }
+            else if (days < 3 && days != 0)
+            {
+                dispalyTime = $"Sprawdzone: {days} dni temu";
+                yellow = true;
+            }
+            else if (days > 2 && days != 0)
+            {
+                dispalyTime = $"Informacje starsze niż 2 dni!";
+                red = true;
+            }
+            else
+            {
+                if (hours == 0)
+                {
+                    dispalyTime = $"Sprawdzone: {minutes} min. temu";
+                }
+                else
+                {
+                    dispalyTime = $"Sprawdzone: {hours} godz. {minutes} min. temu";
+                }
+
+                green = true;
+            }
+
+            return new Tuple<bool, bool, bool, string>( red, yellow, green, dispalyTime );
+        }
     }
 }

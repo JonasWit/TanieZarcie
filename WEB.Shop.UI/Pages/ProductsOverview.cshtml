@@ -13,7 +13,6 @@
                     <form method="post">
                         <div class="row">
                             <div class="col-7">
-
                                 <div class="input-group md-form form-sm form-2 pl-0">
                                     <input class="form-control my-0 py-1 amber-border" asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
                                     <div class="input-group-append">
@@ -26,13 +25,11 @@
                                 <div class="pt-3">
                                     <select class="browser-default custom-select p-2" name="SelectedShop">
                                         <option selected value="Wszystkie">Wszystkie dostępne sklepy</option>
-
                                         @foreach (var shop in Model.Shops)
                                         {
                                             <option value="@shop">@shop</option>
                                         }
                                     </select>
-
                                 </div>
                                 <div class="pl-3 pt-3 pb-3 text-center">
                                     <button class="btn btn-warning" type="submit" asp-page-handler="Search">Szukaj</button>
@@ -49,11 +46,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
-
                 <div class="row">
                     <div class="col-12">
                         <div class="block d-flex align-items-center justify-content-center">
@@ -121,70 +116,28 @@
                                         </td>
                                         <td>
                                             @{
-                                                var offerTime = DateTime.Now - p.TimeStamp;
-
-                                                var days = offerTime.Days;
-                                                var hours = offerTime.Hours;
-                                                var minutes = offerTime.Minutes;
-
-                                                bool red = false;
-                                                bool yellow = false;
-                                                bool green = false;
-
-                                                string dispalyTime = "";
-
-                                                if (days == 1 && days != 0)
-                                                {
-                                                    dispalyTime = $"Sprawdzone: {days} dzień temu";
-                                                    green = true;
-                                                }
-                                                else if (days < 3 && days != 0)
-                                                {
-                                                    dispalyTime = $"Sprawdzone: {days} dni temu";
-                                                    yellow = true;
-                                                }
-                                                else if (days > 2 && days != 0)
-                                                {
-                                                    dispalyTime = $"Informacje starsze niż 2 dni!";
-                                                    red = true;
-                                                }
-                                                else
-                                                {
-                                                    if (hours == 0)
-                                                    {
-                                                        dispalyTime = $"Sprawdzone: {minutes} min. temu";
-                                                    }
-                                                    else
-                                                    {
-                                                        dispalyTime = $"Sprawdzone: {hours} godz. {minutes} min. temu";
-                                                    }
-
-                                                    green = true;
-                                                }
-
-                                                if (red)
+                                                var updateDataTuple = Model.UpdateData(p.TimeStamp);
+                                                if (updateDataTuple.Item1)
                                                 {
                                                     <div class="text-center p-1 bg-danger">
                                                         <small class="text-muted">
-                                                            @dispalyTime
+                                                            @updateDataTuple.Item4
                                                         </small>
                                                     </div>
                                                 }
-
-                                                if (yellow)
+                                                if (updateDataTuple.Item2)
                                                 {
                                                     <div class="text-center p-1 text-white bg-warning">
                                                         <small class="text-muted">
-                                                            @dispalyTime
+                                                            @updateDataTuple.Item4
                                                         </small>
                                                     </div>
                                                 }
-
-                                                if (green)
+                                                if (updateDataTuple.Item3)
                                                 {
                                                     <div class="text-center p-1 text-white bg-success">
                                                         <small class="text-muted">
-                                                            @dispalyTime
+                                                            @updateDataTuple.Item4
                                                         </small>
                                                     </div>
                                                 }
