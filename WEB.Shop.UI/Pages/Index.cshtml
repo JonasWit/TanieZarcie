@@ -31,21 +31,24 @@
     <div class="l-container">
         @foreach (var shop in Model.Shops)
         {
-            <a class="game-card" asp-page-handler="@shop">
-                <div class="card">
-                    <img class="card-img-top" alt="Card image cap"
-                     src="~/content/sales/Sale1.jpg"/>
-                    <div class="card-body">
-                        <h4 class="card-title">@shop</h4>
-                        <p class="card-text">
-                            liczba produktów - @Model.Products[shop]
-                        </p>
-                        <p class="card-text">
-                            liczba wykrytych promocji - @Model.ProductsOnSale[shop]
-                        </p>
+            if (@Model.Products[shop] != 0 || @Model.ProductsOnSale[shop] != 0)
+            {
+                <a class="game-card" asp-page-handler="@shop">
+                    <div class="card">
+                        <img class="card-img-top" alt="Card image cap"
+                             src="~/content/sales/Sale1.jpg" />
+                        <div class="card-body">
+                            <h4 class="card-title">@shop</h4>
+                            <p class="card-text">
+                                liczba produktów - @Model.Products[shop]
+                            </p>
+                            <p class="card-text">
+                                liczba wykrytych promocji - @Model.ProductsOnSale[shop]
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            }
         }
     </div>
 </div>
