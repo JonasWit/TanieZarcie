@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <Content Update="wwwroot/content/news/*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot/lib/Trumbowyg-master/**/*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot/lib/Trumbowyg-master/dist/**/*.*" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

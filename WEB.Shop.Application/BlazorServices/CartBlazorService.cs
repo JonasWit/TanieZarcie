@@ -64,17 +64,5 @@ namespace WEB.Shop.Application.BlazorServices
 
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
     }
-
 }
