@@ -1,35 +1,67 @@
 ﻿@model NewsPageViewModel
+<div class="main-container">
 
-<div class="mine-main-img">
-    <span class="mine-title">Aktualności</span>
-</div>
+    <div>
+        <h1 class="mine-title text-center mt-4">Aktualności</h1>
+    </div>
 
-<div class="container">
-    <a class="mine-post" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
+    <div>
+        <nav id="news-bar" class="navbar navbar-expand-lg mb-4">
 
-    @foreach (var category in Model.Categories)
-    {
-        <a class="mine-post" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1"
-           asp-route-category="@category">@category</a>
-    }
-</div>
+            <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color:#ffd800"></span>
+            </button>
 
-<div class="container">
-    <partial name="_NewsPagination" model="Model" />
-    @foreach (var singleNews in Model.News)
-    {
-        var imageNews = $"/Image/{singleNews.ImagePath}";
-        <div class="mine-container">
-            <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
-                <img src="@imageNews" width="500" />
-                <span class="mine-title">
-                    @singleNews.Title --- @singleNews.Category --- @singleNews.Created.ToShortDateString()
-                </span>
-            </a>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
+                    </li>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1"
+                               asp-route-category="@category">@category</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div> <partial name="_NewsPagination" model="Model" /></div>
+        <div class="row">
+            @foreach (var singleNews in Model.News)
+            {
+                var imageNews = $"/Image/{singleNews.ImagePath}";
+                <div class="col-sm-6">
+
+                    <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
+                        <div class="card card1 bg-dark text-white">
+                            <div class="cover">
+                                <img class="card-img" src="@imageNews" alt="Card image">
+                                <div class=" card-img-overlay">
+                                    <h5 class="card-title">
+                                        <span class="mine-title">
+                                            @singleNews.Title --- @singleNews.Category --- @singleNews.Created.ToShortDateString()
+                                        </span>
+                                    </h5>
+                                    <p class="card-text">Last updated 3 mins ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            }
+
         </div>
-    }
-    <partial name="_NewsPagination" model="Model" />
+    </div>
+          
+
+        <partial name="_NewsPagination" model="Model" />
+  
+
 </div>
-
-
-

@@ -35,26 +35,26 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Info" asp-action="WipPage">Top Promocje</a>
                     </li>
-                    @*<li class="nav-item">
-                        <a class="nav-link" asp-page="/MainProducts">Wszystkie Produkty</a>
-                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link" asp-page="/ProductsOverview">Wyszukiwarka</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Summaries" asp-action="Index">Zestawienia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="News" asp-action="NewsOverview">Aktualności</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Manager" asp-action="Edit">Add News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Manager" asp-action="Index">News Management Panel</a>
+                    </li>
+
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Summaries" asp-action="Index">Zestawienia</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="News" asp-action="NewsOverview">Aktualności</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Manager" asp-action="Edit">Add News</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Manager" asp-action="Index">News Management Panel</a>
-                        </li>
+
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -178,6 +178,9 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
 
     <environment include="Development">
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
