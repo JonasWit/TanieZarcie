@@ -1,35 +1,22 @@
 ﻿@model NewsPageViewModel
 <div class="main-container">
-
     <div>
-        <h1 class="mine-title text-center mt-4">Aktualności</h1>
+        <h1 class="mine-title text-center mt-4 mb-4">Aktualności</h1>
     </div>
-
-    <div>
-        <nav id="news-bar" class="navbar navbar-expand-lg mb-4">
-
-            <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="color:#ffd800"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
-                    </li>
-                    @foreach (var category in Model.Categories)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1"
-                               asp-route-category="@category">@category</a>
-                        </li>
-                    }
-
-                </ul>
-            </div>
-        </nav>
+    <div class="container mb-5">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+            <li class="nav-item nav-tabs-item">
+                <a class="nav-link nav-tabs-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
+            </li>
+            @foreach (var category in Model.Categories)
+            {
+                <li class="nav-item nav-tabs-item">
+                    <a class="nav-link nav-tabs-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1"
+                       asp-route-category="@category">@category</a>
+                </li>
+            }
+        </ul>
     </div>
-
     <div class="container">
         <div> <partial name="_NewsPagination" model="Model" /></div>
         <div class="row">
@@ -39,7 +26,7 @@
                 <div class="col-sm-6">
 
                     <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
-                        <div class="card card1 bg-dark text-white">
+                        <div class="card1 text-white">
                             <div class="cover">
                                 <img class="card-img" src="@imageNews" alt="Card image">
                                 <div class=" card-img-overlay">
@@ -56,12 +43,8 @@
 
                 </div>
             }
-
-        </div>
+        </div>    
+        <div><partial name="_NewsPagination" model="Model" /></div>
     </div>
-          
-
-        <partial name="_NewsPagination" model="Model" />
-  
-
 </div>
+
