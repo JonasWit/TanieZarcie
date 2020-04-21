@@ -1,12 +1,12 @@
 ﻿@model NewsPageViewModel
 <div class="main-container">
     <div>
-        <h1 class="mine-title text-center mt-4 mb-4">Aktualności</h1>
+        <h1 class="mine-title text-center mt-4 mb-4"><span style="color: #b79e0e; font-size: 55px;">A</span>ktualności</h1>
     </div>
     <div class="container mb-5">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
             <li class="nav-item nav-tabs-item">
-                <a class="nav-link nav-tabs-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
+                <a class="nav-link nav-tabs-link " asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1">Wszystko</a>
             </li>
             @foreach (var category in Model.Categories)
             {
@@ -24,27 +24,26 @@
             {
                 var imageNews = $"/Image/{singleNews.ImagePath}";
                 <div class="col-sm-6">
-
                     <a class="mine-post" asp-controller="News" asp-action="SingleNewsDisplay" asp-route-id="@singleNews.Id">
                         <div class="card1 text-white">
                             <div class="cover">
                                 <img class="card-img" src="@imageNews" alt="Card image">
                                 <div class=" card-img-overlay">
-                                    <h5 class="card-title">
-                                        <span class="mine-title">
-                                            @singleNews.Title --- @singleNews.Category --- @singleNews.Created.ToShortDateString()
-                                        </span>
-                                    </h5>
-                                    <p class="card-text">Last updated 3 mins ago</p>
+                                    <div class="blur">
+                                        <h5 class="card-title">
+                                            <span>
+                                                @singleNews.Title --- @singleNews.Category --- @singleNews.Created.ToShortDateString()
+                                            </span>
+                                        </h5>
+                                        <p class="card-text">Last updated 3 mins ago</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </a>
-
                 </div>
             }
-        </div>    
+        </div>
         <div><partial name="_NewsPagination" model="Model" /></div>
     </div>
 </div>
-

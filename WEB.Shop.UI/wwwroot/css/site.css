@@ -1,6 +1,8 @@
 ﻿
 * body {
     font-family: Arial, Helvetica, sans-serif;
+    
+    
 }
 
 .align-self-center {
@@ -70,20 +72,7 @@
     color: #d25e64;
 }
 
-.page-link {
-    position: relative;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #000000;
-    background-color: #ffc107 !important;
-    border: 1px solid #ffc107;
-}
 
-.page-item {
-    border-radius: 25px;
-}
 
 .main-header {
     display: flex;
@@ -692,4 +681,65 @@ will-change: skewx (0.001deg);
 
 /*Pagination*/
 
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #000000;
+    background-color: #ffc107 !important;
+    border: 1px solid #ffc107 !important;
+}
 
+
+.page-item a {
+        
+    color: #000;
+    border: 2px solid #ffc107;
+    border-bottom: none;
+    z-index: 1;
+    position: relative;
+    transition: all 0.3s ease 0s; 
+    
+}
+
+.page-link:hover,
+.page-link.active a {
+    background: linear-gradient(90deg, #ffc107, #000000, #ffc107);
+    color: #fff;
+   
+}
+
+    .page-link.active a:before {
+        content: "";
+        display: block;
+        height: 2px;
+        background: #fff;
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        transform: scaleX(0);
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+.page-link a:before,
+.page-link.a:hover:before {
+    transform: scaleX(1);
+}
+
+/*Blur effect*/
+
+.blur {
+    position: relative;
+    padding: 30px;
+    width: 250px;
+    height: 120px;
+    background-color: #000000;
+    border-radius: 2px;
+    overflow: hidden;
+    opacity: 0.7;
+}
+
+ 
