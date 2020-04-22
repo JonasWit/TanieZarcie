@@ -98,6 +98,7 @@
                                                 {
                                                     <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
                                                     <p class="text-danger text-center font-weight-bold"> @p.Value </p>
+                                                    <p class="text-danger text-center font-weight-bold"> @($"{String.Format("Obniżka: {0:P2}", 1 - p.Discount)}") </p>
                                                 }
                                                 else
                                                 {

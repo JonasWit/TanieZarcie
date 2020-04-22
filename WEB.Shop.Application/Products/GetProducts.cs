@@ -55,6 +55,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             });
@@ -75,6 +77,8 @@ namespace WEB.Shop.Application.Products
                 SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
+
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -97,6 +101,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Name.StandardSearch(searchString));
@@ -117,6 +123,8 @@ namespace WEB.Shop.Application.Products
                 SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
+
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -139,6 +147,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
@@ -160,6 +170,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
@@ -180,6 +192,8 @@ namespace WEB.Shop.Application.Products
                 SaleValue = product.SaleValue.MonetaryValue(false),
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
+
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -203,6 +217,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale ? (product.Value / product.SaleValue): 0,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
@@ -225,6 +241,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
             }, product => product.Seller.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
@@ -243,6 +261,7 @@ namespace WEB.Shop.Application.Products
 
             public bool OnSale { get; set; }
             public string SaleValue { get; set; }
+            public decimal Discount { get; set; }
             public string SaleDescription { get; set; }
             public DateTime SaleDeadline { get; set; }
 
