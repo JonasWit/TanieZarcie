@@ -57,7 +57,7 @@ namespace WEB.SearchEngine.Crawlers
         {
             var result = new Product();
 
-            #region Check if product node exists
+            #region Check if product node exists and if it is on sale
 
             if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "product__title title", MatchDireciton.Equals)))) return new Product();
 

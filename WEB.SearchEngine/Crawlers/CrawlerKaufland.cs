@@ -59,7 +59,7 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
-                if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.InputContainsMatch)))) return new Product();
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.InputContainsMatch)))) return new Product();
 
             #endregion
 

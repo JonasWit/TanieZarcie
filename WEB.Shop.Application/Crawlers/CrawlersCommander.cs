@@ -17,6 +17,7 @@ namespace WEB.Shop.Application.Crawlers
 
         public List<Product> Results { get; private set; }
         public Dictionary<string, int> DataCacheCount { get; set; }
+        public Dictionary<string, int> DataCachePromoCount { get; set; }
         public Dictionary<string, bool> CrawlerIssues { get; set; }
         public List<SearchEngine.SearchResultsModels.Product> EngineModels { get; private set; }
         public List<DataBaseSummary> DataBaseCheck { get; set; } = new List<DataBaseSummary>();
@@ -34,11 +35,13 @@ namespace WEB.Shop.Application.Crawlers
             _searchEngine = new Engine();
 
             DataCacheCount = new Dictionary<string, int>();
+            DataCachePromoCount = new Dictionary<string, int>();
             Results = new List<Product>();
 
             foreach (var item in Enum.GetValues(typeof(Shops)))
             {
                 DataCacheCount.Add(item.ToString(), 0);
+                DataCachePromoCount.Add(item.ToString(), 0);
             }
         }
 
@@ -52,6 +55,7 @@ namespace WEB.Shop.Application.Crawlers
             foreach (var shop in Enum.GetNames(typeof(Shops)).ToList())
             {
                 DataCacheCount[shop] = Results.Where(p => p.Seller == shop).Count();
+                DataCachePromoCount[shop] = Results.Where(p => p.Seller == shop && p.OnSale).Count();
             }
 
             return Results.Count;
@@ -65,6 +69,7 @@ namespace WEB.Shop.Application.Crawlers
             ConvertSearchModelsToDomainModels();
 
             DataCacheCount[shopEnum.ToString()] = Results.Count;
+            DataCachePromoCount[shopEnum.ToString()] = Results.Where(p => p.OnSale).ToList().Count;
             return Results.Count;
         }
 
@@ -79,6 +84,7 @@ namespace WEB.Shop.Application.Crawlers
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
             DataCacheCount[shop.ToString()] = 0;
+            DataCachePromoCount[shopEnum.ToString()] = 0;
 
             await Task.Run(() => Results.RemoveAll(p => p.Seller == shopEnum.ToString()));
             return Results.Count;

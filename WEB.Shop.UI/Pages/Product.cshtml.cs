@@ -43,7 +43,7 @@ namespace WEB.Shop.UI.Pages
 
         public IActionResult OnPostReturn()
         {
-            return RedirectToPage("MainProducts", "Redirection");
+            return RedirectToPage("ProductsOverview");
         }
     }
 }

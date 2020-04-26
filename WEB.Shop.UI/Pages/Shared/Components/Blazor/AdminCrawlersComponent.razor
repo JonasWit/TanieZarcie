@@ -21,66 +21,69 @@
             </div>
         }
 
-        <aside class="menu">
-            <p class="menu-label">Crawlers</p>
-            <ul class="menu-list">
-                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                {
-                    <li>
-                        <div class="columns">
-                            <div class="column is-2">
-                                <a @onclick="(() => SelectShop(shop))">@shop.ToString()</a>
-                            </div>
-                            <div class="column is-2">
-                                <div class="tags has-addons">
-                                    <span class="tag">Cached Data</span>
-                                    @if (Commander.DataCacheCount[shop.ToString()] != 0)
-                                    {
-                                        <span class="tag is-warning">@Commander.DataCacheCount[shop.ToString()]</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="tag is-success">@Commander.DataCacheCount[shop.ToString()]</span>
-                                    }
-                                </div>
-                            </div>
-                            <div class="column is-3">
-                                <div class="tags has-addons">
-                                    <span class="tag">Crawler Status</span>
-                                    <span class="tag is-success">No Issues</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                }
-                <li>
+        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+        {
+            <article class="message is-warning">
+                <div class="message-header is-halfheight" @onclick="(() => SelectShop(shop))">
+                    <p>@shop.ToString()</p>
+                    @if (activeShop == shop)
+                    {
+                        <p>Active Option</p>
+                    }
+                </div>
+                <div class="message-body">
                     <div class="columns">
-                        <div class="column is-2">
-                            <a @onclick="SelectAllShops">All</a>
-                        </div>
-                        <div class="column is-2">
+                        <div class="column">
                             <div class="tags has-addons">
                                 <span class="tag">Cached Data</span>
-                                @if (Commander.Results.Count != 0)
-                                {
-                                    <span class="tag is-warning">@Commander.Results.Count</span>
-                                }
-                                else
-                                {
-                                    <span class="tag is-success">@Commander.Results.Count</span>
-                                }
+                                <span class="tag is-warning">@Commander.DataCachePromoCount[shop.ToString()] / @Commander.DataCacheCount[shop.ToString()]</span>
                             </div>
                         </div>
-                        <div class="column is-3">
+                        <div class="column">
                             <div class="tags has-addons">
                                 <span class="tag">Crawler Status</span>
                                 <span class="tag is-success">No Issues</span>
                             </div>
                         </div>
                     </div>
-                </li>
-            </ul>
-        </aside>
+                </div>
+            </article>
+        }
+
+        <article class="message is-warning">
+            <div class="message-header is-halfheight" @onclick="SelectAllShops">
+                <p>All Shops</p>
+                @if (activeAll)
+                {
+                    <p class="is-warning">Active Option (Individual Shops Inactive)</p>
+                }
+            </div>
+            <div class="message-body">
+                <div class="columns">
+                    <div class="column">
+                        <div class="tags has-addons">
+                            <span class="tag">Cached Data</span>
+                            @if (Commander.Results.Count != 0)
+                            {
+                                <span class="tag is-warning">@Commander.Results.Count</span>
+                            }
+                            else
+                            {
+                                <span class="tag is-success">@Commander.Results.Count</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="tags has-addons">
+                            <span class="tag">Crawler Status</span>
+                            <span class="tag is-success">No Issues</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </article>
 
         <div class="box">
             @if (activeAll)
@@ -108,104 +111,111 @@
             </div>
         }
 
-        <aside class="menu">
-            <p class="menu-label">Data Base</p>
-            <ul class="menu-list">
-                @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                {
-                    <li>
-                        <div class="columns">
-                            <div class="column is-2">
-                                <a @onclick="(() => SelectShop(shop))">@shop.ToString()</a>
-                            </div>
-                            <div class="column is-2">
-                                <div class="tags has-addons">
-                                    <span class="tag">Cached Data</span>
-                                    @if (Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).ToList().Count != 0)
-                                    {
-                                        <span class="tag is-warning">@Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.ProductsCount</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="tag is-success">0</span>
-                                    }
-                                </div>
-                            </div>
-                            <div class="column is-3">
-                                <div class="tags has-addons">
-                                    <span class="tag">Crawler Status</span>
-                                    <span class="tag is-success">No Issues</span>
-                                </div>
-                            </div>
-                            <div class="column is-3">
-                                <div class="tags has-addons">
-                                    <span class="tag">Oldest Record</span>
-                                    @{
-                                        var olderstRecord = Commander.DataBaseCheck
-                                            .Where(x => x.Shop == shop.ToString()).FirstOrDefault()?
-                                            .OldestEntry;
-
-                                        if (olderstRecord != null)
-                                        {
-
-                                            var offerTime = DateTime.Now - (DateTime)olderstRecord;
-
-                                            var days = offerTime.Days;
-                                            var hours = offerTime.Hours;
-                                            var minutes = offerTime.Minutes;
-
-
-                                            if (days < 3 && days != 0)
-                                            {
-                                                <span class="tag is-warning">@olderstRecord.ToString()</span>
-                                            }
-                                            else if (days > 2 && days != 0)
-                                            {
-                                                <span class="tag is-danger">@olderstRecord.ToString()</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="tag is-success">@olderstRecord.ToString()</span>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <span class="tag is-warning">No data</span>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                }
-                <li>
+        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+        {
+            <article class="message is-warning">
+                <div class="message-header is-halfheight" @onclick="(() => SelectShop(shop))">
+                    <p>@shop.ToString()</p>
+                    @if (activeShop == shop)
+                    {
+                        <p>Active Option</p>
+                    }
+                </div>
+                <div class="message-body">
                     <div class="columns">
-                        <div class="column is-2">
-                            <a @onclick="SelectAllShops">All</a>
-                        </div>
-                        <div class="column is-2">
+                        <div class="column">
                             <div class="tags has-addons">
                                 <span class="tag">Cached Data</span>
-                                @if (@Commander.DataBaseCheck.Sum(x => x.ProductsCount) != 0)
+                                @if (Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).ToList().Count != 0)
                                 {
-                                    <span class="tag is-warning">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                    <span class="tag is-warning">@Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.ProductsCount</span>
                                 }
                                 else
                                 {
-                                    <span class="tag is-success">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                    <span class="tag is-success">0</span>
                                 }
                             </div>
                         </div>
-                        <div class="column is-3">
+                        <div class="column">
                             <div class="tags has-addons">
                                 <span class="tag">Crawler Status</span>
                                 <span class="tag is-success">No Issues</span>
                             </div>
                         </div>
+                        <div class="column">
+                            <div class="tags has-addons">
+                                <span class="tag">Oldest Record</span>
+                                @{
+                                    var olderstRecord = Commander.DataBaseCheck
+                                        .Where(x => x.Shop == shop.ToString()).FirstOrDefault()?
+                                        .OldestEntry;
+
+                                    if (olderstRecord != null)
+                                    {
+
+                                        var offerTime = DateTime.Now - (DateTime)olderstRecord;
+
+                                        var days = offerTime.Days;
+                                        var hours = offerTime.Hours;
+                                        var minutes = offerTime.Minutes;
+
+
+                                        if (days < 3 && days != 0)
+                                        {
+                                            <span class="tag is-warning">@olderstRecord.ToString()</span>
+                                        }
+                                        else if (days > 2 && days != 0)
+                                        {
+                                            <span class="tag is-danger">@olderstRecord.ToString()</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="tag is-success">@olderstRecord.ToString()</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="tag is-warning">No data</span>
+                                    }
+                                }
+                            </div>
+                        </div>
                     </div>
-                </li>
-            </ul>
-        </aside>
+                </div>
+            </article>
+        }
+        <article class="message is-warning">
+            <div class="message-header is-halfheight" @onclick="SelectAllShops">
+                <p>All Shops</p>
+                @if (activeAll)
+                {
+                    <p class="is-warning">Active Option (Individual Shops Inactive)</p>
+                }
+            </div>
+            <div class="message-body">
+                <div class="columns">
+                    <div class="column">
+                        <div class="tags has-addons">
+                            <span class="tag">Cached Data</span>
+                            @if (@Commander.DataBaseCheck.Sum(x => x.ProductsCount) != 0)
+                            {
+                                <span class="tag is-warning">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                            }
+                            else
+                            {
+                                <span class="tag is-success">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="tags has-addons">
+                            <span class="tag">Crawler Status</span>
+                            <span class="tag is-success">No Issues</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
 
         <div class="box">
             @if (activeAll)

@@ -13,5 +13,6 @@ namespace WEB.Shop.Application.Enums
         //Auchan = 4,
         Zabka = 5,
         Castorama = 6,
+        
     }
 }

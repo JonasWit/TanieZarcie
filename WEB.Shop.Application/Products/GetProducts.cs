@@ -55,7 +55,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -78,7 +78,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -101,7 +101,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -124,7 +124,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -147,7 +147,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -170,7 +170,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -193,7 +193,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -217,7 +217,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue): 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
@@ -241,7 +241,7 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
-                Discount = product.OnSale ? (product.Value / product.SaleValue) : 0,
+                Discount = product.OnSale && product.SaleValue != 0 ? (product.Value / product.SaleValue) : 0,
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp

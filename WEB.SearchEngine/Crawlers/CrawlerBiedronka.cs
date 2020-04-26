@@ -59,7 +59,7 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))) return new Product();
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals) || CrawlerRegex.StandardMatch(y.Value, "price-wrapper", MatchDireciton.Equals)))) return new Product();
 
             #endregion
 
@@ -91,20 +91,53 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Price and Sale Price, set OnSale Flag
 
-            var pln = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
-                .FirstOrDefault()?
-                .InnerText
-                .RemoveMetaCharacters();
+            if (productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price-old", MatchDireciton.Equals))))
+            {
+                var pln = productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
+                    .FirstOrDefault()?
+                    .InnerText
+                    .RemoveMetaCharacters();
 
-            var gr = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
-                .FirstOrDefault()?
-                .InnerText
-                .RemoveMetaCharacters();
+                var gr = productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
+                    .FirstOrDefault()?
+                    .InnerText
+                    .RemoveMetaCharacters();
 
-            if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
-            else return new Product();
+                if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
+                else return new Product();
+
+                var oldPrice = productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price-old", MatchDireciton.Equals)))
+                    .FirstOrDefault()?
+                    .InnerText
+                    .RemoveNonNumeric();
+
+                if (decimal.TryParse(oldPrice, out decimal oldPriceDecimal)) result.SaleValue = oldPriceDecimal / 100;
+                else return new Product();
+
+                result.OnSale = true;
+            }
+            else
+            {
+                var pln = productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pln", MatchDireciton.Equals)))
+                    .FirstOrDefault()?
+                    .InnerText
+                    .RemoveMetaCharacters();
+
+                var gr = productNode.Descendants()
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "gr", MatchDireciton.Equals)))
+                    .FirstOrDefault()?
+                    .InnerText
+                    .RemoveMetaCharacters();
+
+                if (decimal.TryParse(pln, out decimal plnDecimal) && decimal.TryParse(gr, out decimal grDecimal)) result.Value = plnDecimal + (grDecimal / 100);
+                else return new Product();
+
+                result.OnSale = false;
+            }
 
             #endregion
 
@@ -135,7 +168,7 @@ namespace WEB.SearchEngine.Crawlers
             result.SourceUrl = linkStruct.Link;
 
             #endregion
-  
+
             return result;
         }
     }
