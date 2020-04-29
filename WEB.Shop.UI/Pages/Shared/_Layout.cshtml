@@ -38,23 +38,21 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-page="/ProductsOverview">Wyszukiwarka</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Summaries" asp-action="Index">Zestawienia</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="News" asp-action="NewsOverview">Aktualności</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Manager" asp-action="Edit">Add News</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Manager" asp-action="Index">News Management Panel</a>
                     </li>
 
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
-
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Summaries" asp-action="Index">Zestawienia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Manager" asp-action="Edit">Add News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Manager" asp-action="Index">News Management Panel</a>
+                        </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {

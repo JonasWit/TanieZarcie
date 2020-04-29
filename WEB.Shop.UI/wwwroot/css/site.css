@@ -46,10 +46,7 @@
     color: #ffffff !important;
 }
 
-/*.summary {
-    display: block;
-    border-radius: 25px;
-}*/
+
 
 #biedronka {
     /*border: 5px solid #f0930d;*/
@@ -106,6 +103,7 @@
 
 #product-card {
     background-color: #000000;
+    opacity: 0.9;
     color: #ffffff;
 }
 
@@ -126,17 +124,32 @@ th {
 }
 
 #search-product {
+    display: block;
+    height: auto;
     background-color: #000000;
+    opacity: 0.8;
     color: #ffffff;
+    margin-bottom: 20px;
 }
 
+form {
+    padding: 15px;
+
+}
+
+.input-group-append {
+    display: flex;
+    position: relative;
+    z-index: 2;
+}
 #cart-partial-jumbo {
-    /*background-image: url('../images/cart.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: #000000;*/
     background-color: #000000;
     color: #ffffff;
+    display: block;
+    height: auto;
+    background-color: #000000;
+    opacity: 0.8;
+    margin-bottom: 20px;
 }
 
 td {
@@ -636,22 +649,23 @@ will-change: skewx (0.001deg);
     border: none;
     border-bottom: 2px solid #ffc107;
     margin: 0;
+    
 }
 
-        .nav-tabs-item a {
-            padding: 10px 20px;
-            margin: 0 10px -1px 0;
-            font-size: 17px;
-            font-weight: 600;
-            color: #000;
-            text-transform: uppercase;
-            border: 2px solid #ffc107;
-            border-bottom: none;
-            border-radius: 5px 5px 0 0;
-            z-index: 1;
-            position: relative;
-            transition: all 0.3s ease 0s;
-        }
+.nav-tabs-item a {
+    padding: 10px 20px;
+    margin: 0 10px -1px 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    border: 2px solid #ffc107;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    z-index: 1;
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
 
         .nav-tabs-link:hover,
         .nav-tabs-link.active a {
@@ -741,5 +755,7 @@ will-change: skewx (0.001deg);
     overflow: hidden;
     opacity: 0.7;
 }
+.table-row {
+    cursor: pointer;
+}
 
- 

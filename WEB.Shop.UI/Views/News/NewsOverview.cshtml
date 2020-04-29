@@ -1,7 +1,7 @@
 ﻿@model NewsPageViewModel
-<div class="main-container">
+<div class="container-fluid product">
     <div>
-        <h1 class="mine-title text-center mt-4 mb-4"><span style="color: #b79e0e; font-size: 55px;">A</span>ktualności</h1>
+        <h1 class="mine-title text-center mt-4 mb-4"style="color: #ffffff; font-size: 55px;">Aktualności</h1>
     </div>
     <div class="container mb-5">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -32,10 +32,9 @@
                                     <div class="blur">
                                         <h5 class="card-title">
                                             <span>
-                                                @singleNews.Title --- @singleNews.Category --- @singleNews.Created.ToShortDateString()
+                                                @singleNews.Title --- @singleNews.Created.ToShortDateString()
                                             </span>
                                         </h5>
-                                        <p class="card-text">Last updated 3 mins ago</p>
                                     </div>
                                 </div>
                             </div>

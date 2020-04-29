@@ -50,8 +50,9 @@
                                 </div>
 
                                 <div>
-                                    <div>
-                                        <input class="input ml-4 border border-warning" min="0" asp-for="CartViewModel.Quantity" value="1" />
+                                    <div class="form-group w-50">
+                                        
+                                        <input type="number" class="form-control ml-4 border border-warning" min="0" asp-for="CartViewModel.Quantity" value="1" />
                                     </div>
                                     @if (!string.IsNullOrEmpty(Model.Product.Description))
                                     {
