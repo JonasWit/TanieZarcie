@@ -759,3 +759,21 @@ will-change: skewx (0.001deg);
     cursor: pointer;
 }
 
+.jumbotron-news {
+    background-color: #ffffff;
+    opacity: 0.8;
+    padding: 20px;
+}
+
+.news-category {
+    color: #000000;
+    text-shadow: 5px 5px 10px #ffc107;
+}
+
+.jumbo-index {
+    background-color: #000;
+    color: #ffffff;
+    opacity: 0.8;
+    padding: 10px;
+}
+

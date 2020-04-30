@@ -1,20 +1,46 @@
 ﻿@model WEB.Shop.UI.ViewModels.News.NewsViewModel
 
 <div class="container-fluid product">
-    <div class="mine-post mine-no-shadow">
+    <!--  <div class="">
         @if (!string.IsNullOrEmpty(Model.ImagePath))
         {
             var imagePath = $"/Image/{Model.ImagePath}";
             <img src="@imagePath" />
-            <span class="mine-title">@Model.Title</span>
+            <span class="">@Model.Title</span>
         }
     </div>
-    <div class="mine-post-body">
+    <div class="">
         @Html.Raw(Model.Body)
+    </div>-->
+
+
+    <div class="container">
+
+        <div class="jumbotron-news">
+            <div class="container">
+                <div class="row">
+                    <div class="col-10">
+                        <h2 class="news-category">@Model.Title</h2>
+                        <h3>@Model.Category</h3>
+                        <p class="text-black-50">@Model.Created</p>
+                    </div>
+                    <div class="col-2">
+                        <div>
+                            @if (!string.IsNullOrEmpty(Model.ImagePath))
+                            {
+                                var imagePath = $"/Image/{Model.ImagePath}";
+                                <img class="img-thumbnail" src="@imagePath" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="text-uppercase">@Model.Description</p>
+                <p class="text-body">@Html.Raw(Model.Body) </p>
+            </div>
+        </div>
     </div>
-
-
-
 
 
 
@@ -22,30 +48,30 @@
 
 
     @*<div class="container">
-        <div>
-            <partial name="_MainComment" model="@(new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = 0 })" />
-        </div>
-
-        @foreach (var comment in Model.MainComments)
-        {
-            <p>@comment.Message --- @comment.Created</p>
-            <a asp-controller="News" asp-action="DeleteMainComment" asp-route-newsId="@Model.Id" asp-route-commentId="@comment.Id">
-                Delete
-            </a>
-
             <div>
-                <h5>Sub Comments</h5>
-                <div>
-                    <partial name="_MainComment" model="@(new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = comment.Id })" />
-                </div>
-                @foreach (var subComment in comment.SubComments)
-                {
-                    <p>@subComment.Message --- @subComment.Created</p>
-                    <a asp-controller="News" asp-action="DeleteSubComment" asp-route-newsId="@Model.Id" asp-route-commentId="@subComment.Id">
-                        Delete
-                    </a>
-                }
+                <partial name="_MainComment" model="@(new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = 0 })" />
             </div>
-        }
-    </div>*@
+
+            @foreach (var comment in Model.MainComments)
+            {
+                <p>@comment.Message --- @comment.Created</p>
+                <a asp-controller="News" asp-action="DeleteMainComment" asp-route-newsId="@Model.Id" asp-route-commentId="@comment.Id">
+                    Delete
+                </a>
+
+                <div>
+                    <h5>Sub Comments</h5>
+                    <div>
+                        <partial name="_MainComment" model="@(new NewsCommentViewModel { NewsId = Model.Id, NewsMainCommentId = comment.Id })" />
+                    </div>
+                    @foreach (var subComment in comment.SubComments)
+                    {
+                        <p>@subComment.Message --- @subComment.Created</p>
+                        <a asp-controller="News" asp-action="DeleteSubComment" asp-route-newsId="@Model.Id" asp-route-commentId="@subComment.Id">
+                            Delete
+                        </a>
+                    }
+                </div>
+            }
+        </div>*@
 </div>
