@@ -25,10 +25,10 @@ namespace WEB.Shop.UI.Controllers
                 UserName = createUserViewModel.Username
             };
 
-            await _userManager.CreateAsync(managerUser, "Jon@sz32167");
-            var managerClaim = new Claim("Role", "Manager");
+            //await _userManager.CreateAsync(managerUser, "Jon@sz32167");
+            //var managerClaim = new Claim("Role", "Manager");
 
-            await _userManager.AddClaimAsync(managerUser, managerClaim);
+            //await _userManager.AddClaimAsync(managerUser, managerClaim);
 
             return Ok();
         }
