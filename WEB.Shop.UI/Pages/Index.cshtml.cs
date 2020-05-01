@@ -39,6 +39,8 @@ namespace WEB.Shop.UI.Pages
 
         public IActionResult OnGetBiedronka() => RedirectToPage("ProductsOverview", new { selectedShop = "Biedronka" });
 
+        public IActionResult OnGetZabka() => RedirectToPage("ProductsOverview", new { selectedShop = "Zabka" });
+
         public IActionResult OnGetLidl() => RedirectToPage("ProductsOverview", new { selectedShop = "Lidl" });
 
         public IActionResult OnGetKaufland() => RedirectToPage("ProductsOverview", new { selectedShop = "Kaufland" });
