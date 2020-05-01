@@ -13,7 +13,7 @@ namespace WEB.SearchEngine.RegexPatterns
     {
         public const string StandardNormalization = @"[^AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż0-9]";
         public const string Metacharactes = @"[\t|\n|\r]";
-        public const string NonNumeric = @"[^0-9,]";
+        public const string NonNumeric = @"[^0-9]";
 
         public static Regex GetStandardNormalizationRegex() => new Regex(StandardNormalization);
 
