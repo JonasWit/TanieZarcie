@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WEB.Shop.Application.Enums;
+using WEB.Shop.Application.News;
 using WEB.Shop.Application.Products;
 
 namespace WEB.Shop.UI.Pages
@@ -14,14 +16,16 @@ namespace WEB.Shop.UI.Pages
 
         public Dictionary<string, int> Products { get; set; }
         public Dictionary<string, int> ProductsOnSale { get; set; }
+        public List<GetNews.Response> News { get; set; }
 
         public List<string> Shops { get; set; }
 
-        public void OnGet([FromServices] GetProducts getProducts)
+        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetNews getNews)
         {
             Products = new Dictionary<string, int>();
             ProductsOnSale = new Dictionary<string, int>();
             Shops = new List<string>();
+            News = getNews.Do().ToList();
 
             foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
             {

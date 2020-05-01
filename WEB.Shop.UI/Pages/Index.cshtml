@@ -24,9 +24,24 @@
         <label class="onoffswitch3-label" for="myonoffswitch3">
             <span class="onoffswitch3-inner">
                 <span class="onoffswitch3-active">
-                    <marquee class="scroll-text">
-                        Plany: Już niedługo dodamy nowe sklepy z kategorii market budowlany. Chcesz zobaczyć i porównać promocje z Castoramy lub OBI? Zostań z nami!
-                    </marquee>
+                    @if (Model.News != null && Model.News.Count != 0)
+                    {
+                        var newsBar = "";
+
+                        foreach (var news in Model.News)
+                        {
+                            newsBar = $"{newsBar} {news.Category.ToUpper()}: {news.Title}";
+                        }
+                        <marquee class="scroll-text">
+                            @newsBar
+                        </marquee>
+                    }
+                    else
+                    {
+                        <marquee class="scroll-text">
+                            Plany: Już niedługo dodamy nowe sklepy z kategorii market budowlany. Chcesz zobaczyć i porównać promocje z Castoramy lub OBI? Zostań z nami!
+                        </marquee>
+                    }
                     <span class="onoffswitch3-switch" style="color: #fff; background: linear-gradient(90deg, #ffc107, #000000, #ffc107)">AKTUALNOŚCI <span class="glyphicon glyphicon-remove"></span></span>
                 </span>
                 <span class="onoffswitch3-inactive" style="color: #fff; background: linear-gradient(90deg, #ffc107, #000000, #ffc107)"><span class="onoffswitch3-switch">POKAŻ AKTUALNOŚCI</span></span>
