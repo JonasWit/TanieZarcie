@@ -18,7 +18,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerKaufland());
             Crawlers.Add(new CrawlerLidl());
             Crawlers.Add(new CrawlerCarrefour());
-            //Crawlers.Add(new CrawlerAuchan());
+            Crawlers.Add(new CrawlerAuchan());
             Crawlers.Add(new CrawlerZabka());
             //Crawlers.Add(new CrawlerCastorama());
 
@@ -74,6 +74,12 @@ namespace WEB.SearchEngine
                     await Task.Run(() => castoramaCrawler.GetData());
                     Crawlers.Add(castoramaCrawler);
                     break;
+                case Shops.Obi:
+                    var obiCrawler = new CrawlerObi();
+                    await Task.Run(() => obiCrawler.GetData());
+                    Crawlers.Add(obiCrawler);
+                    break;
+
                 default:
                     break;
             }

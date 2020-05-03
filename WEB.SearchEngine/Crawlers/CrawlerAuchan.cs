@@ -33,6 +33,7 @@ namespace WEB.SearchEngine.Crawlers
             htmlDocument.LoadHtml(linkStruct.Html);
 
             var divs = htmlDocument.DocumentNode.Descendants("article")
+                .AsParallel()
                 .Where(node => node.GetAttributeValue("class", "")
                 .ContainsAny("product"))
                 .ToList();

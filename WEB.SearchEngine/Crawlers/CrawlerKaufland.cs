@@ -33,6 +33,7 @@ namespace WEB.SearchEngine.Crawlers
             htmlDocument.LoadHtml(linkStruct.Html);
 
             var divs = htmlDocument.DocumentNode.Descendants("div")
+                .AsParallel()
                 .Where(node => node.GetAttributeValue("class", "")
                 .ContainsAny("m-offer-tile m-offer-tile--line-through m-offer-tile"))
                 .ToList();
@@ -99,14 +100,52 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Price and Sale Price, set OnSale Flag
 
-            var price = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
-                .FirstOrDefault()?
-                .InnerText
-                .RemoveMetaCharacters();
+            if (productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__old-price", MatchDireciton.Equals))))
+            {
 
-            if (decimal.TryParse(price, out decimal plnDecimal)) result.Value = plnDecimal / 100;
-            else return null;
+                var price = productNode.Descendants()
+                   .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
+                   .FirstOrDefault()?
+                   .InnerText
+                   .RemoveMetaCharacters();
+
+                var salePrice = productNode.Descendants()
+                   .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__old-price", MatchDireciton.Equals)))
+                   .FirstOrDefault()?
+                   .InnerText
+                   .RemoveMetaCharacters();
+
+
+                if (decimal.TryParse(price, out decimal plnDecimal) &&
+                    decimal.TryParse(salePrice, out decimal salePlnDecimal))
+                {
+                    result.SaleValue = salePlnDecimal / 100;
+                    result.Value = plnDecimal / 100;
+                    result.OnSale = true;
+                }
+                else
+                {
+                    return new Product();
+                }
+            }
+            else
+            {
+                var price = productNode.Descendants()
+                   .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
+                   .FirstOrDefault()?
+                   .InnerText
+                   .RemoveMetaCharacters();
+
+                if (decimal.TryParse(price, out decimal plnDecimal))
+                {
+                    result.Value = plnDecimal / 100;
+                    result.OnSale = false;
+                }
+                else
+                {
+                    return new Product();
+                }
+            }
 
             #endregion
 

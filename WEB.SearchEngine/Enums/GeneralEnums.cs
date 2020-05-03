@@ -10,7 +10,8 @@
         Auchan = 5,
         Stokrotka = 6,
         Zabka = 7,
-        Castorama = 8
+        Castorama = 8,
+        Obi = 9
     }
 
     public enum MatchDirection

@@ -32,47 +32,6 @@ namespace WEB.SearchEngine.Crawlers
             }
         }
 
-        //public void GetData()
-        //{
-        //    try
-        //    {
-        //        var tasks = new List<Task>();      
-        //        var webStructs = new List<LinkStruct>();
-
-        //        var linksToVisit = ParseLinks(BaseUrls);
-        //        linksToVisit.RemoveAll(item => !item.Contains("http") || !item.Contains("https"));
-
-        //        foreach (var link in linksToVisit)
-        //        {
-        //            tasks.Add(Task.Run(() => webStructs.Add(new LinkStruct(link, GetSingleHtml(link)))));
-        //        }
-
-        //        Task.WaitAll(tasks.ToArray());
-
-        //        webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
-        //        webStructs.GroupBy(x => x.Link).Select(x => x.First());
-
-        //        Products = new List<Product>();
-
-        //        foreach (var webStruct in webStructs)
-        //        {
-        //            Products.AddRange(GetResultsForSingleUrl(webStruct));
-        //        }
-
-        //        var distinctProducts = Products
-        //            .GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
-        //            .Select(p => p.First())
-        //            .ToList();
-
-        //        Products = distinctProducts;
-        //        Products.TrimExcess();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return;
-        //    }
-        //}
-
         public void GetData()
         {
             try
@@ -93,6 +52,8 @@ namespace WEB.SearchEngine.Crawlers
                     .GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
                     .Select(p => p.First())
                     .ToList();
+
+                distinctProducts.RemoveAll(p => !p.OnSale);
 
                 Products = distinctProducts;
                 Products.TrimExcess();
@@ -155,36 +116,6 @@ namespace WEB.SearchEngine.Crawlers
             return "";
         }
 
-        //private string GetSingleHtml(string link)
-        //{
-        //    using (var client = new HttpClient())
-        //    {
-        //        HttpResponseMessage responseMessage = null;
-
-        //        try
-        //        {
-        //            responseMessage = client.GetAsync(link).Result;
-        //        }
-        //        catch (AggregateException)
-        //        {
-        //            return "";
-        //        }
-
-        //        if (responseMessage.IsSuccessStatusCode)
-        //        {
-        //            try
-        //            {
-        //                return client.GetStringAsync(link).Result;
-        //            }
-        //            catch (AggregateException)
-        //            {
-        //                return "";
-        //            }
-        //        }
-        //    }
-        //    return "";
-        //}
-
         public abstract List<Product> GetResultsForSingleUrl(LinkStruct linkStruct);
 
         public List<string> ParseLinks(string[] urlsToCrawl)
@@ -212,6 +143,39 @@ namespace WEB.SearchEngine.Crawlers
                     list.Add(GetAbsoluteUrlString(urlToCrawl, href));
                 }
             }
+
+            return list.ToList();
+        }
+
+        //todo: pdf download
+        public List<string> GrtPdfs(string[] urlsToCrawl)
+        {
+            byte[] data;
+            HashSet<string> list = new HashSet<string>();
+
+            var testurl = "https://media.lidl-flyer.com/";
+            string pdfLinksUrl = testurl;
+
+
+            // Load HTML content    
+            var webGet = new HtmlWeb();
+            var doc = webGet.Load(pdfLinksUrl);
+
+            // select all <A> nodes from the document using XPath
+            // (unfortunately we can't select attribute nodes directly as
+            // it is not yet supported by HAP)
+            var linkNodes = doc.DocumentNode.SelectNodes("//a[@href]");
+
+            // select all href attribute values ending with '.pdf' (case-insensitive)
+            var pdfUrls = from linkNode in linkNodes
+                          let href = linkNode.Attributes["href"].Value
+                          where href.ToLower().EndsWith(".pdf")
+                          select href;
+
+            // write all PDF links to file
+            var test = pdfUrls.ToList();
+
+           // System.IO.File.WriteAllLines(@"c:\pdflinks.txt", pdfUrls.ToArray());
 
             return list.ToList();
         }
