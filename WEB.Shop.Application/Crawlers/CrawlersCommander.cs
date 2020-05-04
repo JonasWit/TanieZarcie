@@ -26,6 +26,7 @@ namespace WEB.Shop.Application.Crawlers
         {
             public string Shop { get; set; }
             public int ProductsCount { get; set; }
+            public int PromoProductsCount { get; set; }
             public DateTime OldestEntry { get; set; }
         }
 
@@ -176,7 +177,8 @@ namespace WEB.Shop.Application.Crawlers
                 {
                     Shop = item.Item1,
                     ProductsCount = item.Item2,
-                    OldestEntry = item.Item3
+                    PromoProductsCount = item.Item3,
+                    OldestEntry = item.Item4
                 });
             }
         }

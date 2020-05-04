@@ -11,6 +11,6 @@ namespace WEB.Shop.Domain.Infrastructure
         Task<int> UpdateDatabaseAsync(List<Product> products);
         Task<int> ClearDataBaseAsync();
         Task<int> DeleteProductFromShops(string shop);
-        List<(string, int, DateTime)> CheckDataBase();
+        List<(string, int, int, DateTime)> CheckDataBase();
     }
 }

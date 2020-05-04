@@ -34,12 +34,6 @@
         <div class="columns">
             <div class="column is-3">
                 <div class="menu">
-
-                    <p class="menu-label is-large">Main Menu</p>
-                    <ul class="menu-list">
-                        <li><a asp-page="/Admin/Index">Summary</a></li>
-                    </ul>
-
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
                         <p class="menu-label is-large">Store Menu</p>
