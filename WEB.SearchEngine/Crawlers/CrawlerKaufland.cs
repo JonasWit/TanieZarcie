@@ -107,13 +107,15 @@ namespace WEB.SearchEngine.Crawlers
                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
                    .FirstOrDefault()?
                    .InnerText
-                   .RemoveMetaCharacters();
+                   .RemoveMetaCharacters()
+                   .RemoveNonNumeric();
 
                 var salePrice = productNode.Descendants()
                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__old-price", MatchDireciton.Equals)))
                    .FirstOrDefault()?
                    .InnerText
-                   .RemoveMetaCharacters();
+                   .RemoveMetaCharacters()
+                   .RemoveNonNumeric();
 
 
                 if (decimal.TryParse(price, out decimal plnDecimal) &&
@@ -134,7 +136,8 @@ namespace WEB.SearchEngine.Crawlers
                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__price", MatchDireciton.Equals)))
                    .FirstOrDefault()?
                    .InnerText
-                   .RemoveMetaCharacters();
+                   .RemoveMetaCharacters()
+                   .RemoveNonNumeric();
 
                 if (decimal.TryParse(price, out decimal plnDecimal))
                 {
