@@ -17,7 +17,6 @@ namespace WEB.Shop.UI.Pages
         public Dictionary<string, int> Products { get; set; }
         public Dictionary<string, int> ProductsOnSale { get; set; }
         public List<GetNews.Response> News { get; set; }
-
         public List<string> Shops { get; set; }
 
         public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetNews getNews)
@@ -48,6 +47,10 @@ namespace WEB.Shop.UI.Pages
         public IActionResult OnGetCarrefour() => RedirectToPage("ProductsOverview", new { selectedShop = "Carrefour" });
 
         public IActionResult OnGetAuchan() => RedirectToPage("ProductsOverview", new { selectedShop = "Auchan" });
+
+        public IActionResult OnGetObi() => RedirectToPage("ProductsOverview", new { selectedShop = "Obi" });
+
+        public IActionResult OnGetLeroyMerlin() => RedirectToPage("ProductsOverview", new { selectedShop = "LeroyMerlin" });
 
     }
 }

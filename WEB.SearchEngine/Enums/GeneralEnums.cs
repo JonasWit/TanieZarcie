@@ -11,7 +11,8 @@
         Stokrotka = 6,
         Zabka = 7,
         Castorama = 8,
-        Obi = 9
+        Obi = 9,
+        LeroyMerlin = 10
     }
 
     public enum MatchDirection

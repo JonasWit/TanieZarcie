@@ -152,19 +152,52 @@
                                         </td>
                                     </tr>
                                 }
-                                <tr @onclick="SelectAllShops" class="@($"{(activeAll ? "is-selected" : "")}")">
-                                    <td>All Shops</td>
-                                    <td>
-                                        @if (@Commander.DataBaseCheck.Sum(x => x.ProductsCount) != 0)
+                            <tr @onclick="SelectAllShops" class="@($"{(activeAll ? "is-selected" : "")}")">
+                                <td>All Shops</td>
+                                <td>
+                                    @if (@Commander.DataBaseCheck.Sum(x => x.ProductsCount) != 0)
+                                    {
+                                        <span class="tag is-warning">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="tag is-success">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        var olderstRecordAll = Commander.DataBaseCheck.Max(x => x.OldestEntry);
+
+                                        if (olderstRecordAll != null)
                                         {
-                                            <span class="tag is-warning">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+
+                                            var offerTime = DateTime.Now - (DateTime)olderstRecordAll;
+
+                                            var days = offerTime.Days;
+                                            var hours = offerTime.Hours;
+                                            var minutes = offerTime.Minutes;
+
+
+                                            if (days < 3 && days != 0)
+                                            {
+                                                <span class="tag is-warning">@olderstRecordAll.ToString()</span>
+                                            }
+                                            else if (days > 2 && days != 0)
+                                            {
+                                                <span class="tag is-danger">@olderstRecordAll.ToString()</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="tag is-success">@olderstRecordAll.ToString()</span>
+                                            }
                                         }
                                         else
                                         {
-                                            <span class="tag is-success">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                            <span class="tag is-info">No data</span>
                                         }
-                                    </td>
-                                </tr>
+                                    }
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

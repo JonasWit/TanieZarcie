@@ -32,7 +32,7 @@ namespace WEB.SearchEngine.Crawlers
             }
         }
 
-        public void GetData()
+        public void GetData(bool multithreading = true)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace WEB.SearchEngine.Crawlers
                 var linksToVisit = ParseLinks(BaseUrls);
                 linksToVisit.RemoveAll(item => !item.Contains("http") || !item.Contains("https"));
 
-                var webStructs = CreateLinkStructs(linksToVisit);
+                var webStructs = multithreading ? CreateLinkStructs(linksToVisit) : CreateLinkStructsSynchronously(linksToVisit);
 
                 foreach (var webStruct in webStructs)
                 {
@@ -75,6 +75,21 @@ namespace WEB.SearchEngine.Crawlers
             }
 
             Task.WaitAll(tasks.ToArray());
+
+            webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
+            webStructs.GroupBy(x => x.Link).Select(x => x.First());
+
+            return webStructs;
+        }
+
+        private List<LinkStruct> CreateLinkStructsSynchronously(List<string> linksToVisit)
+        {
+            var webStructs = new List<LinkStruct>();
+
+            foreach (var link in linksToVisit)
+            {
+                webStructs.Add(new LinkStruct(link, GetSingleHtml(link)));
+            }
 
             webStructs.RemoveAll(link => !LinkCleanUp(link.Link, Shop.ToString()));
             webStructs.GroupBy(x => x.Link).Select(x => x.First());
@@ -125,7 +140,7 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var urlToCrawl in urlsToCrawl)
             {
-                using WebClient webClient = new WebClient();
+                using var webClient = new WebClient();
 
                 data = webClient.DownloadData(urlToCrawl);
 

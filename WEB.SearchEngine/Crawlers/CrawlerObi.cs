@@ -51,12 +51,12 @@ namespace WEB.SearchEngine.Crawlers
                 return result;
             }
 
-            foreach (var container in standardDivs)
-            {
-                //ExtractProduct(container, linkStruct);
-                var nodeToPass = container;
-                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
-            }
+            //foreach (var container in standardDivs)
+            //{
+            //    //ExtractProduct(container, linkStruct);
+            //    var nodeToPass = container;
+            //    tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+            //}
 
             foreach (var container in listDivs)
             {
@@ -140,13 +140,16 @@ namespace WEB.SearchEngine.Crawlers
                     .RemoveNonNumeric();
 
                 var promoPrice = productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price-basic", MatchDireciton.Equals)))
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "price", MatchDireciton.Equals)))
+                    .FirstOrDefault()?
+                    .Descendants("span")
+                    .Where(d => !d.Descendants().Any(c => c.Name == "del") && d.ParentNode.Name != "del")
                     .FirstOrDefault()?
                     .GetAttributeValue("data-csscontent", "")?
                     .RemoveNonNumeric();
 
-                if (decimal.TryParse(regularPrice, out decimal priceDecimal)) result.Value = priceDecimal / 100;
-                if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.SaleValue = promoPriceDecimal / 100;
+                if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.Value = promoPriceDecimal / 100;
+                if (decimal.TryParse(regularPrice, out decimal regularPriceDecimal)) result.SaleValue = regularPriceDecimal / 100;
 
                 result.OnSale = true;
             }
