@@ -66,7 +66,7 @@ namespace WEB.Shop.DataBase
         {
             var result = new List<(string, int, int, DateTime)>();
 
-            var shops = _context.Products.Select(s => s.Seller).Distinct();
+            var shops = _context.Products.Select(s => s.Seller).Distinct().ToList();
 
             foreach (var shop in shops)
             {

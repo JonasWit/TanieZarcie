@@ -4,68 +4,157 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TanieZarcie !!! ADMIN PANEL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>TanieZarcie | ADMIN PANEL</title>
     <base href="~/" />
 
-    <environment include="Development">
-        <link href="~/lib/bulma-0.8.0/css/bulma.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <link rel="icon" href="@Url.Content("~/content/browserIcons/computer.png")" />
-    </environment>
-
-    <environment include="Production">
-        <link href="~/lib/bulma-0.8.0/css/bulma.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <link rel="icon" href="@Url.Content("~/content/browserIcons/computer.png")" />
-    </environment>
+    <link rel="icon" href="@Url.Content("~/content/browserIcons/computer.png")" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="~/css/adminSite.css" rel="stylesheet" />
 </head>
 
 <body>
-    <section class="hero is-warning">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title has-text-centered">Admin Panel</h1>
-            </div>
-        </div>
-    </section>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-md navbar-light">
+        <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="container">
-        <div class="columns">
-            <div class="column is-3">
-                <div class="menu">
-                    @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
-                    {
-                        <p class="menu-label is-large">Store Menu</p>
-                        <ul class="menu-list">
-                            <li><a asp-page="/Admin/OrderManagement">Order Management</a></li>
-                            <li><a asp-page="/Admin/Stock">Stock</a></li>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <!-- Sidebar Start -->
+                    <div class="col-xl-2 col-lg-3 col-md-4 tza-sidebar fixed-top">
+                        <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 tza-bottom-border">Tanie Zarcie</a>
+                        <div class="tza-bottom-border pb-3">
+                            <img src="~/images/adminSection/admin.jpeg" width="50" class="rounded-circle mr-3" />
+                            <a href="#" class="text-white">Admin User</a>
+                        </div>
+                        <ul class="navbar-nav flex-column mt-4">
+                            <li class="nav-item">
+                                <a asp-page="/Admin/Index" class="nav-link text-light p-3 mb-2 tza-sidebar-link tza-current">
+                                    <i class="fas fa-home text-light fa-lg mr-3"></i>Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-page="/Admin/CrawlersPanel" class="nav-link text-light p-3 mb-2 tza-sidebar-link">
+                                    <i class="fas fa-bug text-light fa-lg mr-3"></i>Crawlers
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-page="/Admin/DatabasePanel" class="nav-link text-light p-3 mb-2 tza-sidebar-link">
+                                    <i class="fas fa-database text-light fa-lg mr-3"></i>Database
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-page="/Admin/AutomationPanel" class="nav-link text-light p-3 mb-2 tza-sidebar-link">
+                                    <i class="fas fa-robot text-light fa-lg mr-3"></i>Automation
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-light p-3 mb-2 tza-sidebar-link">
+                                    <i class="fas fa-user text-light fa-lg mr-3"></i>Users
+                                </a>
+                            </li>
                         </ul>
-                    }
-                    @if ((await authService.AuthorizeAsync(User, "Admin")).Succeeded)
-                    {
-                        <p class="menu-label is-large">Admin Menu</p>
-                        <ul class="menu-list">
-                            <li><a asp-page="/Admin/CrawlersManagement">Crawlers</a></li>
-                            <li><a asp-page="/Admin/AutomationPanel">Automation</a></li>
-                            <li><a asp-page="/Admin/ConfigureUsers">Configure Users</a></li>
-                        </ul>
-                    }
-                    <ul class="menu-list">
-                        <li> <a asp-page="/Index">Back To Main</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="column is-9">
-                <div class="container">
-                    @RenderBody()
+                    </div>
+                    <!-- Sidebar End -->
+                    <!-- Top Nav Start -->
+                    <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 tza-top-navbar">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <h4 class="text-light text-uppercase mb-0">Dashboard</h4>
+                            </div>
+                            <div class="col-md-5">
+                            </div>
+                            <div class="col-md-3">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-comments text-muted fa-lg"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-bell text-muted fa-lg"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ml-md-auto">
+                                        <a href="#" class="nav-link">
+                                            <i class="fas fa-sign-out-alt text-danger fa-lg"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Top Nav End -->
+
                 </div>
             </div>
         </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Modal Start -->
+
+
+
+
+
+
+
+
+    <!-- Modal End -->
+
+    <div>
+        @RenderBody()
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    @*<div class="container">
+            <div class="columns">
+                <div class="column is-3">
+                    <div class="menu">
+                        @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
+                        {
+                            <p class="menu-label is-large">Store Menu</p>
+                            <ul class="menu-list">
+                                <li><a asp-page="/Admin/OrderManagement">Order Management</a></li>
+                                <li><a asp-page="/Admin/Stock">Stock</a></li>
+                            </ul>
+                        }
+                        @if ((await authService.AuthorizeAsync(User, "Admin")).Succeeded)
+                        {
+                            <p class="menu-label is-large">Admin Menu</p>
+                            <ul class="menu-list">
+                                <li><a asp-page="/Admin/CrawlersManagement">Crawlers</a></li>
+                                <li><a asp-page="/Admin/AutomationPanel">Automation</a></li>
+                                <li><a asp-page="/Admin/ConfigureUsers">Configure Users</a></li>
+                            </ul>
+                        }
+                        <ul class="menu-list">
+                            <li> <a asp-page="/Index">Back To Main</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column is-9">
+                    <div class="container">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/admin/adminStyleScripts.js"></script>
     <script src="~/_framework/blazor.server.js"></script>
 
     @RenderSection("Scripts", required: false)

@@ -1,0 +1,279 @@
+﻿@using WEB.Shop.Application.Crawlers
+@using WEB.Shop.Application.Enums
+@inject CrawlersCommander Commander
+
+@if (databaseTabLoading)
+{
+    <div class="block">
+        <progress class="progress is-small is-warning" max="100">25%</progress>
+    </div>
+}
+
+<div class="box">
+    <div class="columns">
+        <div class="column">
+            <div class="box">
+                <table class="table is-narrow is-striped">
+                    <thead>
+                        <tr>
+                            <th>Shop</th>
+                            <th>Data (Promo / Total)</th>
+                            <th>Oldest Record</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                        {
+                            <tr @onclick="(() => SelectShop(shop))" class="@($"{(activeShop == shop && !activeAll ? "is-selected" : "")}")">
+                                <td>@shop.ToString()</td>
+                                <td>
+                                    @if (Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).ToList().Count != 0)
+                                    {
+                                        <span>
+                                            @Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount / @Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.ProductsCount
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        var olderstRecord = Commander.DataBaseCheck
+                                            .Where(x => x.Shop == shop.ToString()).FirstOrDefault()?
+                                            .OldestEntry;
+
+                                        if (olderstRecord != null)
+                                        {
+
+                                            var offerTime = DateTime.Now - (DateTime)olderstRecord;
+
+                                            var days = offerTime.Days;
+                                            var hours = offerTime.Hours;
+                                            var minutes = offerTime.Minutes;
+
+
+                                            if (days < 3 && days != 0)
+                                            {
+                                                <span class="tag is-warning">@olderstRecord.ToString()</span>
+                                            }
+                                            else if (days > 2 && days != 0)
+                                            {
+                                                <span class="tag is-danger">@olderstRecord.ToString()</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="tag is-success">@olderstRecord.ToString()</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="tag is-info">No data</span>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        <tr @onclick="SelectAllShops" class="@($"{(activeAll ? "is-selected" : "")}")">
+                            <td>All Shops</td>
+                            <td>
+                                @if (@Commander.DataBaseCheck.Sum(x => x.ProductsCount) != 0)
+                                {
+                                    <span class="tag is-warning">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                }
+                                else
+                                {
+                                    <span class="tag is-success">@Commander.DataBaseCheck.Sum(x => x.ProductsCount)</span>
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    DateTime? olderstRecordAll = Commander.DataBaseCheck.Any() ? (DateTime?)Commander.DataBaseCheck.Max(x => x.OldestEntry) : null;
+
+                                    if (olderstRecordAll != null)
+                                    {
+
+                                        var offerTime = DateTime.Now - (DateTime)olderstRecordAll;
+
+                                        var days = offerTime.Days;
+                                        var hours = offerTime.Hours;
+                                        var minutes = offerTime.Minutes;
+
+
+                                        if (days < 3 && days != 0)
+                                        {
+                                            <span class="tag is-warning">@olderstRecordAll.ToString()</span>
+                                        }
+                                        else if (days > 2 && days != 0)
+                                        {
+                                            <span class="tag is-danger">@olderstRecordAll.ToString()</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="tag is-success">@olderstRecordAll.ToString()</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="tag is-info">No data</span>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="column">
+            <div class="box">
+                @if (activeAll)
+                {
+                    <p class="content">Options for All</p>
+                    <button class="button is-small is-warning" @onclick="UpdateDataBase">Update Data Base</button>
+                    <button class="button is-small is-danger" @onclick="ClearDataBase">Delete All Data</button>
+                }
+                else
+                {
+                    <p class="content">Options for @activeShop.ToString()</p>
+                    <button class="button is-small is-warning" @onclick="(() => UpdateDataBase(activeShop))">Load data for @activeShop.ToString()</button>
+                    <button class="button is-small is-danger" @onclick="(() => ClearDataBase(activeShop))">Delete data for @activeShop.ToString()</button>
+                }
+            </div>
+
+            <div class="box">
+                <p class="content">Data Base Options</p>
+                <button class="button is-small is-success" @onclick="RefreshDataBaseSummary">Check DataBase Data</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+@code {
+
+    private bool databaseTabLoading;
+
+    private Shops activeShop = Shops.Biedronka;
+    private bool activeAll = false;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await Commander.CheckDataBase();
+            databaseTabLoading = false;
+        }
+    }
+
+    private void SelectShop(Shops shop)
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            activeAll = false;
+            activeShop = shop;
+            databaseTabLoading = false;
+        }
+    }
+
+    private void SelectAllShops()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            activeAll = true;
+            databaseTabLoading = false;
+        }
+    }
+
+    #region Database
+
+    private async Task RefreshDataBaseSummary()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await Commander.CheckDataBase();
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task ClearDataBase()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await Commander.ClearDataBaseAsync();
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task ClearDataBase(Shops shop)
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await Commander.ClearDataBaseAsync(shop.ToString());
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task UpdateDataBase()
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await Commander.UpdateAllData();
+            databaseTabLoading = false;
+        }
+    }
+
+    private async Task UpdateDataBase(Shops shop)
+    {
+        if (databaseTabLoading)
+        {
+            return;
+        }
+        else
+        {
+            databaseTabLoading = true;
+            await Commander.UpdateDataBase(shop.ToString());
+            databaseTabLoading = false;
+        }
+    }
+
+    #endregion
+
+}
