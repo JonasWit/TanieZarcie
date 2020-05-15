@@ -10,6 +10,7 @@
         <div class="row">
             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                 <div class="row pt-md-5 mt-md-3 mb-5">
+
                     <!-- Crawlers Card -->
                     <div class="col-xl-3 col-sm-6 p-2">
                         <div class="card tza-card-common">
@@ -17,59 +18,107 @@
                                 <div class="d-flex justify-content-between">
                                     <i class="fas fa-bug fa-3x text-warning"></i>
                                     <div class="text-right text-secondary">
-                                        <h5>Data in Cache</h5>
-                                        <h3>@Commander.DataCacheCount.Sum(s => s.Value)</h3>
+                                        <h3>All Data</h3>
+                                        <h5>@($"{Commander.DataCacheCount.Sum(s => s.Value)} Cached")</h5>
+                                        <h5>@($"{Commander.DataCacheCount.Sum(s => s.Value)} Stored")</h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer text-secondary">
-                                <button @onclick="RunEngine" class="bg-transparent border-0">
-                                    <i class="fas fa-sync mr-3 tza-nav-icon"></i>
-                                    <span>Run all crawlers</span>
-                                </button>
-                                <button @onclick="ClearCache" class="bg-transparent border-0">
-                                    <i class="fas fa-cut mr-3 tza-nav-icon"></i>
-                                    <span>Clear Cache</span>
-                                </button>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <button @onclick="RunEngine" class="bg-transparent border-0">
+                                                    <i class="fas fa-sync mr-3 tza-nav-icon"></i>
+                                                    <span>Run all crawlers</span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button @onclick="ClearCache" class="bg-transparent border-0">
+                                                    <i class="fas fa-cut mr-3 tza-nav-icon"></i>
+                                                    <span>Clear Cache</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button @onclick="UpdateDataBase" class="bg-transparent border-0">
+                                                    <i class="fas fa-sync mr-3 tza-nav-icon"></i>
+                                                    <span>Update Database</span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button @onclick="ClearDataBase" class="bg-transparent border-0">
+                                                    <i class="fas fa-cut mr-3 tza-nav-icon"></i>
+                                                    <span>Clear Batabase</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <!-- Database Card -->
-                    <div class="col-xl-3 col-sm-6 p-2">
-                        <div class="card tza-card-common">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <i class="fas fa-database fa-3x text-warning"></i>
-                                    <div class="text-right text-secondary">
-                                        <h5>Data in Cache</h5>
-                                        <h3>@Commander.DataCacheCount.Sum(s => s.Value)</h3>
+
+                    <!-- Shops Cards -->
+                    @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                    {
+                        <div class="col-xl-3 col-sm-6 p-2">
+                            <div class="card tza-card-common">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <i class="fas fa-database fa-3x text-warning"></i>
+                                        <div class="text-right text-secondary">
+                                            <h3>@shop.ToString()</h3>
+                                            <h5>@($"{Commander.DataCacheCount.Sum(s => s.Value)} Cached")</h5>
+                                            <h5>@($"{ @Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount} Stored")</h5>
+                                        </div>
+                                    </div>
+                                    <div class="progress mb-4" style="height: 20px">
+                                        <div class="progress-bar progress-bar-striped font-weight-bold bg-info" style="width: 10%">
+                                            10%
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer text-secondary">
-                                <button @onclick="RunEngine" class="bg-transparent border-0">
-                                    <i class="fas fa-sync mr-3 tza-nav-icon"></i>
-                                    <span>Run all crawlers</span>
-                                </button>
-                                <button @onclick="ClearCache" class="bg-transparent border-0">
-                                    <i class="fas fa-cut mr-3 tza-nav-icon"></i>
-                                    <span>Clear Cache</span>
-                                </button>
+                                <div class="card-footer text-secondary">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <button @onclick="(() => RunEngine(shop))" class="bg-transparent border-0">
+                                                        <i class="fas fa-sync mr-3 tza-nav-icon"></i>
+                                                        <span>Run Crawler</span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button @onclick="(() => ClearCache(shop))" class="bg-transparent border-0">
+                                                        <i class="fas fa-cut mr-3 tza-nav-icon"></i>
+                                                        <span>Clear Cache</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button @onclick="(() => UpdateDataBase(shop))" class="bg-transparent border-0">
+                                                        <i class="fas fa-sync mr-3 tza-nav-icon"></i>
+                                                        <span>Update Database</span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button @onclick="(() => ClearDataBase(shop))" class="bg-transparent border-0">
+                                                        <i class="fas fa-cut mr-3 tza-nav-icon"></i>
+                                                        <span>Clear Batabase</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -79,7 +128,7 @@
         <div class="row mb-5">
             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                 <div class="row align-items-center">
-                    <div class="col-xl-7 col-12 mb-3 mb-xl-0">
+                    @*<div class="col-xl-7 col-12 mb-3 mb-xl-0">
                         <h3 class="text-muted text-center">Data Summary</h3>
                         <table class="table table-light table-hover text-center rounded">
                             <thead>
@@ -108,26 +157,26 @@
                                 }
                             </tbody>
                         </table>
-                    </div>
+                    </div>*@
                     <div class="col-xl-6 col-12 mb-3 mb-xl-0">
                         <h4 class="text-muted text-center">Data in Memory</h4>
                         <div class="bg-light text-dark p-4 rounded">
                             @{
-                                double totalProducts = Commander.DataCacheCount.Sum(s => s.Value);
-                                double avg = (totalProducts / Commander.DataCacheCount.Count(x => x.Value > 0));
+                                double totalCachedProducts = Commander.DataCacheCount.Sum(s => s.Value);
+                                double avg = (totalCachedProducts / Commander.DataCacheCount.Count(x => x.Value > 0));
 
                                 @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
                                 {
-                                    double shopProducts = Commander.DataCacheCount[shop.ToString()];
-                                    double shopShare = totalProducts == 0 ? 0 : Math.Round(((shopProducts / totalProducts) * 100), 2);
+                                    double shopCachedProducts = Commander.DataCacheCount[shop.ToString()];
+                                    double shopCachedShare = totalCachedProducts == 0 ? 0 : Math.Round(((shopCachedProducts / totalCachedProducts) * 100), 2);
 
                                     string color = "bg-danger";
 
-                                    if (shopShare >= 0 && shopShare <= (avg * 0.2))
+                                    if (shopCachedShare >= 0 && shopCachedShare <= (avg * 0.2))
                                     {
                                         color = "bg-danger";
                                     }
-                                    else if (shopShare >= (avg * 0.21) && shopShare <= (avg * 0.7))
+                                    else if (shopCachedShare >= (avg * 0.21) && shopCachedShare <= (avg * 0.7))
                                     {
                                         color = "bg-warning";
                                     }
@@ -136,12 +185,18 @@
                                         color = "bg-success";
                                     }
 
-                                    <h6 class="mb-3 text-center">@shop.ToString()</h6>
+                                    <!-- Cached Data Status-->
+                                    <h6 class="mb-3 text-center">@($"{@shop.ToString()} - Cached Data")</h6>
                                     <div class="progress mb-4" style="height: 20px">
-                                        <div class="progress-bar text-dark text-center progress-bar-striped font-weight-bold @color" style="width: @($"{ shopShare }%")">
-                                            @($"{ shopShare }%")
+                                        <div class="progress-bar text-dark text-center progress-bar-striped font-weight-bold @color" style="width: @($"{ shopCachedShare }%")">
+                                            @($"{ shopCachedShare }%")
                                         </div>
                                     </div>
+
+                                    <!-- Database Status-->
+
+
+
                                 }
                             }
                         </div>

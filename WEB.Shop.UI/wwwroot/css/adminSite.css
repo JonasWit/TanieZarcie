@@ -103,6 +103,7 @@
 
     .tza-nav-icon:hover {
         transform: scale(1.5);
+        color: crimson;
     }
 
 /* navbar end */
