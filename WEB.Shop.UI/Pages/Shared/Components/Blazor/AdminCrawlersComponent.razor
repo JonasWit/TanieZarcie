@@ -3,15 +3,15 @@
 @inject CrawlersCommander Commander
 
 
-@if (!crawlersTabLoading)
+@if (!loading)
 {
-    <!-- Card -->
+    <!-- Cards -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                 <div class="row pt-md-5 mt-md-3 mb-5">
+                    <!-- Crawlers Card -->
                     <div class="col-xl-3 col-sm-6 p-2">
-                        <!-- Crawlers Card -->
                         <div class="card tza-card-common">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
@@ -34,7 +34,42 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Database Card -->
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-database fa-3x text-warning"></i>
+                                    <div class="text-right text-secondary">
+                                        <h5>Data in Cache</h5>
+                                        <h3>@Commander.DataCacheCount.Sum(s => s.Value)</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <button @onclick="RunEngine" class="bg-transparent border-0">
+                                    <i class="fas fa-sync mr-3 tza-nav-icon"></i>
+                                    <span>Run all crawlers</span>
+                                </button>
+                                <button @onclick="ClearCache" class="bg-transparent border-0">
+                                    <i class="fas fa-cut mr-3 tza-nav-icon"></i>
+                                    <span>Clear Cache</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     </div>
@@ -44,15 +79,18 @@
         <div class="row mb-5">
             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                 <div class="row align-items-center">
-                    <div class="col-xl-6 col-12 mb-3 mb-xl-0">
-                        <h3 class="text-muted text-center">Payments</h3>
+                    <div class="col-xl-7 col-12 mb-3 mb-xl-0">
+                        <h3 class="text-muted text-center">Data Summary</h3>
                         <table class="table table-light table-hover text-center rounded">
                             <thead>
                                 <tr class="text-muted">
                                     <th>Shop</th>
-                                    <th>Data</th>
+                                    <th>Cache</th>
+                                    <th>Database</th>
                                     <th>Run Crawler</th>
                                     <th>Clear Data</th>
+                                    <th>Update Database</th>
+                                    <th>Delete Data</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,8 +99,11 @@
                                     <tr>
                                         <td>@shop.ToString()</td>
                                         <td>@Commander.DataCachePromoCount[shop.ToString()] / @Commander.DataCacheCount[shop.ToString()]</td>
-                                        <td><button type="button" class="btn btn-info btn-sm" @onclick="(() => RunEngine(activeShop))">Run</button></td>
-                                        <td><button type="button" class="btn btn-warning btn-sm" @onclick="(() => ClearCache(activeShop))">Clear</button></td>
+                                        <td>111</td>
+                                        <td><button type="button" class="btn btn-info btn-sm" @onclick="(() => RunEngine(shop))">Run</button></td>
+                                        <td><button type="button" class="btn btn-warning btn-sm" @onclick="(() => ClearCache(shop))">Clear</button></td>
+                                        <td><button type="button" class="btn btn-info btn-sm" @onclick="(() => UpdateDataBase(shop))">Update</button></td>
+                                        <td><button type="button" class="btn btn-warning btn-sm" @onclick="(() => ClearDataBase(shop))">Delete</button></td>
                                     </tr>
                                 }
                             </tbody>
@@ -73,7 +114,7 @@
                         <div class="bg-light text-dark p-4 rounded">
                             @{
                                 double totalProducts = Commander.DataCacheCount.Sum(s => s.Value);
-                                double avg = (totalProducts / Enum.GetNames(typeof(Shops)).Length);
+                                double avg = (totalProducts / Commander.DataCacheCount.Count(x => x.Value > 0));
 
                                 @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
                                 {
@@ -109,61 +150,42 @@
             </div>
         </div>
     </div>
-
 }
 else
 {
-    <h5>Loader here</h5>
-
-
-
-
-
-
-
-}
-
+    <!-- Loader-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <div class="row pt-md-5 mt-md-3 mb-5">
+                    <div class="tza-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 @code {
 
-    private bool crawlersTabLoading;
-
-    private Shops activeShop = Shops.Biedronka;
-    private bool activeAll = false;
-
+    private bool loading;
 
     protected override async Task OnInitializedAsync()
     {
-
-    }
-
-    private void SelectShop(Shops shop)
-    {
-        if (crawlersTabLoading)
+        if (loading)
         {
             return;
         }
         else
         {
-            crawlersTabLoading = true;
-            activeAll = false;
-            activeShop = shop;
-            crawlersTabLoading = false;
-        }
-    }
-
-    private void SelectAllShops()
-    {
-        if (crawlersTabLoading)
-        {
-            return;
-        }
-        else
-        {
-            crawlersTabLoading = true;
-            activeAll = true;
-            crawlersTabLoading = false;
+            loading = true;
+            await Commander.CheckDataBase();
+            loading = false;
         }
     }
 
@@ -171,57 +193,131 @@ else
 
     private async Task RunEngine()
     {
-        if (crawlersTabLoading)
+        if (loading)
         {
             return;
         }
         else
         {
-            crawlersTabLoading = true;
+            loading = true;
             await Commander.RunEngineAsync();
-            crawlersTabLoading = false;
+            loading = false;
         }
     }
 
     private async Task RunEngine(Shops shop)
     {
-        if (crawlersTabLoading)
+        if (loading)
         {
             return;
         }
         else
         {
-            crawlersTabLoading = true;
+            loading = true;
             await Commander.RunEngineAsync(shop.ToString());
-            crawlersTabLoading = false;
+            loading = false;
         }
     }
 
     private async Task ClearCache()
     {
-        if (crawlersTabLoading)
+        if (loading)
         {
             return;
         }
         else
         {
-            crawlersTabLoading = true;
+            loading = true;
             await Commander.ClearCacheAsync();
-            crawlersTabLoading = false;
+            loading = false;
         }
     }
 
     private async Task ClearCache(Shops shop)
     {
-        if (crawlersTabLoading)
+        if (loading)
         {
             return;
         }
         else
         {
-            crawlersTabLoading = true;
+            loading = true;
             await Commander.ClearCacheAsync(shop.ToString());
-            crawlersTabLoading = false;
+            loading = false;
+        }
+    }
+
+    #endregion
+
+    #region Database
+
+    private async Task RefreshDataBaseSummary()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.CheckDataBase();
+            loading = false;
+        }
+    }
+
+    private async Task ClearDataBase()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.ClearDataBaseAsync();
+            loading = false;
+        }
+    }
+
+    private async Task ClearDataBase(Shops shop)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.ClearDataBaseAsync(shop.ToString());
+            loading = false;
+        }
+    }
+
+    private async Task UpdateDataBase()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.UpdateAllData();
+            loading = false;
+        }
+    }
+
+    private async Task UpdateDataBase(Shops shop)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.UpdateDataBase(shop.ToString());
+            loading = false;
         }
     }
 

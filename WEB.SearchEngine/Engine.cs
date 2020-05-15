@@ -20,7 +20,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerCarrefour());
             Crawlers.Add(new CrawlerAuchan());
             Crawlers.Add(new CrawlerZabka());
-            //Crawlers.Add(new CrawlerCastorama());
+            Crawlers.Add(new CrawlerObi());
 
             foreach (var crawler in Crawlers)
             {
