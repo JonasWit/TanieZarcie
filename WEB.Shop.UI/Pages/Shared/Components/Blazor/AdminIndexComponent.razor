@@ -3,25 +3,114 @@
 @inject CrawlersCommander commander
 @inject AdminIndexBlazorService indexService
 
+<!-- Cards Start-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <div class="row pt-md-5 mt-md-3 mb-5">
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <!-- Database Card -->
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-database fa-3x text-warning"></i>
+                                    <div class="text-right text-secondary">
+                                        <h5>Products in Database</h5>
+                                        <h3>112</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <i class="fas fa-sync mr-3"></i>
+                                <span>Updated Now</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <!-- Crawlers Card -->
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-bug fa-3x text-warning"></i>
+                                    <div class="text-right text-secondary">
+                                        <h5>Products in Cache</h5>
+                                        <h3>12345</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <i class="fas fa-sync mr-3"></i>
+                                <span>Updated Now</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <!-- Automation Card -->
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-robot fa-3x text-warning"></i>
+                                    <div class="text-right text-secondary">
+                                        <h5 class="text-success">Automated Update Active</h5>
+                                        <h5 class="text-warning">Automated Update Inactive</h5>
+                                        <h3>12:30:00</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <i class="fas fa-sync mr-3"></i>
+                                <span>Updated Now</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <!-- Users Card -->
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-user fa-3x text-info"></i>
+                                    <div class="text-right text-secondary">
+                                        <h5>Users In Database</h5>
+                                        <h3>2</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <i class="fas fa-sync mr-3"></i>
+                                <span>Updated Now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-
-
-<h1>Admin Index</h1>
-
-
-
-
-
-
-
-
-
-
+<!-- Cards End-->
 
 @code {
-    private Dictionary<string, bool> activeOption = new Dictionary<string, bool>();
+
+    private bool loading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await commander.CheckDataBase();
+            loading = false;
+        }
+    }
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,11 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.Admin.AutomationPanelModel
 
-    <div>
-        <component type="typeof(Pages.Shared.Components.Blazor.AdminAutomationComponent)" render-mode="ServerPrerendered" />
-    </div>
+@{
+    ViewBag.Title = "AutomationPanel";
+}
+
+<div>
+    <component type="typeof(Pages.Shared.Components.Blazor.AdminAutomationComponent)" render-mode="ServerPrerendered" />
+</div>
 

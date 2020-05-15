@@ -19,7 +19,7 @@
 }
 
 .tza-sidebar-link {
-    transition: all .4s;
+    transition: all .5s;
 }
 
     .tza-sidebar-link:hover {
@@ -31,7 +31,7 @@
     background-color: crimson;
     border-radius: 7px;
     box-shadow: 2px 5px 10px #111;
-    transition: all .3s;
+    transition: all .5s;
 }
 
     .tza-current:hover {
@@ -52,4 +52,30 @@
     }
 }
 
+.tza-nav-icon {
+    transition: all .5s;
+}
+
+    .tza-nav-icon:hover {
+        transform: scale(1.5);
+    }
+
 /* navbar end */
+
+/* cards start */
+
+.tza-card-common {
+    box-shadow: 1px 2px 5px #999;
+    transition: all .5s;
+}
+
+    .tza-card-common:hover {
+        box-shadow: 2px 3px 15px #999;
+        transform: translateY(-1px);
+    }
+
+
+
+
+
+/* cards end */
