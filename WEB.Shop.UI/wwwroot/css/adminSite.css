@@ -102,6 +102,15 @@
 }
 
     .tza-nav-icon:hover {
+        transform: scale(1.5);
+        color: crimson;
+    }
+
+.tza-card-icon {
+    transition: all .5s;
+}
+
+    .tza-card-icon:hover {
         transform: scale(1.2);
         color: crimson;
     }
