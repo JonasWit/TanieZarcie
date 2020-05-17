@@ -2,22 +2,11 @@
 @model WEB.Shop.UI.Pages.Admin.UsersPanelModel
 
 
-@{
-    ViewBag.Title = "UsersPanel";
-}
 
-
-
-
-
-
-<div id="app" class="container">
-    <input v-model="username" />
-    <button @@click="createUser">Create</button>
-
-
-
-
+<div>
+    <component type="typeof(Pages.Shared.Components.Blazor.AdminUsersComponent)" render-mode="ServerPrerendered" />
 </div>
+
+
 
 

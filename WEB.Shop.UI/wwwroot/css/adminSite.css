@@ -3,7 +3,8 @@
     background-color: #eee;
 }
 
-/* loader */
+/* loader start*/
+
 .tza-loader {
     display: flex;
     justify-content: center;
@@ -47,8 +48,10 @@
     }
 }
 
+/* loader end*/
 
 /* navbar start */
+
 .tza-sidebar {
     height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9)), url('../images/adminsection/adminBackground.jpeg');
@@ -129,8 +132,24 @@
         transform: translateY(-1px);
     }
 
-
-
-
-
 /* cards end */
+
+/* tast list start */
+
+.tza-task-border {
+    border-left: 3px solid #f66436
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* tast list end */
