@@ -119,8 +119,9 @@
 </header>
 
 <section>
-<div class="container-1 ">
-    <div class="info-box">
+
+    <div class="container-fluid m-5">
+
         <h3>O co tutaj chodzi?</h3>
         <p>Poszperaj i sprawdź kto oferuje najlepsze promocje. Skorzystaj z koszyka i zobacz ile zapłacisz za konkretne produkty. Użyj porównywarki i sprawdź, gdzie warto się wybrać na zakupy!</p>
         <p>Przeszukujemy dla Ciebie sklepy w poszukiwaniu najlepszych promocji!</p>
@@ -128,15 +129,39 @@
             <button class="btn-1" type="submit">Wyszukaj</button>
         </form>
     </div>
-    <div class="pictures-wrapper">
-        <img class="img-1" src="~/images/Auchan.jpg" />
-        <img class="img-2" src="~/images/Selgros.jpg" />
-        <img class="img-3" src="~/images/Biedronka.jpg" />
-        <img class="img-4" src="~/images/Leroy-merlin.jpg" />
-        <img class="img-5" src="~/images/Obi.jpg" />
-
-    </div>
-
-
-</div>
 </section>
+<section>
+    <div class="container-fluid cards-wrapper">
+        <div class="col-12">
+            <div class="row">
+                @for (int i = 0; i < Model.Shops.Count; i++)
+                {
+
+                    var tCard = "";
+
+                    if (!(i == 0))
+                    {
+                        tCard = "card-ml-4";
+                    }
+                    else if (!(i == 4) && !(i == 0))
+                    {
+                        tCard = "card-ml-4";
+
+                    }
+
+                    <a asp-page-handler="@Model.Shops[i]">
+                        <div class="card-front @tCard">
+                            <img class="card-img-top" alt="Card image cap" src="~/images/Biedronka-2.jpg" />
+
+                        </div>
+
+                    </a>
+
+                }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
