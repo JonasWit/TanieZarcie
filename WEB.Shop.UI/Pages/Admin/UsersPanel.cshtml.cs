@@ -25,24 +25,13 @@ namespace WEB.Shop.UI.Pages.Admin
 
         public void OnGet()
         {
-            var users = _userManager.Users.ToList();
+            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
 
-            var userfilter = users.Where(u => u.Claims.Any(t => t.ClaimType == "ArticleId" && t.ClaimValue == "1"));
+        }
 
-
-            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel {  Username = x.UserName }).ToList();
-
-            foreach (var user in AllUsers)
-            {
-                if (true)
-                {
-
-                }
-
-
-
-            }  
-
+        public void OnGetDeleteUser(string userName)
+        {
+            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
 
         }
 
@@ -63,14 +52,7 @@ namespace WEB.Shop.UI.Pages.Admin
 
             await _userManager.AddClaimAsync(managerUser, managerClaim);
 
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToPage("/Index");
-            //}
-            //else
-            //{
-            //    return Page();
-            //}
+            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
 
             return Page();
         }
