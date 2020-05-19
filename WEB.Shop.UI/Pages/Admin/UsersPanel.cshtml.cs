@@ -23,6 +23,8 @@ namespace WEB.Shop.UI.Pages.Admin
 
         public List<RegisteredUserViewModel> AllUsers { get; set; }
 
+        public string MyProperty { get; set; }
+
         public void OnGet()
         {
             AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
@@ -38,6 +40,13 @@ namespace WEB.Shop.UI.Pages.Admin
         public async Task<IActionResult> OnPostAsync()
         {
             if (string.IsNullOrEmpty(Input.Username) || string.IsNullOrEmpty(Input.Password))
+            {
+                return Page();
+            }
+
+            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
+
+            if (AllUsers.Any(x => x.Username == Input.Username))
             {
                 return Page();
             }
@@ -70,5 +79,12 @@ namespace WEB.Shop.UI.Pages.Admin
     {
         public string Username { get; set; }
         public string Claim { get; set; }
+    }
+
+    public class MessageViewModel
+    { 
+    
+    
+    
     }
 }
