@@ -21,19 +21,19 @@ namespace WEB.Shop.UI.Pages.Admin
         [BindProperty]
         public UserViewModel Input { get; set; }
 
-        public List<RegisteredUserViewModel> AllUsers { get; set; }
+        public List<IdentityUser> AllUsers { get; set; }
 
         public string MyProperty { get; set; }
 
         public void OnGet()
         {
-            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
+            AllUsers = _userManager.Users.ToList();
 
         }
 
         public void OnGetDeleteUser(string userName)
         {
-            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
+            AllUsers = _userManager.Users.ToList();
 
         }
 
@@ -44,9 +44,7 @@ namespace WEB.Shop.UI.Pages.Admin
                 return Page();
             }
 
-            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
-
-            if (AllUsers.Any(x => x.Username == Input.Username))
+            if (AllUsers.Any(x => x.UserName == Input.Username))
             {
                 return Page();
             }
@@ -61,7 +59,7 @@ namespace WEB.Shop.UI.Pages.Admin
 
             await _userManager.AddClaimAsync(managerUser, managerClaim);
 
-            AllUsers = _userManager.Users.Select(x => new RegisteredUserViewModel { Username = x.UserName }).ToList();
+            AllUsers = _userManager.Users.ToList();
 
             return Page();
         }
@@ -73,12 +71,6 @@ namespace WEB.Shop.UI.Pages.Admin
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
-    }
-
-    public class RegisteredUserViewModel
-    {
-        public string Username { get; set; }
-        public string Claim { get; set; }
     }
 
     public class MessageViewModel

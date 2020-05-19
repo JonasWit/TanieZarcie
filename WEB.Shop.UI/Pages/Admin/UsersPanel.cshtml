@@ -18,12 +18,12 @@
                         {
                             <div class="card">
                                 <div class="card-header">
-                                    <button class="btn btn-block bg-secondary text-light text-left" data-toggle="collapse" data-target="@($"#collapseIt{user.Username}")">
+                                    <button class="btn btn-block bg-secondary text-light text-left" data-toggle="collapse" data-target="@($"#collapseIt{user.UserName}")">
                                         <img src="" alt="" class="mr-3 rounded" />
-                                        User: @user.Username
+                                        User: @user.UserName
                                     </button>
                                 </div>
-                                <div class="collapse" id="@($"collapseIt{user.Username}")" data-parent="#accordion">
+                                <div class="collapse" id="@($"collapseIt{user.UserName}")" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-1">
@@ -32,7 +32,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-1">
-                                                <a asp-page="/Admin/UsersPanel" asp-page-handler="DeleteUser" asp-route-userName="@user.Username">
+                                                <a asp-page="/Admin/UsersPanel" asp-page-handler="DeleteUser" asp-route-userName="@user.UserName">
                                                     <i class="fas fa-trash-alt fa-lg text-danger tza-nav-icon"></i>
                                                 </a>
                                             </div>
