@@ -1,12 +1,7 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.Admin.IndexModel
 
-@{
-    ViewBag.Title = "Index";
-}
+<component type="typeof(Pages.Shared.Components.Blazor.AdminIndexComponent)" render-mode="ServerPrerendered" />
 
-<div>
-    <component type="typeof(Pages.Shared.Components.Blazor.AdminIndexComponent)" render-mode="ServerPrerendered" />
-</div>
 
 

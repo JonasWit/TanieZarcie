@@ -14,6 +14,7 @@ namespace WEB.Shop.Application.Enums
         Zabka = 5,
         Castorama = 6,
         Obi = 7,
-        LeroyMerlin = 8
+        LeroyMerlin = 8,
+        Aldi = 9
     }
 }

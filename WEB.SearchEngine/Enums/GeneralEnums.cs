@@ -12,7 +12,8 @@
         Zabka = 7,
         Castorama = 8,
         Obi = 9,
-        LeroyMerlin = 10
+        LeroyMerlin = 10,
+        Aldi = 11
     }
 
     public enum MatchDirection

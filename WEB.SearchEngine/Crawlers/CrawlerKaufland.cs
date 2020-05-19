@@ -96,6 +96,8 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Category
 
+            result.Category = "Markety Spożywcze";
+
             #endregion
 
             #region Get Price and Sale Price, set OnSale Flag
@@ -175,7 +177,13 @@ namespace WEB.SearchEngine.Crawlers
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
             result.TimeStamp = DateTime.Now;
-            result.SourceUrl = linkStruct.Link;
+
+            var productUrl = productNode
+                .Descendants("a")
+                .FirstOrDefault(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "m-offer-tile__link", MatchDireciton.InputContainsMatch)))?
+                .GetAttributeValue("href", "");
+
+            result.SourceUrl = new Uri(new Uri(BaseUrls[0]), productUrl).ToString();
 
             #endregion
 

@@ -40,12 +40,6 @@ namespace WEB.SearchEngine.Extensions
             return false;
         }
 
-        public static string NormalizeWithStandardRegex(this string input)
-        {
-            var regex = new Regex("[^AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż0-9]");
-            return regex.Replace(input, "").ToUpper();
-        }
-
         public static bool ContainsAny(this string inputString, params string[] lookupStrings) => lookupStrings.Any(inputString.Contains);
 
         public static bool EqualsTrim(this string inputString, params string[] lookupStrings) => lookupStrings.Any(x => inputString.Trim().Equals(x.Trim()));

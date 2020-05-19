@@ -32,7 +32,7 @@ namespace WEB.Shop.UI
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration["ProdConnection"]));
+                options.UseSqlServer(Configuration["DevConnection"]));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
@@ -67,7 +67,7 @@ namespace WEB.Shop.UI
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeFolder("/Admin");
-                    options.Conventions.AuthorizePage("/Admin/ConfigureUsers", "Admin");
+                    options.Conventions.AuthorizePage("/Admin/UsersPanel", "Admin");
                 })
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
 

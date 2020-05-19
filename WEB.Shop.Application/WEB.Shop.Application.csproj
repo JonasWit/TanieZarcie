@@ -20,5 +20,9 @@
     <ProjectReference Include="..\WEB.SearchEngine\WEB.SearchEngine.csproj" />
     <ProjectReference Include="..\WEB.Shop.Domain\WEB.Shop.Domain.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Users\" />
+  </ItemGroup>
 
 </Project>

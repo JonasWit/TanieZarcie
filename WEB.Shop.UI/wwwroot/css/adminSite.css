@@ -40,6 +40,24 @@
             animation-delay: 0.8s;
         }
 
+        .tza-loader > span:nth-child(6) {
+            background-color: orange;
+            animation-delay: 1.0s;
+        }
+
+        .tza-loader > span:nth-child(7) {
+            animation-delay: 1.2s;
+        }
+
+        .tza-loader > span:nth-child(8) {
+            background-color: orange;
+            animation-delay: 1.4s;
+        }
+
+        .tza-loader > span:nth-child(9) {
+            animation-delay: 1.6s;
+        }
+
 @keyframes bounce {
     to {
         width: 16px;
@@ -139,16 +157,6 @@
 .tza-task-border {
     border-left: 3px solid #f66436
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

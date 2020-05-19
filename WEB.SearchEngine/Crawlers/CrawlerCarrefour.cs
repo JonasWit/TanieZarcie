@@ -85,6 +85,8 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Category
 
+            result.Category = "Markety Spożywcze";
+
             #endregion
 
             #region Get Price and Sale Price, set OnSale Flag

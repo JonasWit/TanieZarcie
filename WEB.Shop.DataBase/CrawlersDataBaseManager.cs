@@ -42,14 +42,6 @@ namespace WEB.Shop.DataBase
                     };
 
                     _context.Products.Add(product);
-                    //await _context.SaveChangesAsync();
-
-                    //_context.Stock.Add(new Stock
-                    //{
-                    //    Description = product.Seller,
-                    //    Quantity = 100,
-                    //    ProductId = product.Id
-                    //});
                 }
 
                 response = await _context.SaveChangesAsync();

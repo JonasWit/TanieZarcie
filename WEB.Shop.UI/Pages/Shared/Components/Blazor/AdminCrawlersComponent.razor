@@ -73,6 +73,7 @@
                                             <h3>@shop.ToString()</h3>
                                             <h5>@($"{Commander.DataCacheCount.Where(x => x.Key == shop.ToString()).Sum(s => s.Value)} Cached")</h5>
                                             <h5>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h5>
+                                            <h5>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "")}")</h5>
                                         </div>
                                     </div>
 
@@ -88,11 +89,11 @@
 
                                         string color = "bg-danger";
 
-                                        if (shopCachedShare < (avgCache * 0.2))
+                                        if (shopCachedShare < 20)
                                         {
                                             color = "bg-danger";
                                         }
-                                        else if (shopCachedShare < (avgCache * 0.7))
+                                        else if (shopCachedShare < 70)
                                         {
                                             color = "bg-warning";
                                         }
@@ -193,6 +194,10 @@ else
             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                 <div class="row pt-md-5 mt-md-3 mb-5">
                     <div class="tza-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                         <span></span>
                         <span></span>
                         <span></span>

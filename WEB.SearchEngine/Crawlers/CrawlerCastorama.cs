@@ -42,7 +42,7 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                ExtractProduct(div, linkStruct);
+                //ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
                 //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }

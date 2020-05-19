@@ -119,6 +119,8 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Category
 
+            result.Category = "Markety Budowlane";
+
             #endregion
 
             #region Get Price and Sale Price, set OnSale Flag
@@ -136,7 +138,7 @@ namespace WEB.SearchEngine.Crawlers
                     .FirstOrDefault()?
                     .Descendants("span")
                     .FirstOrDefault()?
-                    .GetAttributeValue("data-csscontent", "")?
+                    .InnerText
                     .RemoveNonNumeric();
 
                 var promoPrice = productNode.Descendants()
@@ -145,7 +147,7 @@ namespace WEB.SearchEngine.Crawlers
                     .Descendants("span")
                     .Where(d => !d.Descendants().Any(c => c.Name == "del") && d.ParentNode.Name != "del")
                     .FirstOrDefault()?
-                    .GetAttributeValue("data-csscontent", "")?
+                    .InnerText
                     .RemoveNonNumeric();
 
                 if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.Value = promoPriceDecimal / 100;

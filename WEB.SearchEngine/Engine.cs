@@ -21,6 +21,8 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerAuchan());
             Crawlers.Add(new CrawlerZabka());
             Crawlers.Add(new CrawlerObi());
+            Crawlers.Add(new CrawlerLeroyMerlin());
+            Crawlers.Add(new CrawlerAldi());
 
             foreach (var crawler in Crawlers)
             {
@@ -79,7 +81,16 @@ namespace WEB.SearchEngine
                     await Task.Run(() => obiCrawler.GetData());
                     Crawlers.Add(obiCrawler);
                     break;
-
+                case Shops.LeroyMerlin:
+                    var leroyMerlinCrawler = new CrawlerLeroyMerlin();
+                    await Task.Run(() => leroyMerlinCrawler.GetData());
+                    Crawlers.Add(leroyMerlinCrawler);
+                    break;
+                case Shops.Aldi:
+                    var aldiCrawler = new CrawlerAldi();
+                    await Task.Run(() => aldiCrawler.GetData());
+                    Crawlers.Add(aldiCrawler);
+                    break;
                 default:
                     break;
             }

@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-md navbar-light">
         <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
@@ -29,8 +30,9 @@
                     <div class="col-xl-2 col-lg-3 col-md-4 tza-sidebar fixed-top">
                         <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 tza-bottom-border">Tanie Zarcie</a>
                         <div class="tza-bottom-border pb-3">
-                            <img src="~/images/adminSection/admin.jpeg" width="50" class="rounded-circle mr-3" />
-                            <a href="#" class="text-white">Admin User</a>
+                            <a asp-page="/Admin/UsersPanel" class="nav-link text-light p-3 mb-2 tza-sidebar-link @(ViewContext.RouteData.Values["page"].ToString().Contains("UsersPanel") ? "tza-current" : "")">
+                                <i class="fas fa-user-cog text-light fa-lg mr-3"></i>@User.Identity.Name
+                            </a>
                         </div>
                         <ul class="navbar-nav flex-column mt-4" id="sidebar-links">
                             <li class="nav-item">
@@ -68,16 +70,6 @@
                             <!-- Side icons start -->
                             <div class="col-md-3">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fas fa-comments text-muted fa-lg tza-nav-icon"></i>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fas fa-bell text-muted fa-lg tza-nav-icon"></i>
-                                        </a>
-                                    </li>
                                     <li class="nav-item ml-md-auto">
                                         <a href="#" class="nav-link" data-toggle="modal" data-target="#sign-out">
                                             <i class="fas fa-sign-out-alt text-danger fa-lg tza-nav-icon"></i>
@@ -121,10 +113,8 @@
         @RenderBody()
     </section>
 
-
-    <section>
-        <!-- Tables Start -->
-        @*<div class="container-fluid">
+    <!-- Tables Start -->
+    @*<div class="container-fluid">
             <div class="row mb-5">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row align-items-center">
@@ -178,9 +168,39 @@
                 </div>
             </div>
         </div>*@
-        <!-- Tables End -->
-    </section>
+    <!-- Tables End -->
 
+    <!-- Footer Start -->
+    <footer>
+        <div class="container-fluid bg-dark">
+            <div class="row">
+                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                    <div class="row border-top pt-3">
+                        <div class="col-lg-6 text-center">
+                            <ul class="list-inline">
+                                <li class="list-inline-item mr-2">
+                                    <a href="" class="text-dark">Template foooter</a>
+                                </li>
+                                <li class="list-inline-item mr-2">
+                                    <a href="" class="text-dark">About</a>
+                                </li>
+                                <li class="list-inline-item mr-2">
+                                    <a href="" class="text-dark">Support</a>
+                                </li>
+                                <li class="list-inline-item mr-2">
+                                    <a href="" class="text-dark">Something</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <p>&copy; 2020 <i class="fas fa-heart text-danger"></i> by <sapn class="text-success">Jonasz</sapn></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
 
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -188,6 +208,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/admin/adminStyleScripts.js"></script>
     <script src="~/_framework/blazor.server.js"></script>
+    <script src="~/js/admin/adminStyleScripts.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

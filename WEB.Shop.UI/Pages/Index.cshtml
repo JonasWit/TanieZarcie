@@ -109,33 +109,34 @@
     </div>
     <div class="header-overlay"></div>
     <div class="header-content text-md-center">
-        <h1>Welcome Everyone</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id temporibus perferendis necessitatibus numquam amet impedit explicabo? Debitis quasi ullam aperiam!</p>
-        <a class="btn">Poszperaj</a>
+        <h1>Witaj w Tanim Żarciu!</h1>
+        <p>Na naszych półkach znajdziesz produkty między innym z Lidla, Biedronki i Kauflandu! </p>
+        <p>Poszperaj i sprawdź kto oferuje najlepsze promocje.</p>
+        <form method="post" asp-page-handler="AllShops">
+            <button class="btn-1" type="submit">Poszperaj</button>
+        </form>
     </div>
 </header>
-<section class="counters">
-    <div class="counter-container">
-        <div>
-            <i class=""></i>
-            <div class="counter" data-target="15">0</div>
-            <h3>Liczba sklepów</h3>
-        </div>
-        <div>
-            <i class=""></i>
-            <div class="counter" data-target="100">0</div>
-            <h3>Znalezione promocje</h3>
-        </div>
-        <div>
-            <i class=""></i>
-            <div class="counter" data-target="5">0</div>
-            <h3>Aktualności</h3>
-        </div>
-        <div>
-            <i class=""></i>
-            <div class="counter" data-target="15">0</div>
-            <h3>Placeholder</h3>
-        </div>
+
+<section>
+<div class="container-1 ">
+    <div class="info-box">
+        <h3>O co tutaj chodzi?</h3>
+        <p>Poszperaj i sprawdź kto oferuje najlepsze promocje. Skorzystaj z koszyka i zobacz ile zapłacisz za konkretne produkty. Użyj porównywarki i sprawdź, gdzie warto się wybrać na zakupy!</p>
+        <p>Przeszukujemy dla Ciebie sklepy w poszukiwaniu najlepszych promocji!</p>
+        <form method="post" asp-page="/ProductsOverview">
+            <button class="btn-1" type="submit">Wyszukaj</button>
+        </form>
+    </div>
+    <div class="pictures-wrapper">
+        <img class="img-1" src="~/images/Auchan.jpg" />
+        <img class="img-2" src="~/images/Selgros.jpg" />
+        <img class="img-3" src="~/images/Biedronka.jpg" />
+        <img class="img-4" src="~/images/Leroy-merlin.jpg" />
+        <img class="img-5" src="~/images/Obi.jpg" />
+
     </div>
 
+
+</div>
 </section>

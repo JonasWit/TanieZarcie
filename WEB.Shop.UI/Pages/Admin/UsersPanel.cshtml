@@ -1,10 +1,192 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.Admin.UsersPanelModel
 
+<h3>AdminUsersComponent</h3>
 
 
-<div>
-    <component type="typeof(Pages.Shared.Components.Blazor.AdminUsersComponent)" render-mode="ServerPrerendered" />
+<!-- User Data -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row align-items-center mb-5">
+
+                <!-- Users List -->
+                <div class="col-xl-7">
+                    <h4 class="text-muted mb-4">Users:</h4>
+                    <div id="accordion">
+
+                        @foreach (var user in Model.AllUsers)
+                        {
+                            <div class="card">
+                                <div class="card-header">
+                                    <button class="btn btn-block bg-secondary text-light text-left" data-toggle="collapse" data-target="@($"#collapseIt{user}")">
+                                        <img src="" alt="" class="mr-3 rounded" />
+                                        User: @user
+                                    </button>
+                                </div>
+                                <div class="collapse" id="@($"collapseIt{user}")" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <a href="" class="myTip" data-toggle="tooltip" title="Edit" data-placement="top">
+                                                    <i class="fas fa-edit fa-lg text-success mr-2 tza-nav-icon"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-1">
+                                                <a href="" class="myTip" data-toggle="tooltip" title="Delete" data-placement="top">
+                                                    <i class="fas fa-trash-alt fa-lg text-danger tza-nav-icon"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="col xl-5 mt-5">
+
+                    <!-- Add User -->
+                    <div class="card rounded">
+                        <div class="card-body">
+                            <h5 class="text-muted text-center mb-4">Add User</h5>
+                            <ul class="list-inline text-center py-3">
+                                <li class="list-inline-item">
+                                    <a href="">
+                                        <i class="fas fa-pencil-alt text-success"></i>
+                                        <span class="h6 text-muted">Status</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="">
+                                        <i class="fas fa-camera text-info"></i>
+                                        <span class="h6 text-muted">Photo</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                        <span class="h6 text-muted">Check In</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control py-2 mb-3" placeholder="Status here" />
+                                    <button type="button" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Submit Post</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="card bg-light">
+                                            <i class="far fa-calendar-alt fa-8x text-warning d-block m-auto py-3"></i>
+                                            <div class="card-body">
+                                                <p class="card-text text-center font-weight-bold text-uppercase">3/6/2020</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card bg-light">
+                                            <i class="far fa-clock fa-8x text-warning d-block m-auto py-3"></i>
+                                            <div class="card-body">
+                                                <p class="card-text text-center font-weight-bold text-uppercase">3:50</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row mb-4">
+                <div class="col-xl-6 col-12">
+                    <h4 class="text-muted p-3 mb-3">Users</h4>
+
+                    <!-- User Bar -->
+                    <div class="container-fluid bg-white">
+                        <div class="row py-3 mb-4 tza-task-border align-items-center">
+                            <div class="col-1">
+                                <input type="checkbox" checked />
+                            </div>
+                            <div class="col-sm-9 col-8">
+                                Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                            </div>
+                            <div class="col-1">
+                                <a href="" class="myTip" data-toggle="tooltip" title="Edit" data-placement="top">
+                                    <i class="fas fa-edit fa-lg text-success mr-2 tza-nav-icon"></i>
+                                </a>
+                            </div>
+                            <div class="col-1">
+                                <a href="" class="myTip" data-toggle="tooltip" title="Delete" data-placement="top">
+                                    <i class="fas fa-trash-alt fa-lg text-danger tza-nav-icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Bar -->
+                    <div class="container-fluid bg-white">
+                        <div class="row py-3 mb-4 tza-task-border align-items-center">
+                            <div class="col-1">
+                                <input type="checkbox" checked />
+                            </div>
+                            <div class="col-sm-9 col-8">
+                                Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+                            </div>
+                            <div class="col-1">
+                                <a href="" class="myTip" data-toggle="tooltip" title="Edit" data-placement="top">
+                                    <i class="fas fa-edit fa-lg text-success mr-2 tza-nav-icon"></i>
+                                </a>
+                            </div>
+                            <div class="col-1">
+                                <a href="" class="myTip" data-toggle="tooltip" title="Delete" data-placement="top">
+                                    <i class="fas fa-trash-alt fa-lg text-danger tza-nav-icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row mb-4">
+                <div class="col-xl-6 col-12">
+                    <form method="post">
+                        <div>
+                            <label>Username</label>
+                            <div>
+                                <input asp-for="Input.Username" type="text" placeholder="Username">
+                            </div>
+                        </div>
+                        <div>
+                            <label>Password</label>
+                            <div>
+                                <input asp-for="Input.Password" type="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

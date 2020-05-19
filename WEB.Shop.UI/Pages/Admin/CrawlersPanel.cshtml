@@ -1,12 +1,7 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.Admin.CrawlersPanelModel
 
-@{
-    ViewBag.Title = "CrawlersPanel";
-}
+<component type="typeof(Pages.Shared.Components.Blazor.AdminCrawlersComponent)" render-mode="ServerPrerendered" />
 
-<div>
-    <component type="typeof(Pages.Shared.Components.Blazor.AdminCrawlersComponent)" render-mode="ServerPrerendered" />
-</div>
 
 
