@@ -13,5 +13,7 @@ namespace WEB.Shop.Application.Files
         public GetFile(IFileManager fileManager) => _fileManager = fileManager;
 
         public FileStream Do(string image) => _fileManager.ImageStream(image);
+
+        public FileStream GetShopCardImage(string image) => _fileManager.ImageStreamShopCard(image);
     }
 }

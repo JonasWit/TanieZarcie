@@ -8,6 +8,7 @@ namespace WEB.Shop.Domain.Infrastructure
     public interface IFileManager
     {
         Task<string> SaveImageAsync(IFormFile image);
+        FileStream ImageStreamShopCard(string image);
         FileStream ImageStream(string image);
         FileStream ImageStream(string image, string imageUsage, int width, int height);
         string[] GetAllPicturesFromContent(string contentSubfolder);

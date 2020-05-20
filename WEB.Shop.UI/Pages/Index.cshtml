@@ -1,105 +1,5 @@
 ﻿@page
 @model WEB.Shop.UI.Pages.IndexModel
-@{
-    ViewData["Title"] = "Index";
-}
-<!--
-<div class="jumbotron-fluid">
-    <div class="text-center rgba-stylish-strong py-5 px-4 ">
-        <div class="jumbo-index">
-            <p class="display-4">Witaj w Tanim Żarciu!</p>
-            <p class="lead">Na naszych półkach znajdziesz produkty między innym z Lidla, Biedronki i Kauflandu! </p>
-            <p>Poszperaj i sprawdź kto oferuje najlepsze promocje. Skorzystaj z koszyka i zobacz ile zapłacisz za konkretne produkty. Użyj porównywarki i sprawdź, gdzie warto się wybrać na zakupy!</p>
-            <form method="post" asp-page-handler="AllShops">
-                <button class="button1" type="submit">Poszperaj!</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="id=news-ticker">
-    <div class="onoffswitch3">
-        <input type="checkbox" name="onoffswitch3" class="onoffswitch3-checkbox" id="myonoffswitch3" checked>
-        <label class="onoffswitch3-label" for="myonoffswitch3">
-            <span class="onoffswitch3-inner">
-                <span class="onoffswitch3-active">
-                    @if (Model.News != null && Model.News.Count != 0)
-                    {
-                        var newsBar = "";
-
-                        foreach (var news in Model.News)
-                        {
-                            newsBar = $"{newsBar} {news.Category.ToUpper()}: {news.Title}";
-                        }
-                        <marquee class="scroll-text">
-                            @newsBar
-                        </marquee>
-                    }
-                    else
-                    {
-                        <marquee class="scroll-text">
-                            Plany: Już niedługo dodamy nowe sklepy z kategorii market budowlany. Chcesz zobaczyć i porównać promocje z Castoramy lub OBI? Zostań z nami!
-                        </marquee>
-                    }
-                    <span class="onoffswitch3-switch" style="color: #fff; background: linear-gradient(90deg, #ffc107, #000000, #ffc107)">AKTUALNOŚCI <span class="glyphicon glyphicon-remove"></span></span>
-                </span>
-                <span class="onoffswitch3-inactive" style="color: #fff; background: linear-gradient(90deg, #ffc107, #000000, #ffc107)"><span class="onoffswitch3-switch">POKAŻ AKTUALNOŚCI</span></span>
-            </span>
-        </label>
-    </div>
-</div>
-
-
-<div class="container-fluid mt-3 mb-7 block d-flex align-items-center justify-content-center">
-    <div class="l-container">
-        @foreach (var shop in Model.Shops)
-        {
-            if (@Model.Products[shop] != 0 || @Model.ProductsOnSale[shop] != 0)
-            {
-                <a class="game-card" asp-page-handler="@shop">
-                    <div class="card">
-                        <img class="card-img-top" alt="Card image cap"
-                             src="~/content/sales/Sale1.jpg" />
-                        <div class="card-body">
-                            <h4 class="card-title">@shop</h4>
-                            @*<p class="card-text">
-                                liczba produktów - @Model.Products[shop]
-                            </p>*@
-                            <p class="card-text">
-                                liczba wykrytych promocji - @Model.ProductsOnSale[shop]
-                            </p>
-                        </div>
-                    </div>
-                </a>
-
-            }
-        }
-    </div>
-</div>
-
-<!--<div class="container-fluid mt-3 mb-7 block d-flex align-items-center justify-content-center">
-    <div class="l-container">
-        @foreach (var shop in Model.Shops)
-        {
-            <a class="card1" asp-page-handler="@shop">
-                <div class="card cover">
-                    <img class="card-img-top" alt="Card image cap"
-                         src="~/images/claudio-schwarz-purzlbaum-KcPK_kzqWC8-unsplash.jpg" />
-                    <div class="card-body">
-                        <h4 class="card-title">@shop</h4>
-                        <p class="card-text">
-                            liczba produktów - @Model.Products[shop]
-                        </p>
-                        <p class="card-text">
-                            liczba wykrytych promocji - @Model.ProductsOnSale[shop]
-                        </p>
-                    </div>
-                </div>
-            </a>
-        }
-    </div>
-</div>
--->
 
 <header class="v-header container">
     <div class="fullscreen-video-wrap">
@@ -134,30 +34,14 @@
     <div class="container-fluid cards-wrapper">
         <div class="col-12">
             <div class="row">
-                @for (int i = 0; i < Model.Shops.Count; i++)
+                @foreach (var shop in Model.Shops)
                 {
-
-                    var tCard = "";
-
-                    if (!(i == 0))
-                    {
-                        tCard = "card-ml-4";
-                    }
-                    else if (!(i == 4) && !(i == 0))
-                    {
-                        tCard = "card-ml-4";
-
-                    }
-
-                    <a asp-page-handler="@Model.Shops[i]">
-                        <div class="card-front @tCard">
-                            <img class="card-img-top" alt="Card image cap" src="~/images/Biedronka-2.jpg" />
-
+                    var imagePath = $"/ShopCardImage/{shop.ImagePath}";
+                    <a asp-page-handler="@shop.Name">
+                        <div class="card-front">  
+                            <img class="card-img-top" alt="Card image cap" src="@imagePath" />
                         </div>
-
                     </a>
-
-                }
                 }
             </div>
         </div>

@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using WEB.Shop.Application.Enums;
 using WEB.Shop.Application.News;
@@ -14,23 +17,27 @@ namespace WEB.Shop.UI.Pages
         [BindProperty]
         public string ShopDirection { get; set; }
 
-        public Dictionary<string, int> Products { get; set; }
-        public Dictionary<string, int> ProductsOnSale { get; set; }
+        public Dictionary<string, int> Products { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> ProductsOnSale { get; set; } = new Dictionary<string, int>();
         public List<GetNews.Response> News { get; set; }
-        public List<string> Shops { get; set; }
+        public List<ShopViewModel> Shops { get; set; } = new List<ShopViewModel>();
 
-        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetNews getNews)
+        public class ShopViewModel
         {
-            Products = new Dictionary<string, int>();
-            ProductsOnSale = new Dictionary<string, int>();
-            Shops = new List<string>();
+            public string Name { get; set; }
+            public string ImagePath { get; set; } = null;
+        }
+
+        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetNews getNews, [FromServices] IConfiguration configuration)
+        {
             News = getNews.Do().ToList();
 
             foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
             {
+                var shopVm = new ShopViewModel { Name = shop.ToString(), ImagePath = $"{shop}.jpg" };
                 Products.Add(shop.ToString(), getProducts.CountProductForShop(shop.ToString()));
                 ProductsOnSale.Add(shop.ToString(), getProducts.CountProductOnSaleForShop(shop.ToString()));
-                Shops.Add(shop.ToString());
+                Shops.Add(shopVm);
             }
         }
 
