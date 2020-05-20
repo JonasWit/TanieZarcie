@@ -12,7 +12,8 @@ namespace WEB.Shop.UI.Controllers
             var vm = new SummariesIndexViewModel();
             var products = getProducts.GetAllProducts();
 
-            vm.Discounts = products.Where(x => x.Category == "Markety Spożywcze").OrderByDescending(item => item.Discount).Take(15).ToList();
+            vm.DiscountsFood = products.Where(x => x.Category == "Markety Spożywcze").OrderByDescending(item => item.Discount).Take(15).ToList();
+            vm.DiscountsDiy = products.Where(x => x.Category == "Markety Budowlane").OrderByDescending(item => item.Discount).Take(15).ToList();
 
             return View(vm);
         }

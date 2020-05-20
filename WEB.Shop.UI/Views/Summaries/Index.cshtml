@@ -9,7 +9,16 @@
     </div>
 </div>
 
-@foreach (var item in Model.Discounts)
+<h4>Food</h4>
+@foreach (var item in Model.DiscountsFood)
+{
+    <p>@item.Name</p>
+    <p>@item.Seller</p>
+    <p>@item.Discount</p>
+}
+
+<h4>DIY</h4>
+@foreach (var item in Model.DiscountsDiy)
 {
     <p>@item.Name</p>
     <p>@item.Seller</p>

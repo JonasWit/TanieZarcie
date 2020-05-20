@@ -8,6 +8,7 @@ namespace WEB.Shop.UI.ViewModels.Summaries
 {
     public class SummariesIndexViewModel
     {
-        public List<GetProducts.ProductViewModel> Discounts { get; set; }
+        public List<GetProducts.ProductViewModel> DiscountsFood { get; set; }
+        public List<GetProducts.ProductViewModel> DiscountsDiy { get; set; }
     }
 }
