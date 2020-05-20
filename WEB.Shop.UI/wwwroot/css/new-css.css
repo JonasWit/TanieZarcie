@@ -120,18 +120,44 @@
     }
 }
 /*Index section 2 cards*/
-.cards-wrapper {
-   margin-top: 50px;
-    
-    
 
+
+.card-img-top {
+    width: 12rem;
 }
 
-.card-front {
+.container-cards {
+    position: relative;
+    width: 18em;
+    margin: 4em auto;
+}
+
+#card-00 {
+    margin-left: -13em;
     background: #fffafa;
-    width: 12rem;
-    border-radius: 1rem;
-    padding: 2rem;
+    box-shadow: 4px 4px 15px 2px #000000;
+    z-index: 10;
+    transition: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform: rotateZ(8deg);
+}
+
+#card-01 {
+    background: #fffafa;
+    z-index: 9;
+    margin-left:-12em;
+    box-shadow: 4px 4px 15px 2px #000000;
+    transition: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform: rotateZ(3deg);
+}
+
+#card-02 {
+    background: #fffafa;
+    z-index: 8;
+    margin-left:-13em;
     box-shadow: 4px 4px 15px 2px #000000;
     transition: all;
     transition-duration: 0.5s;
@@ -139,14 +165,56 @@
     
 }
 
-.card-ml-4 {
-    margin-left: -4rem;
+#card-03 {
+    background: #fffafa;
+    z-index: 7;
+    margin-left:-12em;
+    box-shadow: 4px 4px 15px 2px #000000;
+    transition: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform: rotateZ(-3deg);
+}
+#card-04 {
+    background: #fffafa;
+    z-index: 6;
+    margin-left:-13em;
+    box-shadow: 4px 4px 15px 2px #000000;
+    transition: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transform: rotateZ(-8deg);
 }
 
-.card-front:hover{
-    transform: translateY(-2rem) rotateY(180deg);
-    z-index:9;
+.container-cards:hover .card-front,
+.container-cards.hover .card-front {
+    opacity: 0.9;
+    transform: scale(0.95);
+    margin-left: -12em;
+}
+
+    .container-cards:hover .card-front:hover,
+    .container-cards.hover .card-front:hover,
+    .container-cards:hover .card-front.hover,
+    .container-cards.hover .card-front.hover {
+        opacity: 1;
+        z-index: 11;
+        transform: scale(1);
+        
+    }
+
+.container-cards:hover .card-00,
+.container-cards.hover .card-00 {
+    transform: rotateZ(0deg) scale(0.95);
     
 }
 
+.container-cards:hover .card-01,
+.container-cards.hover .card-01 {
+    left: 0%;
+}
 
+.container-cards:hover .card-02,
+.container-cards.hover .card-02 {
+    left: 100%;
+}

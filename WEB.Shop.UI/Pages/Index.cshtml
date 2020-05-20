@@ -17,35 +17,63 @@
         </form>
     </div>
 </header>
-
 <section>
 
     <div class="container-fluid m-5">
 
-        <h3>O co tutaj chodzi?</h3>
-        <p>Poszperaj i sprawdź kto oferuje najlepsze promocje. Skorzystaj z koszyka i zobacz ile zapłacisz za konkretne produkty. Użyj porównywarki i sprawdź, gdzie warto się wybrać na zakupy!</p>
-        <p>Przeszukujemy dla Ciebie sklepy w poszukiwaniu najlepszych promocji!</p>
-        <form method="post" asp-page="/ProductsOverview">
-            <button class="btn-1" type="submit">Wyszukaj</button>
-        </form>
-    </div>
-</section>
-<section>
-    <div class="container-fluid cards-wrapper">
-        <div class="col-12">
-            <div class="row">
-                @foreach (var shop in Model.Shops)
-                {
-                    var imagePath = $"/ShopCardImage/{shop.ImagePath}";
-                    <a asp-page-handler="@shop.Name">
-                        <div class="card-front">  
-                            <img class="card-img-top" alt="Card image cap" src="@imagePath" />
-                        </div>
+        <h3 class="m-4">O co tutaj chodzi?</h3>
+        <!--<section>
+            <div class="container-fluid cards-wrapper">
+                <div class="col-12">
+                    <div class="row">
+                        @foreach (var shop in Model.Shops)
+                        {
+                            var imagePath = $"/ShopCardImage/{shop.ImagePath}";
+                            <a asp-page-handler="@shop.Name">
+                                <div class="card">
+                                    <img class="card-img-top" alt="Card image cap" src="@imagePath" />
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
+
+        <div class="container-cards">
+            <div class="card-deck">
+                <div id="card-00" class="card-front card-00">
+                    <a href="#">
+                        <img class="card-img-top" alt="Card image cap" src="~/content/shopLogos/Aldi.jpg" />
                     </a>
-                }
+                </div>
+                <div id="card-01" class="card-front card-01">
+                    <a href="#">
+                        <img class="card-img-top" alt="Card image cap"
+                             src="~/content/shopLogos/Auchan.jpg" />
+                    </a>
+                </div>
+                <div id="card-02" class="card-front card-02">
+                    <a href="#">
+                        <img class="card-img-top" alt="Card image cap"
+                             src="~/content/shopLogos/Biedronka.jpg" />
+                    </a>
+                </div>
+                <div id="card-03" class="card-front card-03">
+                    <a href="#">
+                        <img class="card-img-top" alt="Card image cap"
+                             src="~/content/shopLogos/Kaufland.jpg" />
+                    </a>
+                </div>
+                <div id="card-04" class="card-front card-04">
+                    <a href="#">
+                        <img src="~/content/shopLogos/LeroyMerlin.jpg"
+                             class="card-img-top" alt="Card image cap" />
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
-
-
