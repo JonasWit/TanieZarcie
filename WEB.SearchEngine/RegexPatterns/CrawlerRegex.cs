@@ -40,7 +40,9 @@ namespace WEB.SearchEngine.RegexPatterns
 
         public static string RemoveMetaCharacters(this string input) => Regex.Replace(input, Metacharactes, "");
 
-        public static string RemoveNonNumeric(this string input) => Regex.Replace(input.Split(new char[] {' '})[0], NonNumeric, "");
+        public static string RemoveNonNumeric(this string input) => 
+            Regex.Replace(
+                input.Replace("m2", "").Replace("M2", ""), NonNumeric, "");
 
         public static string NormalizeWithStandardRegex(this string input) => GetStandardNormalizationRegex().Replace(input, "").ToUpper();
     }
