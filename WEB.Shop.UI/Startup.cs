@@ -99,7 +99,6 @@ namespace WEB.Shop.UI
             app.UseRouting();
             app.UseSession();
             app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
