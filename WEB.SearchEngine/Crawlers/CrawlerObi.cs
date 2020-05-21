@@ -60,9 +60,9 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var container in listDivs)
             {
-                ExtractListProduct(container, linkStruct);
+                //ExtractListProduct(container, linkStruct);
                 var nodeToPass = container;
-                //tasks.Add(Task.Run(() => result.Add(ExtractListProduct(nodeToPass, linkStruct))));
+                tasks.Add(Task.Run(() => result.Add(ExtractListProduct(nodeToPass, linkStruct))));
             }
 
             Task.WaitAll(tasks.ToArray());

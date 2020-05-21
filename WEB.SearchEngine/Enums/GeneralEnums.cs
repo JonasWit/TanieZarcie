@@ -13,7 +13,8 @@
         Castorama = 8,
         Obi = 9,
         LeroyMerlin = 10,
-        Aldi = 11
+        Aldi = 11,
+        MediaMarkt =12,
     }
 
     public enum MatchDirection

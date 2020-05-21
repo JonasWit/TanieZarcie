@@ -39,7 +39,6 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
-
     $(document).hammer().on('tap', function (event) {
         stack1.removeClass('hover');
         $('.card').removeClass('hover');

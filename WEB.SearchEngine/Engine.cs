@@ -23,11 +23,12 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerObi());
             Crawlers.Add(new CrawlerLeroyMerlin());
             Crawlers.Add(new CrawlerAldi());
+            //Crawlers.Add(new CrawlerMediaMarkt());
 
             foreach (var crawler in Crawlers)
             {
                 var crawlerToRun = crawler;
-                tasks.Add(Task.Run(() => crawlerToRun.GetData()));
+                tasks.Add(Task.Run(() => crawlerToRun.GetData(crawler.Shop == Shops.Lidl ? false : true)));
             }
 
             await Task.Run(() => Task.WaitAll(tasks.ToArray()));
@@ -46,7 +47,7 @@ namespace WEB.SearchEngine
                     break;
                 case Shops.Lidl:
                     var lidlCrawler = new CrawlerLidl();
-                    await Task.Run(() => lidlCrawler.GetData());
+                    await Task.Run(() => lidlCrawler.GetData(false));
                     Crawlers.Add(lidlCrawler);
                     break;
                 case Shops.Kaufland:
@@ -90,6 +91,11 @@ namespace WEB.SearchEngine
                     var aldiCrawler = new CrawlerAldi();
                     await Task.Run(() => aldiCrawler.GetData());
                     Crawlers.Add(aldiCrawler);
+                    break;
+                case Shops.MediaMarkt:
+                    var mediaMarktCrawler = new CrawlerMediaMarkt();
+                    await Task.Run(() => mediaMarktCrawler.GetData());
+                    Crawlers.Add(mediaMarktCrawler);
                     break;
                 default:
                     break;

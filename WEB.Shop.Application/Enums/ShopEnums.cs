@@ -15,6 +15,7 @@ namespace WEB.Shop.Application.Enums
         Castorama = 6,
         Obi = 7,
         LeroyMerlin = 8,
-        Aldi = 9
+        Aldi = 9,
+        MediaMarkt = 10,
     }
 }

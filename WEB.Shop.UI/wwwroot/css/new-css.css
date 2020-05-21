@@ -1,6 +1,4 @@
-﻿
-
-* body {
+﻿* body {
     margin: 0;
     font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1rem;
@@ -12,6 +10,7 @@
 }
 
 /*Layout*/
+
 .navbar {
     background-color: #000000 !important;
     z-index: 999;
@@ -119,8 +118,8 @@
         padding-bottom: 2rem;
     }
 }
-/*Index section 2 cards*/
 
+/*Index section 2 cards*/
 
 .card-img-top {
     width: 12rem;
@@ -146,7 +145,7 @@
 #card-01 {
     background: #fffafa;
     z-index: 9;
-    margin-left:-12em;
+    margin-left: -12em;
     box-shadow: 4px 4px 15px 2px #000000;
     transition: all;
     transition-duration: 0.5s;
@@ -157,28 +156,28 @@
 #card-02 {
     background: #fffafa;
     z-index: 8;
-    margin-left:-13em;
+    margin-left: -13em;
     box-shadow: 4px 4px 15px 2px #000000;
     transition: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    
 }
 
 #card-03 {
     background: #fffafa;
     z-index: 7;
-    margin-left:-12em;
+    margin-left: -12em;
     box-shadow: 4px 4px 15px 2px #000000;
     transition: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
     transform: rotateZ(-3deg);
 }
+
 #card-04 {
     background: #fffafa;
     z-index: 6;
-    margin-left:-13em;
+    margin-left: -13em;
     box-shadow: 4px 4px 15px 2px #000000;
     transition: all;
     transition-duration: 0.5s;
@@ -200,13 +199,11 @@
         opacity: 1;
         z-index: 11;
         transform: scale(1);
-        
     }
 
 .container-cards:hover .card-00,
 .container-cards.hover .card-00 {
     transform: rotateZ(0deg) scale(0.95);
-    
 }
 
 .container-cards:hover .card-01,

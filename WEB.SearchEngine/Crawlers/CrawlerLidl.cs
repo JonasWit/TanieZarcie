@@ -32,10 +32,10 @@ namespace WEB.SearchEngine.Crawlers
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(linkStruct.Html);
 
-            var divs = htmlDocument.DocumentNode.Descendants("div")
+            var divs = htmlDocument.DocumentNode.Descendants("a")
                 .AsParallel()
                 .Where(node => node.GetAttributeValue("class", "")
-                .ContainsAny("product product--tile product--fullbleed"))
+                .ContainsAny("product__body"))
                 .ToList();
 
             var tasks = new List<Task>();
@@ -56,12 +56,11 @@ namespace WEB.SearchEngine.Crawlers
 
         private Product ExtractProduct(HtmlNode productNode, LinkStruct linkStruct)
         {
-
             var result = new Product();
 
             #region Check if product node exists
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricefield__price", MatchDireciton.InputContainsMatch)))) return new Product();
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricebox__price", MatchDireciton.InputContainsMatch)))) return new Product();
 
             #endregion
 
@@ -70,16 +69,18 @@ namespace WEB.SearchEngine.Crawlers
             var names = new List<string>
             {
                 productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "m-offer-tile__subtitle", MatchDireciton.Equals)))
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "product__title"))
                     .Select(z => z.InnerText)
                     .FirstOrDefault()?
-                    .RemoveMetaCharacters(),
+                    .RemoveMetaCharacters()
+                    .Trim(),
 
                 productNode.Descendants()
-                    .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "m-offer-tile__title", MatchDireciton.Equals)))
+                    .Where(x => x.Attributes.Any(y => y.Name == "class" && y.Value == "pricebox__highlight"))
                     .Select(z => z.InnerText)
                     .FirstOrDefault()?
-                    .RemoveMetaCharacters(),
+                    .RemoveMetaCharacters()
+                    .Trim(),
             };
 
             names.RemoveAll(x => string.IsNullOrEmpty(x));
@@ -103,28 +104,24 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Price and Sale Price
 
-            var price = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricefield__price", MatchDireciton.Equals)))
-                .FirstOrDefault()?
-                .InnerText.RemoveMetaCharacters();
+            var promoPrice = productNode.Descendants("span")
+                .FirstOrDefault(x => x.GetAttributeValue("class", "") == "pricebox__price")?
+                .InnerText
+                .RemoveNonNumeric();
 
-            if (decimal.TryParse(price, out decimal plnDecimal)) result.Value = plnDecimal / 100;
-            else return new Product();
+            var regularPrice = productNode.Descendants("span")
+                .FirstOrDefault(x => x.GetAttributeValue("class", "") == "pricebox__recommended-retail-price")?
+                .InnerText
+                .RemoveNonNumeric();
+
+            if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.Value = promoPriceDecimal / 100;
+            if (decimal.TryParse(regularPrice, out decimal regularPriceDecimal)) result.SaleValue = regularPriceDecimal / 100;
+
+            result.OnSale = true;
 
             #endregion
 
             #region Get Sale Description
-
-            var promoCommnets = productNode.Descendants()
-                .Where(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "a-pricetag__discount", MatchDireciton.Equals)))
-                .Select(z => z.InnerText.RemoveMetaCharacters())
-                .ToList();
-
-            if (promoCommnets.Count != 0)
-            {
-                result.Description = String.Join(", ", promoCommnets.ToArray());
-                result.OnSale = true;
-            }
 
             #endregion
 
@@ -137,6 +134,10 @@ namespace WEB.SearchEngine.Crawlers
             result.Seller = this.GetType().Name.Replace("Crawler", "");
             result.TimeStamp = DateTime.Now;
             result.SourceUrl = linkStruct.Link;
+
+            var productUrl = productNode.GetAttributeValue("href", "");
+
+            result.SourceUrl = new Uri(new Uri(BaseUrls[0]), productUrl).ToString();
 
             #endregion
 
