@@ -122,69 +122,65 @@
 /*Index section 2 cards*/
 
 .card-img-top {
-    width: 12rem;
+    width: 20rem;
 }
 
 .container-cards {
     position: relative;
-    width: 18em;
-    margin: 4em auto;
+    margin-top: 10%;
+    margin-left: 40%;
+    margin-bottom: 10%;
 }
 
 #card-00 {
-    margin-left: -13em;
-    background: #fffafa;
+    margin-left: -12em;
+    background: #000000;
     box-shadow: 4px 4px 15px 2px #000000;
-    z-index: 10;
-    transition: all;
+    z-index: 6;
+    transition-property: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    transform: rotateZ(8deg);
 }
 
 #card-01 {
-    background: #fffafa;
+    background: #000000;
     z-index: 9;
-    margin-left: -12em;
+    margin-left: -11em;
     box-shadow: 4px 4px 15px 2px #000000;
-    transition: all;
+    transition-property: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    transform: rotateZ(3deg);
 }
 
 #card-02 {
-    background: #fffafa;
-    z-index: 8;
-    margin-left: -13em;
+    background: #000000;
+    z-index: 12;
+    margin-left: -12em;
     box-shadow: 4px 4px 15px 2px #000000;
-    transition: all;
+    transition-property: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
 }
 
 #card-03 {
-    background: #fffafa;
+    background: #000000;
     z-index: 7;
-    margin-left: -12em;
+    margin-left: -11em;
     box-shadow: 4px 4px 15px 2px #000000;
-    transition: all;
+    transition-property: all;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-    transform: rotateZ(-3deg);
 }
 
 #card-04 {
-    background: #fffafa;
+    background: #000000;
     z-index: 6;
-    margin-left: -13em;
+    margin-left: -12em;
     box-shadow: 4px 4px 15px 2px #000000;
-    transition: all;
-    transition-duration: 0.5s;
+    transition-property: all;
+    transition-duration: 1s;
     transition-timing-function: ease-in-out;
-    transform: rotateZ(-8deg);
 }
-
 .container-cards:hover .card-front,
 .container-cards.hover .card-front {
     opacity: 0.9;
@@ -197,13 +193,15 @@
     .container-cards:hover .card-front.hover,
     .container-cards.hover .card-front.hover {
         opacity: 1;
-        z-index: 11;
+        z-index: 13 !important;
         transform: scale(1);
+        
     }
 
 .container-cards:hover .card-00,
 .container-cards.hover .card-00 {
     transform: rotateZ(0deg) scale(0.95);
+    
 }
 
 .container-cards:hover .card-01,
