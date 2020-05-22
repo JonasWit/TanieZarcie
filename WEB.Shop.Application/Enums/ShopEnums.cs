@@ -17,5 +17,6 @@ namespace WEB.Shop.Application.Enums
         LeroyMerlin = 8,
         Aldi = 9,
         MediaMarkt = 10,
+        InterMarche = 11
     }
 }

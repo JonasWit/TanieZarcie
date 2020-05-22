@@ -14,7 +14,8 @@
         Obi = 9,
         LeroyMerlin = 10,
         Aldi = 11,
-        MediaMarkt =12,
+        MediaMarkt = 12,
+        InterMarche = 13
     }
 
     public enum MatchDirection

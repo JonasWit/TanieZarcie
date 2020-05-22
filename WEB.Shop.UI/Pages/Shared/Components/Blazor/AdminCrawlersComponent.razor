@@ -71,9 +71,9 @@
                                         <i class="fas fa-shopping-cart fa-3x text-warning"></i>
                                         <div class="text-right text-secondary">
                                             <h3>@shop.ToString()</h3>
-                                            <h5>@($"{Commander.DataCacheCount.Where(x => x.Key == shop.ToString()).Sum(s => s.Value)} Cached")</h5>
-                                            <h5>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h5>
-                                            <h5>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "")}")</h5>
+                                            <h6>@($"{Commander.DataCacheCount.Where(x => x.Key == shop.ToString()).Sum(s => s.Value)} Cached")</h6>
+                                            <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h6>
+                                            <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")} Oldest Record")</h6>
                                         </div>
                                     </div>
 

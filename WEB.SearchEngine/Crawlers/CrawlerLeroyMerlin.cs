@@ -99,8 +99,8 @@ namespace WEB.SearchEngine.Crawlers
                 try
                 {
                     var prices = pricesNode.Descendants("span")
-                .Where(n => n.Attributes.Any(x => x.Name == "class" && x.Value == "price"))
-                .ToList();
+                                        .Where(n => n.Attributes.Any(x => x.Name == "class" && x.Value == "price"))
+                                        .ToList();
 
                     var price1Int = Int32.Parse(prices[0].Descendants("span")
                                         .Where(n => n.Attributes.Any(x => x.Name == "class" && x.Value == "integer"))
