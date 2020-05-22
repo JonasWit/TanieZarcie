@@ -124,92 +124,180 @@
 .card-img-top {
     width: 20rem;
 }
-
-.container-cards {
-    position: relative;
-    margin-top: 10%;
-    margin-left: 40%;
-    margin-bottom: 10%;
+.card1 {
+    left: 50%;
+    margin-left: -13em;
+    z-index: 10;
+    transform: rotateZ(-3deg);
+    transition: all 0.5s ease-in-out 0.3s;
 }
 
-#card-00 {
+.card2 {
+    left: 50%;
     margin-left: -12em;
-    background: #000000;
-    box-shadow: 4px 4px 15px 2px #000000;
-    z-index: 6;
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    z-index: 8;
+    transition: all 0.5s ease-in-out 0.15s;
 }
 
-#card-01 {
-    background: #000000;
+.card3 {
+    left: 50%;
+    margin-left: -11em;
     z-index: 9;
-    margin-left: -11em;
-    box-shadow: 4px 4px 15px 2px #000000;
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    transform: rotateZ(3deg);
+    transition: all 0.5s ease-in-out 0.15s;
 }
 
-#card-02 {
-    background: #000000;
-    z-index: 12;
-    margin-left: -12em;
-    box-shadow: 4px 4px 15px 2px #000000;
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-}
-
-#card-03 {
-    background: #000000;
+.card4 {
+    left: 50%;
+    margin-left: -10em;
     z-index: 7;
-    margin-left: -11em;
-    box-shadow: 4px 4px 15px 2px #000000;
-    transition-property: all;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    transform: rotateZ(-3deg);
+    transition: all 0.5s ease-in-out 0.15s;
 }
 
-#card-04 {
-    background: #000000;
+.card5 {
+    left: 50%;
+    margin-left: -9em;
     z-index: 6;
-    margin-left: -12em;
-    box-shadow: 4px 4px 15px 2px #000000;
-    transition-property: all;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
+    transform: rotateZ(3deg);
+    transition: all 0.5s ease-in-out 0.15s;
 }
-.container-cards:hover .card-front,
-.container-cards.hover .card-front {
-    opacity: 0.9;
+
+.card-container {
+    position: relative;
+    height:600px;
+    width: 20em;
+    margin: 4em auto;
+}
+
+.card {
+    position: absolute;
+    top: 0;
+    background: #fffafa;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.65);
+    border-radius: 0em;
+    
+    width: 20em;
+    max-width: 20em;
+    -webkit-backface-visibility: hidden;
+}
+
+    .card a {
+        margin: 0em;
+        display: block;
+        width: 120%;
+        max-width: 24em;
+        position: relative;
+        line-height: 1em;
+    }
+
+        .card a:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0px;
+            bottom: 1px;
+            
+        }
+
+    .card h1 {
+        padding: 5px;
+        font-family: 'Aclonica';
+        color: #000000;
+    }
+
+    .card p {
+        line-height: 1.75em;
+        margin-bottom: 0;
+    }
+
+.card-container:hover .card,
+.card-container.hover .card {
+    
     transform: scale(0.95);
     margin-left: -12em;
 }
 
-    .container-cards:hover .card-front:hover,
-    .container-cards.hover .card-front:hover,
-    .container-cards:hover .card-front.hover,
-    .container-cards.hover .card-front.hover {
-        opacity: 1;
-        z-index: 13 !important;
+    .card-container:hover .card:hover,
+    .card-container.hover .card:hover,
+    .card-container:hover .card.hover,
+    .card-container.hover .card.hover {
+        
+        z-index: 11;
         transform: scale(1);
         
     }
 
-.container-cards:hover .card-00,
-.container-cards.hover .card-00 {
+.card-container:hover .card1,
+.card-container.hover .card1 {
     transform: rotateZ(0deg) scale(0.95);
     
 }
 
-.container-cards:hover .card-01,
-.container-cards.hover .card-01 {
+.card-container:hover .card2,
+.card-container.hover .card2 {
     left: 0%;
 }
 
-.container-cards:hover .card-02,
-.container-cards.hover .card-02 {
+.card-container:hover .card3,
+.card-container.hover .card3 {
     left: 100%;
 }
+
+.card-container:hover .card4,
+.card-container.hover .card4 {
+    left: -50%;
+}
+
+.card-container:hover .card5,
+.card-container.hover .card5 {
+    left: 150%;
+}
+
+.card-img-top {
+    width: 20em;
+
+
+}
+
+@media (min-width: 880px) {
+    .card-container {
+        width: 24em;
+    }
+}
+
+@media (min-width: 1075px) {
+   
+
+    .card-container {
+        width: 38em;
+    }
+}
+
+@media (max-height: 550px) {
+   
+    .card-container {
+        width: 24em;
+    }
+}
+
+.promo-box {
+    display: block;
+    height: 50px;
+    width: 130px;
+    background: #ffc107;
+    box-shadow: 1px 1px 7px #58450b;
+    color: #fffafa;
+    font-family: 'Aclonica';
+    font-size: 15px;
+    padding: 7px;
+    margin-left: 55%;
+    transition: all 1s ease-in-out 0.15s;
+}
+
+    .promo-box:hover {
+        transform: scale(1.5);
+        width: 160px;
+        background-color: #ff0000;
+    }

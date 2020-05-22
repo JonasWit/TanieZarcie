@@ -17,48 +17,68 @@
         </form>
     </div>
 </header>
-<section>
+
 
     <div class="container-fluid m-5">
 
-        <h3 class="m-4">O co tutaj chodzi?</h3>
+        <h3 class="m-4">O co tutaj chodzi?</h3> 
+    </div>
         <!--<section>
-            <div class="container-fluid cards-wrapper">
-                <div class="col-12">
-                    <div class="row">
-                        @foreach (var shop in Model.Shops)
-                        {
-                            var imagePath = $"/ShopCardImage/{shop.ImagePath}";
-                            <a asp-page-handler="@shop.Name">
-                                <div class="card">
-                                    <img class="card-img-top" alt="Card image cap" src="@imagePath" />
+                        <div class="container-fluid cards-wrapper">
+                            <div class="col-12">
+                                <div class="row">
+                                    @foreach (var shop in Model.Shops)
+                                    {
+                                        var imagePath = $"/ShopCardImage/{shop.ImagePath}";
+                                        <a asp-page-handler="@shop.Name">
+                                            <div class="card">
+                                                <img class="card-img-top" alt="Card image cap" src="@imagePath" />
+                                            </div>
+                                        </a>
+                                    }
                                 </div>
-                            </a>
-                        }
-                    </div>
-                </div>
+                            </div>
+                        </div>
+                    </section>
+    -->
+
+
+        <section>
+            <div id="stack1" class="card-container start">
+                <section id="card1" class="card card1">
+                    <h1>Biedronka</h1>
+                    <a href="#">
+                        <img class="card-img-top" src="~/content/shopLogos/Biedronka.jpg" />
+                    </a>
+                    <p class="promo-box">255 promocji</p>
+                </section>
+                <section id="card2" class="card card2">
+                    <h1>Auchan</h1>
+                    <a href="#">
+                        <img class="card-img-top" src="~/content/shopLogos/Auchan.jpg" />
+                    </a>
+                    <p class="promo-box">25 promocji</p>
+                </section>
+                <section id="card3" class="card card3">
+                    <h1>Kaufland</h1>
+                    <a href="#">
+                        <img class="card-img-top" src="~/content/shopLogos/Kaufland.jpg" />
+                    </a>
+                    <p class="promo-box">125 promocji</p>
+                </section>
+                <section id="card4" class="card card4">
+                    <h1>Aldi</h1>
+                    <a href="#">
+                        <img class="card-img-top" src="~/content/shopLogos/Aldi.jpg" />
+                    </a>
+                    <p class="promo-box">5 promocji</p>
+                </section>
+                <section id="card5" class="card card5">
+                    <h1>Lidl</h1>
+                    <a href="#">
+                        <img class="card-img-top" src="~/content/shopLogos/Lidl.jpg" />
+                    </a>
+                    <p class="promo-box">15 promocji</p>
+                </section>
             </div>
         </section>
-        -->
-
-        <div id="stack1" class="container-cards">
-            <div class="card-group">
-                <section id="card-01" class="card-front card-01">
-                    <a href="#">
-                        <img class="card-img-top" alt="Card image cap" src="~/content/shopLogos/Auchan.jpg" />
-                    </a>
-                </section>
-                <section id="card-02" class="card-front card-02">
-                    <a href="#">
-                        <img class="card-img-top" alt="Card image cap" src="~/content/shopLogos/Biedronka.jpg" />
-                    </a>
-                </section>
-                <section id="card-03" class="card-front card-03">
-                    <a href="#">
-                        <img class="card-img-top" alt="Card image cap" src="~/content/shopLogos/Kaufland.jpg" />
-                    </a>
-                </section>
-            </div>
-        </div>
-    </div>
-</section>

@@ -24,7 +24,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerLeroyMerlin());
             Crawlers.Add(new CrawlerAldi());
             //Crawlers.Add(new CrawlerMediaMarkt());
-            //Crawlers.Add(new CrawlerInterMarche());
+            Crawlers.Add(new CrawlerInterMarche());
 
             foreach (var crawler in Crawlers)
             {
