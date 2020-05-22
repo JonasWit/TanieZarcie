@@ -105,7 +105,7 @@ namespace WEB.Shop.Application.Crawlers
                         Description = product.Description,
                         Category = new Category { CategoryName = product.Category },
                         Producer = new Producer { ProducerName = product.Producer },
-                        Distributor = new Distributor { ShopName = product.Name },
+                        Distributor = new Distributor { ShopName = product.Seller },
                         SourceUrl = product.SourceUrl,
                         TimeStamp = product.TimeStamp,
                         Value = product.Value,

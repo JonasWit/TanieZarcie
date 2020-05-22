@@ -6,9 +6,9 @@ namespace WEB.SearchEngine.SearchResultsModels
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Producer { get; set; }
-        public string Seller { get; set; }
-        public string Category { get; set; }
+        public string Producer { get; set; } = "Not Detected";
+        public string Seller { get; set; } = "Not Detected";
+        public string Category { get; set; } = "Not Detected";
         public string SourceUrl { get; set; }
         public decimal Value { get; set; }
 

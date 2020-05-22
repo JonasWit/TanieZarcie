@@ -90,6 +90,8 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Get Category
 
+            result.Category = "Markety Budowlane";
+
             #endregion
 
             #region Get Price and Sale Price, set OnSale Flag

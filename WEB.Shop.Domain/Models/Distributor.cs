@@ -8,5 +8,7 @@ namespace WEB.Shop.Domain.Models
     {
         public int Id { get; set; }
         public string ShopName { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

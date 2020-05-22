@@ -40,6 +40,9 @@ namespace WEB.Shop.DataBase
         public TResult GetProductById<TResult>(int id, Func<Product, TResult> selector) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .Where(x => x.Id == id)
                 .Select(selector)
                 .FirstOrDefault();
@@ -47,6 +50,9 @@ namespace WEB.Shop.DataBase
         public TResult GetProductByName<TResult>(string name, Func<Product, TResult> selector) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .Where(x => x.Name == name)
                 .Select(selector)
                 .FirstOrDefault();
@@ -54,12 +60,18 @@ namespace WEB.Shop.DataBase
         public IEnumerable<TResult> GetProductsWithStock<TResult>(Func<Product, TResult> selector) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .Select(selector)
                 .ToList();
 
         public IEnumerable<TResult> GetProductsWithStockWithCondition<TResult>(Func<Product, TResult> selector, Func<Product, bool> predicate) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .AsEnumerable()
                 .Where(predicate)
                 .Select(selector)
@@ -68,6 +80,9 @@ namespace WEB.Shop.DataBase
         public IEnumerable<TResult> GetProductsWithStockWithPagination<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .AsEnumerable()
                 .Select(selector)
                 .Skip((currentPage - 1) * pageSize)
@@ -77,6 +92,9 @@ namespace WEB.Shop.DataBase
         public IEnumerable<TResult> GetProductsWithStockWithPaginationAndCondition<TResult>(int currentPage, int pageSize, Func<Product, TResult> selector, Func<Product, bool> predicate) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .AsEnumerable()
                 .Where(predicate)
                 .Select(selector)
@@ -87,12 +105,18 @@ namespace WEB.Shop.DataBase
         public int CountProductsWithStockWithCondition(Func<Product, bool> predicate) =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .AsEnumerable()
                 .Count(predicate);
 
         public int CountAllProductsWithStock() =>
             _context.Products
                 .Include(x => x.Stock)
+                .Include(x => x.Producer)
+                .Include(x => x.Distributor)
+                .Include(x => x.Category)
                 .AsEnumerable()
                 .Count();
     }

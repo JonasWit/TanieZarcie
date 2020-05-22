@@ -12,15 +12,13 @@ namespace WEB.Shop.DataBase
         public DbSet<OrderStock> OrderStocks { get; set; }
         public DbSet<StockOnHold> StocksOnHold { get; set; }
         public DbSet<OneNews> News { get; set; }
-        public DbSet<Distributor> Shops { get; set; }
-        public DbSet<Producer> Producres { get; set; }
+        public DbSet<Distributor> Distributors { get; set; }
+        public DbSet<Producer> Producers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<NewsMainComment> NewsMainComments { get; set; }
         public DbSet<NewsSubComment> NewsSubComments { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
-            : base(options) { }
-
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -26,9 +26,9 @@ namespace WEB.Shop.Application.Products
                 {
                     Name = product.Name,
                     Description = product.Description,
-                    Producer = product.Producer,
-                    Seller = product.Seller,
-                    Category = product.Category,
+                    Producer = product.Producer.ProducerName,
+                    Seller = product.Distributor.ShopName,
+                    Category = product.Category.CategoryName,
                     SourceUrl = product.SourceUrl,
                     Value = product.Value.MonetaryValue(false),
 
@@ -55,9 +55,9 @@ namespace WEB.Shop.Application.Products
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Producer = product.Producer,
-                Seller = product.Seller,
-                Category = product.Category,
+                Producer = product.Producer.ProducerName,
+                Seller = product.Distributor.ShopName,
+                Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
 
