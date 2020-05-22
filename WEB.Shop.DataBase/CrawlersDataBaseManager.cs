@@ -38,7 +38,7 @@ namespace WEB.Shop.DataBase
                 {
                     product.Stock = new List<Stock>
                     {
-                        new Stock { Description = product.Seller, Quantity = 100 }
+                        new Stock { Description = product.Distributor.ShopName, Quantity = 100 }
                     };
 
                     _context.Products.Add(product);
@@ -58,15 +58,15 @@ namespace WEB.Shop.DataBase
         {
             var result = new List<(string, int, int, DateTime)>();
 
-            var shops = _context.Products.Select(s => s.Seller).Distinct().ToList();
+            var shops = _context.Products.Select(s => s.Distributor.ShopName).Distinct().ToList();
 
             foreach (var shop in shops)
             {
                 result.Add(
                     (shop.ToString(),
-                    _context.Products.Where(p => p.Seller == shop).Count(), 
-                    _context.Products.Where(p => p.Seller == shop && p.OnSale).Count(), 
-                    _context.Products.Where(p => p.Seller == shop)
+                    _context.Products.Where(p => p.Distributor.ShopName == shop).Count(), 
+                    _context.Products.Where(p => p.Distributor.ShopName == shop && p.OnSale).Count(), 
+                    _context.Products.Where(p => p.Distributor.ShopName == shop)
                         .OrderByDescending(p => p.TimeStamp)
                         .Select(p => p.TimeStamp)
                         .FirstOrDefault()));
