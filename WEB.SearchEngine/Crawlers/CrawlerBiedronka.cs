@@ -151,7 +151,6 @@ namespace WEB.SearchEngine.Crawlers
                 .Select(z => z.InnerText.RemoveMetaCharacters())
                 .ToList();
 
-
             if (promoCommnets.Count != 0)
             {
                 result.SaleDescription = String.Join(", ", promoCommnets.ToArray());
@@ -168,7 +167,10 @@ namespace WEB.SearchEngine.Crawlers
 
             result.Seller = this.GetType().Name.Replace("Crawler", "");
             result.TimeStamp = DateTime.Now;
-            result.SourceUrl = linkStruct.Link;
+
+            var productUrl = productNode.Descendants("a").FirstOrDefault().GetAttributeValue("href", "");
+
+            result.SourceUrl = new Uri(new Uri(BaseUrls[0]), productUrl).ToString();
 
             #endregion
 
