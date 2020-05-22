@@ -23,7 +23,7 @@ namespace WEB.Shop.Application.ProductsAdmin
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value,
@@ -44,7 +44,7 @@ namespace WEB.Shop.Application.ProductsAdmin
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value,
@@ -56,7 +56,7 @@ namespace WEB.Shop.Application.ProductsAdmin
 
                 StockCount = product.Stock.Sum(y => y.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
+            }, product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
 
         public class Response
         {

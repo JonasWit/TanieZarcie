@@ -25,10 +25,10 @@ namespace WEB.Shop.Application.Products
         }
 
         public int CountProductForShop(string shop) =>
-            _productManager.CountProductsWithStockWithCondition(product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
+            _productManager.CountProductsWithStockWithCondition(product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
 
         public int CountProductOnSaleForShop(string shop) =>
-            _productManager.CountProductsWithStockWithCondition(product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) && product.OnSale);
+            _productManager.CountProductsWithStockWithCondition(product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) && product.OnSale);
 
         public int CountAllProducts() => _productManager.CountAllProductsWithStock();
 
@@ -36,7 +36,7 @@ namespace WEB.Shop.Application.Products
             _productManager.CountProductsWithStockWithCondition(product => product.Name.StandardSearch(searchString));
 
         public int CountProductsForShopWithSearchString(string shop, string searchString) =>
-            _productManager.CountProductsWithStockWithCondition(product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) && product.Name.StandardSearch(searchString));
+            _productManager.CountProductsWithStockWithCondition(product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) && product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetAllProducts() =>
             _productManager.GetProductsWithStock(product => new ProductViewModel
@@ -45,7 +45,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -68,7 +68,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -91,7 +91,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -114,7 +114,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -137,7 +137,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -151,7 +151,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
+            }, product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
 
         public IEnumerable<ProductViewModel> GetShopProductsWithPagination(int pageNumber, int pageSize, string shop) =>
             _productManager.GetProductsWithStockWithPaginationAndCondition(pageNumber, pageSize, product => new ProductViewModel
@@ -160,7 +160,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -174,7 +174,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
+            }, product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));
 
         public IEnumerable<ProductViewModel> GetShopProductsWithSearchString(string shop, string searchString) =>
             _productManager.GetProductsWithStockWithCondition(product => new ProductViewModel
@@ -183,7 +183,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -197,7 +197,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
+            }, product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
                product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetShopProductsWithSearchStringAndPagination(int pageNumber, int pageSize, string shop, string searchString) =>
@@ -207,7 +207,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -221,7 +221,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
+            }, product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
                product.Name.StandardSearch(searchString));
 
         public IEnumerable<ProductViewModel> GetShopProductsWithPagination(int pageNumber, int pageSize, string shop, string searchString) =>
@@ -231,7 +231,7 @@ namespace WEB.Shop.Application.Products
                 Name = product.Name,
                 Description = product.Description,
                 Producer = product.Producer.ProducerName,
-                Seller = product.Distributor.ShopName,
+                Seller = product.Distributor.DistributorName,
                 Category = product.Category.CategoryName,
                 SourceUrl = product.SourceUrl,
                 Value = product.Value.MonetaryValue(false),
@@ -245,7 +245,7 @@ namespace WEB.Shop.Application.Products
 
                 StockCount = product.Stock.Sum(stock => stock.Quantity),
                 TimeStamp = product.TimeStamp
-            }, product => product.Distributor.ShopName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
+            }, product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()) &&
                product.Name.StandardSearch(searchString));
 
         public class ProductViewModel

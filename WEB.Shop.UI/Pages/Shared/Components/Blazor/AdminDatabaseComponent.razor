@@ -1,0 +1,219 @@
+﻿@using WEB.Shop.Application.Crawlers
+@using WEB.Shop.Application.Enums
+@inject CrawlersCommander Commander
+
+@if (!loading)
+{
+    <!-- Cards -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <div class="row pt-md-5 mt-md-3 mb-5">
+
+                    <!-- Crawlers Card -->
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-shopping-cart fa-3x text-warning"></i>
+                                    <div class="text-right text-secondary">
+                                        @*<h3>All Data</h3>
+                                        <h5>@($"{Commander.DataCacheCount.Sum(s => s.Value)} Cached")</h5>
+                                        <h5>@($"{Commander.DataBaseCheck.Sum(s => s.PromoProductsCount)} Stored")</h5>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                    
+
+                                            </td>
+                                            <td>
+                     
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                          
+
+                                            </td>
+                                            <td>
+                    
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shops Cards -->
+                    @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                    {
+                        <div class="col-xl-3 col-sm-6 p-2">
+                            <div class="card tza-card-common">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <i class="fas fa-shopping-cart fa-3x text-warning"></i>
+                                        <div class="text-right text-secondary">
+                                            @*<h3>@shop.ToString()</h3>
+                                            <h6>@($"{Commander.DataCacheCount.Where(x => x.Key == shop.ToString()).Sum(s => s.Value)} Cached")</h6>
+                                            <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h6>
+                                            <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")} Oldest Record")</h6>*@
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer text-secondary">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                         
+                                                </td>
+                                                <td>
+                               
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                            
+                                                </td>
+                                                <td>
+                             
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Loader-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <div class="row pt-md-5 mt-md-3 mb-5">
+                    <div class="tza-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    private bool loading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.CheckDataBase();
+            loading = false;
+        }
+    }
+
+
+    #region Database
+
+    private async Task RefreshDataBaseSummary()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.CheckDataBase();
+            loading = false;
+        }
+    }
+
+    private async Task ClearDataBase()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.ClearDataBaseAsync();
+            loading = false;
+        }
+    }
+
+    private async Task ClearDataBase(Shops shop)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.ClearDataBaseAsync(shop.ToString());
+            loading = false;
+        }
+    }
+
+    private async Task UpdateDataBase()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.UpdateAllData();
+            loading = false;
+        }
+    }
+
+    private async Task UpdateDataBase(Shops shop)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+            await Commander.UpdateDataBase(shop.ToString());
+            loading = false;
+        }
+    }
+
+    #endregion
+
+}

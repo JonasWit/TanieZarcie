@@ -55,8 +55,8 @@ namespace WEB.Shop.Application.Crawlers
 
             foreach (var shop in Enum.GetNames(typeof(Shops)).ToList())
             {
-                DataCacheCount[shop] = Results.Where(p => p.Distributor.ShopName == shop).Count();
-                DataCachePromoCount[shop] = Results.Where(p => p.Distributor.ShopName == shop && p.OnSale).Count();
+                DataCacheCount[shop] = Results.Where(p => p.Distributor.DistributorName == shop).Count();
+                DataCachePromoCount[shop] = Results.Where(p => p.Distributor.DistributorName == shop && p.OnSale).Count();
             }
 
             return Results.Count;
@@ -87,7 +87,7 @@ namespace WEB.Shop.Application.Crawlers
             DataCacheCount[shop.ToString()] = 0;
             DataCachePromoCount[shopEnum.ToString()] = 0;
 
-            await Task.Run(() => Results.RemoveAll(p => p.Distributor.ShopName == shopEnum.ToString()));
+            await Task.Run(() => Results.RemoveAll(p => p.Distributor.DistributorName == shopEnum.ToString()));
             return Results.Count;
         }
 
@@ -105,7 +105,7 @@ namespace WEB.Shop.Application.Crawlers
                         Description = product.Description,
                         Category = new Category { CategoryName = product.Category },
                         Producer = new Producer { ProducerName = product.Producer },
-                        Distributor = new Distributor { ShopName = product.Seller },
+                        Distributor = new Distributor { DistributorName = product.Seller },
                         SourceUrl = product.SourceUrl,
                         TimeStamp = product.TimeStamp,
                         Value = product.Value,
@@ -141,7 +141,7 @@ namespace WEB.Shop.Application.Crawlers
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
             await ClearDataBaseAsync(shopEnum.ToString());
-            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Distributor.ShopName == shopEnum.ToString()).ToList());
+            await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Distributor.DistributorName == shopEnum.ToString()).ToList());
             await CheckDataBase();
         }
 

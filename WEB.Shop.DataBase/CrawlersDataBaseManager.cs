@@ -36,7 +36,7 @@ namespace WEB.Shop.DataBase
             {
                 foreach (var product in products)
                 {
-                    if (!_context.Distributors.Any(x => x.ShopName == product.Distributor.ShopName))
+                    if (!_context.Distributors.Any(x => x.DistributorName == product.Distributor.DistributorName))
                     {
                         _context.Distributors.Add(product.Distributor);
                         await _context.SaveChangesAsync();
@@ -60,7 +60,7 @@ namespace WEB.Shop.DataBase
                     product.Producer = _context.Producers.FirstOrDefault(x => x.ProducerName == product.Producer.ProducerName);
                     product.ProducerId = product.Producer.Id;
 
-                    product.Distributor = _context.Distributors.FirstOrDefault(x => x.ShopName == product.Distributor.ShopName);
+                    product.Distributor = _context.Distributors.FirstOrDefault(x => x.DistributorName == product.Distributor.DistributorName);
                     product.DistributorId = product.Distributor.Id;
 
                     product.Category = _context.Categories.FirstOrDefault(x => x.CategoryName == product.Category.CategoryName);
@@ -71,7 +71,7 @@ namespace WEB.Shop.DataBase
                 {
                     product.Stock = new List<Stock>
                     {
-                        new Stock { Description = product.Distributor.ShopName, Quantity = 100 }
+                        new Stock { Description = product.Distributor.DistributorName, Quantity = 100 }
                     };
 
                     _context.Products.Add(product);
@@ -91,15 +91,15 @@ namespace WEB.Shop.DataBase
         {
             var result = new List<(string, int, int, DateTime)>();
 
-            var shops = _context.Products.Select(s => s.Distributor.ShopName).Distinct().ToList();
+            var shops = _context.Products.Select(s => s.Distributor.DistributorName).Distinct().ToList();
 
             foreach (var shop in shops)
             {
                 result.Add(
                     (shop.ToString(),
-                    _context.Products.Where(p => p.Distributor.ShopName == shop).Count(),
-                    _context.Products.Where(p => p.Distributor.ShopName == shop && p.OnSale).Count(),
-                    _context.Products.Where(p => p.Distributor.ShopName == shop)
+                    _context.Products.Where(p => p.Distributor.DistributorName == shop).Count(),
+                    _context.Products.Where(p => p.Distributor.DistributorName == shop && p.OnSale).Count(),
+                    _context.Products.Where(p => p.Distributor.DistributorName == shop)
                         .OrderByDescending(p => p.TimeStamp)
                         .Select(p => p.TimeStamp)
                         .FirstOrDefault()));

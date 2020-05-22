@@ -68,7 +68,7 @@ namespace WEB.Shop.Application.Cart
                 Quantity = request.Quantity,
                 ProductName = stock.Product.Name,
                 Description = stock.Product.Description,
-                Seller = stock.Product.Distributor.ShopName,
+                Seller = stock.Product.Distributor.DistributorName,
                 Category = stock.Product.Category.CategoryName,
                 Producer = stock.Product.Producer.ProducerName,
                 SourceUrl = stock.Product.SourceUrl,

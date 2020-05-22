@@ -13,7 +13,7 @@ namespace WEB.Shop.DataBase
 
         public static void DeleteProductsFromShop(this DbSet<Product> dbSet, string shop)
         {
-            dbSet.RemoveRange(dbSet.Where(x => x.Distributor.ShopName == shop));
+            dbSet.RemoveRange(dbSet.Where(x => x.Distributor.DistributorName == shop));
         }
     }
 }

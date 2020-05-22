@@ -7,7 +7,7 @@ namespace WEB.Shop.Domain.Models
     public class Distributor
     {
         public int Id { get; set; }
-        public string ShopName { get; set; }
+        public string DistributorName { get; set; }
 
         public ICollection<Product> Products { get; set; }
     }
