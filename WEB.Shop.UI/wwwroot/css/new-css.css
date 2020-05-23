@@ -1,6 +1,6 @@
 ﻿* body {
     margin: 0;
-    font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Aclonica';
     font-size: 1rem;
     font-weight: normal;
     line-height: 1.5;
@@ -203,7 +203,6 @@
 
     .card h1 {
         padding: 5px;
-        font-family: 'Aclonica';
         color: #000000;
     }
 
@@ -289,7 +288,6 @@
     background: #ffc107;
     box-shadow: 1px 1px 7px #58450b;
     color: #fffafa;
-    font-family: 'Aclonica';
     font-size: 15px;
     padding: 7px;
     margin-left: 55%;
@@ -301,3 +299,93 @@
         width: 160px;
         background-color: #ff0000;
     }
+
+/*Sticky links*/
+.our-links{
+    position: fixed;
+    top: 30%;
+    z-index: 99;
+    float:left;
+    transform: translateX(-250px);
+    padding: 0;
+}
+
+.our-links li{
+    display: block;
+    padding: 5px;
+    border: none;
+    background-color: #ffc107;
+    border-radius: 0 30px 30px 0;
+    opacity: 0.7;
+    width: 300px;
+    text-align: right;
+    padding: 10px;
+    margin: 5px;
+    transition: all 1s;
+
+}
+
+    .our-links li:hover {
+        transform: translateX(110px);
+        background: linear-gradient(90deg, #ffc107, #ffffff, #ffc107);
+        background-size: 400%;
+        animation: animate 8s linear infinite;
+    }
+
+@keyframes animate {
+    0% {
+        background-position: 0%
+    }
+
+    100% {
+        background-position: 400%
+    }
+}
+
+.our-links li a{
+    color: #000000;
+    text-decoration: none;
+}
+
+.scroll-down {
+    opacity: 1;
+    -webkit-transition: all .5s ease-in 3s;
+    transition: all .5s ease-in 3s;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -16px;
+    display: block;
+    width: 100px;
+    height: 100px;
+    border: 10px solid #ffc107;
+    color: #000000 !important;
+    border-radius: 50%;
+    z-index: 99;
+    animation: bounce 1s infinite 1s;
+    transition: all .2s ease-in-out;
+}
+
+ 
+@keyframes bounce {
+    0%, 100%, 20%, 50%, 80% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+
+    60% {
+        -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
