@@ -10,6 +10,7 @@ namespace WEB.Shop.Domain.Infrastructure
     {
         Task<int> UpdateDatabaseAsync(List<Product> products);
         Task<int> ClearDataBaseAsync();
+        Task<int> CleanUpDataBaseAsync();
         Task<int> DeleteProductFromShops(string shop);
         List<(string, int, int, DateTime)> CheckDataBase();
     }

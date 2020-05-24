@@ -169,6 +169,7 @@ namespace WEB.Shop.Application.Crawlers
         {
             DataBaseCheck = new List<DataBaseSummary>();
 
+            await Task.Run(() => _crawlersDataBaseManager.CleanUpDataBaseAsync());
             var check = await Task.Run(() => _crawlersDataBaseManager.CheckDataBase());
 
             foreach (var item in check)

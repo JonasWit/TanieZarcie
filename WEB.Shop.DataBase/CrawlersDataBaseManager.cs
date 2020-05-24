@@ -10,7 +10,7 @@ namespace WEB.Shop.DataBase
 {
     public class CrawlersDataBaseManager : ICrawlersDataBaseManager
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CrawlersDataBaseManager(ApplicationDbContext context)
         {
@@ -20,6 +20,20 @@ namespace WEB.Shop.DataBase
         public async Task<int> ClearDataBaseAsync()
         {
             _context.Products.Clear();
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> CleanUpDataBaseAsync()
+        {
+            var categoriesToClean = _context.Categories.Where(x => !_context.Products.Any(y => y.CategoryId == x.Id)).ToList();
+            _context.Categories.RemoveRange(categoriesToClean);
+
+            var deistributorsToClean = _context.Distributors.Where(x => !_context.Products.Any(y => y.DistributorId == x.Id)).ToList();
+            _context.Distributors.RemoveRange(deistributorsToClean);
+
+            var producersToClean = _context.Producers.Where(x => !_context.Products.Any(y => y.ProducerId == x.Id)).ToList();
+            _context.Producers.RemoveRange(producersToClean);
+
             return await _context.SaveChangesAsync();
         }
 
