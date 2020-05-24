@@ -1,194 +1,255 @@
 ﻿@page
 @model ProductsOverviewModel
 
-    <section class="counters">
-        <div class="counter-container">
-            <div>
-                <i class=""></i>
-                <div class="counter" data-target="15">0</div>
-                <h3>Liczba sklepów</h3>
+
+<div class="container">
+    <h2 class="text-center mt-3 mb-5" style="background-color: #000000; opacity: 0.8; color: #ffffff"> Wybierz produkt i sklep, a my poszperamy w poszukiwaniu PROMOCJI!  </h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row" id="search-product">
+                <div class=" col-12 d-flex align-items-center justify-content-center pb-3">
+                    <h4 class="p-2 mb-1 mt-2">Co znaleźliśmy? Liczba produktów - @Model.Count</h4>
+                </div>
+                <form method="post">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="input-group md-form form-sm form-2 p-0">
+                                <input class="form-control " asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
+                            </div>
+                            <small id="passwordHelpBlock" class="form-text text-muted p-3">
+                                Produkt: @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)
+                                Sklep: @Model.SelectedShop
+                            </small>
+                        </div>
+
+                        <div class="col-8 md-form form-sm form-2">
+
+                            <div class="input-group">
+                                <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="SelectedShop">
+                                    <option selected value="Wszystkie">Wszystkie sklepy</option>
+                                    @foreach (var shop in Model.Shops)
+                                    {
+                                        <option value="@shop">@shop</option>
+                                    }>
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-warning" type="submit" asp-page-handler="Search">Szukaj</button>
+                                    <button class="btn btn-outline-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
             </div>
-            <div>
-                <i class=""></i>
-                <div class="counter" data-target="100">0</div>
-                <h3>Znalezione promocje</h3>
+
+        </div>
+
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-12">
+            <div class="block d-flex align-items-center justify-content-center">
+                <partial name="_ProductsPagination" model="Model" />
             </div>
-            <div>
-                <i class=""></i>
-                <div class="counter" data-target="5">0</div>
-                <h3>Aktualności</h3>
-            </div>
-            <div>
-                <i class=""></i>
-                <div class="counter" data-target="15">0</div>
-                <h3>Placeholder</h3>
-            </div>
+        </div>
+        <!--<div class="table-responsive-sm">
+                        <table class="table table-bordered table-condensed table-striped table-hover w-auto">
+                            <thead class="text-center  ">
+                                <tr>
+                                    <th class="th-sm"> Sklep </th>
+                                    <th class="th-sm"> Produkt </th>
+                                    <th class="th-sm"> Jak tanio? </th>
+                                    <th class="th-sm"> Cena </th>
+                                    <th class="th-sm"> Sprawdź </th>
+                                    <th class="th-sm"> Aktualizacja </th>
+                                </tr>
+                            </thead>
+                            @foreach (var p in Model.Products)
+                            {
+                                <tbody>
+                                    <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="text-warning">
+
+                                        <tr class="table-row">
+                                            <td>
+                                                <p id="@p.Seller.ToLower()"> @p.Seller</p>
+                                            </td>
+                                            <td>
+                                                <p>@p.Name</p>
+                                            </td>
+
+                                            <td>
+                                                @if (p.OnSale)
+                                                {
+                                                    <p class="text-danger font-weight-bold pb-2 text-center">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-success font-weight-bold pb-2 text-center">Normalna Cena</p>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (p.OnSale)
+                                                {
+                                                    if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
+                                                    {
+                                                        <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
+                                                        <p class="text-danger text-center font-weight-bold"> @p.Value </p>
+                                                        <p class="text-danger text-center font-weight-bold"> @($"{String.Format("Obniżka: {0:P2}", p.Discount)}") </p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="text-danger text-center font-weight-bold"> @p.Value </p>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-success text-center font-weight-bold"> @p.Value </p>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <div class="d-flex justify-content-center pb-3">
+
+                                                    <a asp-page="Product" asp-route-name="@p.Id.ToString()">
+                                                        <button class="btn-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></button>
+                                                    </a>
+
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var updateDataTuple = Model.UpdateData(p.TimeStamp);
+                                                    if (updateDataTuple.Item1)
+                                                    {
+                                                        <div class="text-center p-1 bg-danger">
+                                                            <small class="text-muted">
+                                                                @updateDataTuple.Item4
+                                                            </small>
+                                                        </div>
+                                                    }
+                                                    if (updateDataTuple.Item2)
+                                                    {
+                                                        <div class="text-center p-1 text-white bg-warning">
+                                                            <small class="text-muted">
+                                                                @updateDataTuple.Item4
+                                                            </small>
+                                                        </div>
+                                                    }
+                                                    if (updateDataTuple.Item3)
+                                                    {
+                                                        <div class="text-center p-1 text-white bg-success">
+                                                            <small class="text-muted">
+                                                                @updateDataTuple.Item4
+                                                            </small>
+                                                        </div>
+                                                    }
+                                                }
+                                            </td>
+
+                                        </tr>
+                                    </a>
+                                </tbody>
+
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="block d-flex align-items-center justify-content-center">
+                            <partial name="_ProductsPagination" model="Model" />
+                        </div>
+                    </div>
+                </div>
+        -->
+
+    </div>
+    <section>
+
+        <div class="card-columns">
+            @foreach (var p in Model.Products)
+            {
+
+                <div class="card mb-3 card-product">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+
+                    <div class="card-body">
+                        <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="text-warning" />
+
+                        <p id="@p.Seller.ToLower()"> @p.Seller</p>
+
+                        <p>@p.Name</p>
+
+                        @if (p.OnSale)
+                        {
+                            <p class="text-danger font-weight-bold pb-2 text-center">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
+                        }
+                        else
+                        {
+                            <p class="text-success font-weight-bold pb-2 text-center">Normalna Cena</p>
+                        }
+
+                        @if (p.OnSale)
+                        {
+                            if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
+                            {
+                                <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
+                                <p class="text-danger text-center font-weight-bold"> @p.Value </p>
+                                <p class="text-danger text-center font-weight-bold"> @($"{String.Format("Obniżka: {0:P2}", p.Discount)}") </p>
+                            }
+                            else
+                            {
+                                <p class="text-danger text-center font-weight-bold"> @p.Value </p>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-success text-center font-weight-bold"> @p.Value </p>
+                        }
+                        
+                        <div class="d-flex justify-content-center pb-3">
+
+                            <a asp-page="Product" asp-route-name="@p.Id.ToString()">
+                                <button class="btn-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></button>
+                            </a>
+
+                        </div>
+                        <p class="card-text">
+                            <small class="text-muted">
+
+                                @{
+                                    var updateDataTuple = Model.UpdateData(p.TimeStamp);
+                                    if (updateDataTuple.Item1)
+                                    {
+                                        <div class="text-center p-1 bg-danger">
+                                            <small class="text-muted">
+                                                @updateDataTuple.Item4
+                                            </small>
+                                        </div>
+                                    }
+                                    if (updateDataTuple.Item2)
+                                    {
+                                        <div class="text-center p-1 text-white bg-warning">
+                                            <small class="text-muted">
+                                                @updateDataTuple.Item4
+                                            </small>
+                                        </div>
+                                    }
+                                    if (updateDataTuple.Item3)
+                                    {
+                                        <div class="text-center p-1 text-white bg-success">
+                                            <small class="text-muted">
+                                                @updateDataTuple.Item4
+                                            </small>
+                                        </div>
+                                    }
+                                }
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            }
         </div>
 
     </section>
-<div class="container-fluid product">
-    <div class="container">
-        <h2 class="text-center mt-3 mb-5" style="background-color: #000000; opacity: 0.8; color: #ffffff"> Wybierz produkt i sklep, a my poszperamy w poszukiwaniu PROMOCJI!  </h2>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row" id="search-product">
-                    <div class=" col-12 d-flex align-items-center justify-content-center pb-3">
-                        <h4 class="p-2 mb-1 mt-2">Co znaleźliśmy? Liczba produktów - @Model.Count</h4>
-                    </div>
-                    <form method="post">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="input-group md-form form-sm form-2 p-0">
-                                    <input class="form-control " asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
-                                </div>
-                                <small id="passwordHelpBlock" class="form-text text-muted p-3">
-                                    Produkt: @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)
-                                    Sklep: @Model.SelectedShop
-                                </small>
-                            </div>
-
-                            <div class="col-8 md-form form-sm form-2">
-
-                                <div class="input-group">
-                                    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="SelectedShop">
-                                        <option selected value="Wszystkie">Wszystkie sklepy</option>
-                                        @foreach (var shop in Model.Shops)
-                                        {
-                                            <option value="@shop">@shop</option>
-                                        }>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-warning" type="submit" asp-page-handler="Search">Szukaj</button>
-                                        <button class="btn btn-outline-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-12">
-                <div class="block d-flex align-items-center justify-content-center">
-                    <partial name="_ProductsPagination" model="Model" />
-                </div>
-            </div>
-            <div class="table-responsive-sm">
-                <table class="table table-bordered table-condensed table-striped table-hover w-auto">
-                    <thead class="text-center  ">
-                        <tr>
-                            <th class="th-sm"> Sklep </th>
-                            <th class="th-sm"> Produkt </th>
-                            <th class="th-sm"> Jak tanio? </th>
-                            <th class="th-sm"> Cena </th>
-                            <th class="th-sm"> Sprawdź </th>
-                            <th class="th-sm"> Aktualizacja </th>
-                        </tr>
-                    </thead>
-                    @foreach (var p in Model.Products)
-                    {
-                        <tbody>
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="text-warning">
-
-                                <tr class="table-row">
-                                    <td>
-                                        <p id="@p.Seller.ToLower()"> @p.Seller</p>
-                                    </td>
-                                    <td>
-                                        <p>@p.Name</p>
-                                    </td>
-
-                                    <td>
-                                        @if (p.OnSale)
-                                        {
-                                            <p class="text-danger font-weight-bold pb-2 text-center">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="text-success font-weight-bold pb-2 text-center">Normalna Cena</p>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (p.OnSale)
-                                        {
-                                            if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
-                                            {
-                                                <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
-                                                <p class="text-danger text-center font-weight-bold"> @p.Value </p>
-                                                <p class="text-danger text-center font-weight-bold"> @($"{String.Format("Obniżka: {0:P2}", p.Discount)}") </p>
-                                            }
-                                            else
-                                            {
-                                                <p class="text-danger text-center font-weight-bold"> @p.Value </p>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <p class="text-success text-center font-weight-bold"> @p.Value </p>
-                                        }
-                                    </td>
-
-                                    <td>
-                                        <div class="d-flex justify-content-center pb-3">
-
-                                            <a asp-page="Product" asp-route-name="@p.Id.ToString()">
-                                                <button class="btn-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></button>
-                                            </a>
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        @{
-                                            var updateDataTuple = Model.UpdateData(p.TimeStamp);
-                                            if (updateDataTuple.Item1)
-                                            {
-                                                <div class="text-center p-1 bg-danger">
-                                                    <small class="text-muted">
-                                                        @updateDataTuple.Item4
-                                                    </small>
-                                                </div>
-                                            }
-                                            if (updateDataTuple.Item2)
-                                            {
-                                                <div class="text-center p-1 text-white bg-warning">
-                                                    <small class="text-muted">
-                                                        @updateDataTuple.Item4
-                                                    </small>
-                                                </div>
-                                            }
-                                            if (updateDataTuple.Item3)
-                                            {
-                                                <div class="text-center p-1 text-white bg-success">
-                                                    <small class="text-muted">
-                                                        @updateDataTuple.Item4
-                                                    </small>
-                                                </div>
-                                            }
-                                        }
-                                    </td>
-
-                                </tr>
-                            </a>
-                        </tbody>
-
-                    }
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="block d-flex align-items-center justify-content-center">
-                    <partial name="_ProductsPagination" model="Model" />
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
 </div>
-
