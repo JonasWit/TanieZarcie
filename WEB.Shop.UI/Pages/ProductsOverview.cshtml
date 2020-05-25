@@ -170,86 +170,51 @@
             @foreach (var p in Model.Products)
             {
 
-                <div class="card mb-3 card-product">
-                    <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card mb-3 card-product">
+                <h5 class="mt-2" @p.Seller.ToLower()> @p.Seller</h5>
+                <img class="card-img-top img-product" src="~/content/shopLogos/Obi.jpg" alt="Card image cap" />
 
-                    <div class="card-body">
-                        <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="text-warning" />
+                <div class="card-body">
+                    @if (p.OnSale)
+                    {
+                        <p class="text-danger font-weight-bold pb-2 text-center">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
+                    }
+                    else
+                    {
+                        <p class="text-success font-weight-bold pb-2 text-center">Normalna Cena</p>
+                    }
+                    <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
+                    <p>@p.Name</p>
 
-                        <p id="@p.Seller.ToLower()"> @p.Seller</p>
-
-                        <p>@p.Name</p>
-
-                        @if (p.OnSale)
+                    @if (p.OnSale)
+                    {
+                        if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
                         {
-                            <p class="text-danger font-weight-bold pb-2 text-center">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
+                            <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
+                            <p class="text-danger text-center font-weight-bold"> @p.Value </p>
+                            <p class="text-danger text-center font-weight-bold"> @($"{String.Format("Obniżka: {0:P2}", p.Discount)}") </p>
                         }
                         else
                         {
-                            <p class="text-success font-weight-bold pb-2 text-center">Normalna Cena</p>
+                            <p class="text-danger text-center font-weight-bold"> @p.Value </p>
                         }
-
-                        @if (p.OnSale)
-                        {
-                            if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
-                            {
-                                <p class="text-danger text-center font-weight-bold"><del>@p.SaleValue</del></p>
-                                <p class="text-danger text-center font-weight-bold"> @p.Value </p>
-                                <p class="text-danger text-center font-weight-bold"> @($"{String.Format("Obniżka: {0:P2}", p.Discount)}") </p>
-                            }
-                            else
-                            {
-                                <p class="text-danger text-center font-weight-bold"> @p.Value </p>
-                            }
-                        }
-                        else
-                        {
-                            <p class="text-success text-center font-weight-bold"> @p.Value </p>
-                        }
-                        
-                        <div class="d-flex justify-content-center pb-3">
-
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()">
-                                <button class="btn-warning">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></button>
-                            </a>
-
-                        </div>
-                        <p class="card-text">
-                            <small class="text-muted">
-
-                                @{
-                                    var updateDataTuple = Model.UpdateData(p.TimeStamp);
-                                    if (updateDataTuple.Item1)
-                                    {
-                                        <div class="text-center p-1 bg-danger">
-                                            <small class="text-muted">
-                                                @updateDataTuple.Item4
-                                            </small>
-                                        </div>
-                                    }
-                                    if (updateDataTuple.Item2)
-                                    {
-                                        <div class="text-center p-1 text-white bg-warning">
-                                            <small class="text-muted">
-                                                @updateDataTuple.Item4
-                                            </small>
-                                        </div>
-                                    }
-                                    if (updateDataTuple.Item3)
-                                    {
-                                        <div class="text-center p-1 text-white bg-success">
-                                            <small class="text-muted">
-                                                @updateDataTuple.Item4
-                                            </small>
-                                        </div>
-                                    }
-                                }
-                            </small>
-                        </p>
-                    </div>
+                    }
+                    else
+                    {
+                        <p class="text-success text-center font-weight-bold"> @p.Value </p>
+                    }
                 </div>
+
+                <div class="block-button">
+                    <a asp-page="Product" asp-route-name="@p.Id.ToString()">
+                        <span class="p-3">Sprawdź<i class="fas fa-angle-double-right ml-2"></i></span>
+                    </a>
+                </div>
+
+
+            </div>
+               
             }
         </div>
-
     </section>
-</div>
+

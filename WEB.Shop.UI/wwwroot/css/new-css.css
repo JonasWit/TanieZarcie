@@ -83,6 +83,7 @@
     padding: 1rem 2rem;
     text-decoration: none;
     border-style: none;
+    margin: auto;
 }
 
     .btn-1:hover {
@@ -428,9 +429,25 @@
 
 .card-product {
     position: relative;
-    font-size: 12px;
-    width: 150px;
-    height: 100px;
-    padding: 10px;
-   
+    font-size: 9px;
+    width: 100px;
+    overflow: visible;
+    border: 1px solid #e8e8e8;
+    clear: both;
+    backface-visibility: hidden;
+    margin: 40px 20px ;
+    display: inline-block;
+}
+
+.img-product {
+    height: 250px;
+}
+
+.block-button {
+    display: none;
+    }
+
+.card-body:hover + .block-button{
+    color: red;
+
 }
