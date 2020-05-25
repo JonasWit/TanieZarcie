@@ -54,7 +54,7 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddSingleton<JobWakeUpCall>();
             @this.AddSingleton(new JobSchedule(
                 jobType: typeof(JobWakeUpCall),
-                cronExpression: "0 0/10 * * * ?"));
+                cronExpression: "0 0/1 * * * ?"));
 
             @this.AddSingleton<JobRunCrawlers>();
             @this.AddSingleton(new JobSchedule(

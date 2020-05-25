@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Application.Crawlers;
 using WEB.Shop.Application.Logs;
+using WEB.Shop.UI.API;
 using WEB.Shop.UI.Automation;
 
 namespace WEB.Shop.UI.Controllers
 {
     [Route("Api/[controller]")]
     [ApiController]
+    [ApiKeyAuth]
     public class AutomationController : ControllerBase
     {
         public class AutomationDetails
@@ -42,13 +44,12 @@ namespace WEB.Shop.UI.Controllers
         [HttpGet("ActiveJobs")]
         public async Task<List<AutomationDetails>> ActiveJobs([FromServices] IEnumerable<JobSchedule> jobSchedules)
         {
-            var result = jobSchedules
+            var result = await Task.Run(() => jobSchedules
                 .Select(x => new AutomationDetails 
                 { 
                     JobName = x.JobType.FullName,
                     CronExpression = x.CronExpression
-              
-                }).ToList();
+                }).ToList());
 
             return result;
         }

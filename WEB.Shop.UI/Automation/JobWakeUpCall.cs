@@ -27,6 +27,8 @@ namespace WEB.Shop.UI.Automation
                 RequestUri = new Uri($"{_configuration["MySettings:BaseUrl"]}/Api/Automation/WakeUpCall")
             };
 
+            httpRequestMessage.Headers.Add("ApiKey", "AdminTZApiAccess");
+
             var response = client.SendAsync(httpRequestMessage).Result;
 
             return Task.CompletedTask;
