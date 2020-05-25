@@ -9,7 +9,9 @@ namespace WEB.Shop.Application.Automations
     public class AutomationManager
     {
         public IScheduler Scheduler { get; set; }
+        public IScheduler WakeUpCall { get; set; }
         public bool SchedulerPresent { get { if (Scheduler != null) { return true; } else { return false; } } }
+        public bool WakeUpCallPresent { get { if (WakeUpCall != null) { return true; } else { return false; } } }
 
         public async Task CreateScheduler()
         {

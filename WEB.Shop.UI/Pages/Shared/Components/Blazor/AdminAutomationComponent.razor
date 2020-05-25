@@ -1,32 +1,91 @@
 ﻿@using WEB.Shop.Application.Automations
 @inject AutomationController AutomationController
 
-@if (loading)
-{
-    <div class="block">
-        <progress class="progress is-small is-warning" max="100">25%</progress>
-    </div>
-}
 
-<div class="box">
-    <p class="content">Automation Options</p>
-    <button class="button is-success is-small" @onclick="StartScheduler">Start Automation</button>
-    <button class="button is-warning is-small" @onclick="StopScheduler">Stop Automation</button>
-    <button class="button is-primary is-small" @onclick="GetActiveJobs">Check Active Jobs</button>
-</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row pt-md-5 mt-md-3 mb-5">
 
-<div class="box">
-    <p class="content">Automation Status</p>
-    <div class="tags has-addons">
-        <span class="tag">Scheduler</span>
-        @if (AutomationController.CheckScheduler())
-        {
-            <span class="tag is-success">Active</span>
-        }
-        else
-        {
-            <span class="tag is-warning">Inactive</span>
-        }
+                @if (loading)
+                {
+                    <!-- Loader-->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                                <div class="row pt-md-5 mt-md-3 mb-5">
+                                    <div class="tza-loader">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-xl-3 col-sm-6 p-2">
+                        <!-- Automation Card -->
+                        <div class="card tza-card-common">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <i class="fas fa-robot fa-3x text-warning"></i>
+                                    <div class="text-right text-secondary">
+
+                                        @if (AutomationController.CheckScheduler())
+                                        {
+                                            <h5 class="text-success">Automated Update Active</h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="text-warning">Automated Update Inactive</h5>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-secondary">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <button @onclick="StartScheduler" class="bg-transparent border-0 tza-card-icon">
+                                                    <i class="fas fa-bug mr-3"></i>
+                                                    <span>Set Scheduler</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button @onclick="GetActiveJobs" class="bg-transparent border-0 tza-card-icon">
+                                                    <i class="fas fa-database mr-3"></i>
+                                                    <span>Get Active Jobs</span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button @onclick="StopScheduler" class="bg-transparent border-0 tza-card-icon">
+                                                    <i class="fas fa-bug mr-3"></i>
+                                                    <span>Stop Scheduler</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
     </div>
 </div>
 

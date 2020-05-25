@@ -27,6 +27,8 @@ namespace WEB.Shop.Application.Automations
 
         public bool CheckScheduler() => _automationManager.SchedulerPresent;
 
+        public bool CheckWakeUpCall() => _automationManager.WakeUpCallPresent;
+
         public List<Response> GetActiveJobs()
         {
             var result = new List<Response>();

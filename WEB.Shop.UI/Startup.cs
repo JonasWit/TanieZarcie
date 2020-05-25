@@ -58,17 +58,17 @@ namespace WEB.Shop.UI
             services.AddServerSideBlazor();
 
             services.AddMvc(option => 
-                { 
-                    option.EnableEndpointRouting = false;
-                    option.CacheProfiles.Add("Weekly", new CacheProfile { Duration = 60 * 60 * 24 * 7 });
-                })
+            { 
+                option.EnableEndpointRouting = false;
+                option.CacheProfiles.Add("Weekly", new CacheProfile { Duration = 60 * 60 * 24 * 7 });
+            })
                 .AddRazorRuntimeCompilation()
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeFolder("/Admin");
                     options.Conventions.AuthorizePage("/Admin/UsersPanel", "Admin");
                 })
-                .AddFluentValidation(x => x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
+                    .AddFluentValidation(x => x.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
 
             services.AddSession(options =>
             {
@@ -98,6 +98,7 @@ namespace WEB.Shop.UI
             app.UseRouting();
             app.UseSession();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

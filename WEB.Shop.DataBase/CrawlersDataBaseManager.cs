@@ -12,10 +12,7 @@ namespace WEB.Shop.DataBase
     {
         private readonly ApplicationDbContext _context;
 
-        public CrawlersDataBaseManager(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public CrawlersDataBaseManager(ApplicationDbContext context) => _context = context;
 
         public async Task<int> ClearDataBaseAsync()
         {

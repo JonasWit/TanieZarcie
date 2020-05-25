@@ -17,6 +17,7 @@ namespace WEB.Shop.DataBase
         public DbSet<Category> Categories { get; set; }
         public DbSet<NewsMainComment> NewsMainComments { get; set; }
         public DbSet<NewsSubComment> NewsSubComments { get; set; }
+        public DbSet<LogRecord> LogRecords { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

@@ -19,10 +19,7 @@ namespace WEB.Shop.Application.Products
             Shop = 3
         }
 
-        public GetProducts(IProductManager productManager)
-        {
-            _productManager = productManager;
-        }
+        public GetProducts(IProductManager productManager) => _productManager = productManager;
 
         public int CountProductForShop(string shop) =>
             _productManager.CountProductsWithStockWithCondition(product => product.Distributor.DistributorName.NormalizeWithStandardRegex().Equals(shop.NormalizeWithStandardRegex()));

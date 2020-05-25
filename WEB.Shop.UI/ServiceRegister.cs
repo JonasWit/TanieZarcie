@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
+using System.Linq;
 using System.Reflection;
 using WEB.Shop.Application;
 using WEB.Shop.Application.Automations;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Infrastructure;
+using WEB.Shop.UI.Automation;
 using WEB.Shop.UI.Infrastructure;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -37,12 +41,25 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddTransient<IOrderManager, OrderManager>();
             @this.AddTransient<IFileManager, FileManager>();
             @this.AddTransient<INewsManager, NewsManager>();
+            @this.AddTransient<ILogManager, LogManager>();
             @this.AddTransient<ICrawlersDataBaseManager, CrawlersDataBaseManager>();
 
             @this.AddScoped<ISessionManager, SessionManager>();
 
             @this.AddSingleton<AppSettingsService>();
             @this.AddSingleton<AutomationManager>();
+
+            // Add Quartz services
+            @this.AddSingleton<IJobFactory, SingletonJobFactory>();
+            @this.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+
+            // Add wake up call
+            @this.AddSingleton<WakeUpCallJob>();
+            @this.AddSingleton(new JobSchedule(
+                jobType: typeof(WakeUpCallJob),
+                cronExpression: "0 0/2 * * * ?"));
+
+            @this.AddHostedService<QuartzHostedService>();
 
             return @this;
         }
