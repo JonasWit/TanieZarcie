@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace WEB.Shop.UI.Automation
 {
-    class WakeUpCallJob : IJob
+    class JobRunCrawlers : IJob
     {
         private readonly IHttpClientFactory _httpFactory;
         private readonly IConfiguration _configuration;
 
-        public WakeUpCallJob(IHttpClientFactory httpFactory, IConfiguration configuration)
+        public JobRunCrawlers(IHttpClientFactory httpFactory, IConfiguration configuration)
         {
             _httpFactory = httpFactory;
             _configuration = configuration;
@@ -21,12 +21,13 @@ namespace WEB.Shop.UI.Automation
         {
             using var client = _httpFactory.CreateClient();
 
-            var response = client.SendAsync(new HttpRequestMessage
+            HttpRequestMessage httpRequestMessage = new HttpRequestMessage
             {
                 Method = new HttpMethod("GET"),
-                RequestUri = new Uri(uriString: $"{_configuration["MySettings:BaseUrl"]}/Api/Automation/CheckUpCall")
-            })
-                .Result;
+                RequestUri = new Uri($"{_configuration["MySettings:BaseUrl"]}/Api/Automation/RunCrawlers")
+            };
+
+            var response = client.SendAsync(httpRequestMessage).Result;
 
             return Task.CompletedTask;
         }

@@ -59,21 +59,15 @@
                                             <td>
                                                 <button @onclick="StartScheduler" class="bg-transparent border-0 tza-card-icon">
                                                     <i class="fas fa-bug mr-3"></i>
-                                                    <span>Set Scheduler</span>
+                                                    <span>Activate</span>
                                                 </button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button @onclick="GetActiveJobs" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-database mr-3"></i>
-                                                    <span>Get Active Jobs</span>
-                                                </button>
-                                            </td>
-                                            <td>
                                                 <button @onclick="StopScheduler" class="bg-transparent border-0 tza-card-icon">
                                                     <i class="fas fa-bug mr-3"></i>
-                                                    <span>Stop Scheduler</span>
+                                                    <span>Stop</span>
                                                 </button>
                                             </td>
                                         </tr>
@@ -110,20 +104,6 @@
             loading = true;
             await AutomationController.CreateScheduler();
             await AutomationController.ScheduleCrawlersAutomation();
-            loading = false;
-        }
-    }
-
-    private void GetActiveJobs()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            automationDetails = AutomationController.GetActiveJobs();
             loading = false;
         }
     }

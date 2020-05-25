@@ -165,7 +165,7 @@ namespace WEB.SearchEngine.Crawlers
         //todo: pdf download
         public List<string> GrtPdfs(string[] urlsToCrawl)
         {
-            byte[] data;
+            //byte[] data;
             HashSet<string> list = new HashSet<string>();
 
             var testurl = "https://media.lidl-flyer.com/";

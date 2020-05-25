@@ -50,7 +50,7 @@ namespace WEB.Shop.UI.Controllers
             }
             else
             {
-                var singleNews = getOneNews.Do((int)id);
+                var singleNews = await Task.Run(() => getOneNews.Do((int)id));
                 return View(new NewsViewModel
                 {
                     Id = singleNews.Id,

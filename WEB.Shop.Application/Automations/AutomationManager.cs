@@ -28,7 +28,8 @@ namespace WEB.Shop.Application.Automations
 
         public async Task DisposeScheduler()
         {
-            if (Scheduler != null) await Scheduler.Shutdown(); Scheduler = null;     
+            if (Scheduler != null) await Scheduler.Shutdown(); 
+            Scheduler = null;     
         }
 
         public async Task ScheduleCrawlersAutomationJob(CrawlersCommander crawlersCommander) => 

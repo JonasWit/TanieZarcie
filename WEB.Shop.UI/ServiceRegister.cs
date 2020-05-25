@@ -53,11 +53,15 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddSingleton<IJobFactory, SingletonJobFactory>();
             @this.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
 
-            // Add wake up call
-            @this.AddSingleton<WakeUpCallJob>();
+            @this.AddSingleton<JobWakeUpCall>();
             @this.AddSingleton(new JobSchedule(
-                jobType: typeof(WakeUpCallJob),
-                cronExpression: "0 0/2 * * * ?"));
+                jobType: typeof(JobWakeUpCall),
+                cronExpression: "0 0/1 * * * ?"));
+
+            @this.AddSingleton<JobRunCrawlers>();
+            @this.AddSingleton(new JobSchedule(
+                jobType: typeof(JobRunCrawlers),
+                cronExpression: "0 15 4 ? * *"));
 
             @this.AddHostedService<QuartzHostedService>();
 
