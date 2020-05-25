@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WEB.Shop.Application.Crawlers;
 using WEB.Shop.Application.Logs;
+using WEB.Shop.UI.Automation;
 
 namespace WEB.Shop.UI.Controllers
 {
@@ -11,21 +13,44 @@ namespace WEB.Shop.UI.Controllers
     [ApiController]
     public class AutomationController : ControllerBase
     {
-        [HttpGet("WakeUpCall")]
-        public async Task<IActionResult> WakeUpCheck([FromServices] CreateLogRecord  createLogRecord)
+        public class AutomationDetails
         {
-            await createLogRecord.DoAsync(new CreateLogRecord.Request { Message = "Wake Up Call", TimeStamp = DateTime.Now });
-            return Ok("Processed!");
+            public string JobName { get; set; }
+            public string CronExpression { get; set; }
+        }
+
+        [HttpGet("WakeUpCall")]
+        public async Task<CreateLogRecord.Request> WakeUpCheck([FromServices] CreateLogRecord  createLogRecord)
+        {
+            var resuest = new CreateLogRecord.Request { Message = "Wake Up Call", TimeStamp = DateTime.Now };
+            await createLogRecord.DoAsync(resuest);
+            return resuest;
         }
 
         [HttpGet("RunCrawlers")]
-        public async Task<IActionResult> RunCrawlers([FromServices] CreateLogRecord createLogRecord, [FromServices] CrawlersCommander crawlersCommander)
+        public async Task<CreateLogRecord.Request> RunCrawlers([FromServices] CreateLogRecord createLogRecord, [FromServices] CrawlersCommander crawlersCommander)
         {
             await crawlersCommander.RunEngineAsync();
             await crawlersCommander.UpdateAllData();
 
-            await createLogRecord.DoAsync(new CreateLogRecord.Request { Message = "Crawlers Run", TimeStamp = DateTime.Now });
-            return Ok("Processed!");
+            var resuest = new CreateLogRecord.Request { Message = "Crawlers Run", TimeStamp = DateTime.Now };
+
+            await createLogRecord.DoAsync(resuest);
+            return resuest;
+        }
+
+        [HttpGet("ActiveJobs")]
+        public async Task<List<AutomationDetails>> ActiveJobs([FromServices] IEnumerable<JobSchedule> jobSchedules)
+        {
+            var result = jobSchedules
+                .Select(x => new AutomationDetails 
+                { 
+                    JobName = x.JobType.FullName,
+                    CronExpression = x.CronExpression
+              
+                }).ToList();
+
+            return result;
         }
     }
 }

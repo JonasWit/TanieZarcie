@@ -15,11 +15,7 @@ namespace WEB.Shop.Application.News.NewsComments
 
         public async Task<Response> DoAsync(Request request)
         {
-            var oneNews = _newsManager.GetOneNews(request.Id, x => x);
-
-
-
-
+            var oneNews = await Task.Run (() => _newsManager.GetOneNews(request.Id, x => x));
 
             return new Response();
         }

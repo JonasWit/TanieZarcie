@@ -75,7 +75,7 @@ namespace WEB.Shop.Application.Cart
                 Value = stock.Product.Value
             };
 
-            _sessionManager.AddProduct(cartPorduct);
+            await Task.Run(() => _sessionManager.AddProduct(cartPorduct));
 
             return true;
         }

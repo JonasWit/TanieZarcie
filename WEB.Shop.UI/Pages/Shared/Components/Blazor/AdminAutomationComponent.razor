@@ -1,7 +1,4 @@
-﻿@using WEB.Shop.Application.Automations
-@inject AutomationController AutomationController
-
-
+﻿
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
@@ -40,14 +37,11 @@
                                     <i class="fas fa-robot fa-3x text-warning"></i>
                                     <div class="text-right text-secondary">
 
-                                        @if (AutomationController.CheckScheduler())
-                                        {
+                               
                                             <h5 class="text-success">Automated Update Active</h5>
-                                        }
-                                        else
-                                        {
+                                   
                                             <h5 class="text-warning">Automated Update Inactive</h5>
-                                        }
+                                    
 
                                     </div>
                                 </div>
@@ -57,7 +51,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <button @onclick="StartScheduler" class="bg-transparent border-0 tza-card-icon">
+                                                <button class="bg-transparent border-0 tza-card-icon">
                                                     <i class="fas fa-bug mr-3"></i>
                                                     <span>Activate</span>
                                                 </button>
@@ -65,7 +59,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button @onclick="StopScheduler" class="bg-transparent border-0 tza-card-icon">
+                                                <button class="bg-transparent border-0 tza-card-icon">
                                                     <i class="fas fa-bug mr-3"></i>
                                                     <span>Stop</span>
                                                 </button>
@@ -86,39 +80,9 @@
 @code {
 
     bool loading = false;
-    List<AutomationController.Response> automationDetails;
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Run(() => automationDetails = new List<AutomationController.Response>());
-    }
 
-    private async Task StartScheduler()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await AutomationController.CreateScheduler();
-            await AutomationController.ScheduleCrawlersAutomation();
-            loading = false;
-        }
-    }
-
-    private async Task StopScheduler()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await AutomationController.DisposeScheduler();
-            loading = false;
-        }
     }
 }

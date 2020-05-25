@@ -4,7 +4,6 @@ using Quartz.Spi;
 using System.Linq;
 using System.Reflection;
 using WEB.Shop.Application;
-using WEB.Shop.Application.Automations;
 using WEB.Shop.DataBase;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.UI.Automation;
@@ -47,7 +46,6 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddScoped<ISessionManager, SessionManager>();
 
             @this.AddSingleton<AppSettingsService>();
-            @this.AddSingleton<AutomationManager>();
 
             // Add Quartz services
             @this.AddSingleton<IJobFactory, SingletonJobFactory>();
@@ -56,7 +54,7 @@ namespace Microsoft.Extensions.DependencyInjection
             @this.AddSingleton<JobWakeUpCall>();
             @this.AddSingleton(new JobSchedule(
                 jobType: typeof(JobWakeUpCall),
-                cronExpression: "0 0/1 * * * ?"));
+                cronExpression: "0 0/10 * * * ?"));
 
             @this.AddSingleton<JobRunCrawlers>();
             @this.AddSingleton(new JobSchedule(

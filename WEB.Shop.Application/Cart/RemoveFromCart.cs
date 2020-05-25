@@ -32,7 +32,7 @@ namespace WEB.Shop.Application.Cart
             //await _stockManager
             //    .RemoveStockFromHold(request.StockId, request.Quantity, _sessionManager.GetId());
 
-            _sessionManager.RemoveProduct(request.StockId, request.Quantity);
+            await Task.Run(() => _sessionManager.RemoveProduct(request.StockId, request.Quantity));
 
             return true;
         }
