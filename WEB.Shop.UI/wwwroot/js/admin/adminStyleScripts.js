@@ -1,3 +1,3 @@
-﻿$(document) ready(function() {
-    $('[data-toggle="tooltip"]') tooltip();
-});
+﻿function infoMessage(messageObject) {
+    document.getElementById("messagePopup").innerText = messageObject.message;
+}

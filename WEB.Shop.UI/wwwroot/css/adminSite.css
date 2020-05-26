@@ -157,6 +157,8 @@
     border-left: 3px solid #f66436
 }
 
-
-
 /* tast list end */
+
+.tza-object-hidden {
+    display:none;
+}
