@@ -27,7 +27,7 @@ namespace WEB.Shop.UI
                 {
                     var adminUser = new IdentityUser()
                     {
-                        UserName = "AdminTZ"
+                        UserName = "AdminTZ", 
                     };
 
                     var managerUser = new IdentityUser()

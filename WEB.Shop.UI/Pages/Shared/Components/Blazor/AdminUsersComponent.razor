@@ -1,51 +1,108 @@
-﻿
+﻿@inject AuthenticationStateProvider authenticationStateProvider
+@inject UserManager<IdentityUser> userManager
 
-
-<h3>AdminUsersComponent</h3>
-
-
-<!-- User Data -->
+<!-- Tables Start -->
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-            <div class="row align-items-center mb-5">
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-12 mb-3 mb-xl-0">
+                    <div class="card rounded mt-5">
+                        <div class="card-body">
+                            <h3 class="text-muted text-center mb-4">Add User</h3>
+                            <ul class="list-inline text-center py-3">
+                                <li class="list-inline-item">
+                                    <a href="">
+                                        <i class="fas fa-pencil-alt text-success"></i>
+                                        <span class="h6 text-muted">Admin</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="">
+                                        <i class="fas fa-camera text-info"></i>
+                                        <span class="h6 text-muted">Manager</span>
+                                    </a>
+                                </li>
+                            </ul>
 
-                <!-- Users List -->
-                <div class="col-xl-7">
-                    <h4 class="text-muted mb-4">Users:</h4>
-                    <div id="accordion">
-                        <div class="card">
-                            <div class="card-header">
-                                <button class="btn btn-block bg-secondary text-light text-left" data-toggle="collapse" data-target="#collapseIt1">
-                                    <img src="" alt="" class="mr-3 rounded" />
-                                    Posted comment...
-                                </button>
-                            </div>
-                            <div class="collapse" id="collapseIt1" data-parent="#accordion">
-                                <div class="card-body">
-                                    Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+                            <EditForm Model="@newUser" OnValidSubmit="CreateUserForm">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+                                <div class="form-group">
+                                    <InputText @bind-Value="newUser.Username" class="form-control py-2 mb-3" type="text" placeholder="Username" />
+                                    <InputText @bind-Value="newUser.Password" class="form-control py-2 mb-3" type="password" placeholder="Password" />
+                                    <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add User</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <button class="btn btn-block bg-secondary text-light text-left" data-toggle="collapse" data-target="#collapseIt2">
-                                    <img src="" alt="" class="mr-3 rounded" />
-                                    Posted comment...
-                                </button>
-                            </div>
-                            <div class="collapse" id="collapseIt2" data-parent="#accordion">
-                                <div class="card-body">
-                                    Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
-                                </div>
-                            </div>
+                            </EditForm>
+
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-6 col-12 mb-3 mb-xl-0">
+                    <h3 class="text-muted text-center">Users</h3>
+                    <table class="table table-dark table-hover text-center">
+                        <thead>
+                            <tr class="text-muted">
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in users)
+                            {
+                                <tr>
+                                    <th>@user.UserName</th>
+                                    <td>
+                                        <a href="" @onclick="(() => DeleteUser(user))">
+                                            <span class="badge badge-danger w-75 py-2 tza-nav-icon">Delete</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <div class="col xl-5 mt-5">
+<!-- Tables End -->
+<!-- User Data -->
+@*<div class="container-fluid">
+        <div class="col-xl-10 col-lg-9 col-md-6 ml-auto">
+            <div class="row align-items-center mb-5">
 
-                    <!-- Add User -->
+                <div class="col">
+                    <h3 class="text-muted text-center">Users</h3>
+                    <table class="table table-dark table-hover text-center">
+                        <thead>
+                            <tr class="text-muted">
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var user in users)
+                            {
+                                <tr>
+                                    <th>@user.UserName</th>
+                                    <td>
+                                        <a href="" @onclick="(() => DeleteUser(user))">
+                                            <span class="badge badge-danger w-75 py-2 tza-nav-icon">Delete</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <div class="col">
                     <div class="card rounded">
                         <div class="card-body">
                             <h5 class="text-muted text-center mb-4">Add User</h5>
@@ -53,116 +110,128 @@
                                 <li class="list-inline-item">
                                     <a href="">
                                         <i class="fas fa-pencil-alt text-success"></i>
-                                        <span class="h6 text-muted">Status</span>
+                                        <span class="h6 text-muted">Admin</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="">
                                         <i class="fas fa-camera text-info"></i>
-                                        <span class="h6 text-muted">Photo</span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="">
-                                        <i class="fas fa-map-marker-alt text-primary"></i>
-                                        <span class="h6 text-muted">Check In</span>
+                                        <span class="h6 text-muted">Manager</span>
                                     </a>
                                 </li>
                             </ul>
-                            <form>
+
+                            <EditForm Model="@newUser" OnValidSubmit="CreateUserForm">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
                                 <div class="form-group">
-                                    <input type="text" class="form-control py-2 mb-3" placeholder="Status here" />
-                                    <button type="button" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Submit Post</button>
+                                    <InputText @bind-Value="newUser.Username" class="form-control py-2 mb-3" type="text" placeholder="Username" />
+                                    <InputText @bind-Value="newUser.Password" class="form-control py-2 mb-3" type="password" placeholder="Password" />
+                                    <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add User</button>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="card bg-light">
-                                            <i class="far fa-calendar-alt fa-8x text-warning d-block m-auto py-3"></i>
-                                            <div class="card-body">
-                                                <p class="card-text text-center font-weight-bold text-uppercase">3/6/2020</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="card bg-light">
-                                            <i class="far fa-clock fa-8x text-warning d-block m-auto py-3"></i>
-                                            <div class="card-body">
-                                                <p class="card-text text-center font-weight-bold text-uppercase">3:50</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            </EditForm>
+
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-            <div class="row mb-4">
-                <div class="col-xl-6 col-12">
-                    <h4 class="text-muted p-3 mb-3">Users</h4>
-
-                    <!-- User Bar -->
-                    <div class="container-fluid bg-white">
-                        <div class="row py-3 mb-4 tza-task-border align-items-center">
-                            <div class="col-1">
-                                <input type="checkbox" checked />
-                            </div>
-                            <div class="col-sm-9 col-8">
-                                Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                            </div>
-                            <div class="col-1">
-                                <a href="" class="myTip" data-toggle="tooltip" title="Edit" data-placement="top">
-                                    <i class="fas fa-edit fa-lg text-success mr-2 tza-nav-icon"></i>
-                                </a>
-                            </div>
-                            <div class="col-1">
-                                <a href="" class="myTip" data-toggle="tooltip" title="Delete" data-placement="top">
-                                    <i class="fas fa-trash-alt fa-lg text-danger tza-nav-icon"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- User Bar -->
-                    <div class="container-fluid bg-white">
-                        <div class="row py-3 mb-4 tza-task-border align-items-center">
-                            <div class="col-1">
-                                <input type="checkbox" checked />
-                            </div>
-                            <div class="col-sm-9 col-8">
-                                Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
-                            </div>
-                            <div class="col-1">
-                                <a href="" class="myTip" data-toggle="tooltip" title="Edit" data-placement="top">
-                                    <i class="fas fa-edit fa-lg text-success mr-2 tza-nav-icon"></i>
-                                </a>
-                            </div>
-                            <div class="col-1">
-                                <a href="" class="myTip" data-toggle="tooltip" title="Delete" data-placement="top">
-                                    <i class="fas fa-trash-alt fa-lg text-danger tza-nav-icon"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </div>*@
 
 @code {
 
+    private bool loading;
+    private List<IdentityUser> users;
+    private UserModel newUser = new UserModel();
+    private string message;
+
     protected override async Task OnInitializedAsync()
     {
+        users = userManager.Users.ToList();
+    }
 
+    private async Task DeleteUser(IdentityUser userName)
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+
+            try
+            {
+                var result = await userManager.DeleteAsync(userName);
+                users = userManager.Users.ToList();
+
+                if (result == IdentityResult.Success)
+                {
+                    message = "User deleted!";
+                }
+                else
+                {
+                    message = "Issue when deleting user!";
+                }
+            }
+            catch (Exception)
+            {
+                message = "Issue when addin a user!";
+            }
+            finally
+            {
+                loading = false;
+            }
+        }
+    }
+
+    private async Task CreateUserForm()
+    {
+        if (loading)
+        {
+            return;
+        }
+        else
+        {
+            loading = true;
+
+            try
+            {
+                if (users.Any(x => x.UserName == newUser.Username))
+                {
+                    return;
+                }
+
+                var managerUser = new IdentityUser()
+                {
+                    UserName = newUser.Username
+                };
+
+                var user = await userManager.CreateAsync(managerUser, newUser.Password);
+
+                if (user.Succeeded)
+                {
+                    var managerClaim = new Claim("Role", "Manager");
+
+                    await userManager.AddClaimAsync(managerUser, managerClaim);
+
+                    users = userManager.Users.ToList();
+
+                    message = "User added!";
+                }
+                else
+                {
+                    message = "Issue when addin a user!";
+                }
+            }
+            catch (Exception)
+            {
+                message = "Issue when addin a user!";
+            }
+            finally
+            {
+                loading = false;
+            }
+        }
     }
 }
