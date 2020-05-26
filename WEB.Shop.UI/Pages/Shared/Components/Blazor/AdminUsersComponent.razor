@@ -1,7 +1,6 @@
 ﻿@inject AuthenticationStateProvider authenticationStateProvider
 @inject UserManager<IdentityUser> userManager
 
-<!-- Tables Start -->
 <div class="container-fluid">
     <div class="row mb-5">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
@@ -10,24 +9,20 @@
                     <div class="card rounded mt-5">
                         <div class="card-body">
                             <h3 class="text-muted text-center mb-4">Add User</h3>
-                            <ul class="list-inline text-center py-3">
-                                <li class="list-inline-item">
-                                    <a href="">
-                                        <i class="fas fa-pencil-alt text-success"></i>
-                                        <span class="h6 text-muted">Admin</span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="">
-                                        <i class="fas fa-camera text-info"></i>
-                                        <span class="h6 text-muted">Manager</span>
-                                    </a>
-                                </li>
-                            </ul>
 
                             <EditForm Model="@newUser" OnValidSubmit="CreateUserForm">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary />
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" @onclick="(() => { RadioButtonClicked(UserTypes.Admin); })">
+                                    <label class="custom-control-label" for="customRadioInline1">Admin Rights</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" @onclick="(() => { RadioButtonClicked(UserTypes.Manager); })">
+                                    <label class="custom-control-label" for="customRadioInline2">Manager Rights</label>
+                                </div>
+
                                 <div class="form-group">
                                     <InputText @bind-Value="newUser.Username" class="form-control py-2 mb-3" type="text" placeholder="Username" />
                                     <InputText @bind-Value="newUser.Password" class="form-control py-2 mb-3" type="password" placeholder="Password" />
@@ -67,77 +62,6 @@
     </div>
 </div>
 
-<!-- Tables End -->
-<!-- User Data -->
-@*<div class="container-fluid">
-        <div class="col-xl-10 col-lg-9 col-md-6 ml-auto">
-            <div class="row align-items-center mb-5">
-
-                <div class="col">
-                    <h3 class="text-muted text-center">Users</h3>
-                    <table class="table table-dark table-hover text-center">
-                        <thead>
-                            <tr class="text-muted">
-                                <th>Name</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach (var user in users)
-                            {
-                                <tr>
-                                    <th>@user.UserName</th>
-                                    <td>
-                                        <a href="" @onclick="(() => DeleteUser(user))">
-                                            <span class="badge badge-danger w-75 py-2 tza-nav-icon">Delete</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
-
-                </div>
-
-
-                <div class="col">
-                    <div class="card rounded">
-                        <div class="card-body">
-                            <h5 class="text-muted text-center mb-4">Add User</h5>
-                            <ul class="list-inline text-center py-3">
-                                <li class="list-inline-item">
-                                    <a href="">
-                                        <i class="fas fa-pencil-alt text-success"></i>
-                                        <span class="h6 text-muted">Admin</span>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="">
-                                        <i class="fas fa-camera text-info"></i>
-                                        <span class="h6 text-muted">Manager</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <EditForm Model="@newUser" OnValidSubmit="CreateUserForm">
-                                <DataAnnotationsValidator />
-                                <ValidationSummary />
-                                <div class="form-group">
-                                    <InputText @bind-Value="newUser.Username" class="form-control py-2 mb-3" type="text" placeholder="Username" />
-                                    <InputText @bind-Value="newUser.Password" class="form-control py-2 mb-3" type="password" placeholder="Password" />
-                                    <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add User</button>
-                                </div>
-                            </EditForm>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
 @code {
 
     private bool loading;
@@ -145,10 +69,22 @@
     private UserModel newUser = new UserModel();
     private string message;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync() => users = userManager.Users.ToList();
+
+    public enum UserTypes
     {
-        users = userManager.Users.ToList();
+        Admin = 0,
+        Manager = 1
     }
+
+    public class UserType
+    {
+        public UserTypes? Type { get; set; }
+    }
+
+    private readonly UserType userType = new UserType();
+
+    public void RadioButtonClicked(UserTypes value) => userType.Type = value;
 
     private async Task DeleteUser(IdentityUser userName)
     {
@@ -197,26 +133,42 @@
 
             try
             {
+                var newUserType = userType.Type;
+
+                if (newUserType == null)
+                {
+                    message = "Select user role!";
+                }
+
                 if (users.Any(x => x.UserName == newUser.Username))
                 {
                     return;
                 }
 
-                var managerUser = new IdentityUser()
+                var newUserIdentity = new IdentityUser()
                 {
                     UserName = newUser.Username
                 };
 
-                var user = await userManager.CreateAsync(managerUser, newUser.Password);
+                var user = await userManager.CreateAsync(newUserIdentity, newUser.Password);
 
                 if (user.Succeeded)
                 {
-                    var managerClaim = new Claim("Role", "Manager");
-
-                    await userManager.AddClaimAsync(managerUser, managerClaim);
+                    switch (newUserType)
+                    {
+                        case UserTypes.Admin:
+                            var newClaim = new Claim("Role", "Admin");
+                            await userManager.AddClaimAsync(newUserIdentity, newClaim);
+                            break;
+                        case UserTypes.Manager:
+                            newClaim = new Claim("Role", "Manager");
+                            await userManager.AddClaimAsync(newUserIdentity, newClaim);
+                            break;
+                        default:
+                            return;
+                    }
 
                     users = userManager.Users.ToList();
-
                     message = "User added!";
                 }
                 else
