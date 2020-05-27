@@ -126,6 +126,17 @@
         transform: scale(1.5);
     }
 
+.tza-raise {
+    box-shadow: 1px 2px 5px #999;
+    transition: all .5s;
+}
+
+    .tza-raise:hover {
+        box-shadow: 2px 3px 15px #999;
+        transform: scale(1.02);
+        cursor: pointer;
+    }
+
 .tza-card-icon {
     transition: all .5s;
 }

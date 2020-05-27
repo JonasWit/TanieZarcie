@@ -6,7 +6,7 @@
     <div class="row mb-5">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
 
-            <MessagePopup Message="@message.Message" IsVisible="@message.PopupVisible" Type="@message.MessageType" ></MessagePopup>
+            <MessagePopup Message="@message.Message" IsVisible="@message.PopupVisible" MessageType="@message.MessageType" ></MessagePopup>
 
             <div class="row align-items-center">
                 <div class="col-xl-6 col-12 mb-3 mb-xl-0">
@@ -54,7 +54,7 @@
                                     <th>@user.UserName</th>
                                     <td>
                                         <a @onclick="(() => DeleteUser(user))">
-                                            <span class="badge badge-danger w-75 py-2 tza-nav-icon">Delete</span>
+                                            <span class="badge badge-danger w-75 py-2 tza-raise">Delete</span>
                                         </a>
                                     </td>
                                 </tr>

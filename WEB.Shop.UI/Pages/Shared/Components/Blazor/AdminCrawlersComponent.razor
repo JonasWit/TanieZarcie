@@ -10,56 +10,6 @@
             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                 <div class="row pt-md-5 mt-md-3 mb-5">
 
-                    <!-- Crawlers Card -->
-                    <div class="col-xl-3 col-sm-6 p-2">
-                        <div class="card tza-card-common">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <i class="fas fa-shopping-cart fa-3x text-warning"></i>
-                                    <div class="text-right text-secondary">
-                                        <h3>All Data</h3>
-                                        <h5>@($"{Commander.DataCacheCount.Sum(s => s.Value)} Cached")</h5>
-                                        <h5>@($"{Commander.DataBaseCheck.Sum(s => s.PromoProductsCount)} Stored")</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer text-secondary">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <button @onclick="RunEngine" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-bug mr-3"></i>
-                                                    <span>Scrap</span>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button @onclick="ClearCache" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-bug mr-3"></i>
-                                                    <span>Clear</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button @onclick="UpdateDataBase" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-database mr-3"></i>
-                                                    <span>Save</span>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button @onclick="ClearDataBase" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-database mr-3"></i>
-                                                    <span>Delete</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Shops Cards -->
                     @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
                     {
@@ -229,20 +179,6 @@ else
 
     #region Crawlers
 
-    private async Task RunEngine()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.RunEngineAsync();
-            loading = false;
-        }
-    }
-
     private async Task RunEngine(Shops shop)
     {
         if (loading)
@@ -253,20 +189,6 @@ else
         {
             loading = true;
             await Commander.RunEngineAsync(shop.ToString());
-            loading = false;
-        }
-    }
-
-    private async Task ClearCache()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.ClearCacheAsync();
             loading = false;
         }
     }
@@ -303,20 +225,6 @@ else
         }
     }
 
-    private async Task ClearDataBase()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.ClearDataBaseAsync();
-            loading = false;
-        }
-    }
-
     private async Task ClearDataBase(Shops shop)
     {
         if (loading)
@@ -327,20 +235,6 @@ else
         {
             loading = true;
             await Commander.ClearDataBaseAsync(shop.ToString());
-            loading = false;
-        }
-    }
-
-    private async Task UpdateDataBase()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.UpdateAllData();
             loading = false;
         }
     }

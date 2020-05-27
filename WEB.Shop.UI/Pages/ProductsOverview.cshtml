@@ -1,9 +1,8 @@
 ﻿@page
 @model ProductsOverviewModel
 
-
 <div class="container m-auto">
-   
+
     <div class="row ">
         <div class="col-lg-12">
             <div class="row" id="search-product">
@@ -57,14 +56,16 @@
 
                 @foreach (var p in Model.Products)
                 {
+                    var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
+
                     <div class="card card-product">
                         <div class="card-header btn-2">
                             <a asp-page="Product" asp-route-name="@p.Id.ToString()">
                                 Sprawdź<i class="fas fa-angle-double-right ml-2"></i>
                             </a>
                         </div>
-                        <!-- <h5 class="mt-2" @p.Seller.ToLower()> @p.Seller</h5>-->
-                        <img class="card-img-top img-product" src="~/content/shopLogos/Aldi-card-img.jpg" alt="Card image cap" />
+
+                        <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
 
                         <div class="card-body">
                             @if (p.OnSale)

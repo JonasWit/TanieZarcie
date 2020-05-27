@@ -42,16 +42,12 @@ namespace WEB.Shop.UI.Controllers
         }
 
         [HttpGet("ActiveJobs")]
-        public async Task<List<AutomationDetails>> ActiveJobs([FromServices] IEnumerable<JobSchedule> jobSchedules)
-        {
-            var result = await Task.Run(() => jobSchedules
-                .Select(x => new AutomationDetails 
-                { 
-                    JobName = x.JobType.FullName,
-                    CronExpression = x.CronExpression
-                }).ToList());
-
-            return result;
-        }
+        public async Task<List<AutomationDetails>> ActiveJobs([FromServices] IEnumerable<JobSchedule> jobSchedules) => await Task.Run(() => 
+            jobSchedules.Select(x => new AutomationDetails 
+                        { 
+                            JobName = x.JobType.FullName,
+                            CronExpression = x.CronExpression
+                        })
+                        .ToList());
     }
 }

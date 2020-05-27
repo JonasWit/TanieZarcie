@@ -1,4 +1,7 @@
-﻿
+﻿@using WEB.Shop.UI.Automation
+@using WEB.Shop.UI.Controllers
+@inject IEnumerable<JobSchedule> jobSchedules
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
@@ -30,48 +33,26 @@
                 else
                 {
                     <div class="col-xl-3 col-sm-6 p-2">
-                        <!-- Automation Card -->
-                        <div class="card tza-card-common">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <i class="fas fa-robot fa-3x text-warning"></i>
-                                    <div class="text-right text-secondary">
-
-                               
-                                            <h5 class="text-success">Automated Update Active</h5>
-                                   
-                                            <h5 class="text-warning">Automated Update Inactive</h5>
-                                    
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer text-secondary">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <button class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-bug mr-3"></i>
-                                                    <span>Activate</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-bug mr-3"></i>
-                                                    <span>Stop</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <h3 class="text-muted text-center">Active Jobs</h3>
+                        <table class="table table-dark table-hover text-center text-nowrap">
+                            <thead>
+                                <tr class="text-muted">
+                                    <th>Job</th>
+                                    <th>Cron</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var job in jobs)
+                                {
+                                    <tr>
+                                        <td>@job.JobName</td>
+                                        <td>@job.CronExpression</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 }
-
             </div>
         </div>
     </div>
@@ -80,9 +61,14 @@
 @code {
 
     bool loading = false;
+    private List<AutomationController.AutomationDetails> jobs;
 
     protected override async Task OnInitializedAsync()
     {
-
+        jobs = jobSchedules.Select(x => new AutomationController.AutomationDetails
+        {
+            JobName = x.JobType.FullName,
+            CronExpression = x.CronExpression
+        }).ToList();
     }
 }

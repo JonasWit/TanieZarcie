@@ -49,7 +49,7 @@ namespace WEB.SearchEngine.Crawlers
                 }
 
                 var distinctProducts = Products
-                    .GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value })
+                    .GroupBy(p => new { p.Name, p.Producer, p.Description, p.Value, p.SaleValue })
                     .Select(p => p.First())
                     .ToList();
 

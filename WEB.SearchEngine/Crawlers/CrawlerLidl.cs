@@ -117,7 +117,14 @@ namespace WEB.SearchEngine.Crawlers
             if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.Value = promoPriceDecimal / 100;
             if (decimal.TryParse(regularPrice, out decimal regularPriceDecimal)) result.SaleValue = regularPriceDecimal / 100;
 
-            result.OnSale = true;
+            if (result.Value != 0 && result.SaleValue != 0)
+            {
+                result.OnSale = true;
+            }
+            else
+            {
+                result.OnSale = false;
+            }
 
             #endregion
 

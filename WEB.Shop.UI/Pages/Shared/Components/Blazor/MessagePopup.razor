@@ -1,0 +1,40 @@
+﻿
+<div id="messagePopup" class="alert tza-raise mt-5 @MessageClass @(!IsVisible ? "tza-object-hidden" : "")" @onclick="ClosePopup">
+    <div class="col-10">
+        <span>@Message</span>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Message { get; set; } = "Nothing to display";
+
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public MessageTypes MessageType { get; set; }
+
+    private string MessageClass =>
+        MessageType switch
+        {
+            MessageTypes.Info => "alert-info",
+            MessageTypes.Success => "alert-success",
+            MessageTypes.Warning => "alert-warning",
+            MessageTypes.Danger => "alert-danger",
+            _ => ""
+        };
+
+    public enum MessageTypes
+    {
+        Info = 0,
+        Success = 1,
+        Warning = 2,
+        Danger = 3,
+    }
+
+    private void ClosePopup()
+    {
+        IsVisible = false;
+    }
+}
