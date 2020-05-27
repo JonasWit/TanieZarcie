@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using WEB.Shop.Application.Enums;
 using WEB.Shop.Application.News;
@@ -41,23 +39,25 @@ namespace WEB.Shop.UI.Pages
             }
         }
 
-        public IActionResult OnPostAllShops() => RedirectToPage("ProductsOverview", new { selectedShop = "Wszystkie" });
+        //public IActionResult OnPostAllShops() => RedirectToPage("ProductsOverview", new { selectedShop = "Wszystkie" });
 
-        public IActionResult OnGetBiedronka() => RedirectToPage("ProductsOverview", new { selectedShop = "Biedronka" });
+        public IActionResult OnGetShop(string shop) => RedirectToPage("ProductsOverview", new { selectedShop = shop });
 
-        public IActionResult OnGetZabka() => RedirectToPage("ProductsOverview", new { selectedShop = "Zabka" });
+        //public IActionResult OnGetBiedronka() => RedirectToPage("ProductsOverview", new { selectedShop = "Biedronka" });
 
-        public IActionResult OnGetLidl() => RedirectToPage("ProductsOverview", new { selectedShop = "Lidl" });
+        //public IActionResult OnGetZabka() => RedirectToPage("ProductsOverview", new { selectedShop = "Zabka" });
 
-        public IActionResult OnGetKaufland() => RedirectToPage("ProductsOverview", new { selectedShop = "Kaufland" });
+        //public IActionResult OnGetLidl() => RedirectToPage("ProductsOverview", new { selectedShop = "Lidl" });
 
-        public IActionResult OnGetCarrefour() => RedirectToPage("ProductsOverview", new { selectedShop = "Carrefour" });
+        //public IActionResult OnGetKaufland() => RedirectToPage("ProductsOverview", new { selectedShop = "Kaufland" });
 
-        public IActionResult OnGetAuchan() => RedirectToPage("ProductsOverview", new { selectedShop = "Auchan" });
+        //public IActionResult OnGetCarrefour() => RedirectToPage("ProductsOverview", new { selectedShop = "Carrefour" });
 
-        public IActionResult OnGetObi() => RedirectToPage("ProductsOverview", new { selectedShop = "Obi" });
+        //public IActionResult OnGetAuchan() => RedirectToPage("ProductsOverview", new { selectedShop = "Auchan" });
 
-        public IActionResult OnGetLeroyMerlin() => RedirectToPage("ProductsOverview", new { selectedShop = "LeroyMerlin" });
+        //public IActionResult OnGetObi() => RedirectToPage("ProductsOverview", new { selectedShop = "Obi" });
+
+        //public IActionResult OnGetLeroyMerlin() => RedirectToPage("ProductsOverview", new { selectedShop = "LeroyMerlin" });
 
     }
 }

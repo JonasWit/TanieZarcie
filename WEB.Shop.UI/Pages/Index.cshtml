@@ -13,7 +13,7 @@
         <hr class="hr-light">
         <p>Na naszych półkach znajdziesz produkty między innym z Lidla, Biedronki i Kauflandu! </p>
         <p>Poszperaj i sprawdź kto oferuje najlepsze promocje.</p>
-        <form method="post" asp-page-handler="AllShops">
+        <form method="post" asp-page-handler="Shop" asp-route-shop="Wszystkie">
             <button class="btn-1" type="submit">Poszperaj!</button>
         </form>
     </div>
@@ -25,7 +25,7 @@
     </ul>
 </div>
 
-<button onclick="scrollWin()" class="scroll-down"><img  alt="Arrow Down Icon" src="~/images/icons8-double-down-50.png" /></button>
+<button onclick="scrollWin()" class="scroll-down"><img alt="Arrow Down Icon" src="~/images/icons8-double-down-50.png" /></button>
 
 
 <div class="container-fluid m-5">
@@ -50,6 +50,13 @@
                     </div>
                 </section>
 -->
+
+<!-- Example only -->
+@*<a asp-page-handler="Shop" asp-route-shop="TEST" >
+    <div class="card">
+        <img class="card-img-top" src="~/content/shopLogos/Biedronka.jpg" />
+    </div>
+</a>*@
 
 
 <section>
@@ -100,7 +107,7 @@
     <div>
         <h4>Placeholder</h4>
         <p>
-           Lorem ipsum... 
+            Lorem ipsum...
         </p>
 
     </div>
