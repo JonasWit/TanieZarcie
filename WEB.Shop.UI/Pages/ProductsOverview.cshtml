@@ -52,65 +52,63 @@
             </div>
         </div>
         <section>
-            <div class="card-columns">
+            <div class="container card-columns">
+                
+                        @foreach (var p in Model.Products)
+                        {
+                            var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
 
-                @foreach (var p in Model.Products)
-                {
-                    var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
+                
 
-                    <div class="card card-product">
-                        <div class="card-header btn-2">
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()">
-                                Sprawdź<i class="fas fa-angle-double-right ml-2"></i>
-                            </a>
-                        </div>
+                        <div class="card card-product">
 
-                        <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
+                            <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
 
-                        <div class="card-body">
-                            @if (p.OnSale)
-                            {
-                                <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
-                            }
-                            else
-                            {
-                                <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">Normalna Cena</p>
-                            }
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
-                            <p class="card-text text-center text-dark" style="font-size: 12px">@p.Name</p>
-
-                            @if (p.OnSale)
-                            {
-                                if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
+                            <div class="card-body">
+                                @if (p.OnSale)
                                 {
-                                    <p class="card-text text-danger text-center font-weight-bold">
-                                        <del>@p.SaleValue</del>
-                                    </p>
-                                    <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                        @p.Value
-                                    </p>
-                                    <p class="card-text text-danger text-center font-weight-bold">
-                                        @($"{String.Format("Obniżka: {0:P2}", p.Discount)}")
-                                    </p>
+                                    <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
                                 }
                                 else
                                 {
-                                    <p class="card-text text-danger text-center font-weight-bold">
+                                    <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">Normalna Cena</p>
+                                }
+                                <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
+                                <p class="card-text text-center text-dark" style="font-size: 12px">@p.Name</p>
+
+                                @if (p.OnSale)
+                                {
+                                    if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
+                                    {
+                                        <p class="card-text text-danger text-center font-weight-bold">
+                                            <del>@p.SaleValue</del>
+                                        </p>
+                                        <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                            @p.Value
+                                        </p>
+                                        <p class="card-text text-danger text-center font-weight-bold">
+                                            @($"{String.Format("Obniżka: {0:P2}", p.Discount)}")
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text text-danger text-center font-weight-bold">
+                                            @p.Value
+                                        </p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p class="card-text  text-danger text-center font-weight-bold">
                                         @p.Value
                                     </p>
                                 }
-                            }
-                            else
-                            {
-                                <p class="card-text  text-danger text-center font-weight-bold">
-                                    @p.Value
-                                </p>
-                            }
 
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>
+               
+                        }
+            </div>   
         </section>
     </div>
 </div>
