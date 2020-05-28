@@ -11,6 +11,7 @@
             </li>
             @foreach (var category in Model.Categories)
             {
+                //@(($"{ViewContext.RouteData.Values["Controller"].ToString()}/{ViewContext.RouteData.Values["Action"].ToString()}").Contains("UsersPanel") ? "klasa na aktywny link" : ""
                 <li class="nav-item nav-tabs-item">
                     <a class="nav-link nav-tabs-link" asp-controller="News" asp-action="NewsOverview" asp-route-pageNumber="1"
                        asp-route-category="@category">@category</a>

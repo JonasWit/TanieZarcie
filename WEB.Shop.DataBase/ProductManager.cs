@@ -12,7 +12,7 @@ namespace WEB.Shop.DataBase
 {
     public class ProductManager : IProductManager
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ProductManager(ApplicationDbContext context) => _context = context;
 

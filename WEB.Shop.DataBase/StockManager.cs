@@ -10,7 +10,7 @@ namespace WEB.Shop.DataBase
 {
     public class StockManager : IStockManager
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public StockManager(ApplicationDbContext context)
         {
@@ -87,7 +87,7 @@ namespace WEB.Shop.DataBase
 
                 foreach (var stock in stockToReturn)
                 {
-                    stock.Quantity = stock.Quantity + stockOnHold
+                    stock.Quantity += stockOnHold
                         .FirstOrDefault(x => x.StockId == stock.Id)
                         .Quantity;
                 }
