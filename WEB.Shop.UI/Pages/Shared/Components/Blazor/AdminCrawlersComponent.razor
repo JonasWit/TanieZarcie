@@ -22,7 +22,7 @@
                                             <h3>@shop.ToString()</h3>
                                             <h6>@($"{Commander.DataCacheCount.Where(x => x.Key == shop.ToString()).Sum(s => s.Value)} Cached")</h6>
                                             <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h6>
-                                            <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")} Oldest Record")</h6>
+                                            <h8>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")} Oldest Record")</h8>
                                         </div>
                                     </div>
 

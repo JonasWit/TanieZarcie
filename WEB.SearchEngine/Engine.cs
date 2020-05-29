@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using WEB.SearchEngine.Crawlers;
 using WEB.SearchEngine.Enums;
 

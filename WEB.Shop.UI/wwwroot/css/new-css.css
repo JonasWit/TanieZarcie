@@ -124,6 +124,7 @@
 
 .card-img-top {
     width: 20rem;
+    
 }
 
 .card1 {
@@ -175,7 +176,7 @@
 .card-index {
     position: absolute;
     top: 0;
-    background: #fffafa;
+    background: #ffc107;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.65);
     border-radius: 0em;
     width: 20em;
@@ -202,8 +203,11 @@
         }
 
     .card-index h1 {
-        padding: 5px;
+        display: block;
+        width: 100%;
+        text-align: center;
         color: #000000;
+        
     }
 
     .card-index p {
@@ -275,24 +279,71 @@
     }
 }
 
-.promo-box {
-    display: block;
-    height: 50px;
-    width: 130px;
-    background: #ffc107;
-    box-shadow: 1px 1px 7px #58450b;
-    color: #fffafa;
-    font-size: 15px;
-    padding: 7px;
-    margin-left: 55%;
-    transition: all 1s ease-in-out 0.15s;
+.card-index:hover {
+    -webkit-filter: grayscale(80%) brightness(40%);
+    -ms-filter: grayscale(80%) brightness(40%);
+    -o-filter: grayscale(80%) brightness(40%);
+    filter: grayscale(80%) brightness(40%);
+    transition: all 1s ease;
 }
 
-    .promo-box:hover {
-        transform: scale(1.5);
-        width: 160px;
-        background-color: #ff0000;
-    }
+
+.card-index blockquote a {
+    position: absolute;
+    left: -9999px;
+    border: none;
+    padding: 0;
+    margin: 20px 5%;
+    font-weight: 100;
+    line-height: 130%;
+}
+
+.card-index:hover > blockquote a {
+    left: 5%;
+    top: 50%;
+    color: #fffafa;
+    font-size: 1.5em;
+    transition: all 0.6s ease;
+}
+
+.card-index .footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: #000000;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 0.875em;
+    color: #ffc107;
+    
+}
+.card-index:hover .footer span {
+    position: absolute;
+    left: -9999px;
+    transition: all 0.6s ease;
+}
+
+.card-index:hover .footer:after {
+    content: "PRZEJDŹ DO WYSZUKIWARKI";
+    transition: all 0.6s ease;
+}
+
+.card-index:hover:after {
+    content: " ";
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s ease;
+}
+
+
+
+
+
+
+
+
 
 /*Sticky links*/
 .our-links {
@@ -431,7 +482,7 @@
     position: relative;
     margin-bottom: 100px;
 }
-/**/
+
 .card-product {
     position: relative;
     font-size: 9px;
@@ -452,7 +503,6 @@
         
     }
 
-
     .card-body {
         font-size: 13px;
     }
@@ -462,13 +512,7 @@
     height: 85px;
 }
 
-
-
-
-
 #search-product{
     margin-top: 15%;
 
 }
-
-

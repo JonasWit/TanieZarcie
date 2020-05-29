@@ -15,6 +15,11 @@ namespace WEB.Shop.DataBase
 
         public async Task<int> CreateLogRecord(LogRecord record)
         {
+            if (_context.LogRecords.Count() > 500)
+            {
+                await DeleteLog();
+            }
+
             _context.LogRecords.Add(record);
             return await _context.SaveChangesAsync();
         }

@@ -35,7 +35,7 @@ namespace WEB.SearchEngine.Crawlers
             var divs = htmlDocument.DocumentNode.Descendants("a")
                 .AsParallel()
                 .Where(node => node.GetAttributeValue("class", "")
-                .ContainsAny("product__body"))
+                .ContainsAny("m-productsBox_item"))
                 .ToList();
 
             var tasks = new List<Task>();
@@ -60,10 +60,10 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
+            if (productNode.Descendants("div").Any(n => n.Attributes.Any(x => x.Name == "class" && x.Value == "m-priceBox_old")))
+            {
 
-
-
-
+            }
 
             #endregion
 
