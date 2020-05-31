@@ -53,6 +53,35 @@ $(document).ready(function () {
     });
 });
 
+    //Cards 2
+$(document).ready(function () {
+
+    var stack1 = $('#stack2');
+
+    stack1.removeClass('start');
+
+    stack1.hammer().on('tap', function (event) {
+        stack1.addClass('hover');
+        event.stopPropagation();
+    });
+
+
+    $(document).hammer().on('tap', function (event) {
+        stack1.removeClass('hover');
+        $('.card-index-1').removeClass('hover');
+    });
+
+    $('.card-index-1').hammer().on('tap', function (event) {
+        $('.card-index-1').removeClass('hover');
+        $(this).addClass('hover');
+    });
+});
+
+
+
+
+
+
 
 // Scroll down:
 function scrollWin() {
