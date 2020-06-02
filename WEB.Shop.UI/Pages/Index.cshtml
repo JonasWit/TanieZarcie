@@ -48,7 +48,6 @@
                     Zostań z nami na dłużej!
                 </p>
 
-
             </div>
         </div>
     </div>
@@ -56,71 +55,6 @@
         Zespół Taniego Żarcia <span> <img style="height:20px;" src="~/content/browserIcons/udko.png" alt="Udeczko" /> </span>
     </p>
 </div>
-
-
-
-<!--<section>
-                    <div class="container-fluid cards-wrapper">
-                        <div class="col-12">
-                            <div class="row">
-                                @foreach (var shop in Model.Shops)
-                                {
-                                    var imagePath = $"/ShopCardImage/{shop.ImagePath}";
-                                    <a asp-page-handler="@shop.Name">
-                                        <div class="card">
-                                            <img class="card-img-top" alt="Card image cap" src="@imagePath" />
-                                        </div>
-                                    </a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </section>
--->
-<!-- Example only -->
-@*<a asp-page-handler="Shop" asp-route-shop="TEST" >
-        <div class="card">
-            <img class="card-img-top" src="~/content/shopLogos/Biedronka.jpg" />
-        </div>
-    </a>*@
-
-
-<section>
-
-    <div id="stack1" class="card-container start">
-        <section id="card1" class="card-index card1">
-            <h1>Biedronka</h1>
-            <img class="card-img-top" src="~/content/shopLogos/Biedronka.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszperaj w poszukiwaniu promocji!</span></div>
-        </section>
-        <section id="card2" class="card-index card2">
-            <h1>Auchan</h1>
-            <img class="card-img-top" src="~/content/shopLogos/Auchan.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszperaj w poszukiwaniu promocji!</span></div>
-        </section>
-        <section id="card3" class="card-index card3">
-            <h1>Kaufland</h1>
-            <img class="card-img-top" src="~/content/shopLogos/Kaufland.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszperaj w poszukiwaniu promocji!</span></div>
-        </section>
-        <section id="card4" class="card-index card4">
-            <h1>Aldi</h1>
-            <img class="card-img-top" src="~/content/shopLogos/Aldi.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszperaj w poszukiwaniu promocji!</span></div>
-        </section>
-        <section id="card5" class="card-index card5">
-            <h1>Lidl</h1>
-            <img class="card-img-top" src="~/content/shopLogos/Lidl.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszperaj w poszukiwaniu promocji!</span></div>
-        </section>
-    </div>
-</section>
-
 
 <button onclick="topFunction()" id="myBtn" title="Go to top">
     <img src="~/images/icons8-chevron-48.png" />
@@ -133,25 +67,12 @@
             <p><a href="#">Liczba promocji</a></p>
             <div class="footer"><span>Poszukaj promocji!</span></div>
         </div>
-        <div class="card p-3">
-            <blockquote class="blockquote mb-0 card-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                <footer class="blockquote-footer">
-                    <small class="text-muted">
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                    </small>
-                </footer>
-            </blockquote>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/LeroyMerlin.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
         </div>
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-        <div class="card bg-primary text-white text-center p-3">
+        <div class="card bg-warning text-dark text-center p-3">
             <blockquote class="blockquote mb-0">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
                 <footer class="blockquote-footer text-white">
@@ -161,48 +82,81 @@
                 </footer>
             </blockquote>
         </div>
-        <div class="card text-center">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-        </div>
-        <div class="card p-3 text-right">
+        <div class="card bg-warning text-dark text-center p-3">
             <blockquote class="blockquote mb-0">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                <footer class="blockquote-footer">
-                    <small class="text-muted">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                <footer class="blockquote-footer text-white">
+                    <small>
                         Someone famous in <cite title="Source Title">Source Title</cite>
                     </small>
                 </footer>
             </blockquote>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Aldi.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Auchan.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Kaufland.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Lidl.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
         </div>
 
 
+        <div class="card bg-warning text-dark text-center p-3">
+            <i class='fas fa-shopping-cart card-icon'></i>
+            <div class="card-title">Przeszukaliśmy tyle produktów</div>
+            <div class="counter" data-target="5000">0</div>
 
 
 
-
-
-
-
-
-
-
-
-
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Mila.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card bg-warning text-dark text-center p-3">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                <footer class="blockquote-footer text-white">
+                    <small>
+                        Someone famous in <cite title="Source Title">Source Title</cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Selgros.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Obi.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Obi.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
+        <div class="card card-index-1">
+            <img class="img-fluid" src="~/content/shopLogos/Obi.jpg" />
+            <p><a href="#">Liczba promocji</a></p>
+            <div class="footer"><span>Poszukaj promocji!</span></div>
+        </div>
 
     </div>
-
 </div>
