@@ -118,9 +118,6 @@
             <i class='fas fa-shopping-cart card-icon'></i>
             <div class="card-title">Przeszukaliśmy tyle produktów</div>
             <div class="counter" data-target="5000">0</div>
-
-
-
         </div>
         <div class="card card-index-1">
             <img class="img-fluid" src="~/content/shopLogos/Mila.jpg" />
@@ -158,5 +155,84 @@
             <div class="footer"><span>Poszukaj promocji!</span></div>
         </div>
 
+    </div>
+</div>
+
+<div class="container cards" id="stack2">
+    <div class="card-columns">
+        @{
+            int shopNo = 0;
+
+            @for (int columnNo = 0; columnNo < Model.Shops.Count + 4; columnNo++)
+            {
+                switch (columnNo)
+                {
+                    case 2:
+                        <div class="card bg-warning text-dark text-center p-3">
+                            <blockquote class="blockquote mb-0">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                                <footer class="blockquote-footer text-white">
+                                    <small>
+                                        Someone famous in <cite title="Source Title">Source Title1</cite>
+                                    </small>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        break;
+
+                    case 3:
+                        <div class="card bg-warning text-dark text-center p-3">
+                            <blockquote class="blockquote mb-0">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                                <footer class="blockquote-footer text-white">
+                                    <small>
+                                        Someone famous in <cite title="Source Title">Source Title2</cite>
+                                    </small>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        break;
+
+                    case 8:
+                        <div class="card bg-warning text-dark text-center p-3">
+                            <blockquote class="blockquote mb-0">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                                <footer class="blockquote-footer text-white">
+                                    <small>
+                                        Someone famous in <cite title="Source Title">Source Title3</cite>
+                                    </small>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        break;
+
+                    case 10:
+                        <div class="card bg-warning text-dark text-center p-3">
+                            <blockquote class="blockquote mb-0">
+                                <p>Integer posuere erat.</p>
+                                <footer class="blockquote-footer text-white">
+                                    <small>
+                                        Someone famous in <cite title="Source Title">Source Title4</cite>
+                                    </small>
+                                </footer>
+                            </blockquote>
+                        </div>
+                        break;
+
+                    default:
+                        var shop = Model.Shops[shopNo];
+                        shopNo++;
+
+                        var imageShop = $"/ShopCardImage/{shop.SmallImagePath}";
+
+                        <div class="card card-index-1">
+                            <img class="img-fluid" src=@imageShop />
+                            <p><a asp-page-handler="Shop" asp-route-shop="@shop.Name">Liczba promocji</a></p>
+                            <div class="footer"><span>Poszukaj promocji!</span></div>
+                        </div>
+                        break;
+                }
+            }
+        }
     </div>
 </div>

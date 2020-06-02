@@ -23,19 +23,23 @@ namespace WEB.Shop.UI.Pages
         public class ShopViewModel
         {
             public string Name { get; set; }
-            public string ImagePath { get; set; } = null;
+            public string SmallImagePath { get; set; } = null;
+            public string LargeImagePath { get; set; } = null;
         }
 
-        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetNews getNews, [FromServices] IConfiguration configuration)
+        public void OnGet([FromServices] GetProducts getProducts, [FromServices] GetNews getNews)
         {
             News = getNews.Do().ToList();
 
             foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
             {
-                var shopVm = new ShopViewModel { Name = shop.ToString(), ImagePath = $"{shop}.jpg" };
-                Products.Add(shop.ToString(), getProducts.CountProductForShop(shop.ToString()));
-                ProductsOnSale.Add(shop.ToString(), getProducts.CountProductOnSaleForShop(shop.ToString()));
-                Shops.Add(shopVm);
+                if (getProducts.CountProductOnSaleForShop(shop.ToString()) != 0)
+                {
+                    var shopVm = new ShopViewModel { Name = shop.ToString(), SmallImagePath = $"{shop}-s.jpg", LargeImagePath = $"{shop}.jpg" };
+                    Products.Add(shop.ToString(), getProducts.CountProductForShop(shop.ToString()));
+                    ProductsOnSale.Add(shop.ToString(), getProducts.CountProductOnSaleForShop(shop.ToString()));
+                    Shops.Add(shopVm);
+                }
             }
         }
 
