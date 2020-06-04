@@ -26,6 +26,7 @@ namespace WEB.SearchEngine
             Crawlers.Add(new CrawlerAldi());
             //Crawlers.Add(new CrawlerMediaMarkt());
             Crawlers.Add(new CrawlerInterMarche());
+            Crawlers.Add(new CrawlerIkea());
 
             foreach (var crawler in Crawlers)
             {
@@ -103,6 +104,11 @@ namespace WEB.SearchEngine
                     var crawlerInterMarche = new CrawlerInterMarche();
                     await Task.Run(() => crawlerInterMarche.GetData());
                     Crawlers.Add(crawlerInterMarche);
+                    break;
+                case Shops.Ikea:
+                    var crawlerIkea = new CrawlerIkea();
+                    await Task.Run(() => crawlerIkea.GetData());
+                    Crawlers.Add(crawlerIkea);
                     break;
                 default:
                     break;

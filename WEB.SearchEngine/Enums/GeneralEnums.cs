@@ -15,7 +15,8 @@
         LeroyMerlin = 10,
         Aldi = 11,
         MediaMarkt = 12,
-        InterMarche = 13
+        InterMarche = 13,
+        Ikea = 14
     }
 
     public enum MatchDirection
