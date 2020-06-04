@@ -7,7 +7,7 @@
             <source src="~/Videos/production%20ID_4318387.mp4" type="video/mp4" />
         </video>
     </div>
-    <div class="header-overlay"></div>
+    <div class="header-overlay main" id="section1"></div>
     <div class="header-content text-md-center">
         <h1>Witaj w Tanim Żarciu!</h1>
         <hr class="hr-light">
@@ -16,19 +16,19 @@
         <form method="post" asp-page-handler="Shop" asp-route-shop="Wszystkie">
             <button class="btn-1" type="submit">Poszperaj!</button>
         </form>
+        <div class="mt-5">
+            <a href="#section2" class="scroll-down"><img alt="Arrow Down Icon" src="~/images/icons8-double-down-50.png" /></a>
+        </div>
     </div>
 </header>
 <div>
     <ul class="our-links">
         <li><a href="#">SWP</a></li>
         <li><a href="#">SWP</a></li>
+        <li><a href="#">SWP</a></li>
     </ul>
 </div>
-
-<button onclick="scrollWin()" class="scroll-down"><img alt="Arrow Down Icon" src="~/images/icons8-double-down-50.png" /></button>
-
-
-<div class="container-fluid m-5">
+<div class="container m-auto main" id="section2">
     <h3 class="text-center m-5">O co tutaj chodzi?</h3>
     <div class="row">
         <div class="col-6 m-auto">
@@ -56,110 +56,9 @@
     </p>
 </div>
 
-<button onclick="topFunction()" id="myBtn" title="Go to top">
+<a href="#section1" id="myBtn" title="Go to top">
     <img src="~/images/icons8-chevron-48.png" />
-</button>
-
-<div class="container cards" id="stack2">
-    <div class="card-columns">
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Biedronka.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/LeroyMerlin.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card bg-warning text-dark text-center p-3">
-            <blockquote class="blockquote mb-0">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-                <footer class="blockquote-footer text-white">
-                    <small>
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                    </small>
-                </footer>
-            </blockquote>
-        </div>
-        <div class="card bg-warning text-dark text-center p-3">
-            <blockquote class="blockquote mb-0">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-                <footer class="blockquote-footer text-white">
-                    <small>
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                    </small>
-                </footer>
-            </blockquote>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Aldi.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Auchan.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Kaufland.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Lidl.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-
-
-        <div class="card bg-warning text-dark text-center p-3">
-            <i class='fas fa-shopping-cart card-icon'></i>
-            <div class="card-title">Przeszukaliśmy tyle produktów</div>
-            <div class="counter" data-target="5000">0</div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Mila.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card bg-warning text-dark text-center p-3">
-            <blockquote class="blockquote mb-0">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-                <footer class="blockquote-footer text-white">
-                    <small>
-                        Someone famous in <cite title="Source Title">Source Title</cite>
-                    </small>
-                </footer>
-            </blockquote>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Selgros.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Obi.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Obi.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-        <div class="card card-index-1">
-            <img class="img-fluid" src="~/content/shopLogos/Obi.jpg" />
-            <p><a href="#">Liczba promocji</a></p>
-            <div class="footer"><span>Poszukaj promocji!</span></div>
-        </div>
-
-    </div>
-</div>
-
-
-
+</a>
 
 <div class="container cards" id="stack2">
     <div class="card-columns">
@@ -172,31 +71,39 @@
                 {
                     case 2:
                         <div class="card bg-warning text-dark text-center p-3">
-                            <i class='fas fa-shopping-cart card-icon'></i>
+                            <i>
+                                <img class="card-icon" src="~/images/icons8-discount-100.png" />
+                            </i>
                             <div class="card-title">Liczba znalezionych promocji</div>
-                            <div class="counter" data-target="2000">0</div>
+                            <div class="counter" data-target="200">0</div>
                         </div>
                         break;
 
                     case 3:
                         <div class="card bg-warning text-dark text-center p-3">
-                            <i class='fas fa-shopping-cart card-icon'></i>
-                            <div class="card-title">Jakaś liczba</div>
+                            <i>
+                                <img class="card-icon" src="~/images/icons8-discount-2-100.png" />
+                            </i>
+                            <div class="card-title">Top promocja</div>
                             <div class="counter" data-target="50">0</div>
                         </div>
                         break;
 
                     case 8:
                         <div class="card bg-warning text-dark text-center p-3">
-                            <i class='fas fa-shopping-cart card-icon'></i>
-                            <div class="card-title">Liczba przeszukanych sklepów</div>
+                            <i>
+                                <img class="card-icon" src="~/images/icons8-online-shop-card-payment-100.png" />
+                            </i>
+                            <div class="card-title">Przeszukane sklepy</div>
                             <div class="counter" data-target="10">0</div>
                         </div>
                         break;
 
                     case 10:
                         <div class="card bg-warning text-dark text-center p-3">
-                            <i class='fas fa-shopping-cart card-icon'></i>
+                            <i>
+                                <img class="card-icon" src="~/images/icons8-shopping-bag-100.png" />
+                            </i>
                             <div class="card-title">Liczba ogólna</div>
                             <div class="counter" data-target="250">0</div>
                         </div>
