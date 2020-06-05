@@ -42,9 +42,9 @@ namespace WEB.SearchEngine.Crawlers
 
             foreach (var div in divs)
             {
-                //ExtractProduct(div, linkStruct);
+                ExtractProduct(div, linkStruct);
                 var nodeToPass = div;
-                tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
+                //tasks.Add(Task.Run(() => result.Add(ExtractProduct(nodeToPass, linkStruct))));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -60,7 +60,10 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricebox__price", MatchDireciton.InputContainsMatch)))) return new Product();
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "pricebox__price", MatchDireciton.InputContainsMatch))))
+            {
+                return new Product();
+            }
 
             #endregion
 
@@ -107,11 +110,13 @@ namespace WEB.SearchEngine.Crawlers
             var promoPrice = productNode.Descendants("span")
                 .FirstOrDefault(x => x.GetAttributeValue("class", "") == "pricebox__price")?
                 .InnerText
+                .Replace(",-", "00")
                 .RemoveNonNumeric();
 
             var regularPrice = productNode.Descendants("span")
                 .FirstOrDefault(x => x.GetAttributeValue("class", "") == "pricebox__recommended-retail-price")?
                 .InnerText
+                .Replace(",-", "00")
                 .RemoveNonNumeric();
 
             if (decimal.TryParse(promoPrice, out decimal promoPriceDecimal)) result.Value = promoPriceDecimal / 100;
@@ -123,7 +128,7 @@ namespace WEB.SearchEngine.Crawlers
             }
             else
             {
-                result.OnSale = false;
+                return new Product();
             }
 
             #endregion
@@ -143,7 +148,6 @@ namespace WEB.SearchEngine.Crawlers
             result.SourceUrl = linkStruct.Link;
 
             var productUrl = productNode.GetAttributeValue("href", "");
-
             result.SourceUrl = new Uri(new Uri(BaseUrls[0]), productUrl).ToString();
 
             #endregion
