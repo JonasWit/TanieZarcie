@@ -17,7 +17,7 @@ namespace WEB.Shop.Application.Cart
 
         public class Request
         {
-            public int StockId { get; set; }
+            public int ProductId { get; set; }
             public int Quantity { get; set; }
             public bool All { get; set; }
         }
@@ -32,7 +32,7 @@ namespace WEB.Shop.Application.Cart
             //await _stockManager
             //    .RemoveStockFromHold(request.StockId, request.Quantity, _sessionManager.GetId());
 
-            await Task.Run(() => _sessionManager.RemoveProduct(request.StockId, request.Quantity));
+            await Task.Run(() => _sessionManager.RemoveProduct(request.ProductId, request.Quantity));
 
             return true;
         }

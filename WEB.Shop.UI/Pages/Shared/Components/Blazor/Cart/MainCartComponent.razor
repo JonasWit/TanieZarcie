@@ -62,16 +62,16 @@
                                                         <div class="col-4 column is-4 text-center pt-2 mt-2 mb-2">
                                                             <button class="button btn btn-warning align-middle"
                                                                     type="button"
-                                                                    @onclick="(() => Remove(product.StockId, 1))">
+                                                                    @onclick="(() => Remove(product.Id, 1))">
                                                                 -
                                                             </button>
                                                         </div>
                                                         <div class="col-4 column is-4 align-self-center text-center pt-2 mt-2 mb-2"
-                                                             id="stock-quantity-@product.StockId">
+                                                             id="stock-quantity-@product.Id">
                                                             <span class="align-middle">@product.Quantity</span>
                                                         </div>
                                                         <div class=" col-4 column is-4 text-center pt-2 mt-2 mb-2">
-                                                            <button class="button btn btn-warning align-middle" @onclick="(() => AddOne(product.StockId))">
+                                                            <button class="button btn btn-warning align-middle" @onclick="(() => AddOne(product.Id))">
                                                                 +
                                                             </button>
                                                         </div>
@@ -83,7 +83,7 @@
                                         <td>
                                             <div class="column is-12 text-center">
                                                 <a class=" has-text-danger text-warning pt-2 mt-2 mb-2 fas fa-trash-alt align-middle" style='font-size:24px'
-                                                   @onclick="(() => Remove(product.StockId, product.Quantity))"></a>
+                                                   @onclick="(() => Remove(product.Id, product.Quantity))"></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -114,11 +114,11 @@
         }
     }
 
-    private async Task AddOne(int stockId)
+    private async Task AddOne(int productId)
     {
         try
         {
-            await cartBlazorService.AddOneAsync(stockId);
+            await cartBlazorService.AddOneAsync(productId);
             products = cartBlazorService.GetCartProducts().ToList();
             cartBlazorService.CallRequestRefresh();
         }
@@ -128,11 +128,11 @@
         }
     }
 
-    private async Task Remove(int stockId, int quantity)
+    private async Task Remove(int porductId, int quantity)
     {
         try
         {
-            await cartBlazorService.Remove(stockId, quantity);
+            await cartBlazorService.Remove(porductId, quantity);
             products = cartBlazorService.GetCartProducts().ToList();
             cartBlazorService.CallRequestRefresh();
         }

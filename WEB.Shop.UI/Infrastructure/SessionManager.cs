@@ -81,7 +81,7 @@ namespace WEB.Shop.UI.Infrastructure
 
         public string GetId() => _session.Id;
 
-        public void RemoveProduct(int stockId, int quantity)
+        public void RemoveProduct(int productId, int quantity)
         {
             var cartList = new List<CartProduct>();
             var stringObject = _session.GetString(KeyCart);
@@ -90,9 +90,9 @@ namespace WEB.Shop.UI.Infrastructure
 
             cartList = JsonConvert.DeserializeObject<List<CartProduct>>(stringObject);
 
-            if (!cartList.Any(x => x.StockId == stockId)) return;
+            if (!cartList.Any(x => x.ProductId == productId)) return;
 
-            var product = cartList.First(x => x.StockId == stockId);
+            var product = cartList.First(x => x.ProductId == productId);
             product.Quantity -= quantity;
 
             if (product.Quantity <= 0)

@@ -7,18 +7,18 @@ namespace WEB.Shop.Application.Cart
     [TransientService]
     public class AddToCart
     {
-        private ISessionManager _sessionManager;
-        private IStockManager _stockManager;
+        private readonly ISessionManager _sessionManager;
+        private readonly IProductManager _productManager;
 
-        public AddToCart(ISessionManager sessionManager, IStockManager stockManager)
+        public AddToCart(ISessionManager sessionManager, IProductManager productManager)
         {
             _sessionManager = sessionManager;
-            _stockManager = stockManager;
+            _productManager = productManager;
         }
 
         public class Request
         {
-            public int StockId { get; set; }
+            public int ProductId { get; set; }
             public int Quantity { get; set; }
         }
 
@@ -59,20 +59,20 @@ namespace WEB.Shop.Application.Cart
 
             #endregion
 
-            var stock = _stockManager.GetStockWithProduct(request.StockId);
+            var product = _productManager.GetProductById(request.ProductId);
 
             var cartPorduct = new CartProduct()
             {
-                ProductId = stock.ProductId,
-                StockId = stock.Id,
+                ProductId = product.Id,
+                StockId = product.Id,
                 Quantity = request.Quantity,
-                ProductName = stock.Product.Name,
-                Description = stock.Product.Description,
-                Seller = stock.Product.Distributor.DistributorName,
-                Category = stock.Product.Category.CategoryName,
-                Producer = stock.Product.Producer.ProducerName,
-                SourceUrl = stock.Product.SourceUrl,
-                Value = stock.Product.Value
+                ProductName = product.Name,
+                Description = product.Description,
+                Seller = product.Distributor.DistributorName,
+                Category = product.Category.CategoryName,
+                Producer = product.Producer.ProducerName,
+                SourceUrl = product.SourceUrl,
+                Value = product.Value
             };
 
             await Task.Run(() => _sessionManager.AddProduct(cartPorduct));

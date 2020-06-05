@@ -29,11 +29,11 @@ namespace WEB.Shop.Application.BlazorServices
 
         public IEnumerable<GetCart.Response> GetCartProducts() => _getCart.Do();
 
-        public async Task<bool> AddOneAsync(int stockId)
+        public async Task<bool> AddOneAsync(int productId)
         {
             var request = new AddToCart.Request
             {
-                StockId = stockId,
+                ProductId = productId,
                 Quantity = 1
             };
 
@@ -47,11 +47,11 @@ namespace WEB.Shop.Application.BlazorServices
             return false;
         }
 
-        public async Task<bool> Remove(int stockId, int quantity)
+        public async Task<bool> Remove(int productId, int quantity)
         {
             var request = new RemoveFromCart.Request
             {
-                StockId = stockId,
+                ProductId = productId,
                 Quantity = quantity
             };
 

@@ -17,6 +17,7 @@ namespace WEB.Shop.Domain.Infrastructure
 
         TResult GetProductByName<TResult>(string name, Func<Product, TResult> selector);
         TResult GetProductById<TResult>(int id, Func<Product, TResult> selector);
+        Product GetProductById(int id);
 
         IEnumerable<TResult> GetProductsWithStock<TResult>(Func<Product, TResult> selector);
         IEnumerable<TResult> GetProductsWithStockWithCondition<TResult>(Func<Product, TResult> selector, Func<Product, bool> predicate);
