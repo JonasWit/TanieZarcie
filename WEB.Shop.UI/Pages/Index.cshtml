@@ -47,7 +47,6 @@
                     Wybierz sklepy lub kategorie, które Cię interesuja i zapoluj na promocje spożywcze, budowlane i inne.
                     Zostań z nami na dłużej!
                 </p>
-
             </div>
         </div>
     </div>
@@ -75,7 +74,7 @@
                                 <img class="card-icon" src="~/images/icons8-discount-100.png" />
                             </i>
                             <div class="card-title">Liczba znalezionych promocji</div>
-                            <div class="counter" data-target="200">0</div>
+                            <div class="counter" data-target="@(Model.ProductsOnSale.Sum(x => x.Value))">0</div>
                         </div>
                         break;
 
@@ -84,8 +83,8 @@
                             <i>
                                 <img class="card-icon" src="~/images/icons8-discount-2-100.png" />
                             </i>
-                            <div class="card-title">Top promocja</div>
-                            <div class="counter" data-target="50">0</div>
+                            <div class="card-title">Jak działamy?</div>
+                            <p>Raz na dobę przeszukujemy internet w poszukiwaniu promocji na stronach sklepów!</p>
                         </div>
                         break;
 
@@ -95,7 +94,7 @@
                                 <img class="card-icon" src="~/images/icons8-online-shop-card-payment-100.png" />
                             </i>
                             <div class="card-title">Przeszukane sklepy</div>
-                            <div class="counter" data-target="10">0</div>
+                            <div class="counter" data-target="@(Model.Shops.Count)">0</div>
                         </div>
                         break;
 
@@ -104,8 +103,8 @@
                             <i>
                                 <img class="card-icon" src="~/images/icons8-shopping-bag-100.png" />
                             </i>
-                            <div class="card-title">Liczba ogólna</div>
-                            <div class="counter" data-target="250">0</div>
+                            <div class="card-title">Koszk!</div>
+                            <p>Korzystaj z koszyka żeby zapisać interesujace promocje!</p>
                         </div>
                         break;
 

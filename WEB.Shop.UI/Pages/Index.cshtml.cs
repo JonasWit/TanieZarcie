@@ -33,11 +33,14 @@ namespace WEB.Shop.UI.Pages
 
             foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
             {
-                if (getProducts.CountProductOnSaleForShop(shop.ToString()) != 0)
+                var countRegular = getProducts.CountProductForShop(shop.ToString());
+                var countSale = getProducts.CountProductOnSaleForShop(shop.ToString());
+
+                if (countSale != 0)
                 {
                     var shopVm = new ShopViewModel { Name = shop.ToString(), SmallImagePath = $"{shop}-s.jpg", LargeImagePath = $"{shop}.jpg" };
-                    Products.Add(shop.ToString(), getProducts.CountProductForShop(shop.ToString()));
-                    ProductsOnSale.Add(shop.ToString(), getProducts.CountProductOnSaleForShop(shop.ToString()));
+                    Products.Add(shop.ToString(), countRegular);
+                    ProductsOnSale.Add(shop.ToString(), countSale);
                     Shops.Add(shopVm);
                 }
             }
