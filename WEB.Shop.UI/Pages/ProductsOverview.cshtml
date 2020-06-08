@@ -1,7 +1,7 @@
 ﻿@page
 @model ProductsOverviewModel
 
-<div class="container m-auto">
+<div class="container-fluid m-auto">
 
     <section>
         <div id="stack1" class="card-container start m-auto">
@@ -85,64 +85,113 @@
             </div>
         </div>
         <section>
-            <div class="container card-columns">
-                @foreach (var p in Model.Products)
-                {
-                    var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
+            <!--
+                    <div class="row">
+                        @foreach (var p in Model.Products)
+                        {
+                            var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
 
-                    <div class="card card-product">
+                            <div class="card-columns">
 
-                        <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
+                                <div class="card card-product">
 
-                        <div class="card-body">
-                            @if (p.OnSale)
-                            {
-                                <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
-                            }
-                            else
-                            {
-                                <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">Normalna Cena</p>
-                            }
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
-                            <p class="card-text text-center text-dark" style="font-size: 12px">@p.Name</p>
+                                    <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
 
-                            @if (p.OnSale)
-                            {
-                                if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
-                                {
-                                    <p class="card-text text-danger text-center font-weight-bold">
-                                        <del>@p.SaleValue</del>
-                                    </p>
-                                    <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                        @p.Value
-                                    </p>
-                                    <p class="card-text text-danger text-center font-weight-bold">
-                                        @($"{String.Format("Obniżka: {0:P2}", p.Discount)}")
-                                    </p>
-                                }
-                                else
-                                {
-                                    <p class="card-text text-danger text-center font-weight-bold">
-                                        @p.Value
-                                    </p>
-                                }
-                            }
-                            else
-                            {
-                                <p class="card-text  text-danger text-center font-weight-bold">
-                                    @p.Value
-                                </p>
-                            }
+                                    <div class="card-body">
 
-                        </div>
+                                        @if (p.OnSale)
+                                        {
+                                            <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">Normalna Cena</p>
+                                        }
+                                        <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
+                                        <p class="card-text text-center text-dark" style="font-size: 12px">@p.Name</p>
+
+                                        @if (p.OnSale)
+                                        {
+                                            if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
+                                            {
+                                                <p class="card-text text-danger text-center font-weight-bold">
+                                                    <del>@p.SaleValue</del>
+                                                </p>
+                                                <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                                    @p.Value
+                                                </p>
+                                                <p class="card-text text-danger text-center font-weight-bold">
+                                                    @($"{String.Format("Obniżka: {0:P2}", p.Discount)}")
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <p class="card-text text-danger text-center font-weight-bold">
+                                                    @p.Value
+                                                </p>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text  text-danger text-center font-weight-bold">
+                                                @p.Value
+                                            </p>
+                                        }
+                                    </div>
+                                    <div class="row icons-row">
+                                        <div class="m-auto">
+                                            <img class="icon-search" src="~/images/icons8-shopping-bag-100.png" />
+                                            <img class="icon-search" src="~/images/icons8-online-shop-card-payment-100.png" />
+                                            <img class="icon-search" src="~/images/icons8-discount-2-100.png" />
+                                        </div>
+                                    </div>
+                                    <div class="card-footer footer-search text-center">
+                                        <p>Last updated 3 mins ago</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
                     </div>
-
-                }
-            </div>
+            -->
         </section>
         <div class="col-12">
             <div class="block d-flex align-items-center justify-content-center">
                 <partial name="_ProductsPagination" model="Model" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Version 2-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col m-1">
+            <div class="card card-product" style="width: 15rem;">
+                <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
+                <p class="mt-3 mb-1 text-danger font-weight-bold text-center text-uppercase">PROMOCJA!</p>
+                <hr class="hr-light">
+                <div class="ml-2">
+                    <img style="height: 65px" src="~/images/icons8-discount-2-100.png" />
+                    <img style="height: 65px" src="~/images/icons8-online-shop-card-payment-100.png" />
+                    <img style="height: 65px" src="~/images/icons8-discount-100.png" />
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-center text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj</p>
+                    <div>
+                        <p class="card-text text-danger text-center font-weight-bold">
+                            <del style="font-size: 15px">Stara cena</del>
+                        </p>
+                        <p class="card-text text-center font-weight-bold text-dark p-2" style="font-size: 15px">
+                            Nowa cena
+                        </p>
+                    </div>
+
+                    <a  class="ml-5" href="#">
+                    <img  id="cart-icon" src="~/images/icons8-add-shopping-cart-100.png" />  
+                    </a>
+                </div>
             </div>
         </div>
     </div>
