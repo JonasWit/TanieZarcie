@@ -21,7 +21,7 @@ html {
 }
 
 
-/*Index NEW STYLE*/
+/*INDEX PAGE*/
 
 .v-header {
     height: 100vh;
@@ -226,7 +226,117 @@ html {
     background: #000000;
 }
 
-/*PRODUCT OVERVIEW PAGE*/
+/*Card columns layout on Index Page*/
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 5;
+    }
+}
+
+
+.card-index-1 {
+    position: relative;
+    top: 0;
+    background: #ffc107;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.65);
+    border-radius: 0em;
+    /*width: 10em;
+    max-width: 10em;*/
+    -webkit-backface-visibility: hidden;
+    transition: all 0.6s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+}
+
+
+
+    .card-index-1:hover img {
+        -webkit-filter: grayscale(80%) brightness(40%);
+        -ms-filter: grayscale(80%) brightness(40%);
+        -o-filter: grayscale(80%) brightness(40%);
+        filter: grayscale(80%) brightness(40%);
+    }
+
+
+    .card-index-1 p a {
+        position: absolute;
+        left: -9999px;
+        border: none;
+        padding: 0;
+        margin: 20px 5%;
+        font-weight: 100;
+        line-height: 130%;
+        color: #fff;
+        z-index: 999;
+        transition: all 0.5s ease;
+    }
+
+    .card-index-1:hover > p a {
+        left: 5%;
+        top: 30%;
+        color: #fff;
+        font-size: 1em;
+    }
+
+    .card-index-1 .footer {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        background: #000000;
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0px;
+        font-size: 0.85em;
+        color: #ffc107;
+    }
+
+    .card-index-1:hover .footer span {
+        padding: 10px;
+    }
+
+
+.cards:hover .card-index-1,
+.cards.hover .card-index-1 {
+    transform: scale(1.5);
+}
+
+    .cards:hover .card-index-1:hover,
+    .cards.hover .card-index-1:hover,
+    .cards:hover .card-index-1.hover,
+    .cards.hover .card-index-1.hover {
+        z-index: 11;
+        transform: scale(1.25);
+    }
+
+.cards:hover .card,
+.cards.hover .card {
+    transform: rotateZ(0deg) scale(0.95);
+}
+
+.card-icon {
+    font-size: 50px;
+    color: #000000;
+}
+
+
+.counter {
+    font-size: 35px;
+}
+
+
+/*PRODUCT OVERVIEW (SEARCH) PAGE*/
 
 /*Section 1 small cards*/
 
@@ -433,9 +543,20 @@ html {
     transition: all 0.6s ease;
 }
 
+/*SECTION 2 - Cards*/
+
+.container-search {
+    width: 80%;
+    margin: auto;
+
+
+
+}
+
 
 .card-product {
     position: relative;
+    height: 300px;
     overflow: visible;
     border: none;
     clear: both;
@@ -443,51 +564,69 @@ html {
     display: inline-block;
     box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.65);
     transition: all 0.5s ease-in 0.15s;
-    height:;
 }
 
-  /* .card-product:hover {
-        transform: scale(1.1);
-        z-index: 99;
-    }
-*/
-.card-body {
-    font-size: 13px;
-}
 
-.img-product {
-    width: 100%;
-    height: 10em;
-}
-
-.icon-search {
-    font-size: 50px !important;
-}
-
-.footer-search {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    background: #000000;
+.price {
     display: block;
-    width: 100%;
-    text-align: center;
+    border: none;
+    background-color: #ffc107;
+    border-radius: 3px;
+    width: 115px;
+    text-align: right;
     padding: 10px;
-    font-size: 0.95em;
-    color: #ffc107;
+    margin: 5px;
+    z-index: 999;
+}
+
+.price-1 {
+    position: absolute;
+    left: -40%;
+    top: 70%;
+    padding: 0;
+}
+
+.price-2 {
+    position: absolute;
+    left: -40%;
+    top: 78%;
+    padding: 0;
 }
 
 
-#search-product {
-    margin-top: 5%;
+.discount {
+    position: absolute;
+    display: block;
+    background: url('../images/icons8-discount-2-100.png') no-repeat;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    opacity: 0.9;
+    left: 85%;
+    top: -5%;
 }
 
-.cart-icon {
-    height: 85px;
-    
+.discount-1 {
+    position: absolute;
+    font-size: 15px;
+    z-index: 99;
+    padding: 1px;
+    top: 40%;
+    left: 33%;
+    background-color: #fffafa;
+    opacity: 0.9;
+    border-radius: 9px;
 }
 
-    .cart-icon :hover {
+.cart {
+    position: absolute;
+    z-index: 99;
+    top: 20%;
+    left: 85%;
+    cursor: pointer;
+}
+
+    .cart img:hover {
         animation: shake 0.5s;
         animation-iteration-count: infinite;
     }
@@ -539,109 +678,78 @@ html {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*card column layout on Index*/
-.card-index-1 {
-    position: relative;
-    top: 0;
-    background: #ffc107;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.65);
-    border-radius: 0em;
-    width: 20em;
-    max-width: 20em;
-    -webkit-backface-visibility: hidden;
-    transition: all 0.6s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+.footer-search {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: #000000;
+    display: block;
+    width: 100%;
+    height:;
+    padding: 1px;
+    text-align: center;
+    font-size: 0.95em;
+    color: #ffc107;
 }
 
-
-
-    .card-index-1:hover img {
-        -webkit-filter: grayscale(80%) brightness(40%);
-        -ms-filter: grayscale(80%) brightness(40%);
-        -o-filter: grayscale(80%) brightness(40%);
-        filter: grayscale(80%) brightness(40%);
-    }
-
-
-    .card-index-1 p a {
+@media (min-width: 320px) {
+    .price-1 {
         position: absolute;
-        left: -9999px;
-        border: none;
+        left: -3% ;
+        top: 50%;
         padding: 0;
-        margin: 20px 5%;
-        font-weight: 100;
-        line-height: 130%;
-        color: #fff;
-        z-index: 999;
-        transition: all 0.5s ease;
+        
     }
 
-    .card-index-1:hover > p a {
-        left: 5%;
-        top: 30%;
-        color: #fff;
-        font-size: 1em;
-    }
-
-    .card-index-1 .footer {
+    .price-2 {
         position: absolute;
-        bottom: 0px;
-        left: 0px;
-        background: #000000;
+        left: 50%;
+        top: 50%;
+        padding: 0;
+    }
+
+
+}
+
+@media (min-width: 1075px) {
+    .price {
         display: block;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0px;
-        font-size: 0.85em;
-        color: #ffc107;
-    }
-
-    .card-index-1:hover .footer span {
+        border: none;
+        background-color: #ffc107;
+        border-radius: 3px;
+        width: 115px;
+        text-align: right;
         padding: 10px;
+        margin: 5px;
+        z-index: 999;
     }
 
-
-.cards:hover .card-index-1,
-.cards.hover .card-index-1 {
-    transform: scale(1.5);
-}
-
-    .cards:hover .card-index-1:hover,
-    .cards.hover .card-index-1:hover,
-    .cards:hover .card-index-1.hover,
-    .cards.hover .card-index-1.hover {
-        z-index: 11;
-        transform: scale(1.25);
+    .price-1 {
+        position: absolute;
+        left: -40%;
+        top: 70%;
+        padding: 0;
     }
 
-.cards:hover .card,
-.cards.hover .card {
-    transform: rotateZ(0deg) scale(0.95);
+    .price-2 {
+        position: absolute;
+        left: -40%;
+        top: 80%;
+        padding: 0;
+    }
 }
 
-.card-icon {
-    font-size: 50px;
-    color: #000000;
-}
+/*SEARCH SECTION*/
 
 
-.counter {
-    font-size: 35px;
-}
+
+
+
+
+
+
+
+
+
+
+
