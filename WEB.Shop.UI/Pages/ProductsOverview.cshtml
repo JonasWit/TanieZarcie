@@ -2,367 +2,342 @@
 @model ProductsOverviewModel
 
 
-    <div class="container m-auto main" id="section2">
-        <h3 class="text-center m-5">Spróbuj naszej wyszukiwarki!</h3>
-        <div class="row">
-            <div class="col m-auto">
-                <div>
+<div class="container m-auto main" id="section2">
+    <h3 class="text-center m-5">Spróbuj naszej wyszukiwarki!</h3>
+    <div class="row">
+        <div class="col m-auto">
+            <img class="" src="~/images/icons8-add-shopping-cart-100.png" />
+            <p>
+                Wybierz koszyk i przejdź do opisu produktu.
+            </p>
 
-                    <img src="~/images/icons8-add-shopping-cart-100.png" />
-                    <p>
-                        Wybierz koszyk i przejdź do opisu produktu.
-                    </p>
-                </div>
-            </div>
-            <div class="col m-auto">
-                <div>
-
-                    <img src="~/images/icons8-discount-2-100.png" />
-                    <p>
-                        Sprawdź jak duża jest promocja!
-                    </p>
-                </div>
-            </div>
-
-            <div class="col m-auto">
-                <div>
-
-                    <img src="~/images/icons8-online-shop-card-payment-100.png" />
-                    <p>
-                        Sprawdź produkt na stronie sklepu!
-                    </p>
-                </div>
-            </div>
         </div>
-        <p class="text-warning text-center m-5">
-            Zespół Taniego Żarcia <span> <img style="height:20px;" src="~/content/browserIcons/udko.png" alt="Udeczko" /> </span>
-        </p>
+        <div class="col">
+            <img class="p-0" src="~/images/icons8-discount-2-100.png" />
+            <p>
+                Sprawdź jak duża jest promocja!
+            </p>
+
+        </div>
+
+        <div class="col m-auto">
+            <img class="" src="~/images/icons8-online-shop-card-payment-100.png" />
+            <p>
+                Przejdź bezpośrednio na stronę sklepu.
+            </p>
+
+        </div>
     </div>
-    <div class="container-fluid m-auto">
-        <!--
-            <section>
-                <div id="stack1" class="card-container start m-auto">
-                    <section id="card1" class="card-index card1">
-                        <h4>Biedronka</h4>
-                        <img class="img-fluid" src="~/content/shopLogos/Biedronka.jpg" />
-                        <p><a href="#">Sprawdź!</a></p>
-                        <div class="footer"><span>Poszukaj promocji!</span></div>
-                    </section>
-                    <section id="card2" class="card-index card2">
-                        <h4>Auchan</h4>
-                        <img class="img-fluid" src="~/content/shopLogos/Auchan.jpg" />
-                        <p><a href="#">Sprawdź!</a></p>
-                        <div class="footer"><span>Poszukaj promocji!</span></div>
-                    </section>
-                    <section id="card3" class="card-index card3">
-                        <h4>Kaufland</h4>
-                        <img class="img-fluid" src="~/content/shopLogos/Kaufland.jpg" />
-                        <p><a href="#">Sprawdź!</a></p>
-                        <div class="footer"><span>Poszukaj promocji!</span></div>
-                    </section>
-                    <section id="card4" class="card-index card4">
-                        <h4>Aldi</h4>
-                        <img class="img-fluid" src="~/content/shopLogos/Aldi.jpg" />
-                        <p><a href="#">Sprawdź!</a></p>
-                        <div class="footer"><span>Poszukaj promocji!</span></div>
-                    </section>
-                    <section id="card5" class="card-index card5">
-                        <h4>Lidl</h4>
-                        <img class="img-fluid" src="~/content/shopLogos/Lidl.jpg" />
-                        <p><a href="#">Sprawdź!</a></p>
-                        <div class="footer"><span>Poszukaj promocji!</span></div>
-                    </section>
-                </div>
-            </section>
-        -->
-        <div class="container m-auto">
-            <div class="row ">
-                <div class="col-lg-12">
-                    <div class="row" id="search-product">
-                        <form method="post">
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="input-group md-form form-sm form-2 p-0">
-                                        <input class="form-control " asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
-                                    </div>
-                                    <small id="passwordHelpBlock" class="form-text text-muted p-3">
-                                        Produkt: @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)
-                                        Sklep: @Model.SelectedShop
-                                    </small>
-                                </div>
+</div>
+<div class="container-fluid mt-5">
 
-                                <div class="col-8 md-form form-sm form-2">
-
-                                    <div class="input-group">
-                                        <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="SelectedShop">
-                                            <option selected value="Wszystkie">Wszystkie sklepy</option>
-                                            @foreach (var shop in Model.Shops)
-                                            {
-                                                <option value="@shop">@shop</option>
-                                            }>
-                                        </select>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-warning" type="submit" asp-page-handler="Search">Szukaj</button>
-                                            <button class="btn btn-outline-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-12">
-                <div class="block d-flex align-items-center justify-content-center">
-                    <partial name="_ProductsPagination" model="Model" />
-                </div>
-            </div>
-            <section>
-                <!--
+    <div class="container m-auto">
+        <div class="row ">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <div class="row" id="search-product">
+                    <form method="post">
                         <div class="row">
-                            @foreach (var p in Model.Products)
-                            {
-                                var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
+                            <div class="col-sm-12 col-md-4 p-4">
+                                <div class="input-group md-form form-sm form-2 p-0">
+                                    <input class="form-control " asp-for="@Model.SearchString" type="text" placeholder="Nazwa produktu..." aria-label="Search">
+                                </div>
+                                <small id="passwordHelpBlock" class="form-text text-muted p-3">
+                                    Produkt: @(String.IsNullOrEmpty(Model.SearchString) ? "Wszystkie dostępne produkty" : Model.SearchString)
+                                    Sklep: @Model.SelectedShop
+                                </small>
+                            </div>
 
-                                <div class="card-columns">
+                            <div class="col-sm-12 col-md-8 md-form form-sm form-2 p-4">
 
-                                    <div class="card card-product">
-
-                                        <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
-
-                                        <div class="card-body">
-
-                                            @if (p.OnSale)
-                                            {
-                                                <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
-                                            }
-                                            else
-                                            {
-                                                <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">Normalna Cena</p>
-                                            }
-                                            <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
-                                            <p class="card-text text-center text-dark" style="font-size: 12px">@p.Name</p>
-
-                                            @if (p.OnSale)
-                                            {
-                                                if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
-                                                {
-                                                    <p class="card-text text-danger text-center font-weight-bold">
-                                                        <del>@p.SaleValue</del>
-                                                    </p>
-                                                    <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                                        @p.Value
-                                                    </p>
-                                                    <p class="card-text text-danger text-center font-weight-bold">
-                                                        @($"{String.Format("Obniżka: {0:P2}", p.Discount)}")
-                                                    </p>
-                                                }
-                                                else
-                                                {
-                                                    <p class="card-text text-danger text-center font-weight-bold">
-                                                        @p.Value
-                                                    </p>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <p class="card-text  text-danger text-center font-weight-bold">
-                                                    @p.Value
-                                                </p>
-                                            }
-                                        </div>
-                                        <div class="row icons-row">
-                                            <div class="m-auto">
-                                                <img class="icon-search" src="~/images/icons8-shopping-bag-100.png" />
-                                                <img class="icon-search" src="~/images/icons8-online-shop-card-payment-100.png" />
-                                                <img class="icon-search" src="~/images/icons8-discount-2-100.png" />
-                                            </div>
-                                        </div>
-                                        <div class="card-footer footer-search text-center">
-                                            <p>Last updated 3 mins ago</p>
-                                        </div>
+                                <div class="input-group">
+                                    <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" name="SelectedShop">
+                                        <option selected value="Wszystkie">Wszystkie sklepy</option>
+                                        @foreach (var shop in Model.Shops)
+                                        {
+                                            <option value="@shop">@shop</option>
+                                        }>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-warning" type="submit" asp-page-handler="Search">Szukaj</button>
+                                        <button class="btn btn-outline-warning" type="submit" asp-page-handler="ShowAll">Pokaż Wszystko</button>
                                     </div>
                                 </div>
+                            </div>
 
-                            }
                         </div>
-                -->
-            </section>
-            <div class="col-12">
-                <div class="block d-flex align-items-center justify-content-center">
-                    <partial name="_ProductsPagination" model="Model" />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-12">
+            <div class="block d-flex align-items-center justify-content-center">
+                <partial name="_ProductsPagination" model="Model" />
+            </div>
+        </div>
+
+
+        <!--
+                <div class="row">
+                    @foreach (var p in Model.Products)
+                    {
+                        var imagePath = $"/ShopCardImage/{p.Seller}-card-image.jpg";
+
+                        <div class="card-columns">
+
+                            <div class="card card-product">
+
+                                <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
+
+                                <div class="card-body">
+
+                                    @if (p.OnSale)
+                                    {
+                                        <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">PROMOCJA! @(p.SaleDescription ?? $" {p.SaleDescription}")</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text text-danger font-weight-bold pb-2 text-center text-uppercase">Normalna Cena</p>
+                                    }
+                                    <a asp-page="Product" asp-route-name="@p.Id.ToString()" />
+                                    <p class="card-text text-center text-dark" style="font-size: 12px">@p.Name</p>
+
+                                    @if (p.OnSale)
+                                    {
+                                        if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
+                                        {
+                                            <p class="card-text text-danger text-center font-weight-bold">
+                                                <del>@p.SaleValue</del>
+                                            </p>
+                                            <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                                @p.Value
+                                            </p>
+                                            <p class="card-text text-danger text-center font-weight-bold">
+                                                @($"{String.Format("Obniżka: {0:P2}", p.Discount)}")
+                                            </p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text text-danger text-center font-weight-bold">
+                                                @p.Value
+                                            </p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text  text-danger text-center font-weight-bold">
+                                            @p.Value
+                                        </p>
+                                    }
+                                </div>
+                                <div class="row icons-row">
+                                    <div class="m-auto">
+                                        <img class="icon-search" src="~/images/icons8-shopping-bag-100.png" />
+                                        <img class="icon-search" src="~/images/icons8-online-shop-card-payment-100.png" />
+                                        <img class="icon-search" src="~/images/icons8-discount-2-100.png" />
+                                    </div>
+                                </div>
+                                <div class="card-footer footer-search text-center">
+                                    <p>Last updated 3 mins ago</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+        -->
+
+    </div>
+</div>
+
+
+<!--CARDS LAYOUT-->
+<div class="container-search">
+    <div class="row">
+        <div class="col">
+            <div class="card card-product m-4" style="width: 15rem;">
+                <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
+                <div class="card-body">
+                    <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
+                    <ul class="our-links-2">
+                        <li class="price price-1">
+                            <p class="card-text text-danger text-center font-weight-bold">
+                                <del style="font-size: 15px">Stara cena</del>
+                            </p>
+                        </li>
+                        <li class="price price-2">
+                            <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                Nowa cena
+                            </p>
+                        </li>
+                    </ul>
+                    <div>
+                    </div>
+                    <div class="discount">
+                        <p class="discount-1 font-weight-bold text-dark">-20%</p>
+                    </div>
+                    <a href="#" class="cart">
+                        <img src="~/images/icons8-add-shopping-cart-100.png" />
+                    </a>
+                    <a href="#" target="_blank" class="shop">
+                        <img src="~/images/icons8-online-shop-card-payment-100.png" />
+                    </a>
+                    <div class="card-footer footer-search text-center">
+                        <p>Last updated 3 mins ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-product m-4" style="width: 15rem;">
+                <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
+                <div class="card-body">
+                    <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
+                    <ul class="our-links-2">
+                        <li class="price price-1">
+                            <p class="card-text text-danger text-center font-weight-bold">
+                                <del style="font-size: 15px">Stara cena</del>
+                            </p>
+                        </li>
+                        <li class="price price-2">
+                            <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                Nowa cena
+                            </p>
+                        </li>
+                    </ul>
+                    <div>
+                    </div>
+                    <div class="discount">
+                        <p class="discount-1 font-weight-bold text-dark">-20%</p>
+                    </div>
+                    <a href="#" class="cart">
+                        <img src="~/images/icons8-add-shopping-cart-100.png" />
+                    </a>
+                    <a href="#" target="_blank" class="shop">
+                        <img src="~/images/icons8-online-shop-card-payment-100.png" />
+                    </a>
+                    <div class="card-footer footer-search text-center">
+                        <p>Last updated 3 mins ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-product m-4" style="width: 15rem;">
+                <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
+                <div class="card-body">
+                    <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
+                    <ul class="our-links-2">
+                        <li class="price price-1">
+                            <p class="card-text text-danger text-center font-weight-bold">
+                                <del style="font-size: 15px">Stara cena</del>
+                            </p>
+                        </li>
+                        <li class="price price-2">
+                            <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                Nowa cena
+                            </p>
+                        </li>
+                    </ul>
+                    <div>
+
+                    </div>
+                    <div class="discount">
+                        <p class="discount-1 font-weight-bold text-dark">-20%</p>
+                    </div>
+                    <a href="#" class="cart">
+                        <img src="~/images/icons8-add-shopping-cart-100.png" />
+                    </a>
+                    <a href="#" target="_blank" class="shop">
+                        <img src="~/images/icons8-online-shop-card-payment-100.png" />
+                    </a>
+                    <div class="card-footer footer-search text-center">
+                        <p>Last updated 3 mins ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-product m-4" style="width: 15rem;">
+                <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
+                <div class="card-body">
+                    <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
+                    <ul class="our-links-2">
+                        <li class="price price-1">
+                            <p class="card-text text-danger text-center font-weight-bold">
+                                <del style="font-size: 15px">Stara cena</del>
+                            </p>
+                        </li>
+                        <li class="price price-2">
+                            <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                Nowa cena
+                            </p>
+                        </li>
+                    </ul>
+                    <div>
+                    </div>
+                    <div class="discount">
+                        <p class="discount-1 font-weight-bold text-dark">-20%</p>
+                    </div>
+                    <a href="#" class="cart">
+                        <img src="~/images/icons8-add-shopping-cart-100.png" />
+                    </a>
+                    <a href="#" target="_blank" class="shop">
+                        <img src="~/images/icons8-online-shop-card-payment-100.png" />
+                    </a>
+                    <div class="card-footer footer-search text-center">
+                        <p>Last updated 3 mins ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-product m-4" style="width: 15rem;">
+                <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
+                <div class="card-body">
+                    <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
+                    <ul class="our-links-2">
+                        <li class="price price-1">
+                            <p class="card-text text-danger text-center font-weight-bold">
+                                <del style="font-size: 15px">Stara cena</del>
+                            </p>
+                        </li>
+                        <li class="price price-2">
+                            <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                Nowa cena
+                            </p>
+                        </li>
+                    </ul>
+                    <div>
+
+                    </div>
+                    <div class="discount">
+                        <p class="discount-1 font-weight-bold text-dark">-20%</p>
+                    </div>
+                    <a href="#" class="cart">
+                        <img src="~/images/icons8-add-shopping-cart-100.png" />
+                    </a>
+                    <a href="#" target="_blank" class="shop">
+                        <img src="~/images/icons8-online-shop-card-payment-100.png" />
+                    </a>
+                    <div class="card-footer footer-search text-center">
+                        <p>Last updated 3 mins ago</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <!--CARDS LAYOUT-->
-    <div class="container-search">
-        <div class="row">
-            <div class="col">
-                <div class="card card-product m-4" style="width: 15rem;">
-                    <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                        <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
-                        <ul class="our-links-2">
-                            <li class="price price-1">
-                                <p class="card-text text-danger text-center font-weight-bold">
-                                    <del style="font-size: 15px">Stara cena</del>
-                                </p>
-                            </li>
-                            <li class="price price-2">
-                                <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                    Nowa cena
-                                </p>
-                            </li>
-                        </ul>
-                        <div>
-                        </div>
-                        <div class="discount">
-                            <p class="discount-1 font-weight-bold text-dark">-20%</p>
-                        </div>
-                        <a href="#" class="cart">
-                            <img src="~/images/icons8-add-shopping-cart-100.png" />
-                        </a>
-                        <div class="card-footer footer-search text-center">
-                            <p>Last updated 3 mins ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-product m-4" style="width: 15rem;">
-                    <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                        <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
-                        <ul class="our-links-2">
-                            <li class="price price-1">
-                                <p class="card-text text-danger text-center font-weight-bold">
-                                    <del style="font-size: 15px">Stara cena</del>
-                                </p>
-                            </li>
-                            <li class="price price-2">
-                                <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                    Nowa cena
-                                </p>
-                            </li>
-                        </ul>
-                        <div>
-                        </div>
-                        <div class="discount">
-                            <p class="discount-1 font-weight-bold text-dark">-20%</p>
-                        </div>
-                        <a href="#" class="cart">
-                            <img src="~/images/icons8-add-shopping-cart-100.png" />
-                        </a>
-                        <div class="card-footer footer-search text-center">
-                            <p>Last updated 3 mins ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-product m-4" style="width: 15rem;">
-                    <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                        <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
-                        <ul class="our-links-2">
-                            <li class="price price-1">
-                                <p class="card-text text-danger text-center font-weight-bold">
-                                    <del style="font-size: 15px">Stara cena</del>
-                                </p>
-                            </li>
-                            <li class="price price-2">
-                                <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                    Nowa cena
-                                </p>
-                            </li>
-                        </ul>
-                        <div>
-
-                        </div>
-                        <div class="discount">
-                            <p class="discount-1 font-weight-bold text-dark">-20%</p>
-                        </div>
-                        <a href="#" class="cart">
-                            <img src="~/images/icons8-add-shopping-cart-100.png" />
-                        </a>
-                        <div class="card-footer footer-search text-center">
-                            <p>Last updated 3 mins ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-product m-4" style="width: 15rem;">
-                    <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                        <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
-                        <ul class="our-links-2">
-                            <li class="price price-1">
-                                <p class="card-text text-danger text-center font-weight-bold">
-                                    <del style="font-size: 15px">Stara cena</del>
-                                </p>
-                            </li>
-                            <li class="price price-2">
-                                <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                    Nowa cena
-                                </p>
-                            </li>
-                        </ul>
-                        <div>
-                        </div>
-                        <div class="discount">
-                            <p class="discount-1 font-weight-bold text-dark">-20%</p>
-                        </div>
-                        <a href="#" class="cart">
-                            <img src="~/images/icons8-add-shopping-cart-100.png" />
-                        </a>
-                        <div class="card-footer footer-search text-center">
-                            <p>Last updated 3 mins ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card card-product m-4" style="width: 15rem;">
-                    <img class="card-img-top img-product" src="~/content/shopLogos/Biedronka-card-image.jpg" alt="Card image cap" />
-                    <div class="card-body">
-                        <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">Czekolada mleczna i inne produkty na promocji i ich opis będą tutaj. Co jeśli będzie dłżuszy opis?</p>
-                        <ul class="our-links-2">
-                            <li class="price price-1">
-                                <p class="card-text text-danger text-center font-weight-bold">
-                                    <del style="font-size: 15px">Stara cena</del>
-                                </p>
-                            </li>
-                            <li class="price price-2">
-                                <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
-                                    Nowa cena
-                                </p>
-                            </li>
-                        </ul>
-                        <div>
-
-                        </div>
-                        <div class="discount">
-                            <p class="discount-1 font-weight-bold text-dark">-20%</p>
-                        </div>
-                        <a href="#" class="cart">
-                            <img src="~/images/icons8-add-shopping-cart-100.png" />
-                        </a>
-                        <div class="card-footer footer-search text-center">
-                            <p>Last updated 3 mins ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-12">
+        <div class="block d-flex align-items-center justify-content-center">
+            <partial name="_ProductsPagination" model="Model" />
         </div>
     </div>
+
+
+</div>
 
 
 

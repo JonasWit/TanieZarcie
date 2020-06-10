@@ -1,14 +1,14 @@
 ﻿@model ProductsOverviewModel
 
 <nav aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul class="pagination mt-5 p-4">
         @{
             List<int> pages = Model.PageNumbers(Model.CurrentPage, Model.TotalPages).ToList();
         }
         @if (Model.ShowPrevious)
         {
-            <li class="page-item">
-                <a class="page-link" aria-label="Previous"
+            <li class="page-item pagin-item">
+                <a class="page-link pagin-link" aria-label="Previous"
                    asp-page="/ProductsOverview"
                    asp-route-searchString="@Model.SearchString"
                    asp-route-selectedShop="@Model.SelectedShop"
@@ -22,14 +22,14 @@
         {
             if (p == -1)
             {
-                <li class="page-item @(p == Model.CurrentPage ? "active" : "")">
+                <li class="page-item pagin-item active @(p == Model.CurrentPage ? "active" : "")">
                     <span>...</span>
                 </li>
             }
             else
             {
-                <li class="page-item @(p == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link"
+                <li class="page-item pagin-item  @(p == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link pagin-link "
                        asp-page="/ProductsOverview"
                        asp-route-searchString="@Model.SearchString"
                        asp-route-selectedShop="@Model.SelectedShop"
@@ -39,8 +39,8 @@
         }
         @if (Model.ShowNext)
         {
-            <li class="page-item">
-                <a class="page-link" aria-label="Next"
+            <li class="page-item pagin-item">
+                <a class="page-link pagin-link" aria-label="Next"
                    asp-page="/ProductsOverview"
                    asp-route-searchString="@Model.SearchString"
                    asp-route-selectedShop="@Model.SelectedShop"
