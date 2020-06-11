@@ -10,9 +10,6 @@ namespace WEB.Shop.UI.Pages
     {
         public GetProduct.ProductViewModel Product { get; set; }
 
-        [BindProperty]
-        public AddToCart.Request CartViewModel { get; set; }
-
         public async Task<IActionResult> OnGet(string name, [FromServices] GetProduct getProduct)
         {
             Product = await getProduct.DoAsync(int.Parse(name));
@@ -22,18 +19,13 @@ namespace WEB.Shop.UI.Pages
                 return Page();
         }
 
-        //public async Task<IActionResult> OnGet(string id, [FromServices] GetProduct getProduct)
-        //{
-        //    Product = await getProduct.DoAsync(int.Parse(id));
-        //    if (Product == null)
-        //        return RedirectToPage("Index");
-        //    else
-        //        return Page();
-        //}
-
-        public async Task<IActionResult> OnPost([FromServices] AddToCart addToCart)
+        public async Task<IActionResult> OnPost([FromServices] AddToCart addToCart, int id)
         {
-            var stockAdded = await addToCart.DoAsync(CartViewModel);
+            var stockAdded = await addToCart.DoAsync(new AddToCart.Request 
+            { 
+                 ProductId = id,
+                 Quantity = 1
+            });
 
             if (stockAdded)
                 return RedirectToPage("Cart");
