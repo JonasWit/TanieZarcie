@@ -1,8 +1,11 @@
 ﻿@using WEB.Shop.Application.ShopAdmin
-
 @inject AuthenticationStateProvider authenticationStateProvider
 @inject UserManager<IdentityUser> userManager
 @inject GetShops getShops
+@inject AddShop addShop
+@inject DeleteShop deleteShop
+@inject AddUrl addUrl
+@inject DeleteUrl deleteUrl
 @inject IJSRuntime jsRuntime
 
 <div class="container-fluid">
@@ -151,8 +154,11 @@
             try
             {
                 loading = true;
+                await addShop.DoAsync(new AddShop.Request
+                {
+                    Name = selectedNewShop.ToString()
 
-
+                });
             }
             catch (Exception ex)
             {
@@ -180,7 +186,7 @@
             {
                 loading = true;
 
-
+                await deleteShop.Do(selectedNewShop.Id);
             }
             catch (Exception ex)
             {
