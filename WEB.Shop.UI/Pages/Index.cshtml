@@ -13,9 +13,7 @@
         <hr class="hr-light">
         <p>Na naszych półkach znajdziesz produkty między innym z Lidla, Biedronki i Kauflandu! </p>
         <p>Poszperaj i sprawdź kto oferuje najlepsze promocje.</p>
-        <form method="post" asp-page-handler="Shop" asp-route-shop="Wszystkie">
-            <button class="btn-1" type="submit">Poszperaj!</button>
-        </form>
+        <a class="btn-1" asp-page-handler="Shop" asp-route-shop="Wszystkie">Poszperaj</a>
         <div class="mt-5">
             <a href="#section2" class="scroll-down"><img alt="Arrow Down Icon" src="~/images/icons8-double-down-50.png" /></a>
         </div>
@@ -109,6 +107,12 @@
                         break;
 
                     default:
+
+                        if (shopNo >= Model.Shops.Count)
+                        {
+                            break;
+                        }
+
                         var shop = Model.Shops[shopNo];
                         shopNo++;
 

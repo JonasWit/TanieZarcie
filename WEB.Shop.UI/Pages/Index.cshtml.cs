@@ -46,25 +46,6 @@ namespace WEB.Shop.UI.Pages
             }
         }
 
-        //public IActionResult OnPostAllShops() => RedirectToPage("ProductsOverview", new { selectedShop = "Wszystkie" });
-
         public IActionResult OnGetShop(string shop) => RedirectToPage("ProductsOverview", new { selectedShop = shop });
-
-        //public IActionResult OnGetBiedronka() => RedirectToPage("ProductsOverview", new { selectedShop = "Biedronka" });
-
-        //public IActionResult OnGetZabka() => RedirectToPage("ProductsOverview", new { selectedShop = "Zabka" });
-
-        //public IActionResult OnGetLidl() => RedirectToPage("ProductsOverview", new { selectedShop = "Lidl" });
-
-        //public IActionResult OnGetKaufland() => RedirectToPage("ProductsOverview", new { selectedShop = "Kaufland" });
-
-        //public IActionResult OnGetCarrefour() => RedirectToPage("ProductsOverview", new { selectedShop = "Carrefour" });
-
-        //public IActionResult OnGetAuchan() => RedirectToPage("ProductsOverview", new { selectedShop = "Auchan" });
-
-        //public IActionResult OnGetObi() => RedirectToPage("ProductsOverview", new { selectedShop = "Obi" });
-
-        //public IActionResult OnGetLeroyMerlin() => RedirectToPage("ProductsOverview", new { selectedShop = "LeroyMerlin" });
-
     }
 }
