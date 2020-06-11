@@ -11,7 +11,7 @@ namespace WEB.Shop.DataBase
 {
     public class OrderManager : IOrderManager
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public OrderManager(ApplicationDbContext context)
         {

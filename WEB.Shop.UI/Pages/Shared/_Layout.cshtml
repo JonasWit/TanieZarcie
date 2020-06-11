@@ -35,12 +35,12 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="News" asp-action="NewsOverview">Aktualności</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="PromoSheets" asp-action="Index">Gazetki</a>
+                    </li>
 
                     @if ((await authService.AuthorizeAsync(User, "Manager")).Succeeded)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="PromoSheets" asp-action="Index">Gazetki</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Summaries" asp-action="Index">Zestawienia</a>
                         </li>

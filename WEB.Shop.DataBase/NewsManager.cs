@@ -45,8 +45,6 @@ namespace WEB.Shop.DataBase
                 .Select(selector)
                 .FirstOrDefault();
 
-        public List<OneNews> GetNew() => _applicationDbContext.News.ToList();
-
         public IEnumerable<TResult> GetNews<TResult>(Func<OneNews, TResult> selector) =>
             _applicationDbContext.News
                 .Include(x => x.MainComments)

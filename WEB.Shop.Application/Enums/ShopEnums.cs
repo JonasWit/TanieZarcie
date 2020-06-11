@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WEB.Shop.Application.Enums
+﻿namespace WEB.Shop.Application.Enums
 {
     public enum Shops
     {

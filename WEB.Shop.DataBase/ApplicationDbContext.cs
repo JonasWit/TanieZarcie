@@ -18,6 +18,8 @@ namespace WEB.Shop.DataBase
         public DbSet<NewsMainComment> NewsMainComments { get; set; }
         public DbSet<NewsSubComment> NewsSubComments { get; set; }
         public DbSet<LogRecord> LogRecords { get; set; }
+        public DbSet<ShopData> ShopsData { get; set; }
+        public DbSet<PromoSheetUrl> PromoSheetsUrls { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -26,6 +28,8 @@ namespace WEB.Shop.DataBase
             base.OnModelCreating(builder);
             builder.Entity<OrderStock>()
                 .HasKey(x => new { x.StockId, x.OrderId });
+
+            builder.SeedData();
         }
     }
 }
