@@ -198,7 +198,7 @@
                         @if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
                         {
                             <div class="discount">
-                                <p class="discount-1 font-weight-bold text-dark">@($"{String.Format("-{0:P1}", p.Discount)}")</p>
+                                <p class="discount-1 font-weight-bold text-dark">@($"{String.Format("-{0:P0}", p.Discount)}")</p>
                             </div>
                             <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
                                 <img src="~/images/icons8-add-shopping-cart-100.png" />
