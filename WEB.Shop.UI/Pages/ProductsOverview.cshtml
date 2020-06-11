@@ -6,14 +6,15 @@
     <h3 class="text-center m-5">Spróbuj naszej wyszukiwarki!</h3>
     <div class="row">
         <div class="col m-auto">
-            <img class="" src="~/images/icons8-add-shopping-cart-100.png" />
+            <img class="" src="~/images/icons8-price-tag-100.png" />
+           
             <p>
-                Wybierz koszyk i przejdź do opisu produktu.
+                Przejdź do opisu produktu.
             </p>
 
         </div>
         <div class="col">
-            <img class="p-0" src="~/images/icons8-discount-2-100.png" />
+            <img class="p-0" src="~/images/icons8-discount-100.png" />
             <p>
                 Sprawdź jak duża jest promocja!
             </p>
@@ -163,21 +164,21 @@
             var updateDataTuple = Model.UpdateData(p.TimeStamp);
 
             <div class="col">
-                <div class="card card-product m-4" style="width: 15rem;">
+                <div class="card card-product m-4">
                     <img class="card-img-top img-product" src="@imagePath" alt="Card image cap" />
                     <div class="card-body">
-                        <p class="description card-text text-center font-weight-bold text-dark" style="font-size: 12px">@p.Name</p>
-                        <ul class="our-links-2">
+                        <p class="description card-text text-center font-weight-bold text-dark mb-2">@p.Name</p>
+                        <ul>
 
                             @if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
                             {
                                 <li class="price price-1">
                                     <p class="card-text text-danger text-center font-weight-bold">
-                                        <del style="font-size: 15px">@p.SaleValue</del>
+                                        <del>@p.SaleValue</del>
                                     </p>
                                 </li>
                                 <li class="price price-2">
-                                    <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                    <p class="card-text text-center font-weight-bold text-dark">
                                         @p.Value
                                     </p>
                                 </li>
@@ -185,7 +186,7 @@
                             else
                             {
                                 <li class="price price-2">
-                                    <p class="card-text text-center font-weight-bold text-dark" style="font-size: 15px">
+                                    <p class="card-text text-center font-weight-bold text-dark">
                                         @p.Value
                                     </p>
                                 </li>
@@ -201,7 +202,7 @@
                                 <p class="discount-1 font-weight-bold text-dark">@($"{String.Format("-{0:P0}", p.Discount)}")</p>
                             </div>
                             <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
-                                <img src="~/images/icons8-add-shopping-cart-100.png" />
+                                <img src="~/images/icons8-price-tag-100.png" />
                             </a>
                             <a href="@p.SourceUrl" target="_blank" class="shop">
                                 <img src="~/images/icons8-online-shop-card-payment-100.png" />
@@ -210,7 +211,7 @@
                         else
                         {
                             <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
-                                <img src="~/images/icons8-add-shopping-cart-100.png" />
+                                <img src="~/images/icons8-price-tag-100.png" />
                             </a>
                             <a href="@p.SourceUrl" target="_blank" class="shop">
                                 <img src="~/images/icons8-online-shop-card-payment-100.png" />

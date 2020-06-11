@@ -41,7 +41,7 @@ namespace WEB.Shop.UI.Pages
                 return Page();
         }
 
-        public IActionResult OnPostReturn()
+        public IActionResult OnGetReturn()
         {
             return RedirectToPage("ProductsOverview");
         }

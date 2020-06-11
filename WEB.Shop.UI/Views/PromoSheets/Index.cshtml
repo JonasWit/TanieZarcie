@@ -1,16 +1,23 @@
 ﻿@model PromoSheetsViewModel
 
-
-
-@foreach (var shop in Model.Shops)
-{
-    <h1>Sklep: @shop.Name</h1>
-
-    @foreach (var sheet in shop.PromoSheets)
-    {
-        <p>@sheet.Url</p>
-    }
-}
-
-
-
+<div class="container cards" id="stack2">
+    <h2 class="text-center m-5">
+        Zobacz aktualne gazetki promocyjne!
+    </h2>
+    <div class="row">
+        @foreach (var shop in Model.Shops)
+        {
+            <div class="col-md-4">
+                <div class="card shop-offer m-5">
+                    <img class="img-fluid" src="~/content/shopLogos/Biedronka-s.jpg" />
+                    
+                    <img class="news-icon" src="~/images/icons8-news-100.png" />
+                    @foreach (var sheet in shop.PromoSheets)
+                    {
+                        <a class="text-center stretched-link" href="@sheet.Url" target="_blank"></a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

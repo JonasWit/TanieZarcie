@@ -548,15 +548,13 @@ html {
 .container-search {
     width: 80%;
     margin: auto;
-
-
-
 }
 
 
 .card-product {
     position: relative;
     height: 300px;
+    width: 15rem;
     overflow: visible;
     border: none;
     clear: both;
@@ -567,37 +565,17 @@ html {
 }
 
 
-.price {
-    display: block;
-    border: none;
-    background-color: #ffc107;
-    border-radius: 3px;
-    width: 115px;
-    text-align: right;
+.description {
+    font-size: 12px;
     padding: 10px;
-    margin: 5px;
-    z-index: 999;
-}
-
-.price-1 {
-    position: absolute;
-    left: -40%;
-    top: 70%;
-    padding: 0;
-}
-
-.price-2 {
-    position: absolute;
-    left: -40%;
-    top: 78%;
-    padding: 0;
+   
 }
 
 
 .discount {
     position: absolute;
     display: block;
-    background: url('../images/icons8-discount-2-100.png') no-repeat;
+    background: url('../images/icons8-discount-100.png') no-repeat;
     height: 90px;
     width: 90px;
     border-radius: 50%;
@@ -612,7 +590,7 @@ html {
     z-index: 99;
     padding: 1px;
     top: 40%;
-    left: 33%;
+    left: 50%;
     background-color: #fffafa;
     opacity: 0.9;
     border-radius: 9px;
@@ -690,54 +668,6 @@ html {
         animation-iteration-count: infinite;
     }
 
-@keyframes shake {
-    0% {
-        transform: translate(1px, 1px) rotate(0deg);
-    }
-
-    10% {
-        transform: translate(-1px, -2px) rotate(-1deg);
-    }
-
-    20% {
-        transform: translate(-3px, 0px) rotate(1deg);
-    }
-
-    30% {
-        transform: translate(3px, 2px) rotate(0deg);
-    }
-
-    40% {
-        transform: translate(1px, -1px) rotate(1deg);
-    }
-
-    50% {
-        transform: translate(-1px, 2px) rotate(-1deg);
-    }
-
-    60% {
-        transform: translate(-3px, 1px) rotate(0deg);
-    }
-
-    70% {
-        transform: translate(3px, 1px) rotate(-1deg);
-    }
-
-    80% {
-        transform: translate(-1px, -1px) rotate(1deg);
-    }
-
-    90% {
-        transform: translate(1px, 2px) rotate(0deg);
-    }
-
-    100% {
-        transform: translate(1px, -2px) rotate(-1deg);
-    }
-}
-
-
-
 
 .footer-search {
     position: absolute;
@@ -746,20 +676,45 @@ html {
     background: #000000;
     display: block;
     width: 100%;
-    height:;
     padding: 1px;
     text-align: center;
-    font-size: 0.95em;
+    font-size: 9px;
     color: #ffc107;
 }
+
+.price {
+    display: block;
+    border: none;
+    background-color: #ffc107;
+    border-radius: 3px;
+    width: 105px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+    z-index: 999;
+}
+
+.price-1 {
+    position: absolute;
+    left: -35%;
+    top: 72%;
+    padding: 0;
+}
+
+.price-2 {
+    position: absolute;
+    left: -35%;
+    top: 80%;
+    padding: 0;
+}
+
 
 @media (min-width: 320px) {
     .price-1 {
         position: absolute;
-        left: -3% ;
+        left: -3%;
         top: 50%;
         padding: 0;
-        
     }
 
     .price-2 {
@@ -768,8 +723,6 @@ html {
         top: 50%;
         padding: 0;
     }
-
-
 }
 
 @media (min-width: 1075px) {
@@ -778,23 +731,23 @@ html {
         border: none;
         background-color: #ffc107;
         border-radius: 3px;
-        width: 115px;
-        text-align: right;
+        width: 105px;
         padding: 10px;
         margin: 5px;
+        font-size: 12px;
         z-index: 999;
     }
 
     .price-1 {
         position: absolute;
-        left: -40%;
-        top: 70%;
+        left: -35%;
+        top: 72%;
         padding: 0;
     }
 
     .price-2 {
         position: absolute;
-        left: -40%;
+        left: -35%;
         top: 80%;
         padding: 0;
     }
@@ -818,14 +771,147 @@ html {
     border: solid 1px #ffc107 !Important;
 }
 
+/*SHOP OFFERS - NEWSPAPER*/
 
 
 
+.shop-offer {
+    background-color: #fffafa;
+    position: relative;
+    top: 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.65);
+    -webkit-backface-visibility: hidden;
+    transition: all 0.6s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+}
 
 
 
+.cards:hover .shop-offer,
+.cards.hover .shop-offer {
+    transform: scale(1.5);
+}
+
+    .cards:hover .shop-offer:hover,
+    .cards.hover .shop-offer:hover,
+    .cards:hover .shop-offer.hover,
+    .cards.hover .shop-offer.hover {
+        z-index: 11;
+        transform: scale(1.25);
+    }
+
+.cards:hover .card,
+.cards.hover .card {
+    transform: rotateZ(0deg) scale(0.95);
+}
+
+.news-icon {
+    position: absolute;
+    top: 30%;
+    left: 75%;
+}
 
 
 
+    .news-icon:hover {
+        animation: shake 0.5s;
+        animation-iteration-count: infinite;
+    }
 
 
+/*PRODUCT PAGE*/
+
+#product-card {
+    position: relative;
+    border-radius: 50%;
+    border-color: #ffc107;
+    padding: 40px;
+    height: 400px;
+    width: 400px;
+   
+}
+
+.return {
+    position: absolute;
+    left: 0%;
+    top: 70%;
+    padding: 0;
+}
+
+.return:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+
+.discount-2 {
+    position: absolute;
+    display: block;
+    background: url('../images/icons8-discount-100.png') no-repeat;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    opacity: 0.9;
+    left: 41%;
+    top: -10%;
+}
+
+.discount-1 {
+    position: absolute;
+    font-size: 15px;
+    z-index: 99;
+    padding: 1px;
+    top: 40%;
+    left: 35%;
+    background-color: #fffafa;
+    opacity: 0.9;
+    border-radius: 9px;
+}
+
+.cart-2 {
+    position: absolute;
+    z-index: 99;
+    top: 15%;
+    left: 80%;
+    cursor: pointer;
+}
+
+.cart-3 {
+    position: absolute;
+    z-index: 99;
+    top: 40%;
+    left: 87%;
+    cursor: pointer;
+}
+
+.cart-2 img:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+.cart-3 img:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.shop-2 {
+    position: absolute;
+    z-index: 99;
+    top: 45%;
+    left: -10%;
+    cursor: pointer;
+}
+
+    .shop-2 img:hover {
+        animation: shake 0.5s;
+        animation-iteration-count: infinite;
+    }
+
+
+.pc-body{
+    margin-top: 30%;
+}
+
+.container-product {
+    margin: auto;
+    
+
+}
