@@ -10,7 +10,6 @@ namespace WEB.Shop.DataBase
 {
     public class ShopManager : IShopManager
     {
-
         private readonly ApplicationDbContext _applicationDbContext;
 
         public ShopManager(ApplicationDbContext applicationDbContext) => _applicationDbContext = applicationDbContext;
@@ -21,24 +20,37 @@ namespace WEB.Shop.DataBase
                 .Select(selector)
                 .ToList();
 
+        public TResult GetShop<TResult>(int id, Func<ShopData, TResult> selector) =>
+            _applicationDbContext.ShopsData
+                .Include(x => x.PromoSheets)
+                .Where(x => x.Id == id)
+                .Select(selector)
+                .FirstOrDefault();
+
+        public TResult GetUrl<TResult>(int id, Func<PromoSheetUrl, TResult> selector) =>
+            _applicationDbContext.PromoSheetsUrls
+                .Where(x => x.Id == id)
+                .Select(selector)
+                .FirstOrDefault();
+
         public Task<int> AddShop(ShopData shopData)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Task<int> AddUrl(PromoSheetUrl url)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task<int> RemoveShop(int id)
+        public Task<int> DeleteShop(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task<int> RemoveUrl(int id)
+        public Task<int> DeleteUrl(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

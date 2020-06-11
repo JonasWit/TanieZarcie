@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -48,6 +49,11 @@
                             <li class="nav-item">
                                 <a asp-page="/Admin/AutomationPanel" class="nav-link text-light p-3 mb-2 tza-sidebar-link @(ViewContext.RouteData.Values["page"].ToString().Contains("AutomationPanel") ? "tza-current" : "")">
                                     <i class="fas fa-robot text-light fa-lg mr-3"></i>Automation
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-page="/Admin/ShopsPanel" class="nav-link text-light p-3 mb-2 tza-sidebar-link @(ViewContext.RouteData.Values["page"].ToString().Contains("ShopsPanel") ? "tza-current" : "")">
+                                    <i class="fas fa-shopping-cart text-light fa-lg mr-3"></i>Shops
                                 </a>
                             </li>
                             <li class="nav-item">
