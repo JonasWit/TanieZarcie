@@ -835,6 +835,7 @@ html {
     left: 0%;
     top: 70%;
     padding: 0;
+    cursor: pointer;
 }
 
 .return:hover {
@@ -938,6 +939,60 @@ html {
     border-radius: 50%;
     border-color: #ffc107;
     padding: 40px;
-    height: 300px;
-    width: 300px;
+    height: 350px;
+    width: 350px;
+}
+
+.cart-img {
+    position: absolute;
+    z-index: 99;
+    top: 15%;
+    left: 80%;
+    
+}
+
+    .cart-img:hover {
+        animation: shake 0.5s;
+        animation-iteration-count: infinite;
+    }
+
+.button-img-add {
+    background-image: url('../images/icons8-add-shopping-cart-50.png');
+    background-repeat: no-repeat;
+    background-color: rgba(255, 250, 250, 0.3);
+    border: none;
+    outline: none !important;
+    height: 50px;
+    width: 50px;
+}
+
+.button-img-add:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.button-img-remove {
+    background-image: url('../images/icons8-clear-shopping-cart-50.png');
+    background-repeat: no-repeat;
+    background-color: rgba(255, 250, 250, 0.3);
+    border: none;
+    outline: none !important;
+    height: 50px;
+    width: 50px;
+}
+
+.button-img-remove:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.button-img-delete img:hover {
+    cursor: pointer;
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+.product-page-link {
+    text-decoration: none;
+    color: #000000;
 }

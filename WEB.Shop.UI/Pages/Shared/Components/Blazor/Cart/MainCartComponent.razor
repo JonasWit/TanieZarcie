@@ -4,15 +4,36 @@
 
 <div class="container-fluid">
     <div class="container">
-        <h3 class="text-center m-5">Witaj w koszyku. Dodaj produkt i sprawdź ile mógłbyś zapłacić kotrzystając z promocji.</h3>
-        <div class="row mb-2">
+        <h3 class="text-center m-5">Witaj w koszyku!</h3>
+        <div class="row">
+            <div class="col m-auto">
+                <img class="" src="/images/icons8-add-shopping-cart-100.png" />
+                <img src="/images/icons8-clear-shopping-cart-100.png" />
+                <p>
+                    Wybierz ilość produktów.
+                </p>
+            </div>
+            <div class="col m-auto">
+                <img src="/images/icons8-online-shop-card-payment-100.png" />
+                <p>
+                    Sprawdź produkt bezpośrednio na stronie sklepu.
+                </p>
+            </div>
+            <div class="col m-auto">
+                <img src="/images/icons8-delete-100.png" />
+                <p>
+                    Usuń produkt.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
             <div class="col-12  text-center ">
                 <div class="card m-auto product-cart">
-                    <img src="/images/icons8-shopping-cart-100.png" />
-
-                    <h4 class="p-2 mt-3">Koszyk: @products?.Sum(x => x.TotalValue).MonetaryValue(false)</h4>
-                    <div class="col-12 text-center  ">
-                        <a href="/ProductsOverview" class="btn btn-warning pt-2 m-auto button is-text">Szukaj dalej!</a>
+                    <img class="cart-img" data-toggle="tooltip" title="Twój koszyk" src="/images/icons8-shopping-cart-100.png" />
+                    <h4 class="p-4 mt-4">Koszyk: @products?.Sum(x => x.TotalValue).MonetaryValue(false)</h4>
+                    <div class="col-12 text-center p-4  ">
+                        <a href="/ProductsOverview" class="btn btn-warning m-auto button is-text btn-1">Szukaj dalej!</a>
                     </div>
                 </div>
             </div>
@@ -22,15 +43,15 @@
     {
         <div class="row d-flex justify-content-center">
             <div class="table-responsive-sm">
-                <table class="table table-bordered table-condensed table-striped table-hover w-auto">
+                <table class="table table-bordered table-condensed  w-auto">
                     <thead class="text-center">
                         <tr>
                             <th class="th-sm">Nazwa produktu</th>
                             <th class="th-sm">Sklep</th>
                             <th class="th-sm">Cena za sztuke</th>
-                            <th class="th-sm">Cena</th>
+                            <th class="th-sm">Suma</th>
                             <th class="th-sm">Ilość</th>
-                            <th class="th-sm">Usuń z koszyka</th>
+                            <th class="th-sm">Akcje</th>
                         </tr>
                     </thead>
                     @foreach (var product in products)
@@ -38,46 +59,45 @@
                         <tbody>
                             <tr class="table-row">
                                 <td class="align-middle">
-                                    <a class="text-center" href=@($"/Product/{product.Id}") target="_blank">@product.Name</a>
+                                    <a data-toggle="tooltip" title="Strona produktu" class="text-center product-page-link" href=@($"/Product/{product.Id}") target="_blank">@product.Name</a>
                                 </td>
-                                <td class="text-danger align-middle">
+                                <td class="align-middle text-center">
                                     @product.Seller
                                 </td>
-                                <td class="text-danger align-middle">
+                                <td class="text-danger align-middle text-center">
                                     @product.ValueDisplay
                                 </td>
-                                <td class="text-danger align-middle">
+                                <td class="align-middle text-center">
                                     @product.TotalValueDisplay
+                                </td>
+                                <td class="align-middle text-center" id="stock-quantity-@product.Id">
+                                    @product.Quantity
                                 </td>
                                 <td class="align-middle">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-4 column is-4 text-center pt-2 mt-2 mb-2">
-                                                    <button class="button btn btn-warning align-middle"
-                                                            type="button"
-                                                            @onclick="(() => Remove(product.Id, 1))">
-                                                        -
-                                                    </button>
-                                                </div>
-                                                <div class="col-4 column is-4 align-self-center text-center pt-2 mt-2 mb-2"
-                                                     id="stock-quantity-@product.Id">
-                                                    <span class="align-middle">@product.Quantity</span>
-                                                </div>
-                                                <div class=" col-4 column is-4 text-center pt-2 mt-2 mb-2">
-                                                    <button class="button btn btn-warning align-middle" @onclick="(() => AddOne(product.Id))">
-                                                        +
-                                                    </button>
-                                                </div>
-                                            </div>
-
+                                        <div class="col-6 text-center pt-2 mt-2 mb-2">
+                                            <button data-toggle="tooltip" title="Usuń z koszyka" class="button-img-remove align-middle"
+                                                    type="button"
+                                                    @onclick="(() => Remove(product.Id, 1))">
+                                            </button>
+                                        </div>
+                                        <div class=" col-6 text-center pt-2 mt-2 mb-2">
+                                            <button data-toggle="tooltip" title="Dodaj do koszyka" class="button-img-add align-middle" @onclick="(() => AddOne(product.Id))">
+                                            </button>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="column is-12 text-center">
-                                        <a class=" has-text-danger text-warning pt-2 mt-2 mb-2 fas fa-trash-alt align-middle" style='font-size:24px'
-                                           @onclick="(() => Remove(product.Id, product.Quantity))"></a>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a data-toggle="tooltip" title="Usuń produkt" class="button-img-delete"
+                                               @onclick="(() => Remove(product.Id, product.Quantity))">
+                                                <img src="/images/icons8-delete-50.png" />
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class="button-img-delete" data-toggle="tooltip" title="Przejdź na stronę sklepu" href="@product.SourceUrl" target="_blank">
+                                                <img src="/images/icons8-online-shop-card-payment-50.png" />
+                                            </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
