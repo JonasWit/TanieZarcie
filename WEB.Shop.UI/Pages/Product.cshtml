@@ -1,104 +1,17 @@
 ﻿@page "{name}"
 @model WEB.Shop.UI.Pages.ProductModel
-<!--
-<div class="container-fluid product">
-    <div class="container">
-        <div class="card mb-4 mt-5 h-100" id="product-card">
-            <div>
-                <header class="main-header mb-2 pt-4">
-                </header>
-                <div class="row">
-                    <div class="col-6">
-                        <div>
-                            <h4 class="pt-2 ml-4">@Model.Product.Seller</h4>
 
-                        </div>
-                        <div>
-                            <p class="pt-2 ml-4">@Model.Product.Name</p>
-                        </div>
 
-                        <div>
-                            <h5 class="pt-2 ml-4">@Model.Product.Value</h5>
-                        </div>
-                        <div>
-                            <a class="btn btn-warning pt-2 ml-4" href="@Model.Product.SourceUrl" target="_blank">Zobacz na stronie sklepu!</a>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <form method="post">
-                            <div>
-                                <div>
-                                    <div class="text-danger font-weight-bold pb-2 pt-2 ml-4">@Model.Product.Description?.Replace("!PROMOCJA!", "")</div>
-
-                                    <label class="card-title pt-2 ml-4">Sprzedawca</label>
-                                </div>
-                                <div>
-                                    <select class="border border-warning ml-4" asp-for="CartViewModel.ProductId" onchange="toggleStock(event)">
-                                        @foreach (var s in Model.Product.Stock)
-                                        {
-                                            bool disabled = s.Quantity <= 0;
-                                            <option value="@s.Id" disabled="@disabled">@s.Description</option>
-                                        }
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div>
-                                <div>
-                                    <label class="card-title pt-2 ml-4">Ilość</label>
-                                </div>
-
-                                <div>
-                                    <div class="form-group w-50">
-
-                                        <input type="number" class="form-control ml-4 border border-warning" min="0" asp-for="CartViewModel.Quantity" value="1" />
-                                    </div>
-                                    @if (!string.IsNullOrEmpty(Model.Product.Description))
-                                    {
-                                        <p class="card-text text-danger font-weight-bold pb-2 pt-2 ml-4">PROMOCJA!</p>
-                                    }
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <div>
-                                    <button class="btn btn-warning ml-4 mt-3" type="submit">Dodaj do Koszyka!</button>
-                                </div>
-                            </div>
-                        </form>
-
-                        <form method="post" asp-page-handler="Return">
-                            <div>
-                                <button class="btn btn-warning mt-3 ml-4 mb-4" type="submit">Wróć!</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>-->
-<!--Version 2-->
 <div class="container">
 
     <div class="container m-auto p-5" id="section2">
         <h3 class="text-center m-5">Witaj na stronie produktu. Dodaj produkt do koszyka i sprawdź ile mógłbyś zapłacić kotrzystając z promocji.</h3>
         <div class="row">
             <div class="col m-auto">
-
-                @* Dodaj do koszyka *@
-                <form method="post">
-                    <input type="hidden" value="@Model.Product.Id" name="id" />
-                    <button class="btn btn-warning ml-4 mt-3" type="submit">Dodaj do Koszyka!</button>
-                </form>
-
-
-                    <img class="" src="~/images/icons8-add-shopping-cart-100.png" />
-                    <p>
-                        Dodaj produkt do koszyka.
-                    </p>
+                <img class="" src="~/images/icons8-add-shopping-cart-100.png" />
+                <p>
+                    Dodaj produkt do koszyka.
+                </p>
             </div>
 
             <div class="col m-auto">
@@ -118,19 +31,19 @@
 
     <div class="row p-5">
         <div class="col-12 ">
-            <div class="card m-auto" id="product-card">
+            <div class="card m-auto product-card">
                 <div class="pc-body">
                     <h4 class="pt-2 ml-4">@Model.Product.Seller</h4>
                     <p class="pt-2 ml-4">@Model.Product.Name</p>
                     <h5 class="text-danger font-weight-bold pt-2 ml-4">@Model.Product.Value</h5>
                 </div>
                 <div class="discount-2">
-                    <p class="discount-1 font-weight-bold text-dark">-20%</p>
+                    <p class="discount-1 font-weight-bold text-dark">@($"{String.Format("-{0:P0}", Model.Product.Discount)}")</p>
                 </div>
-                <a data-toggle="tooltip" title="Dodaj do koszyka" asp-page="Product" class="cart-2">
-                    <img src="~/images/icons8-add-shopping-cart-100.png" />
-                </a>
-
+                <form method="post">
+                    <input type="hidden" value="@Model.Product.Id" name="id" />
+                    <button data-toggle="tooltip" title="Dodaj do koszyka" class="button-img cart-2" type="submit"></button>
+                </form>
                 <a data-toggle="tooltip" title="Przejdź na stronę sklepu" href="@Model.Product.SourceUrl" target="_blank" class="shop-2">
                     <img src="~/images/icons8-online-shop-card-payment-100.png" />
                 </a>

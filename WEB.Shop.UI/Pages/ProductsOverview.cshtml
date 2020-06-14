@@ -199,21 +199,21 @@
                         @if (!(p.SaleValue.Contains("0.00") || p.SaleValue.Contains("0,00")))
                         {
                             <div class="discount">
-                                <p class="discount-1 font-weight-bold text-dark">@($"{String.Format("-{0:P0}", p.Discount)}")</p>
+                                <p data-toggle="tooltip" title="Wartość promocji" class="discount-1 font-weight-bold text-dark">@($"{String.Format("-{0:P0}", p.Discount)}")</p>
                             </div>
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
+                            <a data-toggle="tooltip" title="Zobacz produkt" asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
                                 <img src="~/images/icons8-price-tag-100.png" />
                             </a>
-                            <a href="@p.SourceUrl" target="_blank" class="shop">
+                            <a data-toggle="tooltip" title="Przejdź na stronę sklepu" href="@p.SourceUrl" target="_blank" class="shop">
                                 <img src="~/images/icons8-online-shop-card-payment-100.png" />
                             </a>
                         }
                         else
                         {
-                            <a asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
+                            <a data-toggle="tooltip" title="Zobacz produkt" asp-page="Product" asp-route-name="@p.Id.ToString()" class="cart">
                                 <img src="~/images/icons8-price-tag-100.png" />
                             </a>
-                            <a href="@p.SourceUrl" target="_blank" class="shop">
+                            <a data-toggle="tooltip" title="Przejdź na stronę sklepu" href="@p.SourceUrl" target="_blank" class="shop">
                                 <img src="~/images/icons8-online-shop-card-payment-100.png" />
                             </a>
                         }

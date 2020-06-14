@@ -66,6 +66,8 @@ namespace WEB.Shop.Application.Products
                 SaleDescription = product.SaleDescription,
                 SaleDeadline = product.SaleDeadline,
 
+                Discount = product.OnSale && product.SaleValue != 0 ? Math.Round(1 - (product.Value / product.SaleValue), 2) : 0,
+
                 Stock = product.Stock.Select(stock => new StockViewModel
                 {
                     Id = stock.Id,
@@ -86,6 +88,8 @@ namespace WEB.Shop.Application.Products
             public string Category { get; set; }
             public string SourceUrl { get; set; }
             public string Value { get; set; }
+
+            public decimal Discount { get; set; }
 
             public bool OnSale { get; set; }
             public decimal SaleValue { get; set; }

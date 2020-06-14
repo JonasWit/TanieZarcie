@@ -2,99 +2,92 @@
 @using WEB.Shop.Application.Cart
 @inject CartBlazorService cartBlazorService
 
-    <div class="container-fluid" id="cart-main">
-        <div class="container">
+<div class="container-fluid">
+    <div class="container">
+        <h3 class="text-center m-5">Witaj w koszyku. Dodaj produkt i sprawdź ile mógłbyś zapłacić kotrzystając z promocji.</h3>
+        <div class="row mb-2">
+            <div class="col-12  text-center ">
+                <div class="card m-auto product-cart">
+                    <img src="/images/icons8-shopping-cart-100.png" />
 
-
-            <h2 class="text-center" style="background-color: #000000; opacity: 0.8; color: #ffffff;">Dodaj produkty do koszyka i porównaj ich ceny!</h2>
-            <div class="row mb-2">
-                <div class="col-12  text-center ">
-                    <div class="jumbotron" id="cart-partial-jumbo">
-                        <div>
-                            <i class="mb-2 fa fa-shopping-cart text-warning" style="font-size:60px"></i>
-                            <div>
-                                <h4 class="p-2 mt-2" style="color: #ffffff;">Twój koszyk: @products?.Sum(x => x.TotalValue).MonetaryValue(false)</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 text-center  ">
-                                <a href="/ProductsOverview" class="btn btn-warning pt-2 ml-4 mt-2 button is-text">Szukaj dalej!</a>
-                            </div>
-                        </div>
+                    <h4 class="p-2 mt-3">Koszyk: @products?.Sum(x => x.TotalValue).MonetaryValue(false)</h4>
+                    <div class="col-12 text-center  ">
+                        <a href="/ProductsOverview" class="btn btn-warning pt-2 m-auto button is-text">Szukaj dalej!</a>
                     </div>
                 </div>
             </div>
-            @if (products.Count != 0)
-            {
-                <div class="row d-flex justify-content-center">
-                    <div class="table-responsive-sm">
-                        <table class="table table-bordered table-condensed table-striped table-hover w-auto">
-                            <thead class="text-center">
-                                <tr>
-                                    <th class="th-sm">Nazwa produktu</th>
-                                    <th class="th-sm">Sklep</th>
-                                    <th class="th-sm">Cena za sztuke</th>
-                                    <th class="th-sm">Cena</th>
-                                    <th class="th-sm">Ilość</th>
-                                    <th class="th-sm">Usuń z koszyka</th>
-                                </tr>
-                            </thead>
-                            @foreach (var product in products)
-                            {
-                                <tbody>
-                                    <tr class="table-row">
-                                        <td class="align-middle">
-                                            <a class="text-center" href=@($"/Product/{product.Id}") target="_blank">@product.Name</a>
-                                        </td>
-                                        <td class="text-danger align-middle">
-                                            @product.Seller
-                                        </td>
-                                        <td class="text-danger align-middle">
-                                            @product.ValueDisplay
-                                        </td>
-                                        <td class="text-danger align-middle">
-                                            @product.TotalValueDisplay
-                                        </td>
-                                        <td class="align-middle">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <div class="col-4 column is-4 text-center pt-2 mt-2 mb-2">
-                                                            <button class="button btn btn-warning align-middle"
-                                                                    type="button"
-                                                                    @onclick="(() => Remove(product.Id, 1))">
-                                                                -
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-4 column is-4 align-self-center text-center pt-2 mt-2 mb-2"
-                                                             id="stock-quantity-@product.Id">
-                                                            <span class="align-middle">@product.Quantity</span>
-                                                        </div>
-                                                        <div class=" col-4 column is-4 text-center pt-2 mt-2 mb-2">
-                                                            <button class="button btn btn-warning align-middle" @onclick="(() => AddOne(product.Id))">
-                                                                +
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="column is-12 text-center">
-                                                <a class=" has-text-danger text-warning pt-2 mt-2 mb-2 fas fa-trash-alt align-middle" style='font-size:24px'
-                                                   @onclick="(() => Remove(product.Id, product.Quantity))"></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            }
-                        </table>
-                    </div>
-                </div>
-            }
         </div>
     </div>
+    @if (products.Count != 0)
+    {
+        <div class="row d-flex justify-content-center">
+            <div class="table-responsive-sm">
+                <table class="table table-bordered table-condensed table-striped table-hover w-auto">
+                    <thead class="text-center">
+                        <tr>
+                            <th class="th-sm">Nazwa produktu</th>
+                            <th class="th-sm">Sklep</th>
+                            <th class="th-sm">Cena za sztuke</th>
+                            <th class="th-sm">Cena</th>
+                            <th class="th-sm">Ilość</th>
+                            <th class="th-sm">Usuń z koszyka</th>
+                        </tr>
+                    </thead>
+                    @foreach (var product in products)
+                    {
+                        <tbody>
+                            <tr class="table-row">
+                                <td class="align-middle">
+                                    <a class="text-center" href=@($"/Product/{product.Id}") target="_blank">@product.Name</a>
+                                </td>
+                                <td class="text-danger align-middle">
+                                    @product.Seller
+                                </td>
+                                <td class="text-danger align-middle">
+                                    @product.ValueDisplay
+                                </td>
+                                <td class="text-danger align-middle">
+                                    @product.TotalValueDisplay
+                                </td>
+                                <td class="align-middle">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-4 column is-4 text-center pt-2 mt-2 mb-2">
+                                                    <button class="button btn btn-warning align-middle"
+                                                            type="button"
+                                                            @onclick="(() => Remove(product.Id, 1))">
+                                                        -
+                                                    </button>
+                                                </div>
+                                                <div class="col-4 column is-4 align-self-center text-center pt-2 mt-2 mb-2"
+                                                     id="stock-quantity-@product.Id">
+                                                    <span class="align-middle">@product.Quantity</span>
+                                                </div>
+                                                <div class=" col-4 column is-4 text-center pt-2 mt-2 mb-2">
+                                                    <button class="button btn btn-warning align-middle" @onclick="(() => AddOne(product.Id))">
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="column is-12 text-center">
+                                        <a class=" has-text-danger text-warning pt-2 mt-2 mb-2 fas fa-trash-alt align-middle" style='font-size:24px'
+                                           @onclick="(() => Remove(product.Id, product.Quantity))"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
 
