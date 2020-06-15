@@ -35,22 +35,34 @@ namespace WEB.Shop.DataBase
 
         public Task<int> AddShop(ShopData shopData)
         {
-            throw new NotImplementedException();
+            var newShop = new ShopData
+            {
+                Name = shopData.Name,
+                PromoSheets = shopData.PromoSheets
+            };
+
+            _applicationDbContext.ShopsData.Add(newShop);
+            return _applicationDbContext.SaveChangesAsync();
         }
 
         public Task<int> AddUrl(PromoSheetUrl url)
         {
-            throw new NotImplementedException();
+            _applicationDbContext.PromoSheetsUrls.Add(url);
+            return _applicationDbContext.SaveChangesAsync();
         }
 
         public Task<int> DeleteShop(int id)
         {
-            throw new NotImplementedException();
+            var shop = _applicationDbContext.ShopsData.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.ShopsData.Remove(shop);
+            return _applicationDbContext.SaveChangesAsync();
         }
 
         public Task<int> DeleteUrl(int id)
         {
-            throw new NotImplementedException();
+            var url = _applicationDbContext.PromoSheetsUrls.FirstOrDefault(x => x.Id == id);
+            _applicationDbContext.PromoSheetsUrls.Remove(url);
+            return _applicationDbContext.SaveChangesAsync();
         }
     }
 }

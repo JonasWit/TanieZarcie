@@ -8,56 +8,105 @@
 @inject DeleteUrl deleteUrl
 @inject IJSRuntime jsRuntime
 
-<div class="container-fluid">
-    <div class="row mb-5">
-        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+@if (!loading)
+{
+    <div class="container-fluid">
+        <div class="row mb-5">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
 
-            <MessagePopup Message="@message.Message" IsVisible="@message.PopupVisible" MessageType="@message.MessageType"></MessagePopup>
+                <MessagePopup Message="@message.Message" IsVisible="@message.PopupVisible" MessageType="@message.MessageType"></MessagePopup>
 
-            <div class="row align-items-center">
-                <div class="col-xl-6 col-12 mb-3 mb-xl-0">
-                    <div class="card rounded mt-5">
-                        <div class="card-body">
-                            <h3 class="text-muted text-center mb-4">Add User</h3>
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-12 mb-3 mb-xl-0">
+                        <div class="card rounded mt-5">
+                            <div class="card-body">
+                                <h3 class="text-muted text-center mb-4">Add Shop</h3>
 
-                            <EditForm Model="@newShop" OnValidSubmit="AddShop">
-                                <DataAnnotationsValidator />
+                                <EditForm Model="@newShop" OnValidSubmit="AddShop">
+                                    <DataAnnotationsValidator />
 
-                                <div class="form-group">
+                                    <div class="form-group">
 
-                                    <select class="form-control py-2 mb-3" bind="@selectedNewShop">
-                                        @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
-                                        {
-                                            <option value=@shop.ToString()>@shop.ToString()</option>
-                                        }
-                                    </select>
+                                        <InputSelect @bind-Value="@newShop.Name" class="form-control py-2 mb-3">
 
-                                    <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add Shop</button>
-                                </div>
-                            </EditForm>
+                                            @foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
+                                                {
+                                                <option value=@shop.ToString()>@shop.ToString()</option>
+                                                }
 
-                            <EditForm Model="@newShop" OnValidSubmit="AddUrl">
-                                <DataAnnotationsValidator />
+                                        </InputSelect>
 
-                                <div class="form-group">
-                                    <select class="form-control py-2 mb-3" bind="@selectedNewShopForUrl">
-                                        @foreach (var shop in shops)
-                                        {
-                                            <option value=@shop.Name>@shop.Name</option>
-                                        }
-                                    </select>
+                                        <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add Shop</button>
+                                    </div>
+                                </EditForm>
 
-                                    <InputText @bind-Value="newUrl.Shop" class="form-control py-2 mb-3" type="text" placeholder="Url" />
-                                    <ValidationMessage For="@(() => newShop.Name)" />
-                                    <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add Url</button>
-                                </div>
-                            </EditForm>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="text-muted text-center mb-4">Add Url</h3>
 
+                                <EditForm Model="@newUrl" OnValidSubmit="AddUrl">
+                                    <DataAnnotationsValidator />
+
+                                    <div class="form-group">
+
+                                        <InputSelect @bind-Value="@newUrl.Shop" class="form-control py-2 mb-3">
+
+                                            @foreach (var shop in shops)
+                                                {
+                                                <option value=@shop.Name>@shop.Name</option>
+                                                }
+
+                                        </InputSelect>
+
+                                        <InputText @bind-Value="newUrl.Url" class="form-control py-2 mb-3" type="text" placeholder="Url" />
+                                        <ValidationMessage For="@(() => newUrl.Shop)" />
+                                        <button type="submit" class="btn btn-block text-uppercase font-weight-bold text-light bg-info py-2 mb-5">Add Url</button>
+                                    </div>
+                                </EditForm>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row mb-5">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+
                 <div class="col-xl-6 col-12 mb-3 mb-xl-0">
-                    <h3 class="text-muted text-center">Users</h3>
+                    <h3 class="text-muted text-center">Shops</h3>
+                    <table class="table table-dark table-hover text-center">
+                        <thead>
+                            <tr class="text-muted">
+                                <th>Name</th>
+                                <th>Urls</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var shop in shops)
+                            {
+                                <tr>
+                                    <th>@shop.Name</th>
+                                    <td>
+                                        <p>@shop.PromoSheets.Count</p>
+                                    </td>
+                                    <td>
+                                        <a @onclick="(() => DeleteShop(shop.Id))">
+                                            <span class="badge badge-danger w-75 py-2 tza-raise">Delete Shop</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xl-7 col-12 mb-4 mb-xl-0">
+                    <h3 class="text-muted text-center">Links</h3>
                     <table class="table table-dark table-hover text-center">
                         <thead>
                             <tr class="text-muted">
@@ -69,18 +118,6 @@
                         <tbody>
                             @foreach (var shop in shops)
                             {
-                                <tr>
-                                    <th>@shop.Name</th>
-                                    <td>
-                                        <p>All Urs Below</p>
-                                    </td>
-                                    <td>
-                                        <a @onclick="(() => DeleteShop(shop.Id))">
-                                            <span class="badge badge-danger w-75 py-2 tza-raise">Delete Shop</span>
-                                        </a>
-                                    </td>
-                                </tr>
-
                                 foreach (var url in shop.PromoSheets)
                                 {
                                     <tr>
@@ -99,19 +136,40 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <!-- Loader-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <div class="row pt-md-5 mt-md-3 mb-5">
+                    <div class="tza-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
 
     private bool loading;
 
     private List<GetShops.Response> shops;
-
-    private GetShops.Response selectedNewShop;
-    private GetShops.Response selectedNewShopForUrl;
 
     private readonly ShopModel newShop = new ShopModel();
     private readonly UrlModel newUrl = new UrlModel();
@@ -135,7 +193,7 @@
     public class UrlModel
     {
         [Required(ErrorMessage = "Shop Name is required!")]
-        public string Shop { get; set; }
+        public GetShops.Response Shop { get; set; }
 
         [Required(ErrorMessage = "Url is required!")]
         public string Url { get; set; }
@@ -154,11 +212,24 @@
             try
             {
                 loading = true;
-                await addShop.DoAsync(new AddShop.Request
-                {
-                    Name = selectedNewShop.ToString()
 
-                });
+                if (!shops.Any(x => x.Name == newShop.Name))
+                {
+                    await addShop.DoAsync(new AddShop.Request
+                    {
+                        Name = newShop.Name.ToString()
+
+                    });
+
+                    message.Message = "Shop added!";
+                    message.MessageType = MessagePopup.MessageTypes.Success;
+                    shops = getShops.Do().ToList();
+                }
+                else
+                {
+                    message.Message = "Shop already exists!";
+                    message.MessageType = MessagePopup.MessageTypes.Warning;
+                }
             }
             catch (Exception ex)
             {
@@ -186,7 +257,10 @@
             {
                 loading = true;
 
-                await deleteShop.Do(selectedNewShop.Id);
+                await deleteShop.Do(id);
+                message.Message = "Shop removed!";
+                message.MessageType = MessagePopup.MessageTypes.Success;
+                shops = getShops.Do().ToList();
             }
             catch (Exception ex)
             {
@@ -214,7 +288,23 @@
             {
                 loading = true;
 
+                if (!shops.Any(x => x.PromoSheets.Any(y => y.Url == newUrl.Url)))
+                {
+                    await addUrl.DoAsync(new AddUrl.Request
+                    {
+                        ShopId = newUrl.Shop.Id,
+                        Url = newUrl.Url
+                    });
 
+                    message.Message = "Url added!";
+                    message.MessageType = MessagePopup.MessageTypes.Success;
+                    shops = getShops.Do().ToList();
+                }
+                else
+                {
+                    message.Message = "Url already exists!";
+                    message.MessageType = MessagePopup.MessageTypes.Warning;
+                }
             }
             catch (Exception ex)
             {
@@ -242,7 +332,10 @@
             {
                 loading = true;
 
-
+                await deleteUrl.Do(id);
+                message.Message = "Url removed!";
+                message.MessageType = MessagePopup.MessageTypes.Success;
+                shops = getShops.Do().ToList();
             }
             catch (Exception ex)
             {
@@ -257,5 +350,4 @@
             }
         }
     }
-
 }

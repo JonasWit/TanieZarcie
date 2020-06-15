@@ -5,6 +5,7 @@ using WEB.Shop.Domain.Models;
 
 namespace WEB.Shop.Application.ShopAdmin
 {
+    [TransientService]
     public class AddUrl
     {
         private readonly IShopManager _shopManager;

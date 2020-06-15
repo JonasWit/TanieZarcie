@@ -7,17 +7,22 @@
     <div class="row">
         @foreach (var shop in Model.Shops)
         {
-            <div class="col-md-4">
-                <div class="card shop-offer m-5">
-                    <img class="img-fluid" src="~/content/shopLogos/Biedronka-s.jpg" />
-                    
-                    <img class="news-icon" src="~/images/icons8-news-100.png" />
-                    @foreach (var sheet in shop.PromoSheets)
-                    {
-                        <a class="text-center stretched-link" href="@sheet.Url" target="_blank"></a>
-                    }
+            if (shop.PromoSheets.Count > 0)
+            {
+                var imageShop = $"/ShopCardImage/{shop.Name}-s.jpg";
+
+                <div class="col-md-4">
+                    <div class="card shop-offer m-5">
+                        <img class="img-fluid" src=@imageShop />
+
+                        <img class="news-icon" src="~/images/icons8-news-100.png" />
+                        @foreach (var sheet in shop.PromoSheets)
+                        {
+                            <a class="text-center stretched-link" href="@sheet.Url" target="_blank"></a>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>

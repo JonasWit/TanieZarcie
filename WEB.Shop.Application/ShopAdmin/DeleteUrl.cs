@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WEB.Shop.Domain.Infrastructure;
 
 namespace WEB.Shop.Application.ShopAdmin
 {
+    [TransientService]
     public class DeleteUrl
     {
         private readonly IShopManager _shopManager;
