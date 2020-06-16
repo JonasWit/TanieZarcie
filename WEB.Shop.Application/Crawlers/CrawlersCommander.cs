@@ -123,26 +123,26 @@ namespace WEB.Shop.Application.Crawlers
 
         #region Database Update
 
-        public async Task UpdateAllData()
+        public async Task UpdateAllDataAsync()
         {
             await _crawlersDataBaseManager.ClearDataBaseAsync();
             await _crawlersDataBaseManager.UpdateDatabaseAsync(Results);
-            await CheckDataBase();
+            await CheckDataBaseAsync();
         }
 
-        public async Task UpdateAllDataAutomated()
+        public async Task UpdateAllDataAutomatedAsync()
         {
             await _crawlersDataBaseManager.ClearDataBaseAsync();
             await _crawlersDataBaseManager.UpdateDatabaseAsync(Results);
         }
 
-        public async Task UpdateDataBase(string shop)
+        public async Task UpdateDataBaseAsync(string shop)
         {
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
             await ClearDataBaseAsync(shopEnum.ToString());
             await _crawlersDataBaseManager.UpdateDatabaseAsync(Results.Where(p => p.Distributor.DistributorName == shopEnum.ToString()).ToList());
-            await CheckDataBase();
+            await CheckDataBaseAsync();
         }
 
         #endregion
@@ -152,7 +152,7 @@ namespace WEB.Shop.Application.Crawlers
         public async Task ClearDataBaseAsync()
         {
             await _crawlersDataBaseManager.ClearDataBaseAsync();
-            await CheckDataBase();
+            await CheckDataBaseAsync();
         }
 
         public async Task ClearDataBaseAsync(string shop)
@@ -160,12 +160,12 @@ namespace WEB.Shop.Application.Crawlers
             var shopEnum = (Shops)Enum.Parse(typeof(Shops), shop, true);
 
             await _crawlersDataBaseManager.DeleteProductFromShops(shopEnum.ToString());
-            await CheckDataBase();
+            await CheckDataBaseAsync();
         }
 
         #endregion
 
-        public async Task CheckDataBase()
+        public async Task CheckDataBaseAsync()
         {
             DataBaseCheck = new List<DataBaseSummary>();
 

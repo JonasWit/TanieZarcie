@@ -101,7 +101,7 @@ else
         else
         {
             loading = true;
-            await Commander.CheckDataBase();
+            await Commander.CheckDataBaseAsync();
             loading = false;
         }
     }
@@ -157,7 +157,7 @@ else
         else
         {
             loading = true;
-            await Commander.UpdateAllData();
+            await Commander.UpdateAllDataAsync();
             loading = false;
         }
     }
