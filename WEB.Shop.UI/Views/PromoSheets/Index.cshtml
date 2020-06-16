@@ -15,10 +15,10 @@
                     <div class="card shop-offer m-5">
                         <img class="img-fluid" src=@imageShop />
 
-                        <img class="news-icon" src="~/images/icons8-news-100.png" />
+
                         @foreach (var sheet in shop.PromoSheets)
                         {
-                            <a class="text-center stretched-link" href="@sheet.Url" target="_blank"></a>
+                            <a data-toggle="tooltip" title="Przejdź do gazetki" class="text-center" href="@sheet.Url" target="_blank"> <img class="news-icon" src="~/images/icons8-news-100.png" /></a>
                         }
                     </div>
                 </div>
