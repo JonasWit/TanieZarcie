@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WEB.SearchEngine;
 using WEB.SearchEngine.Crawlers;
@@ -64,6 +63,12 @@ namespace WEB.Shop.Application.Crawlers
         public async Task<int> RunEngineAsync(string shop)
         {
             var crawler = await _searchEngine.RunCrawlerAsync((Shops)Enum.Parse(typeof(Shops), shop));
+
+            if (crawler == null)
+            {
+                return 0;
+            }
+
             var result = ConvertSearchModelsToDomainModels(crawler);
 
             await ClearDataBaseAsync(shop.ToString());
