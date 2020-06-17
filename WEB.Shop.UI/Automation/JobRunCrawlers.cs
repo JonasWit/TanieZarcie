@@ -27,6 +27,8 @@ namespace WEB.Shop.UI.Automation
                 RequestUri = new Uri($"{_configuration["MySettings:BaseUrlProd"]}/Api/Automation/RunCrawlers")
             };
 
+            httpRequestMessage.Headers.Add("ApiKey", "AdminTZApiAccess");
+
             var response = client.SendAsync(httpRequestMessage).Result;
 
             return Task.CompletedTask;
