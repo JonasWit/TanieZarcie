@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Xml.Schema;
+﻿using System.Threading.Tasks;
 using WEB.SearchEngine.Crawlers;
 using WEB.SearchEngine.Enums;
 
@@ -8,110 +6,66 @@ namespace WEB.SearchEngine
 {
     public sealed class Engine
     {
-        public List<WebCrawler> Crawlers { get; private set; } = new List<WebCrawler>();
-
-        public async Task RunAllCrawlersAsync()
+        public async Task<WebCrawler> RunCrawlerAsync(Shops shop)
         {
-            var tasks = new List<Task>();
-            Crawlers.Clear();
-
-            Crawlers.Add(new CrawlerBiedronka());
-            Crawlers.Add(new CrawlerKaufland());
-            Crawlers.Add(new CrawlerLidl());
-            Crawlers.Add(new CrawlerCarrefour());
-            Crawlers.Add(new CrawlerAuchan());
-            Crawlers.Add(new CrawlerZabka());
-            Crawlers.Add(new CrawlerObi());
-            Crawlers.Add(new CrawlerLeroyMerlin());
-            Crawlers.Add(new CrawlerAldi());
-            //Crawlers.Add(new CrawlerMediaMarkt());
-            Crawlers.Add(new CrawlerInterMarche());
-            Crawlers.Add(new CrawlerIkea());
-
-            foreach (var crawler in Crawlers)
-            {
-                var crawlerToRun = crawler;
-                tasks.Add(Task.Run(() => crawlerToRun.GetData(crawler.Shop != Shops.Lidl)));
-            }
-
-            await Task.Run(() => Task.WaitAll(tasks.ToArray()));
-        }
-
-        public async Task RunCrawlerForSpecificShopAsync(Shops shop)
-        {
-            Crawlers.RemoveAll(c => c.Shop == shop);
-
             switch (shop)
             {
                 case Shops.Biedronka:
                     var crawlerBiedronka = new CrawlerBiedronka();
                     await Task.Run(() => crawlerBiedronka.GetData());
-                    Crawlers.Add(crawlerBiedronka);
-                    break;
+                    return crawlerBiedronka;
                 case Shops.Lidl:
                     var crawlerLidl = new CrawlerLidl();
                     await Task.Run(() => crawlerLidl.GetData(false));
-                    Crawlers.Add(crawlerLidl);
-                    break;
+                    return crawlerLidl;
                 case Shops.Kaufland:
                     var crawlerKaufland = new CrawlerKaufland();
                     await Task.Run(() => crawlerKaufland.GetData());
-                    Crawlers.Add(crawlerKaufland);
-                    break;
+                    return crawlerKaufland;
                 case Shops.Carrefour:
                     var crawlerCarrefour = new CrawlerCarrefour();
                     await Task.Run(() => crawlerCarrefour.GetData());
-                    Crawlers.Add(crawlerCarrefour);
-                    break;
+                    return crawlerCarrefour;
                 case Shops.Auchan:
                     var crawlerAuchan = new CrawlerAuchan();
                     await Task.Run(() => crawlerAuchan.GetData());
-                    Crawlers.Add(crawlerAuchan);
-                    break;
+                    return crawlerAuchan;
                 case Shops.Stokrotka:
-                    break;
+                    return null;
                 case Shops.Zabka:
                     var crawlerZabka = new CrawlerZabka();
                     await Task.Run(() => crawlerZabka.GetData());
-                    Crawlers.Add(crawlerZabka);
-                    break;
+                    return crawlerZabka;
                 case Shops.Castorama:
                     var crawlerCastorama = new CrawlerCastorama();
                     await Task.Run(() => crawlerCastorama.GetData());
-                    Crawlers.Add(crawlerCastorama);
-                    break;
+                    return crawlerCastorama;
                 case Shops.Obi:
                     var crawlerObi = new CrawlerObi();
                     await Task.Run(() => crawlerObi.GetData());
-                    Crawlers.Add(crawlerObi);
-                    break;
+                    return crawlerObi;
                 case Shops.LeroyMerlin:
                     var crawlerLeroyMerlin = new CrawlerLeroyMerlin();
                     await Task.Run(() => crawlerLeroyMerlin.GetData());
-                    Crawlers.Add(crawlerLeroyMerlin);
-                    break;
+                    return crawlerLeroyMerlin;
                 case Shops.Aldi:
                     var crawlerAldi = new CrawlerAldi();
                     await Task.Run(() => crawlerAldi.GetData());
-                    Crawlers.Add(crawlerAldi);
-                    break;
+                    return crawlerAldi;
                 case Shops.MediaMarkt:
                     var crawlerMediaMarkt = new CrawlerMediaMarkt();
                     await Task.Run(() => crawlerMediaMarkt.GetData());
-                    Crawlers.Add(crawlerMediaMarkt);
-                    break;
+                    return crawlerMediaMarkt;
                 case Shops.InterMarche:
                     var crawlerInterMarche = new CrawlerInterMarche();
                     await Task.Run(() => crawlerInterMarche.GetData());
-                    Crawlers.Add(crawlerInterMarche);
-                    break;
+                    return crawlerInterMarche;
                 case Shops.Ikea:
                     var crawlerIkea = new CrawlerIkea();
                     await Task.Run(() => crawlerIkea.GetData());
-                    Crawlers.Add(crawlerIkea);
-                    break;
+                    return crawlerIkea;
                 default:
-                    break;
+                    return null;
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿@using WEB.Shop.Application.Crawlers
 @using WEB.Shop.Application.Enums
 @inject CrawlersCommander Commander
-@inject AdminIndexBlazorService indexService
 
 @if (!loading)
 {
@@ -17,7 +16,6 @@
                                     <i class="fas fa-shopping-cart fa-3x text-warning"></i>
                                     <div class="text-right text-secondary">
                                         <h3>All Data</h3>
-                                        <h5>@($"{Commander.DataCacheCount.Sum(s => s.Value)} Cached")</h5>
                                         <h5>@($"{Commander.DataBaseCheck.Sum(s => s.PromoProductsCount)} Stored")</h5>
                                     </div>
                                 </div>
@@ -30,20 +28,6 @@
                                                 <button @onclick="RunEngine" class="bg-transparent border-0 tza-card-icon">
                                                     <i class="fas fa-bug mr-3"></i>
                                                     <span>Scrap</span>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button @onclick="ClearCache" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-bug mr-3"></i>
-                                                    <span>Clear</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button @onclick="UpdateDataBase" class="bg-transparent border-0 tza-card-icon">
-                                                    <i class="fas fa-database mr-3"></i>
-                                                    <span>Save</span>
                                                 </button>
                                             </td>
                                             <td>
@@ -120,20 +104,6 @@ else
         }
     }
 
-    private async Task ClearCache()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.ClearCacheAsync();
-            loading = false;
-        }
-    }
-
     private async Task ClearDataBase()
     {
         if (loading)
@@ -144,20 +114,6 @@ else
         {
             loading = true;
             await Commander.ClearDataBaseAsync();
-            loading = false;
-        }
-    }
-
-    private async Task UpdateDataBase()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.UpdateAllDataAsync();
             loading = false;
         }
     }

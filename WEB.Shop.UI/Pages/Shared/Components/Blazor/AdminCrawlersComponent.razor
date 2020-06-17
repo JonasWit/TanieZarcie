@@ -19,7 +19,6 @@
                                         <i class="fas fa-shopping-cart fa-3x text-warning"></i>
                                         <div class="text-right text-secondary">
                                             <h3>@shop.ToString()</h3>
-                                            <h6>@($"{Commander.DataCacheCount.Where(x => x.Key == shop.ToString()).Sum(s => s.Value)} Cached")</h6>
                                             <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h6>
                                             <h8>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")} Oldest Record")</h8>
                                         </div>
@@ -27,37 +26,7 @@
 
                                     <!-- Progress Bars Start -->
                                     @{
-                                        <!-- Cached Data Status-->
-
-                                        double totalCachedProducts = Commander.DataCacheCount.Sum(s => s.Value);
-                                        double avgCache = (totalCachedProducts / Commander.DataCacheCount.Count(x => x.Value > 0));
-
-                                        double shopCachedProducts = Commander.DataCacheCount[shop.ToString()];
-                                        double shopCachedShare = totalCachedProducts == 0 ? 0 : Math.Round(((shopCachedProducts / avgCache) * 100), 2);
-
                                         string color = "bg-danger";
-
-                                        if (shopCachedShare < 20)
-                                        {
-                                            color = "bg-danger";
-                                        }
-                                        else if (shopCachedShare < 70)
-                                        {
-                                            color = "bg-warning";
-                                        }
-                                        else
-                                        {
-                                            color = "bg-success";
-                                        }
-
-                                        <h6 class="mb-3 text-center">Cached Share</h6>
-                                        <div class="progress mb-4" style="height: 20px">
-                                            <div class="progress-bar text-dark text-center progress-bar-striped font-weight-bold @color" style="width: @($"{ shopCachedShare }%")">
-                                                @($"{ shopCachedShare }%")
-                                            </div>
-                                        </div>
-
-                                        <!-- Database Status -->
 
                                         double totalStoredProducts = Commander.DataBaseCheck.Sum(s => s.PromoProductsCount);
                                         double avgStore = (totalStoredProducts / Commander.DataBaseCheck.Count);
@@ -100,20 +69,6 @@
                                                     <button @onclick="(() => RunEngine(shop))" class="bg-transparent border-0 tza-card-icon">
                                                         <i class="fas fa-bug mr-3"></i>
                                                         <span>Scrap</span>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button @onclick="(() => ClearCache(shop))" class="bg-transparent border-0 tza-card-icon">
-                                                        <i class="fas fa-bug mr-3"></i>
-                                                        <span>Clear</span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <button @onclick="(() => UpdateDataBase(shop))" class="bg-transparent border-0 tza-card-icon">
-                                                        <i class="fas fa-database mr-3"></i>
-                                                        <span>Save</span>
                                                     </button>
                                                 </td>
                                                 <td>
@@ -176,8 +131,6 @@ else
         }
     }
 
-    #region Crawlers
-
     private async Task RunEngine(Shops shop)
     {
         if (loading)
@@ -188,38 +141,6 @@ else
         {
             loading = true;
             await Commander.RunEngineAsync(shop.ToString());
-            loading = false;
-        }
-    }
-
-    private async Task ClearCache(Shops shop)
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.ClearCacheAsync(shop.ToString());
-            loading = false;
-        }
-    }
-
-    #endregion
-
-    #region Database
-
-    private async Task RefreshDataBaseSummary()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.CheckDataBaseAsync();
             loading = false;
         }
     }
@@ -237,21 +158,5 @@ else
             loading = false;
         }
     }
-
-    private async Task UpdateDataBase(Shops shop)
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.UpdateDataBaseAsync(shop.ToString());
-            loading = false;
-        }
-    }
-
-    #endregion
 
 }

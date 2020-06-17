@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WEB.Shop.Domain.Infrastructure;
 using WEB.Shop.Domain.Models;
@@ -42,7 +41,7 @@ namespace WEB.Shop.DataBase
 
         public async Task<int> UpdateDatabaseAsync(List<Product> products)
         {
-            int response;
+            int response = -1;
             try
             {
                 foreach (var product in products)
@@ -92,7 +91,7 @@ namespace WEB.Shop.DataBase
             }
             catch (Exception)
             {
-                throw;
+                return response;
             }
 
             return response;

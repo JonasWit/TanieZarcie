@@ -94,7 +94,7 @@ namespace WEB.SearchEngine.Crawlers
             #region Get Price and Sale Price, set OnSale Flag
 
             if (pricesNode.Descendants("span")
-                .Any(n => n.Attributes.Any(x => x.Name == "class" && CrawlerRegex.StandardMatch(x.Value, "product-price promotional", MatchDireciton.InputContainsMatch))))
+                .Any(n => n.Attributes.Any(x => x.Name == "class" && x.Value.Contains("product-price promotional"))))
             {
                 try
                 {

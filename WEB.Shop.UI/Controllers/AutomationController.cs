@@ -33,7 +33,6 @@ namespace WEB.Shop.UI.Controllers
         public async Task<CreateLogRecord.Request> RunCrawlers([FromServices] CreateLogRecord createLogRecord, [FromServices] CrawlersCommander crawlersCommander)
         {
             await crawlersCommander.RunEngineAsync();
-            await crawlersCommander.UpdateAllDataAsync();
 
             var resuest = new CreateLogRecord.Request { Message = "Crawlers Run", TimeStamp = DateTime.Now };
 

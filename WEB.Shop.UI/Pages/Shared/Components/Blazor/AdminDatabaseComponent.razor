@@ -186,34 +186,6 @@ else
         }
     }
 
-    private async Task UpdateDataBase()
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.UpdateAllDataAsync();
-            loading = false;
-        }
-    }
-
-    private async Task UpdateDataBase(Shops shop)
-    {
-        if (loading)
-        {
-            return;
-        }
-        else
-        {
-            loading = true;
-            await Commander.UpdateDataBaseAsync(shop.ToString());
-            loading = false;
-        }
-    }
-
     #endregion
 
 }
