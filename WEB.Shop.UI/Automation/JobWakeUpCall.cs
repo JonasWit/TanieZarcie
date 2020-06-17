@@ -24,7 +24,7 @@ namespace WEB.Shop.UI.Automation
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage
             {
                 Method = new HttpMethod("GET"),
-                RequestUri = new Uri($"{_configuration["MySettings:BaseUrl"]}/Api/Automation/WakeUpCall")
+                RequestUri = new Uri($"{_configuration["MySettings:BaseUrlProd"]}/Api/Automation/WakeUpCall")
             };
 
             httpRequestMessage.Headers.Add("ApiKey", "AdminTZApiAccess");

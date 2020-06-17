@@ -49,7 +49,7 @@ namespace WEB.SearchEngine.Crawlers
 
             Task.WaitAll(tasks.ToArray());
 
-            result.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            result.RemoveAll(x => x == null || string.IsNullOrEmpty(x.Name));
             result.TrimExcess();
             return result;
         }
@@ -60,8 +60,10 @@ namespace WEB.SearchEngine.Crawlers
 
             #region Check if product node exists
 
-            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "content", MatchDireciton.Equals)))) return new Product();
-
+            if (!productNode.Descendants().Any(x => x.Attributes.Any(y => y.Name == "class" && CrawlerRegex.StandardMatch(y.Value, "content", MatchDireciton.Equals))))
+            {
+                return new Product();
+            }
             #endregion
 
             #region Get Name

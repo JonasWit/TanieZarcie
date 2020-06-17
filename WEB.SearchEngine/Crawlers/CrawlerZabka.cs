@@ -48,7 +48,7 @@ namespace WEB.SearchEngine.Crawlers
 
             Task.WaitAll(tasks.ToArray());
 
-            result.RemoveAll(x => string.IsNullOrEmpty(x.Name));
+            result.RemoveAll(x => x == null || string.IsNullOrEmpty(x.Name));
             result.TrimExcess();
             return result;
         }

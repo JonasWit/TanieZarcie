@@ -31,7 +31,7 @@ namespace WEB.SearchEngine
             foreach (var crawler in Crawlers)
             {
                 var crawlerToRun = crawler;
-                tasks.Add(Task.Run(() => crawlerToRun.GetData(crawler.Shop == Shops.Lidl ? false : true)));
+                tasks.Add(Task.Run(() => crawlerToRun.GetData(crawler.Shop != Shops.Lidl)));
             }
 
             await Task.Run(() => Task.WaitAll(tasks.ToArray()));

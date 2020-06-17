@@ -24,7 +24,7 @@ namespace WEB.Shop.UI.Automation
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage
             {
                 Method = new HttpMethod("GET"),
-                RequestUri = new Uri($"{_configuration["MySettings:BaseUrl"]}/Api/Automation/RunCrawlers")
+                RequestUri = new Uri($"{_configuration["MySettings:BaseUrlProd"]}/Api/Automation/RunCrawlers")
             };
 
             var response = client.SendAsync(httpRequestMessage).Result;
