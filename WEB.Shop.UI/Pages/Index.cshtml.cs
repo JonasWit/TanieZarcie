@@ -15,7 +15,6 @@ namespace WEB.Shop.UI.Pages
         [BindProperty]
         public string ShopDirection { get; set; }
 
-        public Dictionary<string, int> Products { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> ProductsOnSale { get; set; } = new Dictionary<string, int>();
         public List<GetNews.Response> News { get; set; }
         public List<ShopViewModel> Shops { get; set; } = new List<ShopViewModel>();
@@ -33,13 +32,11 @@ namespace WEB.Shop.UI.Pages
 
             foreach (Shops shop in (Shops[])Enum.GetValues(typeof(Shops)))
             {
-                var countRegular = getProducts.CountProductForShop(shop.ToString());
                 var countSale = getProducts.CountProductOnSaleForShop(shop.ToString());
 
                 if (countSale != 0)
                 {
                     var shopVm = new ShopViewModel { Name = shop.ToString(), SmallImagePath = $"{shop}-s.jpg", LargeImagePath = $"{shop}.jpg" };
-                    Products.Add(shop.ToString(), countRegular);
                     ProductsOnSale.Add(shop.ToString(), countSale);
                     Shops.Add(shopVm);
                 }
