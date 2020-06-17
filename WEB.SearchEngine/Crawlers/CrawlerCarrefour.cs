@@ -6,9 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WEB.SearchEngine.Crawlers.JsonModels;
 using WEB.SearchEngine.Enums;
-using WEB.SearchEngine.Extensions;
-using WEB.SearchEngine.RegexPatterns;
-using WEB.SearchEngine.SearchResultsModels;
 
 namespace WEB.SearchEngine.Crawlers
 {
