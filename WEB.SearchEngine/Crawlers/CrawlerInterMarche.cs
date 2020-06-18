@@ -143,7 +143,7 @@ namespace WEB.SearchEngine.Crawlers
 
             var productUrl = productNode.GetAttributeValue("href", "");
 
-            result.SourceUrl = new Uri(new Uri(BaseUrls[0]), productUrl).ToString();
+            result.SourceUrl = linkStruct.Link;
 
             #endregion
 
