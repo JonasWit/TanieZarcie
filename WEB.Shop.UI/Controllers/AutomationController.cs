@@ -32,11 +32,14 @@ namespace WEB.Shop.UI.Controllers
         [HttpGet("RunCrawlers")]
         public async Task<CreateLogRecord.Request> RunCrawlers([FromServices] CreateLogRecord createLogRecord, [FromServices] CrawlersCommander crawlersCommander)
         {
-            await crawlersCommander.RunEngineAsync();
-
-            var resuest = new CreateLogRecord.Request { Message = "Crawlers Run", TimeStamp = DateTime.Now };
-
+            var resuest = new CreateLogRecord.Request { Message = "Crawlers Started", TimeStamp = DateTime.Now };
             await createLogRecord.DoAsync(resuest);
+
+            var productsFound = await crawlersCommander.RunEngineAsync();
+
+            resuest = new CreateLogRecord.Request { Message = $"Scraping Finished, products found: {productsFound}", TimeStamp = DateTime.Now };
+            await createLogRecord.DoAsync(resuest);
+
             return resuest;
         }
 

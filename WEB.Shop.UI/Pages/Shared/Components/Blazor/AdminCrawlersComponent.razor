@@ -20,7 +20,7 @@
                                         <div class="text-right text-secondary">
                                             <h3>@shop.ToString()</h3>
                                             <h6>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.PromoProductsCount : 0)} Stored")</h6>
-                                            <h8>@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")} Oldest Record")</h8>
+                                            <h6 class="text-secondary">@($"{(Commander.DataBaseCheck.Any(x => x.Shop == shop.ToString()) ? Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault()?.OldestEntry.ToString("dd/MM/yy HH:mm:ss") : "-No Records-")}")</h6>
                                         </div>
                                     </div>
 
@@ -34,7 +34,7 @@
                                         double shopStoredProducts = Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault() != null ?
                                             Commander.DataBaseCheck.Where(x => x.Shop == shop.ToString()).FirstOrDefault().PromoProductsCount : 0;
 
-                                        double shopStoredShare = totalStoredProducts == 0 ? 0 : Math.Round(((shopStoredProducts / avgStore) * 100), 2);
+                                        double shopStoredShare = totalStoredProducts == 0 ? 0 : Math.Round(((shopStoredProducts / avgStore) * 100), 0);
 
 
                                         if (shopStoredShare < 20)
