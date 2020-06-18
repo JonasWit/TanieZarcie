@@ -20,6 +20,7 @@ namespace WEB.Shop.UI.Automation
         public Task Execute(IJobExecutionContext context)
         {
             using var client = _httpFactory.CreateClient();
+            client.Timeout = TimeSpan.FromMinutes(60);
 
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage
             {
